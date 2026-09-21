@@ -1,0 +1,89 @@
+site_name: QuantumEd
+site_description: A free, open quantum computing curriculum for community, high school, and undergraduate learners.
+repo_url: https://github.com/Center-for-Quantum-and-Nanotechnology/Quantum_Ed
+repo_name: Quantum_Ed
+edit_uri: edit/main/docs/
+
+docs_dir: docs
+theme:
+  name: material
+  custom_dir: overrides
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+    - toc.follow
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+extra_javascript:
+  - assets/javascripts/download.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - assets/javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+hooks:
+  - hooks.py
+
+nav:
+  - Home: index.md
+  - "01 · Foundations":
+      - 01-foundations/index.md
+      - Why Quantum Computing?: 01-foundations/why-quantum-computing.md
+      - What Is Quantum Computing?: 01-foundations/what-is-quantum-computing.md
+      - Quantum Computing Today: 01-foundations/quantum-computing-today.md
+  - "02 · Quantum Computing Fundamentals":
+      - 02-fundamentals/index.md
+  - "03 · Quantum Programming":
+      - 03-programming/index.md
+  - "04 · Quantum Hardware":
+      - 04-hardware/index.md
+  - "05 · Quantum Software Stack":
+      - 05-software-stack/index.md
+  - "06 · Quantum Algorithms & Methods":
+      - 06-algorithms/index.md
+  - "07 · Quantum Error Correction":
+      - 07-error-correction/index.md
+  - "08 · Labs & Learning Modules":
+      - 08-labs/index.md
