@@ -1,0 +1,66 @@
+.qed-download-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0.6rem 0.8rem 1rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.2rem;
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color) !important;
+  font-weight: 600;
+  font-size: 0.7rem;
+  text-decoration: none !important;
+  transition: opacity 0.1s;
+}
+
+.qed-download-button:hover {
+  opacity: 0.85;
+}
+
+.qed-download-button--disabled {
+  background-color: var(--md-default-fg-color--lightest);
+  color: var(--md-default-fg-color--light) !important;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Bloch sphere demo (docs/01-foundations/what-is-quantum-computing.md) */
+.qed-demo {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.3rem;
+  padding: 1rem 1.2rem;
+  margin: 1.2rem 0;
+}
+
+.qed-demo__layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.qed-demo__controls {
+  flex: 1 1 220px;
+  min-width: 220px;
+}
+
+.qed-demo__controls label {
+  display: block;
+  font-size: 0.75rem;
+  margin-top: 0.6rem;
+}
+
+.qed-demo__controls input[type="range"] {
+  width: 100%;
+}
+
+.qed-demo__state {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+}
+
+.qed-demo canvas {
+  background: var(--md-code-bg-color);
+  border-radius: 0.3rem;
+}
