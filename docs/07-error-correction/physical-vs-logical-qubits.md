@@ -161,6 +161,9 @@ Try it yourself with a simplified 3-qubit example. This is a teaching example, n
 
 Notice that the logical box's state changed from `α|0⟩ + β|1⟩` to `α|000⟩ + β|111⟩` the moment you hit **Encode** — that's the encoding. And when you injected an error, only *one* physical qubit changed; the logical information is still represented by the correlated pattern across all three. Detecting *which* qubit flipped — without collapsing that pattern by measuring it directly — is exactly the problem the next section, [Encoding & Syndrome Measurement](encoding-and-syndrome-measurement.md), solves.
 
+!!! warning
+    This is a simplified example. The 3-qubit repetition code can protect against certain errors, but not all types of quantum errors. We'll examine exactly what it can and cannot correct in [Repetition Codes](repetition-codes.md).
+
 ## Physical vs Logical, Side by Side
 
 <div class="qed-comparison-table" markdown>
