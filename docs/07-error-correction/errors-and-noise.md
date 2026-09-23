@@ -187,9 +187,19 @@ You don't need to work through that algebra to get the idea:
 | \(Z\) | phase flip |
 | \(Y\) | bit flip **and** phase flip |
 
-## What Happened to the Qubit?
+## Which Operation Was Applied?
 
-Given a starting state, one of \(X\), \(Z\), or \(Y\) is applied at random. Can you identify which one from the result? Watch the qubit's **value** (0 or 1) and **phase** (+ or −) pills — a bit flip changes the value, a phase flip changes the phase, and \(Y\) changes both.
+Given a starting state, one of \(X\), \(Z\), or \(Y\) is simulated at random. This lets you practice recognizing each error's signature in a controlled setting where the outcome is shown to you for learning purposes.
+
+!!! warning "Important"
+    This visualization lets you see the simulated effect of an error. In a real quantum system, you cannot simply measure an unknown qubit to reveal which error occurred without potentially disturbing the quantum information.
+
+- Measuring a qubit in the computational basis can reveal information about its state.
+- It does not directly reveal an arbitrary \(X\), \(Z\), or \(Y\) error.
+- Directly measuring the encoded quantum information can destroy the information we are trying to protect.
+- Quantum error correction instead uses carefully chosen syndrome measurements to obtain information about errors without directly measuring the logical state.
+
+Below, "value" and "phase" are simulated readouts for the purpose of this exercise — a bit flip changes the value, a phase flip changes the phase, and \(Y\) changes both.
 
 <div class="qed-demo" id="identify-demo">
   <p><strong>Initial state:</strong></p>
@@ -198,14 +208,14 @@ Given a starting state, one of \(X\), \(Z\), or \(Y\) is applied at random. Can 
     <span class="qed-pill"><span class="qed-pill__label">Phase</span> +</span>
   </div>
 
-  <p><strong>After a mystery error:</strong></p>
+  <p><strong>Simulated result:</strong></p>
   <div class="qed-error-demo__readout" id="identify-result">
     <span class="qed-pill"><span class="qed-pill__label">Value</span> <span id="identify-value">?</span></span>
     <span class="qed-pill"><span class="qed-pill__label">Phase</span> <span id="identify-phase">?</span></span>
   </div>
 
   <div class="qed-demo__controls" style="min-width:auto;">
-    <button type="button" class="qed-button" id="identify-generate">New Mystery Error</button>
+    <button type="button" class="qed-button" id="identify-generate">Simulate a New Error</button>
     <button type="button" class="qed-button qed-button--secondary" id="identify-x" disabled>Guess X</button>
     <button type="button" class="qed-button qed-button--secondary" id="identify-z" disabled>Guess Z</button>
     <button type="button" class="qed-button qed-button--secondary" id="identify-y" disabled>Guess Y</button>
