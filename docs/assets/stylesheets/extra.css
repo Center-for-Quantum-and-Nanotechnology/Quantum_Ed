@@ -664,3 +664,49 @@ button.qed-qubit:not(:disabled):hover {
   font-weight: 700;
   font-size: 0.85rem;
 }
+
+/* ---------------------------------------------------------------------
+   Decoding (docs/07-error-correction/decoding.md) — horizontal
+   confidence bars for competing decoder hypotheses. The "winning"
+   hypothesis is marked via .is-leading (green); others stay neutral
+   gray, per the spec's "distinct neutral color for competing
+   hypotheses" requirement.
+   ------------------------------------------------------------------- */
+.qed-confidence-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.5rem 0;
+}
+
+.qed-confidence-row__label {
+  flex: 0 0 9rem;
+  font-size: 0.8rem;
+  font-family: var(--md-code-font);
+}
+
+.qed-confidence-bar {
+  flex: 1 1 auto;
+  height: 1.1rem;
+  border-radius: 0.2rem;
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--qed-color-physical);
+  overflow: hidden;
+}
+
+.qed-confidence-bar__fill {
+  height: 100%;
+  background: var(--qed-color-physical);
+  transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+.qed-confidence-row.is-leading .qed-confidence-bar__fill {
+  background: var(--qed-color-protected);
+}
+
+.qed-confidence-row__pct {
+  flex: 0 0 3.2rem;
+  font-family: var(--md-code-font);
+  font-size: 0.8rem;
+  text-align: right;
+}
