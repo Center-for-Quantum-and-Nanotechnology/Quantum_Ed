@@ -452,3 +452,110 @@ button.qed-qubit:not(:disabled):hover {
   align-items: center;
   margin: 0.8rem 0;
 }
+
+/* ---------------------------------------------------------------------
+   Circuit-level view (docs/07-error-correction/encoding-and-syndrome-
+   measurement.md, "Explore the Circuit"). Kept as its own small SVG
+   component rather than a general-purpose circuit renderer — it draws
+   exactly one fixed topology (2 checks / 2 ancillas), which is all this
+   page needs.
+   ------------------------------------------------------------------- */
+.qed-circuit-svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.qed-circuit-wire {
+  stroke: var(--qed-color-physical);
+  stroke-width: 1.5;
+}
+
+.qed-circuit-label {
+  font-size: 11px;
+  fill: var(--md-default-fg-color);
+  font-family: var(--md-code-font);
+}
+
+.qed-circuit-connector {
+  stroke: var(--qed-color-physical);
+  stroke-width: 1.5;
+}
+
+.qed-circuit-control {
+  fill: var(--qed-color-physical);
+}
+
+.qed-circuit-target {
+  fill: var(--md-code-bg-color);
+  stroke: var(--qed-color-physical);
+  stroke-width: 1.5;
+}
+
+.qed-circuit-target-cross {
+  stroke: var(--qed-color-physical);
+  stroke-width: 1.5;
+}
+
+.qed-circuit-gate.is-active .qed-circuit-control,
+.qed-circuit-gate.is-active .qed-circuit-connector,
+.qed-circuit-gate.is-active .qed-circuit-target,
+.qed-circuit-gate.is-active .qed-circuit-target-cross {
+  animation: qed-gate-pulse 0.5s ease;
+}
+
+@keyframes qed-gate-pulse {
+  0% {
+    filter: none;
+  }
+  50% {
+    filter: drop-shadow(0 0 4px var(--qed-color-syndrome));
+    stroke: var(--qed-color-syndrome);
+  }
+  100% {
+    filter: none;
+  }
+}
+
+.qed-circuit-measure-box {
+  fill: var(--md-code-bg-color);
+  stroke: var(--qed-color-physical);
+  stroke-width: 1.5;
+}
+
+.qed-circuit-measure-box.is-revealed {
+  stroke: var(--qed-color-syndrome);
+}
+
+.qed-circuit-measure-outcome {
+  font-size: 13px;
+  font-weight: 700;
+  fill: var(--qed-color-syndrome);
+  text-anchor: middle;
+}
+
+.qed-circuit-legend {
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+  margin-top: 0.6rem;
+}
+
+.qed-circuit-legend li {
+  margin: 0.15rem 0;
+}
+
+.qed-details {
+  border: 1px solid var(--qed-color-syndrome);
+  border-radius: 0.3rem;
+  padding: 0.7rem 1rem;
+  margin: 1.2rem 0;
+}
+
+.qed-details > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--qed-color-syndrome);
+}
+
+.qed-details[open] > summary {
+  margin-bottom: 0.6rem;
+}

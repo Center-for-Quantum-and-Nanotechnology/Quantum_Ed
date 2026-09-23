@@ -218,6 +218,174 @@ For reference:
 | X₂ | (−1, −1) |
 | X₃ | (+1, −1) |
 
+<details class="qed-details">
+<summary>Explore the circuit →</summary>
+
+This is optional. The interactive above is the canonical way to understand syndrome measurement in this module — this is just a peek at how it's actually implemented as a quantum circuit, using two extra **ancilla** qubits entangled with the data qubits via CNOT gates and then measured. The ancilla measurement outcome *is* the syndrome bit — the data qubits themselves are never measured.
+
+<div class="qed-demo" id="sm-circuit-demo">
+  <svg class="qed-circuit-svg" viewBox="0 0 400 230" width="400" height="230" role="img" aria-label="Circuit diagram: CNOT gates from data qubits q1, q2, q3 into ancilla qubits a1, a2, followed by measurement.">
+    <line class="qed-circuit-wire" x1="50" y1="20" x2="340" y2="20" />
+    <line class="qed-circuit-wire" x1="50" y1="60" x2="340" y2="60" />
+    <line class="qed-circuit-wire" x1="50" y1="100" x2="340" y2="100" />
+    <line class="qed-circuit-wire" x1="50" y1="150" x2="340" y2="150" />
+    <line class="qed-circuit-wire" x1="50" y1="190" x2="340" y2="190" />
+
+    <text class="qed-circuit-label" x="40" y="24" text-anchor="end">q₁</text>
+    <text class="qed-circuit-label" x="40" y="64" text-anchor="end">q₂</text>
+    <text class="qed-circuit-label" x="40" y="104" text-anchor="end">q₃</text>
+    <text class="qed-circuit-label" x="40" y="154" text-anchor="end">a₁</text>
+    <text class="qed-circuit-label" x="40" y="194" text-anchor="end">a₂</text>
+
+    <text class="qed-circuit-label" x="50" y="10" font-size="9" opacity="0.7">data qubits</text>
+    <text class="qed-circuit-label" x="50" y="215" font-size="9" opacity="0.7">ancilla / check qubits</text>
+
+    <g class="qed-circuit-gate" id="sm-circuit-gate-1">
+      <line class="qed-circuit-connector" x1="120" y1="20" x2="120" y2="150" />
+      <circle class="qed-circuit-control" cx="120" cy="20" r="5" />
+      <circle class="qed-circuit-target" cx="120" cy="150" r="9" />
+      <line class="qed-circuit-target-cross" x1="120" y1="141" x2="120" y2="159" />
+      <line class="qed-circuit-target-cross" x1="111" y1="150" x2="129" y2="150" />
+    </g>
+
+    <g class="qed-circuit-gate" id="sm-circuit-gate-2">
+      <line class="qed-circuit-connector" x1="160" y1="60" x2="160" y2="150" />
+      <circle class="qed-circuit-control" cx="160" cy="60" r="5" />
+      <circle class="qed-circuit-target" cx="160" cy="150" r="9" />
+      <line class="qed-circuit-target-cross" x1="160" y1="141" x2="160" y2="159" />
+      <line class="qed-circuit-target-cross" x1="151" y1="150" x2="169" y2="150" />
+    </g>
+
+    <g class="qed-circuit-gate" id="sm-circuit-gate-3">
+      <line class="qed-circuit-connector" x1="200" y1="60" x2="200" y2="190" />
+      <circle class="qed-circuit-control" cx="200" cy="60" r="5" />
+      <circle class="qed-circuit-target" cx="200" cy="190" r="9" />
+      <line class="qed-circuit-target-cross" x1="200" y1="181" x2="200" y2="199" />
+      <line class="qed-circuit-target-cross" x1="191" y1="190" x2="209" y2="190" />
+    </g>
+
+    <g class="qed-circuit-gate" id="sm-circuit-gate-4">
+      <line class="qed-circuit-connector" x1="240" y1="100" x2="240" y2="190" />
+      <circle class="qed-circuit-control" cx="240" cy="100" r="5" />
+      <circle class="qed-circuit-target" cx="240" cy="190" r="9" />
+      <line class="qed-circuit-target-cross" x1="240" y1="181" x2="240" y2="199" />
+      <line class="qed-circuit-target-cross" x1="231" y1="190" x2="249" y2="190" />
+    </g>
+
+    <rect class="qed-circuit-measure-box" id="sm-circuit-m-a1" x="285" y="138" width="30" height="24" rx="3" />
+    <text class="qed-circuit-measure-outcome" id="sm-circuit-outcome-a1" x="300" y="154">–</text>
+
+    <rect class="qed-circuit-measure-box" id="sm-circuit-m-a2" x="285" y="178" width="30" height="24" rx="3" />
+    <text class="qed-circuit-measure-outcome" id="sm-circuit-outcome-a2" x="300" y="194">–</text>
+  </svg>
+
+  <ul class="qed-circuit-legend">
+    <li><strong>Data qubits</strong> (q₁, q₂, q₃) — the encoded physical qubits, never measured directly.</li>
+    <li><strong>Ancilla / check qubits</strong> (a₁, a₂) — fresh qubits used only to extract syndrome information.</li>
+    <li><strong>Entangling gates</strong> (●–⊕) — a CNOT from a data qubit into an ancilla, flipping the ancilla if that data qubit is |1⟩.</li>
+    <li><strong>M</strong> — measurement of the ancilla in the computational basis.</li>
+    <li><strong>Syndrome result</strong> — the ancilla outcomes, translated into (+1/−1) exactly like the simplified view above.</li>
+  </ul>
+
+  <div class="qed-demo__controls" style="min-width:auto; text-align:center;">
+    <button type="button" class="qed-button" id="sm-circuit-run">Run Circuit</button>
+    <p class="qed-encode-demo__hint">Uses whichever scenario is currently set up in the interactive above.</p>
+  </div>
+
+  <div class="qed-syndrome-selector" id="sm-circuit-result" hidden>
+    <div class="qed-syndrome-badge">
+      <span class="qed-syndrome-badge__label">S₁</span>
+      <span class="qed-syndrome-badge__value" id="sm-circuit-s1">–</span>
+    </div>
+    <div class="qed-syndrome-badge">
+      <span class="qed-syndrome-badge__label">S₂</span>
+      <span class="qed-syndrome-badge__value" id="sm-circuit-s2">–</span>
+    </div>
+  </div>
+  <p class="qed-encode-demo__hint" id="sm-circuit-bridge" aria-live="polite"></p>
+</div>
+
+<script>
+(function () {
+  var runBtn = document.getElementById("sm-circuit-run");
+  if (!runBtn) return;
+  var gates = ["sm-circuit-gate-1", "sm-circuit-gate-2", "sm-circuit-gate-3", "sm-circuit-gate-4"].map(function (id) {
+    return document.getElementById(id);
+  });
+  var mA1 = document.getElementById("sm-circuit-m-a1");
+  var mA2 = document.getElementById("sm-circuit-m-a2");
+  var outcomeA1 = document.getElementById("sm-circuit-outcome-a1");
+  var outcomeA2 = document.getElementById("sm-circuit-outcome-a2");
+  var result = document.getElementById("sm-circuit-result");
+  var s1El = document.getElementById("sm-circuit-s1");
+  var s2El = document.getElementById("sm-circuit-s2");
+  var bridge = document.getElementById("sm-circuit-bridge");
+
+  function readDataQubits() {
+    // Reads the same DOM the "Measure the Syndrome" interactive above
+    // writes to, so the circuit view always reflects whatever scenario
+    // is currently set up there — that's the "connect back to the main
+    // visualization" link, without duplicating any state.
+    return [1, 2, 3].map(function (n) {
+      var el = document.getElementById("sm-q" + n);
+      var stateEl = el && el.querySelector(".qed-qubit__state");
+      return stateEl ? parseInt(stateEl.textContent, 10) || 0 : 0;
+    });
+  }
+
+  function labelForValues(values) {
+    var flipped = values.indexOf(1);
+    return flipped === -1 ? "no error" : "an X error on q" + (flipped + 1);
+  }
+
+  function run() {
+    runBtn.disabled = true;
+    result.hidden = true;
+    bridge.textContent = "";
+    [mA1, mA2].forEach(function (m) {
+      m.classList.remove("is-revealed");
+    });
+    outcomeA1.textContent = "–";
+    outcomeA2.textContent = "–";
+
+    var values = readDataQubits();
+    var a1 = values[0] ^ values[1];
+    var a2 = values[1] ^ values[2];
+
+    gates.forEach(function (g, i) {
+      setTimeout(function () {
+        g.classList.add("is-active");
+        setTimeout(function () {
+          g.classList.remove("is-active");
+        }, 500);
+      }, i * 180);
+    });
+
+    setTimeout(function () {
+      outcomeA1.textContent = a1;
+      outcomeA2.textContent = a2;
+      mA1.classList.add("is-revealed");
+      mA2.classList.add("is-revealed");
+    }, gates.length * 180 + 200);
+
+    setTimeout(function () {
+      var s1 = a1 === 0 ? 1 : -1;
+      var s2 = a2 === 0 ? 1 : -1;
+      s1El.textContent = s1 === 1 ? "+1" : "−1";
+      s2El.textContent = s2 === 1 ? "+1" : "−1";
+      result.hidden = false;
+      bridge.textContent =
+        "Circuit result: syndrome = (" + s1El.textContent + ", " + s2El.textContent + "). This is the same syndrome the simplified view above computes, consistent with " + labelForValues(values) + ".";
+      runBtn.disabled = false;
+    }, gates.length * 180 + 700);
+  }
+
+  runBtn.addEventListener("click", run);
+})();
+</script>
+
+</details>
+
 ## The Crucial Measurement Concept
 
 <div class="qed-compare-row">
