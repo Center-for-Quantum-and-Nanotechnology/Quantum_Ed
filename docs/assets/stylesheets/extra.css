@@ -78,6 +78,7 @@
   --qed-color-error: #e57373;
   --qed-color-protected: #66bb6a;
   --qed-color-noise: #ffa726;
+  --qed-color-syndrome: #ab47bc;
 }
 
 .qed-qubit {
@@ -166,6 +167,11 @@ button.qed-qubit:not(:disabled):hover {
 .qed-button--secondary:disabled {
   color: var(--md-default-fg-color--light);
   border-color: var(--md-default-fg-color--lightest);
+}
+
+.qed-button--active {
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
 }
 
 /* Encode demo (docs/07-error-correction/physical-vs-logical-qubits.md) */
@@ -362,4 +368,87 @@ button.qed-qubit:not(:disabled):hover {
 
 .qed-cap-no {
   color: var(--qed-color-error);
+}
+
+/* ---------------------------------------------------------------------
+   Syndrome Measurement (docs/07-error-correction/encoding-and-syndrome-
+   measurement.md) — syndrome/check badges get their own purple color so
+   they read as visually distinct from a physical error (red) or a
+   correction (green), per the module's visual language.
+   ------------------------------------------------------------------- */
+.qed-syndrome-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 0.6rem 0;
+}
+
+.qed-syndrome-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  min-width: 4rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.4rem;
+  border: 2px solid var(--qed-color-syndrome);
+  background: color-mix(in srgb, var(--qed-color-syndrome) 12%, var(--md-code-bg-color));
+  font-family: var(--md-code-font);
+}
+
+.qed-syndrome-badge__label {
+  font-size: 0.7rem;
+  opacity: 0.75;
+}
+
+.qed-syndrome-badge__symbol {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--qed-color-syndrome);
+}
+
+.qed-syndrome-badge__value {
+  font-size: 0.8rem;
+}
+
+.qed-flow-step {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  min-width: 8rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.4rem;
+  border: 2px solid var(--qed-color-physical);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.qed-flow-step__label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  opacity: 0.75;
+}
+
+.qed-flow-step--error {
+  border-color: var(--qed-color-error);
+}
+
+.qed-flow-step--syndrome {
+  border-color: var(--qed-color-syndrome);
+}
+
+.qed-flow-step--inference {
+  border-color: var(--qed-color-protected);
+}
+
+.qed-compare-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  margin: 0.8rem 0;
 }
