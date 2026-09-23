@@ -84,6 +84,20 @@ nav:
   - "06 · Quantum Algorithms & Methods":
       - 06-algorithms/index.md
   - "07 · Quantum Error Correction":
-      - 07-error-correction/index.md
+      - Overview: 07-error-correction/index.md
+      - Why QEC?: 07-error-correction/why-qec.md
+      - The Mental Model:
+          - Physical vs Logical Qubits: 07-error-correction/physical-vs-logical-qubits.md
+          - Errors and Noise: 07-error-correction/errors-and-noise.md
+          - Repetition Codes: 07-error-correction/repetition-codes.md
+      - QEC Machinery:
+          - Encoding & Syndrome Measurement: 07-error-correction/encoding-and-syndrome-measurement.md
+          - Stabilizer Codes: 07-error-correction/stabilizer-codes.md
+          - Decoding: 07-error-correction/decoding.md
+      - Scaling:
+          - Surface Codes: 07-error-correction/surface-codes.md
+          - Minimum-Weight Perfect Matching: 07-error-correction/minimum-weight-perfect-matching.md
+          - Lattice Surgery: 07-error-correction/lattice-surgery.md
+          - Hardware-Aware QEC: 07-error-correction/hardware-aware-qec.md
   - "08 · Labs & Learning Modules":
       - 08-labs/index.md

@@ -6,3 +6,4 @@ site/
 .mkdocs_cache/
 .DS_Store
 Thumbs.db
+~$*.docx
