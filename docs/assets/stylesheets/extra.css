@@ -559,3 +559,108 @@ button.qed-qubit:not(:disabled):hover {
 .qed-details[open] > summary {
   margin-bottom: 0.6rem;
 }
+
+/* ---------------------------------------------------------------------
+   Stabilizer Codes (docs/07-error-correction/stabilizer-codes.md) —
+   a small CSS-grid brace that visually spans whichever physical qubits
+   a selected stabilizer acts on, plus a nested-box nesting diagram for
+   the code-space visual.
+   ------------------------------------------------------------------- */
+.qed-stabilizer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 0.4rem 0.6rem;
+  max-width: 22rem;
+  margin: 1rem auto 0.6rem;
+}
+
+.qed-stabilizer-brace {
+  grid-row: 1;
+  position: relative;
+  border-top: 2px solid var(--qed-color-syndrome);
+  height: 1.4rem;
+  margin: 0 0.4rem;
+}
+
+.qed-stabilizer-brace::before,
+.qed-stabilizer-brace::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 0.55rem;
+  background: var(--qed-color-syndrome);
+}
+
+.qed-stabilizer-brace::before {
+  left: 0;
+}
+
+.qed-stabilizer-brace::after {
+  right: 0;
+}
+
+.qed-stabilizer-brace__label {
+  position: absolute;
+  top: -1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--qed-color-syndrome);
+  white-space: nowrap;
+}
+
+.qed-stabilizer-qubit {
+  grid-row: 2;
+}
+
+.qed-stabilizer-qubit .qed-qubit__op {
+  font-family: var(--md-code-font);
+  font-weight: 700;
+  color: var(--qed-color-syndrome);
+}
+
+.qed-stabilizer-qubit.is-identity {
+  opacity: 0.5;
+}
+
+.qed-stabilizer-qubit.is-identity .qed-qubit__op {
+  color: var(--qed-color-physical);
+}
+
+.qed-syndrome-badge.qed-just-changed {
+  animation: qed-gate-pulse 0.6s ease;
+}
+
+.qed-nested-box {
+  border: 2px solid var(--qed-color-physical);
+  border-radius: 0.4rem;
+  padding: 1.4rem;
+  text-align: center;
+  position: relative;
+  margin: 1rem auto;
+  max-width: 22rem;
+}
+
+.qed-nested-box__label {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.6rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-nested-box__inner {
+  border: 2px solid var(--qed-color-logical);
+  border-radius: 0.4rem;
+  padding: 0.8rem 1.2rem;
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--qed-color-logical);
+  font-weight: 700;
+  font-size: 0.85rem;
+}

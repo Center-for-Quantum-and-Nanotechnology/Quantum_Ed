@@ -218,7 +218,7 @@ For reference:
 | X₂ | (−1, −1) |
 | X₃ | (+1, −1) |
 
-<details class="qed-details">
+<details class="qed-details" id="explore-the-circuit">
 <summary>Explore the circuit →</summary>
 
 This is optional. The interactive above is the canonical way to understand syndrome measurement in this module — this is just a peek at how it's actually implemented as a quantum circuit, using two extra **ancilla** qubits entangled with the data qubits via CNOT gates and then measured. The ancilla measurement outcome *is* the syndrome bit — the data qubits themselves are never measured.
