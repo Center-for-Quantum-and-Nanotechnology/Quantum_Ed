@@ -295,3 +295,71 @@ button.qed-qubit:not(:disabled):hover {
   border-left-color: var(--qed-color-error);
   background: color-mix(in srgb, var(--qed-color-error) 10%, transparent);
 }
+
+/* ---------------------------------------------------------------------
+   Repetition Codes (docs/07-error-correction/repetition-codes.md) —
+   parity-check row and code-capability list, reusing qed-qubit / qed-
+   button / qed-error-demo__feedback from the sections above.
+   ------------------------------------------------------------------- */
+.qed-encoded-group {
+  border: 1px dashed var(--qed-color-logical);
+  border-radius: 0.5rem;
+  padding: 0.8rem;
+  display: inline-flex;
+}
+
+.qed-parity-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  margin: 0.8rem 0;
+}
+
+.qed-parity-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  min-width: 3rem;
+}
+
+.qed-parity-link::before {
+  content: "";
+  width: 100%;
+  border-top: 2px solid var(--qed-color-physical);
+}
+
+.qed-parity-link__label {
+  font-size: 0.7rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-parity-link__value {
+  font-family: var(--md-code-font);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.qed-parity-link__value--agree {
+  color: var(--qed-color-protected);
+}
+
+.qed-parity-link__value--disagree {
+  color: var(--qed-color-error);
+}
+
+.qed-cap-yes,
+.qed-cap-no {
+  font-weight: 700;
+  margin-right: 0.3rem;
+}
+
+.qed-cap-yes {
+  color: var(--qed-color-protected);
+}
+
+.qed-cap-no {
+  color: var(--qed-color-error);
+}
