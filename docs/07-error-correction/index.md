@@ -1,7 +1,7 @@
 # 07 · Quantum Error Correction
 
 !!! note "Status"
-    This module is under active development. [Physical vs Logical Qubits](physical-vs-logical-qubits.md) is the first fully built section — the rest are placeholders. See the [repository](https://github.com/Center-for-Quantum-and-Nanotechnology/Quantum_Ed) to contribute.
+    This module is under active development. See the [repository](https://github.com/Center-for-Quantum-and-Nanotechnology/Quantum_Ed) to contribute.
 
 Quantum error correction (QEC) is how quantum computers stay trustworthy despite noisy hardware. This module moves from the conceptual "why" through the machinery of detecting and correcting errors, to how that machinery scales to real devices.
 
