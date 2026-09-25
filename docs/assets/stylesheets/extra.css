@@ -1,3 +1,43 @@
+/* ---------------------------------------------------------------------
+   Material's primary sidebar container sits at height:0 (sticky,
+   top:2.4rem) and lets its .md-sidebar__scrollwrap child overflow
+   visually below it — that's how the "pinned nav that scrolls with the
+   page" effect normally works. Nothing caps how far that overflow is
+   allowed to extend, though, so on pages where the nav tree is taller
+   than the main content column, it bleeds down past the page and gets
+   painted over by the prev/next footer, hiding the bottom nav entries.
+
+   Fix: give the sidebar a real, viewport-relative height so its own
+   sticky-release point lines up with the end of the content column
+   (i.e. the top of the footer) instead of the unbounded height:0
+   trick. The sidebar also contains our download button (inserted by
+   download.js) above the scrollwrap, so it's made a column flexbox:
+   the button keeps its natural size and the scrollwrap flexes to fill
+   whatever's left and scrolls internally (min-height:0 is required
+   for a flex child's overflow to actually clip/scroll instead of
+   forcing the flex box to grow). Net effect: the nav pane always ends
+   at or above the footer, on every page, regardless of how tall the
+   nav tree or the download button is. Scoped to Material's own
+   desktop breakpoint (76.25em) so the mobile drawer sidebar, which is
+   already correctly height-bound, is untouched.
+   ------------------------------------------------------------------- */
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--primary {
+    height: calc(100vh - 2.4rem);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .md-sidebar--primary .qed-download-button {
+    flex: 0 0 auto;
+  }
+
+  .md-sidebar--primary .md-sidebar__scrollwrap {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+}
+
 .qed-download-button {
   display: flex;
   align-items: center;
