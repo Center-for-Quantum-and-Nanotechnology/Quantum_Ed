@@ -39,6 +39,8 @@ extra_css:
 
 extra_javascript:
   - assets/javascripts/download.js
+  - assets/javascripts/surface-code.js
+  - assets/javascripts/matching.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - assets/javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js

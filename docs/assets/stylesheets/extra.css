@@ -844,3 +844,95 @@ button.qed-qubit:not(:disabled):hover {
   margin-right: 0.3rem;
   border-radius: 2px;
 }
+
+/* ---------------------------------------------------------------------
+   Minimum-Weight Perfect Matching (docs/07-error-correction/minimum-
+   weight-perfect-matching.md) — a small decoding-graph renderer,
+   deliberately visually distinct from the qed-lattice-* components
+   (different node/edge styling) so learners never confuse "looking at
+   the lattice" with "looking at the decoder's graph".
+   ------------------------------------------------------------------- */
+.qed-graph-svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.qed-graph-edge {
+  stroke: var(--qed-color-physical);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.qed-graph-edge:hover {
+  opacity: 1;
+}
+
+.qed-graph-edge.is-selected {
+  stroke: var(--qed-color-protected);
+  stroke-width: 3;
+  stroke-dasharray: none;
+  opacity: 1;
+}
+
+.qed-graph-edge.is-mwpm {
+  stroke: var(--qed-color-logical);
+  stroke-width: 3;
+  stroke-dasharray: none;
+  opacity: 1;
+}
+
+.qed-graph-edge-weight {
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--md-default-fg-color--light);
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.qed-graph-node {
+  fill: color-mix(in srgb, var(--qed-color-syndrome) 25%, var(--md-code-bg-color));
+  stroke: var(--qed-color-syndrome);
+  stroke-width: 2.5;
+  cursor: pointer;
+}
+
+.qed-graph-node:hover {
+  stroke: var(--qed-color-logical);
+}
+
+.qed-graph-node.is-selected {
+  stroke: var(--qed-color-logical);
+  stroke-width: 3.5;
+}
+
+.qed-graph-node-label {
+  font-size: 13px;
+  font-weight: 700;
+  fill: var(--md-default-fg-color);
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.qed-graph-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+  margin-top: 0.6rem;
+}
+
+.qed-graph-legend__line {
+  display: inline-block;
+  width: 1.4rem;
+  height: 0;
+  border-top-width: 2.5px;
+  border-top-style: solid;
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
