@@ -119,6 +119,7 @@
   --qed-color-protected: #66bb6a;
   --qed-color-noise: #ffa726;
   --qed-color-syndrome: #ab47bc;
+  --qed-color-telemetry: #26a69a;
 }
 
 .qed-qubit {
@@ -177,6 +178,23 @@ button.qed-qubit:not(:disabled):hover {
 .qed-qubit--protected {
   border-color: var(--qed-color-protected);
   background: color-mix(in srgb, var(--qed-color-protected) 14%, var(--md-code-bg-color));
+}
+
+/* Calibration/telemetry info (Hardware-Aware QEC) — a category
+   distinct from physical qubits, syndrome/check info, and decoder
+   inference. Dashed border doubles as a non-color cue for "measured
+   or estimated, not exact" so the distinction never relies on color
+   alone. */
+.qed-qubit--telemetry {
+  border-color: var(--qed-color-telemetry);
+  border-style: dashed;
+  background: color-mix(in srgb, var(--qed-color-telemetry) 12%, var(--md-code-bg-color));
+}
+
+.qed-pill--telemetry {
+  border-color: var(--qed-color-telemetry);
+  border-style: dashed;
+  background: color-mix(in srgb, var(--qed-color-telemetry) 10%, var(--md-code-bg-color));
 }
 
 .qed-button {
