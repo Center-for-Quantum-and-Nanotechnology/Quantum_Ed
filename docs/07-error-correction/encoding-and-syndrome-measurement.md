@@ -104,7 +104,7 @@ Pick a scenario, then take the deliberate step of measuring the syndrome.
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var demo = document.getElementById("sm-demo");
   if (!demo) return;
 
@@ -206,7 +206,7 @@ Pick a scenario, then take the deliberate step of measuring the syndrome.
   resetBtn.addEventListener("click", reset);
 
   reset();
-})();
+});
 </script>
 
 For reference:
@@ -306,7 +306,7 @@ This is optional. The interactive above is the canonical way to understand syndr
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var runBtn = document.getElementById("sm-circuit-run");
   if (!runBtn) return;
   var gates = ["sm-circuit-gate-1", "sm-circuit-gate-2", "sm-circuit-gate-3", "sm-circuit-gate-4"].map(function (id) {
@@ -381,7 +381,7 @@ This is optional. The interactive above is the canonical way to understand syndr
   }
 
   runBtn.addEventListener("click", run);
-})();
+});
 </script>
 
 </details>
@@ -431,7 +431,7 @@ Given a syndrome, can you identify the error it's consistent with?
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var newBtn = document.getElementById("sm-c-new");
   if (!newBtn) return;
   var guessBtns = Array.prototype.slice.call(document.querySelectorAll(".sm-c-guess"));
@@ -482,7 +482,7 @@ Given a syndrome, can you identify the error it's consistent with?
   });
 
   newRound();
-})();
+});
 </script>
 
 !!! note "Syndrome ≠ error"

@@ -96,7 +96,7 @@ Pick a preset below to see how a stabilizer is assembled from one operator per q
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var demo = document.getElementById("sc-build-demo");
   if (!demo) return;
   var btns = Array.prototype.slice.call(demo.querySelectorAll(".sc-preset-btn"));
@@ -143,7 +143,7 @@ Pick a preset below to see how a stabilizer is assembled from one operator per q
   });
 
   select("s1");
-})();
+});
 </script>
 
 <details class="qed-details" id="explore-the-stabilizer-circuit" markdown="1">
@@ -198,7 +198,7 @@ This shows the currently selected stabilizer above measured with a single ancill
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var runBtn = document.getElementById("sc-circuit-run");
   if (!runBtn) return;
   var gateEls = { 1: document.getElementById("sc-circuit-gate-1"), 2: document.getElementById("sc-circuit-gate-2"), 3: document.getElementById("sc-circuit-gate-3") };
@@ -254,7 +254,7 @@ This shows the currently selected stabilizer above measured with a single ancill
   }
 
   runBtn.addEventListener("click", run);
-})();
+});
 </script>
 
 </details>
@@ -297,7 +297,7 @@ Start from a valid encoded state (\(S_1 = +1\), \(S_2 = +1\)) and inject a singl
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var demo = document.getElementById("sc-flip-demo");
   if (!demo) return;
   var btns = Array.prototype.slice.call(demo.querySelectorAll(".sc-flip-btn"));
@@ -376,7 +376,7 @@ Start from a valid encoded state (\(S_1 = +1\), \(S_2 = +1\)) and inject a singl
   });
 
   applyError("I", 0);
-})();
+});
 </script>
 
 ??? note "The formal picture: anticommutation"

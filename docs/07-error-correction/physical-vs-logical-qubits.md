@@ -37,7 +37,7 @@ This is the central idea of the whole module: **a logical qubit is not a physica
 
 Try it yourself with a simplified 3-qubit example. This is a teaching example, not a general recipe — most real logical qubits use far more than three physical qubits, and this simple version can only protect against one specific kind of error.
 
-<div class="qed-demo qed-encode-demo" id="encode-demo">
+<div class="qed-demo" id="encode-demo">
   <div class="qed-encode-demo__stage">
     <div class="qed-qubit qed-qubit--logical" id="logical-qubit" style="min-width:9rem;">
       <div class="qed-qubit__label">Logical Qubit</div>
@@ -80,7 +80,7 @@ Try it yourself with a simplified 3-qubit example. This is a teaching example, n
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var demo = document.getElementById("encode-demo");
   if (!demo) return;
 
@@ -156,7 +156,7 @@ Try it yourself with a simplified 3-qubit example. This is a teaching example, n
   });
 
   setEncoded(false);
-})();
+});
 </script>
 
 Notice that the logical box's state changed from `α|0⟩ + β|1⟩` to `α|000⟩ + β|111⟩` the moment you hit **Encode** — that's the encoding. And when you injected an error, only *one* physical qubit changed; the logical information is still represented by the correlated pattern across all three. Detecting *which* qubit flipped — without collapsing that pattern by measuring it directly — is exactly the problem the next section, [Encoding & Syndrome Measurement](encoding-and-syndrome-measurement.md), solves.

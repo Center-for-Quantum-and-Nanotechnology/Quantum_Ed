@@ -86,7 +86,7 @@ Work through the four steps below in order. Everything stays visible as you go, 
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var demo = document.getElementById("rep-demo");
   if (!demo) return;
 
@@ -243,7 +243,7 @@ Work through the four steps below in order. Everything stays visible as you go, 
   });
 
   setEncoded(false);
-})();
+});
 </script>
 
 For reference, here's the full syndrome table this code relies on — the pattern the interactive above is computing:
@@ -284,7 +284,7 @@ Try it: apply a phase-flip error and run the same parity checks.
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var applyBtn = document.getElementById("rep-limit-apply");
   if (!applyBtn) return;
   var checkBtn = document.getElementById("rep-limit-check");
@@ -331,7 +331,7 @@ Try it: apply a phase-flip error and run the same parity checks.
     checkBtn.disabled = true;
     resetBtn.disabled = true;
   });
-})();
+});
 </script>
 
 The 3-qubit repetition code protects against bit flips, not phase flips:

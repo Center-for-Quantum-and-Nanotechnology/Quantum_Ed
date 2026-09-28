@@ -34,7 +34,7 @@ X|0\rangle = |1\rangle \qquad X|1\rangle = |0\rangle
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var btn = document.getElementById("bitflip-btn");
   if (!btn) return;
   var stateEl = document.getElementById("bitflip-state");
@@ -49,7 +49,7 @@ X|0\rangle = |1\rangle \qquad X|1\rangle = |0\rangle
       qubitEl.classList.remove("qed-qubit--error");
     }, 300);
   });
-})();
+});
 </script>
 
 A bit flip changes *what you'd measure* — the value itself swaps.
@@ -66,7 +66,7 @@ A phase flip does **not** necessarily change what you'd measure in the computati
 
 <div class="qed-demo" id="phaseflip-demo">
   <div class="qed-demo__layout" style="justify-content:center;">
-    <canvas id="phaseflip-canvas" width="180" height="180"></canvas>
+    <canvas id="phaseflip-canvas" width="180" height="180" role="img" aria-label="Bloch sphere, equatorial view. Current state: |ψ⟩ = |+⟩, phase +."></canvas>
     <div class="qed-demo__controls" style="flex:0 0 auto; min-width:auto; text-align:center;">
       <div class="qed-demo__state" id="phaseflip-state">|ψ⟩ = |+⟩</div>
       <button type="button" class="qed-button" id="phaseflip-btn">Apply Z</button>
@@ -77,7 +77,7 @@ A phase flip does **not** necessarily change what you'd measure in the computati
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var canvas = document.getElementById("phaseflip-canvas");
   if (!canvas) return;
   var ctx = canvas.getContext("2d");
@@ -153,19 +153,26 @@ A phase flip does **not** necessarily change what you'd measure in the computati
     animId = requestAnimationFrame(step);
   }
 
+  function setStateLabel(isPlus) {
+    var label = isPlus ? "|ψ⟩ = |+⟩" : "|ψ⟩ = |−⟩";
+    var phaseWord = isPlus ? "+" : "−";
+    stateEl.textContent = label;
+    canvas.setAttribute("aria-label", "Bloch sphere, equatorial view. Current state: " + label + ", phase " + phaseWord + ".");
+  }
+
   applyBtn.addEventListener("click", function () {
     var target = phi === 0 ? Math.PI : 0;
-    stateEl.textContent = target === 0 ? "|ψ⟩ = |+⟩" : "|ψ⟩ = |−⟩";
+    setStateLabel(target === 0);
     animateTo(target);
   });
 
   resetBtn.addEventListener("click", function () {
-    stateEl.textContent = "|ψ⟩ = |+⟩";
+    setStateLabel(true);
     animateTo(0);
   });
 
   draw(phi);
-})();
+});
 </script>
 
 ??? note "Why is this an error if the measurement still gives 0 or 1?"
@@ -225,7 +232,7 @@ Below, "value" and "phase" are simulated readouts for the purpose of this exerci
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var generateBtn = document.getElementById("identify-generate");
   if (!generateBtn) return;
   var guessButtons = {
@@ -283,7 +290,7 @@ Below, "value" and "phase" are simulated readouts for the purpose of this exerci
       guess(g);
     });
   });
-})();
+});
 </script>
 
 ## Connecting Back to the 3-Qubit Example

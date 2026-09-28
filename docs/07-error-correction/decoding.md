@@ -81,7 +81,7 @@ Set up a scenario, measure the syndrome, then run the decoder and watch all four
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var demo = document.getElementById("dc-demo");
   if (!demo) return;
 
@@ -208,7 +208,7 @@ Set up a scenario, measure the syndrome, then run the decoder and watch all four
   resetBtn.addEventListener("click", reset);
 
   reset();
-})();
+});
 </script>
 
 Notice the decoder never looked at which button *you* clicked — only at the syndrome. That's the whole point: **syndrome = evidence about the error, not the error itself.**
@@ -274,7 +274,7 @@ Take the ambiguous syndrome from above: **Error A** (X₂ alone, one qubit) vs. 
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var slider = document.getElementById("dc-noise-slider");
   if (!slider) return;
   var valueEl = document.getElementById("dc-noise-value");
@@ -318,7 +318,7 @@ Take the ambiguous syndrome from above: **Error A** (X₂ alone, one qubit) vs. 
 
   slider.addEventListener("input", update);
   update();
-})();
+});
 </script>
 
 Notice that the *ranking* barely moves across realistic error rates — lower-weight explanations are favored whenever errors are reasonably rare. That preference for "the explanation touching the fewest qubits" is exactly the intuition behind **minimum-weight** decoding, which you'll meet properly in [Minimum-Weight Perfect Matching](minimum-weight-perfect-matching.md).
@@ -354,7 +354,7 @@ Here's the uncomfortable part: **a syndrome-consistent correction is not automat
 </div>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var demo = document.getElementById("dc-equiv-demo");
   if (!demo) return;
   var btns = Array.prototype.slice.call(demo.querySelectorAll(".dc-equiv-btn"));
@@ -391,7 +391,7 @@ Here's the uncomfortable part: **a syndrome-consistent correction is not automat
   });
 
   select("a");
-})();
+});
 </script>
 
 What matters isn't recovering the exact microscopic history of the noise — it's whether the chosen correction restores the *logical* information. Sometimes a perfectly syndrome-consistent correction still gets that wrong, precisely because the syndrome didn't uniquely determine the error in the first place.
