@@ -146,7 +146,7 @@ Pick a preset below to see how a stabilizer is assembled from one operator per q
 })();
 </script>
 
-<details class="qed-details" id="explore-the-stabilizer-circuit">
+<details class="qed-details" id="explore-the-stabilizer-circuit" markdown="1">
 <summary>Explore the stabilizer circuit →</summary>
 
 This shows the currently selected stabilizer above measured with a single ancilla — the same technique from [Encoding & Syndrome Measurement](encoding-and-syndrome-measurement.md#explore-the-circuit), now generalized to whichever qubits that stabilizer actually involves.

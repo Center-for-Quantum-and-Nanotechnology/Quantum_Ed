@@ -936,3 +936,87 @@ button.qed-qubit:not(:disabled):hover {
   vertical-align: middle;
   margin-right: 0.3rem;
 }
+
+/* ---------------------------------------------------------------------
+   Lattice Surgery (docs/07-error-correction/lattice-surgery.md) —
+   composes two QedSurfaceCode-style patches side by side with a
+   mergeable shared boundary (see the QedLatticeSurgery script). Reuses
+   the qed-lattice-data / qed-lattice-check styling above for visual
+   continuity with Surface Codes; joint (boundary) checks get their own
+   glyph (J / ✓) and dashed stroke so "new, temporary check" never
+   relies on color alone.
+   ------------------------------------------------------------------- */
+.qed-surgery-svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.qed-surgery-label {
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--qed-color-logical);
+  text-anchor: middle;
+}
+
+.qed-lattice-link--joint {
+  stroke: var(--qed-color-syndrome);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 2;
+}
+
+.qed-lattice-check.is-joint {
+  fill: color-mix(in srgb, var(--qed-color-syndrome) 22%, var(--md-code-bg-color));
+  stroke: var(--qed-color-syndrome);
+  stroke-width: 2;
+  stroke-dasharray: 2.5 1.5;
+}
+
+.qed-lattice-check-glyph.is-joint {
+  fill: var(--qed-color-syndrome);
+}
+
+.qed-lattice-data.is-boundary {
+  stroke-width: 3;
+  stroke-dasharray: 2 1.5;
+}
+
+.qed-lattice-data.is-physical-view {
+  stroke: var(--qed-color-physical);
+}
+
+.qed-surgery-logical-blob {
+  fill: color-mix(in srgb, var(--qed-color-logical) 10%, var(--md-code-bg-color));
+  stroke: var(--qed-color-logical);
+  stroke-width: 2;
+}
+
+.qed-surgery-logical-label {
+  font-size: 12px;
+  font-weight: 700;
+  fill: var(--qed-color-logical);
+  text-anchor: middle;
+}
+
+.qed-surgery-steps {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.8rem 0 0.4rem;
+  font-size: 0.75rem;
+}
+
+.qed-surgery-step {
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-surgery-step.is-active {
+  border-color: var(--qed-color-syndrome);
+  color: var(--qed-color-syndrome);
+  font-weight: 700;
+}
