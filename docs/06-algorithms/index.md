@@ -27,7 +27,7 @@ Unlike the oracle algorithms, these solve problems people actually care about, a
 
 Hybrid algorithms built to run on today's noisy, error-prone quantum hardware by splitting the work between a quantum computer and a classical optimizer running alongside it.
 
-- **VQE (Variational Quantum Eigensolver)** — estimates the lowest-energy state of a quantum system, with applications in chemistry and materials science.
+- **[VQE (Variational Quantum Eigensolver)](variational-quantum-eigensolver.md)** — estimates the lowest-energy state of a quantum system, with applications in chemistry and materials science.
 - **QAOA (Quantum Approximate Optimization Algorithm)** — searches for good, though not necessarily perfect, solutions to combinatorial optimization problems, such as splitting up a graph.
 - **VQC (Variational Quantum Classifier)** — trains a parameterized circuit to classify data, the same hybrid pattern as VQE and QAOA applied to machine learning instead of chemistry or optimization.
 - **SQD (Sample-based Quantum Diagonalization) and similar** — uses samples measured from a quantum computer to help a classical computer solve a hard problem more accurately than it could alone.
