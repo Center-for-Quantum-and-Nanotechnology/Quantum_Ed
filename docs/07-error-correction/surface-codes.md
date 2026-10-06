@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="qed-demo" id="sf-paths-demo">
   <div id="sf-paths-lattice"></div>
   <div class="qed-demo__controls" style="text-align:center;">
-    <button type="button" class="qed-button qed-button--active sf-paths-btn" data-case="a">Explanation A</button>
+    <button type="button" class="qed-button qed-button--secondary qed-button--active sf-paths-btn" data-case="a">Explanation A</button>
     <button type="button" class="qed-button qed-button--secondary sf-paths-btn" data-case="b">Explanation B</button>
   </div>
   <p class="qed-encode-demo__hint" id="sf-paths-hint" aria-live="polite"></p>
@@ -267,7 +267,7 @@ If several possible error chains could explain what we measured, how do we know 
 
 <div class="qed-demo" id="sf-dist-demo">
   <div class="qed-demo__controls" style="text-align:center;">
-    <button type="button" class="qed-button qed-button--active sf-dist-btn" data-d="3">Distance 3</button>
+    <button type="button" class="qed-button qed-button--secondary qed-button--active sf-dist-btn" data-d="3">Distance 3</button>
     <button type="button" class="qed-button qed-button--secondary sf-dist-btn" data-d="5">Distance 5</button>
     <button type="button" class="qed-button qed-button--secondary sf-dist-btn" data-d="7">Distance 7</button>
   </div>
@@ -338,7 +338,7 @@ More physical qubits doesn't automatically mean better *real* performance, eithe
 <div class="qed-demo" id="sf-logical-demo">
   <div id="sf-logical-lattice"></div>
   <div class="qed-demo__controls" style="text-align:center;">
-    <button type="button" class="qed-button qed-button--active sf-logical-btn" data-case="short">Short chain</button>
+    <button type="button" class="qed-button qed-button--secondary qed-button--active sf-logical-btn" data-case="short">Short chain</button>
     <button type="button" class="qed-button qed-button--secondary sf-logical-btn" data-case="span">Full-span chain</button>
   </div>
   <div class="qed-error-demo__feedback" id="sf-logical-feedback"></div>
