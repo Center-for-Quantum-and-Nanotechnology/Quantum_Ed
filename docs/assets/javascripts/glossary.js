@@ -1,7 +1,7 @@
 // Progressive-enhancement filter for the glossary page
 // (docs/glossary.md, rendered by glossary_hook.py). The page is complete
-// static HTML without this script; this adds text search, category
-// filtering, and makes deep links work even when a filter hides the target.
+// static HTML without this script; this adds text search and makes deep
+// links work even when a filter hides the target.
 // Loaded site-wide via extra_javascript like the other shared scripts, and
 // a no-op on every other page.
 document.addEventListener("DOMContentLoaded", function () {
@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!root) return;
 
   var input = root.querySelector(".qed-gloss-search");
-  var chips = Array.prototype.slice.call(root.querySelectorAll(".qed-gloss-chip"));
   var entries = Array.prototype.slice.call(document.querySelectorAll(".qed-gloss-entry"));
   var sections = Array.prototype.slice.call(document.querySelectorAll(".qed-gloss-cat"));
   var countEl = root.querySelector(".qed-gloss-count");
@@ -28,19 +27,16 @@ document.addEventListener("DOMContentLoaded", function () {
       .join(" ")
       .toLowerCase();
   });
-  var category = "all";
 
   function apply() {
     var tokens = input.value.toLowerCase().split(/\s+/).filter(Boolean);
     var shown = 0;
     entries.forEach(function (el, i) {
-      var inCategory = category === "all" || el.getAttribute("data-category") === category;
       var matches = tokens.every(function (t) {
         return haystacks[i].indexOf(t) !== -1;
       });
-      var visible = inCategory && matches;
-      el.hidden = !visible;
-      if (visible) shown++;
+      el.hidden = !matches;
+      if (matches) shown++;
     });
     sections.forEach(function (s) {
       var none = !s.querySelector(".qed-gloss-entry:not([hidden])");
@@ -52,16 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
     emptyEl.hidden = shown !== 0;
   }
 
-  function setCategory(id) {
-    category = id;
-    chips.forEach(function (c) {
-      var on = c.getAttribute("data-category") === id;
-      c.classList.toggle("is-active", on);
-      c.setAttribute("aria-pressed", on ? "true" : "false");
-    });
-    apply();
-  }
-
   function revealHashTarget() {
     var id = decodeURIComponent(window.location.hash.slice(1));
     if (!id) return;
@@ -70,17 +56,12 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!entry) return;
     if (entry.hidden) {
       input.value = "";
-      setCategory("all");
+      apply();
     }
     entry.scrollIntoView();
   }
 
   input.addEventListener("input", apply);
-  chips.forEach(function (c) {
-    c.addEventListener("click", function () {
-      setCategory(c.getAttribute("data-category"));
-    });
-  });
   window.addEventListener("hashchange", revealHashTarget);
 
   apply();

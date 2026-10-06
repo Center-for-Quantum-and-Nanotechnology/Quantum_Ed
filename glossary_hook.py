@@ -210,12 +210,6 @@ def _render(page, files):
     entries = _state["entries"]
     by_id = {e["id"]: e for e in entries}
 
-    chips = ['<button type="button" class="qed-gloss-chip is-active" data-category="all" aria-pressed="true">All</button>']
-    for c in categories:
-        chips.append(
-            f'<button type="button" class="qed-gloss-chip" data-category="{_e(c["id"])}" aria-pressed="false">{_e(c["name"])}</button>'
-        )
-
     # Raw HTML blocks must not contain blank lines (Markdown would end the
     # block there), so each block below is joined with single newlines. Only
     # the category headings are real Markdown, so the page's table of contents
@@ -226,7 +220,6 @@ def _render(page, files):
             '<label class="qed-gloss-search-label" for="qed-gloss-search">Filter terms</label>',
             '<input type="search" id="qed-gloss-search" class="qed-gloss-search" '
             'placeholder="Search terms, abbreviations, and definitions" autocomplete="off">',
-            '<div class="qed-gloss-chips" role="group" aria-label="Filter by category">' + "".join(chips) + "</div>",
             f'<p class="qed-gloss-count" aria-live="polite">{len(entries)} terms</p>',
             '<p class="qed-gloss-empty" hidden>No terms match that filter. Try a different word, or choose All.</p>',
             "</div>",

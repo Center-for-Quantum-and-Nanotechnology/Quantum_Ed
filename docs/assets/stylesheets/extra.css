@@ -1231,30 +1231,6 @@ button.qed-qubit:not(:disabled):hover {
   outline-offset: 1px;
 }
 
-.qed-gloss-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-top: 0.5rem;
-}
-
-.qed-gloss-chip {
-  padding: 0.2rem 0.6rem;
-  border: 1px solid var(--md-primary-fg-color);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--md-primary-fg-color);
-  font: inherit;
-  font-size: 0.68rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.qed-gloss-chip.is-active {
-  background: var(--md-primary-fg-color);
-  color: var(--md-primary-bg-color);
-}
-
 .qed-gloss-count {
   margin: 0.45rem 0 0;
   font-size: 0.7rem;
