@@ -1185,3 +1185,155 @@ button.qed-qubit:not(:disabled):hover {
   font-size: 0.78rem;
   color: var(--md-default-fg-color--light);
 }
+
+/* ---------------------------------------------------------------------
+   Glossary (docs/glossary.md, rendered from data/glossary by
+   glossary_hook.py; filter behavior in assets/javascripts/glossary.js).
+   Entries are plain static HTML; this only styles them. Labels
+   ("Definition", "Beginner interpretation", ...) carry the structure, so
+   nothing here relies on color alone.
+   ------------------------------------------------------------------- */
+.qed-gloss-controls {
+  z-index: 2;
+  margin: 1rem 0;
+  padding: 0.7rem 0 0.6rem;
+  background: var(--md-default-bg-color);
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+@media screen and (min-width: 60em) {
+  .qed-gloss-controls {
+    position: sticky;
+    top: 2.4rem;
+  }
+}
+
+.qed-gloss-search-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.qed-gloss-search {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  background: var(--md-code-bg-color);
+  color: var(--md-default-fg-color);
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.qed-gloss-search:focus {
+  outline: 2px solid var(--md-accent-fg-color);
+  outline-offset: 1px;
+}
+
+.qed-gloss-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.qed-gloss-chip {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--md-primary-fg-color);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--md-primary-fg-color);
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.qed-gloss-chip.is-active {
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+}
+
+.qed-gloss-count {
+  margin: 0.45rem 0 0;
+  font-size: 0.7rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-gloss-empty {
+  font-size: 0.8rem;
+  padding: 1rem 0;
+}
+
+.md-typeset h2[hidden],
+.qed-gloss-entry[hidden],
+.qed-gloss-cat[hidden],
+.qed-gloss-empty[hidden] {
+  display: none;
+}
+
+.qed-gloss-cat-desc {
+  margin-top: 0;
+  font-size: 0.75rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-gloss-entry {
+  margin: 0.7rem 0;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-left: 3px solid var(--qed-color-logical);
+  border-radius: 0.2rem;
+  scroll-margin-top: 7.5rem;
+}
+
+.qed-gloss-entry:has(.qed-gloss-term:target),
+.qed-gloss-entry:has(.qed-gloss-alias-anchor:target) {
+  background: color-mix(in srgb, var(--qed-color-logical) 10%, transparent);
+  border-left-width: 6px;
+}
+
+.qed-gloss-alias-anchor {
+  display: block;
+  height: 0;
+  scroll-margin-top: 7.5rem;
+}
+
+.md-typeset .qed-gloss-term {
+  margin: 0 0 0.3rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.md-typeset .qed-gloss-entry p {
+  margin: 0.25rem 0;
+  font-size: 0.78rem;
+  padding-left: 8.7rem;
+  text-indent: -8.7rem;
+}
+
+.qed-gloss-label {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 8.7rem;
+  padding-right: 0.5rem;
+  text-indent: 0;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--md-default-fg-color--light);
+}
+
+@media screen and (max-width: 40em) {
+  .md-typeset .qed-gloss-entry p {
+    padding-left: 0;
+    text-indent: 0;
+  }
+
+  .qed-gloss-label {
+    display: block;
+    width: auto;
+  }
+}

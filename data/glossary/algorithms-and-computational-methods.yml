@@ -1,0 +1,147 @@
+- id: quantum-algorithm
+  term: Quantum Algorithm
+  aliases: []
+  definition: "A procedure, expressed as a quantum circuit or a sequence of quantum operations, that solves a computational problem by exploiting quantum effects such as superposition, interference, and entanglement."
+  beginnerInterpretation: "A quantum algorithm is a step-by-step recipe for a quantum computer, designed so that quantum effects help it reach an answer."
+  relatedTerms: [quantum-circuit, quantum-interference, quantum-parallelism, quantum-advantage, oracle]
+  moduleReferences:
+    - 06-algorithms/index.md
+  category: algorithms-and-computational-methods
+
+- id: quantum-parallelism
+  term: Quantum Parallelism
+  aliases: []
+  definition: "The ability of a quantum circuit to act on a superposition of many inputs at once, producing a superposition of the corresponding outputs. It does not by itself allow all of those results to be read out."
+  beginnerInterpretation: "Quantum parallelism means a circuit can work on a blend of many inputs together. A measurement still returns only one result, so algorithms have to be clever about extracting an answer."
+  relatedTerms: [superposition, quantum-interference, quantum-algorithm, measurement, oracle]
+  moduleReferences: []
+  category: algorithms-and-computational-methods
+
+- id: quantum-interference
+  term: Quantum Interference
+  aliases: ["Interference"]
+  definition: "The combining of probability amplitudes so that contributions to an outcome can reinforce (constructive interference) or cancel (destructive interference) one another, depending on their relative phases."
+  beginnerInterpretation: "Interference is how quantum algorithms steer results: contributions toward wrong answers cancel out while contributions toward the right answer add up."
+  relatedTerms: [probability-amplitude, relative-phase, superposition, quantum-algorithm, amplitude-amplification]
+  moduleReferences:
+    - 07-error-correction/errors-and-noise.md
+  category: algorithms-and-computational-methods
+
+- id: oracle
+  term: Oracle
+  aliases: ["Black-box function"]
+  definition: "A black-box operation, implemented as a quantum circuit, that encodes a problem's input function. Oracles are used in many quantum algorithms and in arguments about what quantum computers can do."
+  beginnerInterpretation: "An oracle stands in for the problem itself: a sealed box the algorithm can query without seeing what is inside."
+  relatedTerms: [grovers-algorithm, quantum-algorithm, quantum-circuit, quantum-parallelism]
+  moduleReferences:
+    - 06-algorithms/index.md
+  category: algorithms-and-computational-methods
+
+- id: quantum-fourier-transform
+  term: Quantum Fourier Transform
+  aliases: ["QFT"]
+  definition: "The quantum analogue of the discrete Fourier transform, applied to a state's amplitudes using a number of gates that grows only polynomially with the number of qubits. It is a building block of several algorithms, including Shor's algorithm."
+  beginnerInterpretation: "The QFT helps reveal repeating patterns hidden in a quantum state, and it is a key ingredient of algorithms such as Shor's."
+  relatedTerms: [quantum-phase-estimation, shors-algorithm, quantum-interference, quantum-algorithm]
+  moduleReferences: []
+  category: algorithms-and-computational-methods
+
+- id: quantum-phase-estimation
+  term: Quantum Phase Estimation
+  aliases: ["QPE"]
+  definition: "A quantum algorithm that estimates the eigenvalue phase of a unitary operator for a given eigenstate, using controlled operations followed by an inverse quantum Fourier transform."
+  beginnerInterpretation: "QPE measures a hidden 'phase' associated with an operation, with precision that improves as more qubits are used. It is a core subroutine in many quantum algorithms."
+  relatedTerms: [quantum-fourier-transform, unitary-operation, shors-algorithm, quantum-algorithm, variational-quantum-eigensolver]
+  moduleReferences: []
+  category: algorithms-and-computational-methods
+
+- id: amplitude-amplification
+  term: Amplitude Amplification
+  aliases: []
+  definition: "A quantum technique that increases the probability of measuring desired outcomes by repeatedly applying operations that boost their amplitudes; it generalizes the idea behind Grover's algorithm."
+  beginnerInterpretation: "Amplitude amplification repeatedly nudges a quantum state so that the answers you want become more likely to show up when you measure."
+  relatedTerms: [grovers-algorithm, probability-amplitude, quantum-interference, oracle, quantum-algorithm]
+  moduleReferences: []
+  category: algorithms-and-computational-methods
+
+- id: grovers-algorithm
+  term: Grover's Algorithm
+  aliases: ["Grover search"]
+  definition: "A quantum algorithm for searching an unstructured collection of N items using about √N oracle queries, a quadratic improvement over the roughly N queries needed classically."
+  beginnerInterpretation: "Grover's algorithm finds a marked item in an unsorted collection with far fewer lookups than checking items one by one. The speedup is quadratic, not exponential."
+  relatedTerms: [amplitude-amplification, oracle, quantum-interference, quantum-algorithm, quantum-advantage]
+  moduleReferences:
+    - 06-algorithms/index.md
+  category: algorithms-and-computational-methods
+
+- id: shors-algorithm
+  term: Shor's Algorithm
+  aliases: ["Shor factoring"]
+  definition: "A quantum algorithm for integer factorization and discrete logarithms whose running time grows polynomially with the number of digits, in contrast to the best known classical algorithms."
+  beginnerInterpretation: "Shor's algorithm factors large numbers dramatically faster than any known classical method, which is why it matters for cryptography. Running it at useful sizes is expected to need error-corrected quantum computers far larger than today's."
+  relatedTerms: [quantum-fourier-transform, quantum-phase-estimation, quantum-advantage, fault-tolerant-quantum-computing, quantum-algorithm]
+  moduleReferences:
+    - 06-algorithms/index.md
+  category: algorithms-and-computational-methods
+
+- id: variational-quantum-algorithm
+  term: Variational Quantum Algorithm
+  aliases: ["VQA"]
+  definition: "A hybrid algorithm in which a parameterized quantum circuit prepares a trial state, a classical optimizer adjusts the circuit's parameters, and the loop repeats to minimize a cost function."
+  beginnerInterpretation: "A variational algorithm is a team effort between a quantum computer and a classical one: the quantum side tries a setting, the classical side improves it, and they repeat."
+  relatedTerms: [parameterized-quantum-circuit, variational-quantum-eigensolver, quantum-approximate-optimization-algorithm, quantum-classical-hybrid-computing, expectation-value]
+  moduleReferences:
+    - 06-algorithms/variational-quantum-eigensolver.md
+    - 06-algorithms/index.md
+  category: algorithms-and-computational-methods
+
+- id: parameterized-quantum-circuit
+  term: Parameterized Quantum Circuit
+  aliases: ["PQC"]
+  definition: "A quantum circuit containing gates that depend on adjustable numerical parameters, such as rotation angles, so that one circuit design defines a whole family of states. When used to prepare a trial state in a variational algorithm it is often called an ansatz."
+  beginnerInterpretation: "A parameterized circuit is a circuit with adjustable dials. Turning the dials produces different quantum states from the same basic design."
+  relatedTerms: [rotation-gate, variational-quantum-algorithm, variational-quantum-eigensolver, quantum-circuit, expectation-value]
+  moduleReferences:
+    - 06-algorithms/variational-quantum-eigensolver.md
+  category: algorithms-and-computational-methods
+
+- id: variational-quantum-eigensolver
+  term: Variational Quantum Eigensolver
+  aliases: ["VQE"]
+  definition: "A hybrid quantum-classical algorithm that estimates the lowest energy, the ground-state energy, of a Hamiltonian by preparing a parameterized trial state, measuring its energy, and using a classical optimizer to adjust the parameters."
+  beginnerInterpretation: "VQE searches for the lowest energy a quantum system can have: a quantum computer measures the energy of a trial state, and a classical computer tweaks the trial to push that energy lower."
+  relatedTerms: [variational-quantum-algorithm, hamiltonian, parameterized-quantum-circuit, expectation-value, quantum-classical-hybrid-computing, nisq]
+  moduleReferences:
+    - 06-algorithms/variational-quantum-eigensolver.md
+    - 06-algorithms/index.md
+  category: algorithms-and-computational-methods
+
+- id: quantum-approximate-optimization-algorithm
+  term: Quantum Approximate Optimization Algorithm
+  aliases: ["QAOA"]
+  definition: "A variational quantum algorithm for finding approximate solutions to combinatorial optimization problems, using a parameterized circuit that alternates between operations encoding the problem's cost and a mixing operation."
+  beginnerInterpretation: "QAOA is a variational method for optimization puzzles. It tunes a short, repeating circuit to find good solutions, which are not guaranteed to be the best."
+  relatedTerms: [variational-quantum-algorithm, parameterized-quantum-circuit, expectation-value, quantum-classical-hybrid-computing, nisq]
+  moduleReferences:
+    - 06-algorithms/index.md
+  category: algorithms-and-computational-methods
+
+- id: hamiltonian
+  term: Hamiltonian
+  aliases: []
+  definition: "An operator representing the total energy of a quantum system. Its eigenvalues are the energies the system can have, and it governs how the system evolves in time."
+  beginnerInterpretation: "The Hamiltonian is the rulebook for a quantum system's energy. Algorithms such as VQE ask what the lowest energy it allows is."
+  relatedTerms: [variational-quantum-eigensolver, expectation-value, quantum-state, unitary-operation]
+  moduleReferences:
+    - 06-algorithms/variational-quantum-eigensolver.md
+  category: algorithms-and-computational-methods
+
+- id: expectation-value
+  term: Expectation Value
+  aliases: []
+  definition: "The average result of measuring an observable on a quantum state, taken over many repetitions of the same experiment."
+  beginnerInterpretation: "The expectation value is what you would get on average if you repeated a measurement many times."
+  relatedTerms: [measurement, hamiltonian, variational-quantum-eigensolver, shot, sampling]
+  moduleReferences:
+    - 06-algorithms/variational-quantum-eigensolver.md
+  category: algorithms-and-computational-methods

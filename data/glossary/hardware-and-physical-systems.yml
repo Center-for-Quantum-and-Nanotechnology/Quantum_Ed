@@ -1,0 +1,192 @@
+- id: physical-qubit
+  term: Physical Qubit
+  aliases: []
+  definition: "An individual physical quantum system used by hardware as a qubit, such as a superconducting circuit, a trapped ion, or a neutral atom."
+  beginnerInterpretation: "A physical qubit is a real hardware object that behaves as a qubit. It is imperfect, which is why error correction combines many of them."
+  relatedTerms: [logical-qubit, qubit, quantum-processing-unit, quantum-error-correction, decoherence]
+  moduleReferences:
+    - 07-error-correction/why-qec.md
+    - 07-error-correction/physical-vs-logical-qubits.md
+    - 07-error-correction/hardware-aware-qec.md
+  category: hardware-and-physical-systems
+
+- id: logical-qubit
+  term: Logical Qubit
+  aliases: []
+  definition: "A qubit of quantum information encoded across multiple physical qubits by a quantum error-correcting code, so that errors on the individual physical qubits can be detected and corrected."
+  beginnerInterpretation: "A logical qubit is protected quantum information spread over many physical qubits, so a single hardware hiccup doesn't destroy it. It is a pattern across qubits rather than a single physical object."
+  relatedTerms: [physical-qubit, quantum-error-correcting-code, logical-error, logical-operator, quantum-error-correction, surface-code]
+  moduleReferences:
+    - 07-error-correction/why-qec.md
+    - 07-error-correction/physical-vs-logical-qubits.md
+    - 07-error-correction/repetition-codes.md
+    - 07-error-correction/lattice-surgery.md
+  category: hardware-and-physical-systems
+
+- id: quantum-processing-unit
+  term: Quantum Processing Unit
+  aliases: ["QPU", "Quantum processor"]
+  definition: "The quantum hardware that executes quantum circuits, consisting of physical qubits together with the means to control and read them out."
+  beginnerInterpretation: "The QPU is the quantum computer's processor: the chip, or the arrangement of atoms or ions, where qubits live and quantum operations actually happen."
+  relatedTerms: [physical-qubit, hardware-backend, connectivity, superconducting-qubit, calibration]
+  moduleReferences: []
+  category: hardware-and-physical-systems
+
+- id: superconducting-qubit
+  term: Superconducting Qubit
+  aliases: []
+  definition: "A physical qubit implemented as a superconducting electrical circuit operated at very low temperatures, with the two qubit states encoded in the circuit's quantized energy levels."
+  beginnerInterpretation: "Superconducting qubits are tiny electrical circuits, cooled to extremely low temperatures, that behave like artificial atoms."
+  relatedTerms: [transmon, physical-qubit, quantum-processing-unit, coherence-time]
+  moduleReferences: []
+  category: hardware-and-physical-systems
+
+- id: transmon
+  term: Transmon
+  aliases: []
+  definition: "A widely used type of superconducting qubit, built from a Josephson junction shunted by a large capacitor, designed to be less sensitive to charge noise."
+  beginnerInterpretation: "The transmon is a popular kind of superconducting qubit, designed to be steadier against certain electrical disturbances."
+  relatedTerms: [superconducting-qubit, coherence-time, t1-relaxation-time, physical-qubit]
+  moduleReferences: []
+  category: hardware-and-physical-systems
+
+- id: trapped-ion-qubit
+  term: Trapped-Ion Qubit
+  aliases: []
+  definition: "A physical qubit encoded in internal energy levels of an individual ion held in place by electromagnetic fields and manipulated with lasers or microwaves."
+  beginnerInterpretation: "Trapped-ion qubits are individual charged atoms held in place by electric fields, with information stored in their energy levels."
+  relatedTerms: [physical-qubit, neutral-atom-qubit, quantum-processing-unit, coherence-time, connectivity]
+  moduleReferences: []
+  category: hardware-and-physical-systems
+
+- id: neutral-atom-qubit
+  term: Neutral-Atom Qubit
+  aliases: []
+  definition: "A physical qubit encoded in internal states of an uncharged atom, commonly held in arrays by tightly focused laser beams known as optical tweezers."
+  beginnerInterpretation: "Neutral-atom qubits are individual atoms held in place by laser light and arranged in patterns, with information stored in their energy levels."
+  relatedTerms: [trapped-ion-qubit, physical-qubit, quantum-processing-unit, connectivity]
+  moduleReferences: []
+  category: hardware-and-physical-systems
+
+- id: photonic-qubit
+  term: Photonic Qubit
+  aliases: []
+  definition: "A qubit encoded in a degree of freedom of a photon, such as its polarization or the path it takes."
+  beginnerInterpretation: "Photonic qubits store information in particles of light, for example in the direction their light wave is polarized."
+  relatedTerms: [physical-qubit, quantum-processing-unit, superposition, coherence]
+  moduleReferences: []
+  category: hardware-and-physical-systems
+
+- id: spin-qubit
+  term: Spin Qubit
+  aliases: []
+  definition: "A physical qubit encoded in the spin of an electron or nucleus, for example in a semiconductor quantum dot or an atomic defect in a crystal."
+  beginnerInterpretation: "Spin qubits store information in spin, an intrinsic quantum property of electrons and nuclei that can point 'up' or 'down'."
+  relatedTerms: [physical-qubit, quantum-processing-unit, coherence-time, t2-dephasing-time]
+  moduleReferences: []
+  category: hardware-and-physical-systems
+
+- id: coherence
+  term: Coherence
+  aliases: ["Quantum coherence"]
+  definition: "The property of a quantum system keeping well-defined phase relationships between the components of a superposition, which interference and other quantum behavior depend on."
+  beginnerInterpretation: "Coherence means a qubit is still behaving in a quantum way, with its blend of 0 and 1 and its phase intact. Noise gradually destroys it."
+  relatedTerms: [decoherence, coherence-time, superposition, relative-phase, quantum-noise]
+  moduleReferences: []
+  category: hardware-and-physical-systems
+
+- id: coherence-time
+  term: Coherence Time
+  aliases: []
+  definition: "A characteristic duration over which a qubit retains its quantum coherence, commonly quantified by the times T1 and T2."
+  beginnerInterpretation: "Coherence time is roughly how long a qubit stays quantum before noise scrambles it. Longer is better, but it is only one of several measures of qubit quality."
+  relatedTerms: [coherence, decoherence, t1-relaxation-time, t2-dephasing-time, circuit-depth]
+  moduleReferences: []
+  category: hardware-and-physical-systems
+
+- id: decoherence
+  term: Decoherence
+  aliases: []
+  definition: "The loss of coherence of a quantum system through its interaction with its environment, which causes quantum superpositions to degrade toward classical mixtures."
+  beginnerInterpretation: "Decoherence is what happens when a qubit's surroundings interact with it and its delicate quantum behavior fades away."
+  relatedTerms: [coherence, quantum-noise, mixed-state, t1-relaxation-time, t2-dephasing-time, dephasing]
+  moduleReferences:
+    - 07-error-correction/why-qec.md
+  category: hardware-and-physical-systems
+
+- id: t1-relaxation-time
+  term: T1 Relaxation Time
+  aliases: ["T1", "Energy relaxation time"]
+  definition: "The characteristic time over which a qubit in its excited state relaxes toward its lower-energy ground state by exchanging energy with its environment."
+  beginnerInterpretation: "T1 is a time scale for how long it takes an excited qubit to lose energy and drop back to its resting state."
+  relatedTerms: [t2-dephasing-time, amplitude-damping, coherence-time, decoherence, calibration-data]
+  moduleReferences:
+    - 07-error-correction/hardware-aware-qec.md
+  category: hardware-and-physical-systems
+
+- id: t2-dephasing-time
+  term: T2 Dephasing Time
+  aliases: ["T2", "Phase coherence time"]
+  definition: "The characteristic time over which a qubit's phase coherence is lost under the relevant measurement protocol; it reflects both energy relaxation and pure dephasing."
+  beginnerInterpretation: "T2 is a time scale for how long a qubit keeps its phase, the delicate timing information in a superposition, before it is lost."
+  relatedTerms: [t1-relaxation-time, dephasing, coherence-time, relative-phase, calibration-data]
+  moduleReferences:
+    - 07-error-correction/hardware-aware-qec.md
+  category: hardware-and-physical-systems
+
+- id: gate-fidelity
+  term: Gate Fidelity
+  aliases: []
+  definition: "A measure of how closely an implemented gate matches its ideal operation, where a value of 1 (100%) means a perfect match. Its estimated value depends on the characterization method used."
+  beginnerInterpretation: "Gate fidelity is a score for how accurately a gate does what it is supposed to. Closer to 100% is better, and the number depends on how it was measured."
+  relatedTerms: [readout-fidelity, error-rate, calibration, multi-qubit-gate, native-gate]
+  moduleReferences:
+    - 07-error-correction/hardware-aware-qec.md
+  category: hardware-and-physical-systems
+
+- id: readout-fidelity
+  term: Readout Fidelity
+  aliases: ["Measurement fidelity"]
+  definition: "A measure of how reliably a qubit measurement reports the state the qubit was actually in; the complement of readout error."
+  beginnerInterpretation: "Readout fidelity says how often reading a qubit gives the right answer. Low fidelity means the measurement itself often gets it wrong."
+  relatedTerms: [readout-error, measurement, gate-fidelity, calibration]
+  moduleReferences: []
+  category: hardware-and-physical-systems
+
+- id: calibration
+  term: Calibration
+  aliases: []
+  definition: "The process of measuring a quantum device's characteristics and adjusting its control parameters so that gates and measurements behave as intended."
+  beginnerInterpretation: "Calibration is tuning a quantum computer: testing how its qubits respond and adjusting the settings so operations work as intended."
+  relatedTerms: [calibration-data, calibration-telemetry, gate-fidelity, readout-fidelity, hardware-aware-quantum-computing]
+  moduleReferences:
+    - 07-error-correction/hardware-aware-qec.md
+  category: hardware-and-physical-systems
+
+- id: crosstalk
+  term: Crosstalk
+  aliases: []
+  definition: "Unintended interaction in which an operation or measurement on one qubit affects other qubits."
+  beginnerInterpretation: "Crosstalk is when something done to one qubit accidentally disturbs its neighbors."
+  relatedTerms: [quantum-noise, correlated-error, gate-fidelity, connectivity, coupling]
+  moduleReferences: []
+  category: hardware-and-physical-systems
+
+- id: connectivity
+  term: Connectivity
+  aliases: ["Qubit connectivity"]
+  definition: "Which pairs of qubits in a device can interact directly through a native two-qubit operation, often described as a connectivity graph."
+  beginnerInterpretation: "Connectivity is the map of which qubits can work together directly. Qubits that aren't directly linked need extra steps to interact."
+  relatedTerms: [coupling, routing, qubit-mapping, swap-gate, quantum-processing-unit]
+  moduleReferences:
+    - 07-error-correction/hardware-aware-qec.md
+  category: hardware-and-physical-systems
+
+- id: coupling
+  term: Coupling
+  aliases: []
+  definition: "A physical interaction between two qubits, used to implement entangling operations and to define which qubit pairs are connected. Unintended residual coupling is one source of crosstalk."
+  beginnerInterpretation: "Coupling is the physical link that lets two qubits influence each other."
+  relatedTerms: [connectivity, crosstalk, multi-qubit-gate, entanglement, quantum-processing-unit]
+  moduleReferences: []
+  category: hardware-and-physical-systems

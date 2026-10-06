@@ -1,0 +1,169 @@
+- id: qubit
+  term: Qubit
+  aliases: ["Quantum bit"]
+  definition: "The basic unit of quantum information: a two-level quantum system whose state can be a superposition of its two basis states, usually written |0⟩ and |1⟩."
+  beginnerInterpretation: "A qubit is the quantum counterpart of a bit. Instead of holding just a 0 or a 1, it can be prepared in a blend of both, and measuring it gives a single 0 or 1."
+  relatedTerms: [quantum-state, superposition, measurement, physical-qubit, logical-qubit, bloch-sphere]
+  moduleReferences:
+    - 01-foundations/what-is-quantum-computing.md
+    - 07-error-correction/physical-vs-logical-qubits.md
+  category: quantum-foundations
+
+- id: quantum-state
+  term: Quantum State
+  aliases: []
+  definition: "A complete mathematical description of a quantum system, from which the probabilities of every possible measurement outcome can be calculated. It is written as a state vector (a ket) or, more generally, as a density matrix."
+  beginnerInterpretation: "The quantum state is everything you would need to know about a quantum system to predict the odds of each result if you measured it."
+  relatedTerms: [qubit, superposition, pure-state, mixed-state, hilbert-space, measurement]
+  moduleReferences: []
+  category: quantum-foundations
+
+- id: superposition
+  term: Superposition
+  aliases: []
+  definition: "A quantum state expressed as a combination of two or more basis states, each with an associated probability amplitude."
+  beginnerInterpretation: "Superposition means a qubit can be in a blend of 0 and 1, and the makeup of the blend sets the odds of each result when it is measured. It is not the same as secretly being 0 or 1 and simply not knowing which."
+  relatedTerms: [qubit, probability-amplitude, basis-state, measurement, quantum-interference, relative-phase]
+  moduleReferences:
+    - 01-foundations/what-is-quantum-computing.md
+  category: quantum-foundations
+
+- id: entanglement
+  term: Entanglement
+  aliases: []
+  definition: "A property of a multi-qubit quantum state that cannot be written as a product of separate states for the individual qubits, so the qubits must be described together."
+  beginnerInterpretation: "Entangled qubits are linked: you can't fully describe one without the other, and measuring them gives correlated results."
+  relatedTerms: [quantum-state, superposition, cnot-gate, multi-qubit-gate, measurement]
+  moduleReferences:
+    - 01-foundations/what-is-quantum-computing.md
+  category: quantum-foundations
+
+- id: measurement
+  term: Measurement
+  aliases: []
+  definition: "The process of extracting classical information from a quantum system. A measurement returns one of its possible outcomes with probabilities set by the state and, in general, changes the state of the system."
+  beginnerInterpretation: "Measurement is how you read out a qubit. You get a definite 0 or 1, and the act of reading it generally disturbs the quantum state."
+  relatedTerms: [qubit, probability-amplitude, quantum-state, mid-circuit-measurement, readout-fidelity, no-cloning-theorem]
+  moduleReferences:
+    - 01-foundations/what-is-quantum-computing.md
+    - 07-error-correction/errors-and-noise.md
+    - 07-error-correction/encoding-and-syndrome-measurement.md
+  category: quantum-foundations
+
+- id: probability-amplitude
+  term: Probability Amplitude
+  aliases: ["Amplitude"]
+  definition: "A complex number associated with each basis state in a quantum state; the squared magnitude of an amplitude gives the probability of measuring that basis state."
+  beginnerInterpretation: "Amplitudes are the numbers that, once squared in size, give the chances of each measurement result. Unlike probabilities they can be negative or complex, which lets different contributions cancel or reinforce each other."
+  relatedTerms: [superposition, phase, quantum-interference, measurement, quantum-state]
+  moduleReferences: []
+  category: quantum-foundations
+
+- id: phase
+  term: Phase
+  aliases: []
+  definition: "The angle of the complex number that multiplies a basis state's probability amplitude. A phase shared by the whole state cannot be observed, but phase differences between components affect how they interfere."
+  beginnerInterpretation: "Phase is like a hidden dial on each part of a quantum state. A single 0-or-1 readout can't show it, but it controls how the parts combine in later steps."
+  relatedTerms: [relative-phase, probability-amplitude, quantum-interference, phase-flip-error, bloch-sphere]
+  moduleReferences:
+    - 01-foundations/what-is-quantum-computing.md
+    - 07-error-correction/errors-and-noise.md
+  category: quantum-foundations
+
+- id: relative-phase
+  term: Relative Phase
+  aliases: []
+  definition: "The phase difference between the amplitudes of two basis states in a superposition. Unlike a shared global phase, relative phase is physically meaningful: it distinguishes states such as |+⟩ and |−⟩ and determines how the state interferes in later operations."
+  beginnerInterpretation: "Relative phase is how out of step two parts of a superposition are. A plain 0-or-1 readout can't see it, but it changes what later operations do."
+  relatedTerms: [phase, superposition, quantum-interference, phase-flip-error, pauli-z-gate]
+  moduleReferences:
+    - 07-error-correction/errors-and-noise.md
+  category: quantum-foundations
+
+- id: bloch-sphere
+  term: Bloch Sphere
+  aliases: []
+  definition: "A geometric representation of the state of a single qubit as a point on a sphere (inside it, for mixed states), with |0⟩ and |1⟩ at opposite poles and relative phase appearing as the angle around the vertical axis."
+  beginnerInterpretation: "The Bloch sphere is a globe-like picture of one qubit: the poles are 0 and 1, and every other spot is a different blend. It only works for a single qubit."
+  relatedTerms: [qubit, quantum-state, superposition, relative-phase, pure-state]
+  moduleReferences:
+    - 01-foundations/what-is-quantum-computing.md
+    - 07-error-correction/errors-and-noise.md
+  category: quantum-foundations
+
+- id: computational-basis
+  term: Computational Basis
+  aliases: ["Z basis"]
+  definition: "The standard basis for a register of qubits, made of the states |0⟩ and |1⟩ for each qubit and their products for several qubits. Measurements are described in this basis unless stated otherwise."
+  beginnerInterpretation: "The computational basis is the set of 'plain' states, all 0s and 1s, that qubits are normally read out in."
+  relatedTerms: [basis-state, qubit, measurement, superposition]
+  moduleReferences:
+    - 07-error-correction/errors-and-noise.md
+    - 07-error-correction/repetition-codes.md
+  category: quantum-foundations
+
+- id: basis-state
+  term: Basis State
+  aliases: []
+  definition: "One of a set of mutually orthogonal states that can be used to express any other state of the system as a superposition."
+  beginnerInterpretation: "Basis states are the reference states that every other state is described in terms of, much as east and north are the reference directions for describing any position on a map."
+  relatedTerms: [computational-basis, superposition, hilbert-space, bra-ket-notation, quantum-state]
+  moduleReferences: []
+  category: quantum-foundations
+
+- id: bra-ket-notation
+  term: Bra-Ket Notation
+  aliases: ["Dirac notation"]
+  definition: "Notation in which a state vector is written as a ket |ψ⟩ and its conjugate transpose as a bra ⟨ψ|; the inner product of two states is written ⟨φ|ψ⟩."
+  beginnerInterpretation: "Bra-ket notation is shorthand for writing quantum states: |ψ⟩ names a state, and expressions like ⟨φ|ψ⟩ describe how much two states overlap."
+  relatedTerms: [quantum-state, basis-state, hilbert-space, probability-amplitude]
+  moduleReferences: []
+  category: quantum-foundations
+
+- id: hilbert-space
+  term: Hilbert Space
+  aliases: []
+  definition: "The complex vector space, equipped with an inner product, in which the pure states of a quantum system are described. A register of n qubits has a Hilbert space of dimension 2^n."
+  beginnerInterpretation: "The Hilbert space is the mathematical arena containing every state a quantum system could be in. Each added qubit doubles its size."
+  relatedTerms: [quantum-state, basis-state, bra-ket-notation, qubit, pure-state]
+  moduleReferences: []
+  category: quantum-foundations
+
+- id: pure-state
+  term: Pure State
+  aliases: []
+  definition: "A quantum state described by a single state vector, representing complete knowledge of the system's quantum state, as opposed to a statistical mixture of states."
+  beginnerInterpretation: "A pure state is a fully specified quantum state, with no leftover uncertainty about which state the system is in."
+  relatedTerms: [mixed-state, quantum-state, density-matrix, bloch-sphere]
+  moduleReferences: []
+  category: quantum-foundations
+
+- id: mixed-state
+  term: Mixed State
+  aliases: []
+  definition: "A statistical mixture of pure states, representing uncertainty about which pure state the system is in; it is described by a density matrix rather than a single state vector."
+  beginnerInterpretation: "A mixed state is what you have when you are unsure which quantum state a system is in, for example after noise has acted on it."
+  relatedTerms: [pure-state, density-matrix, quantum-noise, decoherence, quantum-state]
+  moduleReferences: []
+  category: quantum-foundations
+
+- id: density-matrix
+  term: Density Matrix
+  aliases: ["Density operator"]
+  definition: "A matrix that describes a quantum state, covering both pure and mixed states; its diagonal entries give the probabilities of the basis states."
+  beginnerInterpretation: "A density matrix is a table of numbers that describes a quantum state, including states that are partly random or noisy."
+  relatedTerms: [mixed-state, pure-state, quantum-state, error-channel, quantum-noise]
+  moduleReferences: []
+  category: quantum-foundations
+
+- id: no-cloning-theorem
+  term: No-Cloning Theorem
+  aliases: []
+  definition: "The result that no physical operation can make an identical, independent copy of an arbitrary unknown quantum state."
+  beginnerInterpretation: "You can't photocopy an unknown qubit. This is one reason quantum error correction can't simply store backup copies."
+  relatedTerms: [quantum-state, measurement, quantum-error-correction, logical-qubit]
+  moduleReferences:
+    - 07-error-correction/why-qec.md
+    - 07-error-correction/physical-vs-logical-qubits.md
+    - 07-error-correction/repetition-codes.md
+  category: quantum-foundations

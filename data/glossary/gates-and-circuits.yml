@@ -1,0 +1,176 @@
+- id: quantum-gate
+  term: Quantum Gate
+  aliases: []
+  definition: "A basic operation that changes the state of one or more qubits. In the standard circuit model, gates are unitary operations."
+  beginnerInterpretation: "A quantum gate is a step that transforms qubits. It is the quantum counterpart of a logic gate, but always reversible."
+  relatedTerms: [quantum-circuit, unitary-operation, multi-qubit-gate, native-gate, pauli-x-gate]
+  moduleReferences:
+    - 06-algorithms/variational-quantum-eigensolver.md
+    - 07-error-correction/encoding-and-syndrome-measurement.md
+  category: gates-and-circuits
+
+- id: quantum-circuit
+  term: Quantum Circuit
+  aliases: []
+  definition: "A sequence of quantum gates, and usually measurements, applied to qubits in a specified order to carry out a computation."
+  beginnerInterpretation: "A quantum circuit is a program drawn as a diagram: qubits run along lines, and gates and measurements are placed along them in time order."
+  relatedTerms: [quantum-gate, circuit-depth, ancilla-qubit, measurement, quantum-compiler]
+  moduleReferences:
+    - 06-algorithms/variational-quantum-eigensolver.md
+    - 07-error-correction/encoding-and-syndrome-measurement.md
+  category: gates-and-circuits
+
+- id: unitary-operation
+  term: Unitary Operation
+  aliases: ["Unitary"]
+  definition: "A reversible, norm-preserving linear transformation of a quantum state; the mathematical form of an ideal quantum gate acting on a closed system."
+  beginnerInterpretation: "A unitary operation is a reversible change to a quantum state that neither loses nor creates probability, so it could always be run backward."
+  relatedTerms: [quantum-gate, quantum-state, quantum-circuit, hilbert-space]
+  moduleReferences: []
+  category: gates-and-circuits
+
+- id: identity-gate
+  term: Identity Gate
+  aliases: ["I gate"]
+  definition: "The gate, written I, that leaves a qubit's state unchanged. In hardware it can represent a deliberate idle period during which the qubit is still exposed to noise."
+  beginnerInterpretation: "The identity gate does nothing. It stands for 'wait one step', which still matters because real qubits can pick up errors while waiting."
+  relatedTerms: [quantum-gate, pauli-error, pauli-x-gate, quantum-noise]
+  moduleReferences: []
+  category: gates-and-circuits
+
+- id: pauli-x-gate
+  term: Pauli-X Gate
+  aliases: ["X gate", "NOT gate", "Bit-flip gate"]
+  definition: "A single-qubit gate that swaps |0⟩ and |1⟩, the quantum analogue of a classical NOT; it corresponds to a rotation by π about the x-axis of the Bloch sphere."
+  beginnerInterpretation: "The X gate turns a 0 into a 1 and a 1 into a 0, like flipping a bit."
+  relatedTerms: [pauli-y-gate, pauli-z-gate, bit-flip-error, pauli-error, quantum-gate, bloch-sphere]
+  moduleReferences:
+    - 07-error-correction/errors-and-noise.md
+  category: gates-and-circuits
+
+- id: pauli-y-gate
+  term: Pauli-Y Gate
+  aliases: ["Y gate"]
+  definition: "A single-qubit gate that performs a bit flip and a phase flip together, up to an overall phase; it corresponds to a rotation by π about the y-axis of the Bloch sphere."
+  beginnerInterpretation: "The Y gate flips a qubit the way X does and also flips its phase."
+  relatedTerms: [pauli-x-gate, pauli-z-gate, pauli-error, quantum-gate]
+  moduleReferences:
+    - 07-error-correction/errors-and-noise.md
+  category: gates-and-circuits
+
+- id: pauli-z-gate
+  term: Pauli-Z Gate
+  aliases: ["Z gate", "Phase-flip gate"]
+  definition: "A single-qubit gate that leaves |0⟩ unchanged and multiplies |1⟩ by −1; it flips the relative phase of a superposition and corresponds to a rotation by π about the z-axis of the Bloch sphere."
+  beginnerInterpretation: "The Z gate doesn't change whether a qubit reads 0 or 1, but it flips the phase of the 1 part, something that only shows up through later interference."
+  relatedTerms: [pauli-x-gate, pauli-y-gate, phase-flip-error, relative-phase, quantum-gate]
+  moduleReferences:
+    - 07-error-correction/errors-and-noise.md
+  category: gates-and-circuits
+
+- id: hadamard-gate
+  term: Hadamard Gate
+  aliases: ["H gate"]
+  definition: "A single-qubit gate that maps |0⟩ and |1⟩ to the equal superpositions |+⟩ and |−⟩ and back again; it converts between the computational basis and the X basis."
+  beginnerInterpretation: "The Hadamard gate turns a definite 0 or 1 into an even blend of both, which is the usual way to start building a superposition."
+  relatedTerms: [superposition, quantum-gate, cnot-gate, computational-basis]
+  moduleReferences: []
+  category: gates-and-circuits
+
+- id: phase-gate
+  term: Phase Gate
+  aliases: []
+  definition: "A single-qubit gate that applies a phase to the |1⟩ state while leaving |0⟩ unchanged. Common examples are the S gate (a quarter turn) and the T gate (an eighth turn)."
+  beginnerInterpretation: "Phase gates adjust the phase of the 1 part of a qubit by a chosen angle without changing the odds of reading 0 or 1."
+  relatedTerms: [pauli-z-gate, relative-phase, rotation-gate, magic-state]
+  moduleReferences: []
+  category: gates-and-circuits
+
+- id: rotation-gate
+  term: Rotation Gate
+  aliases: []
+  definition: "A single-qubit gate that rotates the qubit's state about the x-, y-, or z-axis of the Bloch sphere by an adjustable angle, written RX(θ), RY(θ), or RZ(θ)."
+  beginnerInterpretation: "A rotation gate turns a qubit by an angle you choose, like adjusting a dial. It is useful when an algorithm needs adjustable settings."
+  relatedTerms: [bloch-sphere, quantum-gate, parameterized-quantum-circuit, phase-gate, variational-quantum-eigensolver]
+  moduleReferences:
+    - 06-algorithms/variational-quantum-eigensolver.md
+  category: gates-and-circuits
+
+- id: controlled-gate
+  term: Controlled Gate
+  aliases: []
+  definition: "A gate that applies an operation to a target qubit depending on the state of a control qubit: the operation is applied when the control is |1⟩. For a control in superposition, the gate acts on each component accordingly."
+  beginnerInterpretation: "A controlled gate says 'do this to one qubit only if another qubit is 1'. When the control is in a superposition, this can link the qubits together."
+  relatedTerms: [cnot-gate, multi-qubit-gate, entanglement, quantum-gate]
+  moduleReferences: []
+  category: gates-and-circuits
+
+- id: cnot-gate
+  term: CNOT Gate
+  aliases: ["CNOT", "CX", "Controlled-NOT"]
+  definition: "A two-qubit controlled gate that flips the target qubit (applies X to it) when the control qubit is |1⟩."
+  beginnerInterpretation: "CNOT flips one qubit only if another is 1. It is the standard way to link qubits and to build entanglement."
+  relatedTerms: [controlled-gate, pauli-x-gate, entanglement, multi-qubit-gate, ancilla-assisted-measurement]
+  moduleReferences:
+    - 07-error-correction/encoding-and-syndrome-measurement.md
+    - 07-error-correction/stabilizer-codes.md
+    - 07-error-correction/lattice-surgery.md
+  category: gates-and-circuits
+
+- id: swap-gate
+  term: SWAP Gate
+  aliases: []
+  definition: "A two-qubit gate that exchanges the states of two qubits."
+  beginnerInterpretation: "A SWAP gate trades the contents of two qubits. It is often used to move data between qubits that aren't directly connected."
+  relatedTerms: [multi-qubit-gate, connectivity, routing, qubit-mapping]
+  moduleReferences: []
+  category: gates-and-circuits
+
+- id: multi-qubit-gate
+  term: Multi-Qubit Gate
+  aliases: []
+  definition: "A gate acting on two or more qubits at once; the most common case is the two-qubit gate. Multi-qubit gates can create entanglement and are typically harder to implement accurately than single-qubit gates."
+  beginnerInterpretation: "A multi-qubit gate acts on several qubits together. These are what let qubits interact, and on real hardware they are usually the noisiest operations."
+  relatedTerms: [quantum-gate, cnot-gate, entanglement, gate-fidelity, connectivity]
+  moduleReferences:
+    - 07-error-correction/hardware-aware-qec.md
+  category: gates-and-circuits
+
+- id: circuit-depth
+  term: Circuit Depth
+  aliases: []
+  definition: "The number of sequential layers of gates in a circuit, where gates acting on different qubits at the same time share a layer; it is a measure of how long the computation takes to run."
+  beginnerInterpretation: "Circuit depth is how many steps deep a circuit is. Deeper circuits give errors more time and more opportunities to accumulate."
+  relatedTerms: [quantum-circuit, quantum-gate, coherence-time, error-rate, nisq]
+  moduleReferences: []
+  category: gates-and-circuits
+
+- id: ancilla-qubit
+  term: Ancilla Qubit
+  aliases: ["Ancilla", "Helper qubit"]
+  definition: "An auxiliary qubit used to assist a computation or measurement, for example to extract information from other qubits, and usually not part of the computation's input or output."
+  beginnerInterpretation: "An ancilla is a helper qubit. It is brought in to carry out a task, such as collecting clues about errors, and isn't where the main information is kept."
+  relatedTerms: [stabilizer-measurement, syndrome-extraction, ancilla-assisted-measurement, quantum-circuit, surface-code]
+  moduleReferences:
+    - 07-error-correction/encoding-and-syndrome-measurement.md
+    - 07-error-correction/stabilizer-codes.md
+    - 07-error-correction/surface-codes.md
+  category: gates-and-circuits
+
+- id: reset
+  term: Reset
+  aliases: ["Qubit reset"]
+  definition: "An operation that returns a qubit to a known initial state, usually |0⟩. It is used to initialize qubits and to reuse them during a computation."
+  beginnerInterpretation: "Reset puts a qubit back to a known starting state, usually 0, so it can be used again."
+  relatedTerms: [mid-circuit-measurement, ancilla-qubit, syndrome-extraction, quantum-circuit]
+  moduleReferences: []
+  category: gates-and-circuits
+
+- id: mid-circuit-measurement
+  term: Mid-Circuit Measurement
+  aliases: []
+  definition: "A measurement performed on some qubits partway through a circuit, rather than only at the end, with the computation continuing afterward and sometimes depending on the result."
+  beginnerInterpretation: "A mid-circuit measurement is a readout taken while the program is still running. It is needed, for example, to check for errors as a computation proceeds."
+  relatedTerms: [measurement, ancilla-qubit, feedforward, reset, syndrome-extraction]
+  moduleReferences: []
+  category: gates-and-circuits

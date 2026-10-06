@@ -1,0 +1,26 @@
+# Glossary categories (spec section 5). Order here is display order.
+# Categories are navigational only -- a concept may be relevant to several.
+- id: quantum-foundations
+  name: Quantum Foundations
+  description: "Fundamental concepts describing quantum information and quantum mechanics as used in quantum computing."
+- id: gates-and-circuits
+  name: Gates & Circuits
+  description: "Operations, gates, circuit concepts, and computational primitives."
+- id: hardware-and-physical-systems
+  name: Hardware & Physical Systems
+  description: "Physical implementations of quantum computers and concepts describing qubit hardware."
+- id: noise-and-errors
+  name: Noise & Errors
+  description: "Physical and computational error mechanisms affecting quantum information."
+- id: quantum-error-correction-and-fault-tolerance
+  name: Quantum Error Correction & Fault Tolerance
+  description: "Concepts associated with detecting, correcting, decoding, and tolerating quantum errors."
+- id: algorithms-and-computational-methods
+  name: Algorithms & Computational Methods
+  description: "Quantum algorithms and major algorithmic techniques."
+- id: architecture-and-execution
+  name: Architecture & Execution
+  description: "Concepts describing how quantum programs are compiled, executed, and mapped to hardware."
+- id: advanced-and-emerging-concepts
+  name: Advanced & Emerging Concepts
+  description: "Concepts that are more specialized, research-oriented, or dependent on advanced prerequisite knowledge."

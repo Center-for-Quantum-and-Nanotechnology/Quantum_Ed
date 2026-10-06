@@ -21,6 +21,10 @@ QuantumEd is built around interactive, visual explanations of core quantum compu
 
 No prior physics or linear algebra background is assumed in Module 01. Later modules build on earlier ones, so the fastest path through is top to bottom — but each module page is self-contained enough to jump to if you already know the basics.
 
+## Glossary
+
+Not sure what a term means? The [Glossary](glossary.md) has a technical definition and a beginner-friendly explanation for terms used across the curriculum, with links to the lessons where they appear.
+
 ## Contributing
 
 QuantumEd is open source. See the [repository](https://github.com/Center-for-Quantum-and-Nanotechnology/Quantum_Ed) to suggest edits or new content — every page has an "Edit this page" link.
