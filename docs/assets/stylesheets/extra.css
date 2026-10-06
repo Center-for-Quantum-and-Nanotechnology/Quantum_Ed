@@ -554,6 +554,15 @@ button.qed-qubit:not(:disabled):hover {
   stroke-width: 1.5;
 }
 
+/* Single-qubit rotation gate box (e.g. RY(theta) in the VQE ansatz
+   circuit) — distinct from the CNOT control/target glyphs above, which
+   only make sense for two-qubit gates. */
+.qed-circuit-gate-box {
+  fill: var(--md-code-bg-color);
+  stroke: var(--qed-color-logical);
+  stroke-width: 1.5;
+}
+
 .qed-circuit-gate.is-active .qed-circuit-control,
 .qed-circuit-gate.is-active .qed-circuit-connector,
 .qed-circuit-gate.is-active .qed-circuit-target,
@@ -1037,4 +1046,52 @@ button.qed-qubit:not(:disabled):hover {
   border-color: var(--qed-color-syndrome);
   color: var(--qed-color-syndrome);
   font-weight: 700;
+}
+
+/* ---------------------------------------------------------------------
+   Energy-landscape plot (docs/06-algorithms/variational-quantum-
+   eigensolver.md, "Explore the Energy Landscape"). A small continuous-
+   function line plot — distinct from qed-graph-svg (discrete nodes/
+   edges) and qed-circuit-svg (gate diagrams), the first component in
+   the repo for plotting E(theta) as theta varies.
+   ------------------------------------------------------------------- */
+.qed-plot-svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.qed-plot-axis {
+  stroke: var(--qed-color-physical);
+  stroke-width: 1;
+}
+
+.qed-plot-curve {
+  fill: none;
+  stroke: var(--qed-color-logical);
+  stroke-width: 2;
+}
+
+.qed-plot-target {
+  stroke: var(--qed-color-protected);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+
+.qed-plot-label {
+  font-size: 10px;
+  fill: var(--md-default-fg-color--light);
+  font-family: var(--md-code-font);
+}
+
+.qed-plot-point {
+  fill: var(--qed-color-syndrome);
+  stroke: var(--md-code-bg-color);
+  stroke-width: 1.5;
+  transition: cx 0.25s ease, cy 0.25s ease, fill 0.25s ease;
+}
+
+.qed-plot-point.is-converged {
+  fill: var(--qed-color-protected);
 }

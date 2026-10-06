@@ -85,7 +85,9 @@ nav:
   - "05 · Quantum Software Stack":
       - 05-software-stack/index.md
   - "06 · Quantum Algorithms & Methods":
-      - 06-algorithms/index.md
+      - Overview: 06-algorithms/index.md
+      - Variational Algorithms:
+          - Variational Quantum Eigensolver (VQE): 06-algorithms/variational-quantum-eigensolver.md
   - "07 · Quantum Error Correction":
       - Overview: 07-error-correction/index.md
       - Why QEC?: 07-error-correction/why-qec.md
