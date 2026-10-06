@@ -1,0 +1,132 @@
+- id: hardware-aware-quantum-computing
+  term: Hardware-Aware Quantum Computing
+  aliases: []
+  definition: "An umbrella description for approaches that use information about the physical behavior and constraints of quantum devices to inform how quantum programs are compiled, mapped, or executed."
+  beginnerInterpretation: "Hardware-aware quantum computing means designing and running programs with a real device's quirks in mind instead of assuming every qubit and gate is identical. It is a broad direction, not one fixed method."
+  relatedTerms: [hardware-aware-quantum-error-correction, calibration-data, qubit-mapping, noise-model, calibration]
+  moduleReferences:
+    - 07-error-correction/hardware-aware-qec.md
+  category: advanced-and-emerging-concepts
+
+- id: hardware-aware-quantum-error-correction
+  term: Hardware-Aware Quantum Error Correction
+  aliases: ["Hardware-aware QEC"]
+  definition: "An umbrella description for approaches that incorporate information about physical-device behavior into the design or operation of quantum error correction, for example in decoder weighting or code and layout choices. It does not refer to a single standardized architecture."
+  beginnerInterpretation: "Hardware-aware QEC is an area of research asking how knowing a device's real strengths and weaknesses could improve error correction. It is not one fixed method, and not the only direction QEC research takes."
+  relatedTerms: [hardware-aware-quantum-computing, calibration-telemetry, noise-aware-decoding, noise-model, quantum-error-correction]
+  moduleReferences:
+    - 07-error-correction/hardware-aware-qec.md
+  category: advanced-and-emerging-concepts
+
+- id: calibration-data
+  term: Calibration Data
+  aliases: []
+  definition: "Measured or estimated parameters describing a device's characteristics and control settings at a particular time, such as coherence times, gate and readout error estimates, and qubit frequencies, produced by calibration and characterization procedures."
+  beginnerInterpretation: "Calibration data is the set of numbers describing how each part of a device was behaving the last time it was measured. They are estimates, not perfect truth."
+  relatedTerms: [calibration, calibration-telemetry, gate-fidelity, t1-relaxation-time, readout-error, time-dependent-noise]
+  moduleReferences:
+    - 07-error-correction/hardware-aware-qec.md
+  category: advanced-and-emerging-concepts
+
+- id: calibration-telemetry
+  term: Calibration Telemetry
+  aliases: []
+  definition: "Information, reported by a device's calibration and characterization processes, that describes measured or estimated characteristics of the device and when they were obtained."
+  beginnerInterpretation: "Telemetry is the reported readings about a device. They are measurements and estimates that software can use to understand how the hardware is doing, not exact truth."
+  relatedTerms: [calibration-data, calibration, noise-model, hardware-aware-quantum-error-correction, time-dependent-noise]
+  moduleReferences:
+    - 07-error-correction/hardware-aware-qec.md
+  category: advanced-and-emerging-concepts
+
+- id: time-dependent-noise
+  term: Time-Dependent Noise
+  aliases: ["Drift", "Noise drift"]
+  definition: "Noise whose strength or character changes over time, so that a measurement of device behavior taken at one time may not describe it later."
+  beginnerInterpretation: "Time-dependent noise means a device's error behavior isn't fixed: what was true at the last calibration may be out of date later."
+  relatedTerms: [calibration-data, calibration-telemetry, noise-model, dynamic-decoding, correlated-error]
+  moduleReferences:
+    - 07-error-correction/hardware-aware-qec.md
+  category: advanced-and-emerging-concepts
+
+- id: dynamic-decoding
+  term: Dynamic Decoding
+  aliases: []
+  definition: "A class of decoding approaches, under active research, in which the decoder's assumptions, such as the weights it assigns to error explanations, are updated over time rather than fixed in advance."
+  beginnerInterpretation: "Dynamic decoding is research on decoders that update their expectations as conditions change instead of relying on one fixed model."
+  relatedTerms: [noise-aware-decoding, decoder, time-dependent-noise, noise-model, real-time-decoding]
+  moduleReferences: []
+  category: advanced-and-emerging-concepts
+
+- id: noise-aware-decoding
+  term: Noise-Aware Decoding
+  aliases: []
+  definition: "Methods that incorporate a model of a device's noise, such as which qubits or operations are more error-prone, into a decoder's decisions, for example through the weights assigned to error explanations."
+  beginnerInterpretation: "Noise-aware decoding means the decoder doesn't treat every error as equally likely. It uses what is known about where the hardware is noisier."
+  relatedTerms: [decoder, noise-model, minimum-weight-perfect-matching, calibration-data, hardware-aware-quantum-error-correction]
+  moduleReferences:
+    - 07-error-correction/minimum-weight-perfect-matching.md
+    - 07-error-correction/hardware-aware-qec.md
+  category: advanced-and-emerging-concepts
+
+- id: erasure-conversion
+  term: Erasure Conversion
+  aliases: []
+  definition: "An approach in which hardware or protocols are designed so that the dominant physical errors are converted into erasures, whose locations can be detected, rather than errors at unknown locations."
+  beginnerInterpretation: "Erasure conversion is a research strategy of making hardware flag when most errors happen, so that error correction knows where to look."
+  relatedTerms: [erasure, erasure-qubit, quantum-error-correction, leakage, noise-aware-decoding]
+  moduleReferences: []
+  category: advanced-and-emerging-concepts
+
+- id: erasure-qubit
+  term: Erasure Qubit
+  aliases: []
+  definition: "A qubit encoding designed so that its most common errors can be detected and located as erasures, for example by taking the qubit out of its computational states in a way that can be flagged."
+  beginnerInterpretation: "An erasure qubit is built so that its most common failures can be noticed and located, which makes them easier to correct."
+  relatedTerms: [erasure-conversion, erasure, physical-qubit, leakage, quantum-error-correction]
+  moduleReferences: []
+  category: advanced-and-emerging-concepts
+
+- id: biased-noise
+  term: Biased Noise
+  aliases: ["Noise bias"]
+  definition: "A noise regime in which some error types, such as phase flips, occur much more often than others, such as bit flips."
+  beginnerInterpretation: "Biased noise means one kind of error is far more common than the others, which some error-correcting approaches try to take advantage of."
+  relatedTerms: [bias-preserving-gate, pauli-error, noise-model, bit-flip-error, phase-flip-error]
+  moduleReferences: []
+  category: advanced-and-emerging-concepts
+
+- id: bias-preserving-gate
+  term: Bias-Preserving Gate
+  aliases: []
+  definition: "A gate designed so that it does not turn the dominant type of error into other error types, so that a noise bias is maintained during computation."
+  beginnerInterpretation: "A bias-preserving gate is built not to spread the hardware's most common kind of error into other kinds, keeping the noise lopsided in a way error correction can use."
+  relatedTerms: [biased-noise, quantum-gate, pauli-error, noise-model, quantum-error-correction]
+  moduleReferences: []
+  category: advanced-and-emerging-concepts
+
+- id: real-time-decoding
+  term: Real-Time Decoding
+  aliases: []
+  definition: "Decoding performed fast enough to keep up with the rate at which syndrome information is produced, so that corrections can be determined while the computation is still running."
+  beginnerInterpretation: "Real-time decoding means the decoder's answers arrive in time to be used, instead of piling up behind the quantum computer."
+  relatedTerms: [decoder, decoding, feedforward, syndrome-extraction, dynamic-decoding]
+  moduleReferences: []
+  category: advanced-and-emerging-concepts
+
+- id: feedforward
+  term: Feedforward
+  aliases: ["Classical feedforward", "Feed-forward"]
+  definition: "The use of mid-circuit measurement results, processed classically, to determine operations applied later in the same computation."
+  beginnerInterpretation: "Feedforward means the program reacts to what it measured: a result taken now decides what happens next."
+  relatedTerms: [mid-circuit-measurement, real-time-decoding, measurement, quantum-circuit, quantum-error-correction]
+  moduleReferences: []
+  category: advanced-and-emerging-concepts
+
+- id: logical-architecture
+  term: Logical Architecture
+  aliases: []
+  definition: "An approach to organizing a quantum computer in terms of logical qubits and logical operations, treating the layer of error-corrected qubits as the unit of computation while the physical implementation is managed beneath it."
+  beginnerInterpretation: "A logical architecture is a design in which programs run on error-corrected qubits and operations, with the physical details handled underneath."
+  relatedTerms: [logical-qubit, lattice-surgery, quantum-error-correction, fault-tolerant-quantum-computing, surface-code]
+  moduleReferences: []
+  category: advanced-and-emerging-concepts

@@ -1,0 +1,174 @@
+- id: backend
+  term: Backend
+  aliases: []
+  definition: "The system on which a quantum circuit is executed, either quantum hardware or a simulator, reached through a software interface."
+  beginnerInterpretation: "A backend is whatever actually runs your circuit: a real quantum device or a simulation of one."
+  relatedTerms: [hardware-backend, simulator, quantum-processing-unit, quantum-compiler, shot]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: quantum-compiler
+  term: Quantum Compiler
+  aliases: []
+  definition: "Software that translates a quantum program into a form a target backend can execute, which may include decomposing gates, optimizing circuits, and mapping qubits to hardware."
+  beginnerInterpretation: "A quantum compiler turns the circuit you wrote into the specific instructions a particular device can run."
+  relatedTerms: [compilation, transpilation, native-gate-set, circuit-optimization, qubit-mapping]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: compilation
+  term: Compilation
+  aliases: []
+  definition: "The process of translating a quantum program into lower-level operations suited to a specific target, including decomposition into native gates, mapping to hardware, and optimization."
+  beginnerInterpretation: "Compilation is the translation step between the circuit you have in mind and what the hardware can really do."
+  relatedTerms: [quantum-compiler, transpilation, native-gate-set, circuit-mapping, circuit-optimization]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: transpilation
+  term: Transpilation
+  aliases: []
+  definition: "A circuit-to-circuit transformation that rewrites a quantum circuit in terms of a target backend's native gates and connectivity while preserving its function. The term is widely used in some quantum software frameworks for part of the compilation process."
+  beginnerInterpretation: "Transpiling rewrites a circuit into an equivalent one that the chosen device can run directly."
+  relatedTerms: [compilation, quantum-compiler, native-gate-set, routing, circuit-optimization]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: native-gate
+  term: Native Gate
+  aliases: []
+  definition: "A gate that a quantum device can implement directly through its physical control operations, without first decomposing it into other gates."
+  beginnerInterpretation: "A native gate is a move the hardware can do directly. Every other operation has to be built out of these."
+  relatedTerms: [native-gate-set, quantum-gate, gate-fidelity, quantum-compiler, transpilation]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: native-gate-set
+  term: Native Gate Set
+  aliases: ["Basis gates"]
+  definition: "The collection of gates a given device implements directly. Any other gate or circuit must be expressed in terms of these."
+  beginnerInterpretation: "The native gate set is the hardware's built-in vocabulary of operations."
+  relatedTerms: [native-gate, transpilation, compilation, quantum-compiler]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: circuit-mapping
+  term: Circuit Mapping
+  aliases: []
+  definition: "The process of adapting a circuit to a device's physical layout, including assigning circuit qubits to physical qubits (qubit mapping) and inserting operations so that two-qubit gates act only on connected qubits (routing)."
+  beginnerInterpretation: "Circuit mapping fits your circuit onto the actual chip: deciding which physical qubits to use and adding any extra steps needed to connect them."
+  relatedTerms: [qubit-mapping, routing, connectivity, compilation, swap-gate]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: qubit-mapping
+  term: Qubit Mapping
+  aliases: ["Qubit allocation", "Layout"]
+  definition: "The assignment of a circuit's abstract, or virtual, qubits to the physical qubits of a device."
+  beginnerInterpretation: "Qubit mapping decides which physical qubit plays the role of each qubit in your program."
+  relatedTerms: [circuit-mapping, routing, connectivity, physical-qubit, calibration-data]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: routing
+  term: Routing
+  aliases: ["Qubit routing"]
+  definition: "The insertion of operations, typically SWAP gates, so that two-qubit gates can be applied between qubits that are not directly connected on the device."
+  beginnerInterpretation: "Routing shuffles qubits around on the chip so that two qubits that need to interact end up next to each other."
+  relatedTerms: [swap-gate, connectivity, circuit-mapping, qubit-mapping, circuit-optimization]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: circuit-optimization
+  term: Circuit Optimization
+  aliases: []
+  definition: "Transformations that reduce a circuit's resource cost, such as its gate count, depth, or expected error, while preserving the computation it performs."
+  beginnerInterpretation: "Circuit optimization trims a circuit, using fewer gates or a shorter run, so less can go wrong while the answer stays the same."
+  relatedTerms: [compilation, circuit-depth, transpilation, gate-fidelity, quantum-compiler]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: shot
+  term: Shot
+  aliases: []
+  definition: "A single execution of a circuit followed by measurement, producing one set of classical outcomes. Results are gathered by repeating many shots."
+  beginnerInterpretation: "A shot is one run of the circuit and one readout. Because results are probabilistic, you take many shots to see the pattern."
+  relatedTerms: [sampling, measurement, expectation-value, backend, readout-error]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: sampling
+  term: Sampling
+  aliases: []
+  definition: "Drawing outcomes from a quantum circuit's measurement distribution by running it repeatedly; the collected samples are used to estimate probabilities and expectation values."
+  beginnerInterpretation: "Sampling means running a circuit over and over and looking at which results come up and how often."
+  relatedTerms: [shot, measurement, expectation-value, probability-amplitude, simulator]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: simulator
+  term: Simulator
+  aliases: ["Circuit simulator"]
+  definition: "A program that emulates the behavior of quantum circuits on a classical computer, allowing circuits to be run and tested without quantum hardware. Its cost generally grows rapidly with the number of qubits."
+  beginnerInterpretation: "A simulator is a quantum computer imitated on an ordinary computer. It is great for testing small circuits but becomes very expensive as the number of qubits grows."
+  relatedTerms: [quantum-simulator, backend, shot, noise-model, hardware-backend]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: quantum-simulator
+  term: Quantum Simulator
+  aliases: []
+  definition: "A controllable quantum system used to model the behavior of another quantum system of interest. In some usage the term is also applied to classical software that simulates quantum systems or circuits."
+  beginnerInterpretation: "A quantum simulator uses one quantum system to study another that is too hard to calculate directly. People also sometimes use the phrase for software simulators."
+  relatedTerms: [simulator, hamiltonian, quantum-algorithm, quantum-processing-unit]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: hardware-backend
+  term: Hardware Backend
+  aliases: []
+  definition: "A backend that executes circuits on physical quantum hardware, a quantum processing unit, rather than on a simulator."
+  beginnerInterpretation: "A hardware backend is a real quantum device that you send your circuit to."
+  relatedTerms: [backend, quantum-processing-unit, calibration-data, native-gate-set, simulator]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: quantum-classical-hybrid-computing
+  term: Quantum-Classical Hybrid Computing
+  aliases: ["Hybrid quantum-classical computing"]
+  definition: "A computational approach in which a quantum processor and a classical computer work together, typically with the classical side preparing parameters, processing measurement results, and deciding what the quantum side runs next."
+  beginnerInterpretation: "Hybrid computing pairs a quantum computer with an ordinary one, with each handling the part of the job it is suited to."
+  relatedTerms: [variational-quantum-algorithm, variational-quantum-eigensolver, backend, nisq]
+  moduleReferences:
+    - 06-algorithms/variational-quantum-eigensolver.md
+    - 06-algorithms/index.md
+  category: architecture-and-execution
+
+- id: nisq
+  term: NISQ
+  aliases: ["Noisy Intermediate-Scale Quantum"]
+  definition: "Noisy Intermediate-Scale Quantum: a term for quantum devices that have enough qubits to be hard to simulate classically but are too noisy, and too small, to run fully error-corrected computations."
+  beginnerInterpretation: "NISQ describes the kind of noisy, pre-error-correction devices available in the early era of quantum hardware: big enough to be interesting, but without full error correction."
+  relatedTerms: [quantum-error-correction, fault-tolerant-quantum-computing, variational-quantum-algorithm, quantum-advantage, error-rate]
+  moduleReferences:
+    - 06-algorithms/index.md
+    - 06-algorithms/variational-quantum-eigensolver.md
+  category: architecture-and-execution
+
+- id: quantum-advantage
+  term: Quantum Advantage
+  aliases: ["Quantum computational advantage"]
+  definition: "A demonstrated case in which a quantum computer performs a specific task better, whether faster, more accurately, or with fewer resources, than the best known classical methods."
+  beginnerInterpretation: "Quantum advantage is when a quantum computer genuinely beats ordinary computers at a particular task."
+  relatedTerms: [quantum-supremacy, quantum-algorithm, nisq, shors-algorithm]
+  moduleReferences: []
+  category: architecture-and-execution
+
+- id: quantum-supremacy
+  term: Quantum Supremacy
+  aliases: []
+  definition: "An earlier term for a quantum computer performing a well-defined computational task that is infeasible for any classical computer in practical time, regardless of whether the task is useful. Many researchers now prefer 'quantum computational advantage'."
+  beginnerInterpretation: "Quantum supremacy named the milestone of a quantum computer beating classical computers at some task, even a useless one. Many researchers now say 'quantum advantage' instead."
+  relatedTerms: [quantum-advantage, nisq, quantum-algorithm]
+  moduleReferences: []
+  category: architecture-and-execution
