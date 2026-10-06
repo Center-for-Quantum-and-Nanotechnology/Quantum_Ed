@@ -1095,3 +1095,93 @@ button.qed-qubit:not(:disabled):hover {
 .qed-plot-point.is-converged {
   fill: var(--qed-color-protected);
 }
+
+/* ---------------------------------------------------------------------
+   Why QEC? (docs/07-error-correction/why-qec.md) — the intro page's
+   conceptual "Protect the Information" demo and learning-journey path.
+   Reuses qed-qubit / qed-flow-step; only the pieces below are new.
+   Dashed borders (is-dim, flagged = double) are the non-color cues for
+   "not happened yet" and "error information found".
+   ------------------------------------------------------------------- */
+.qed-flow-step.is-dim {
+  opacity: 0.45;
+  border-style: dashed;
+}
+
+.qed-qubit--flagged {
+  border-color: var(--qed-color-syndrome);
+  border-style: double;
+  border-width: 4px;
+}
+
+.qed-journey {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.qed-journey__group {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.4rem;
+  padding: 0.8rem 1rem;
+}
+
+.qed-journey__group-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--qed-color-logical);
+  margin-bottom: 0.5rem;
+}
+
+.md-typeset .qed-journey__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.md-typeset .qed-journey__steps li {
+  margin: 0;
+  padding: 0;
+}
+
+.md-typeset .qed-journey__steps li + li::before {
+  content: "\2193";
+  display: block;
+  padding: 0.1rem 0 0.1rem 1rem;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset a.qed-journey__step {
+  display: block;
+  padding: 0.5rem 0.8rem;
+  border-left: 3px solid var(--qed-color-logical);
+  border-radius: 0.2rem;
+  background: color-mix(in srgb, var(--qed-color-logical) 8%, var(--md-code-bg-color));
+  color: inherit;
+}
+
+.md-typeset a.qed-journey__step:hover {
+  background: color-mix(in srgb, var(--qed-color-logical) 16%, var(--md-code-bg-color));
+}
+
+.qed-journey__name {
+  display: block;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.qed-journey__sub {
+  font-weight: 400;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.qed-journey__q {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+}
