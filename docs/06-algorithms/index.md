@@ -25,10 +25,10 @@ Unlike the oracle algorithms, these solve problems people actually care about, a
 
 ### Variational & Near-Term Algorithms
 
-Hybrid algorithms built to run on today's noisy, error-prone quantum hardware by splitting the work between a quantum computer and a classical optimizer running alongside it.
+Hybrid algorithms built to run on today's noisy, error-prone quantum hardware by splitting the work between a quantum computer and a classical optimizer running alongside it. Their circuits stay short on purpose — less time for noise to build up before a measurement — unlike algorithms such as Shor's or Grover's, which need long, precise circuits and effectively require error-corrected, fault-tolerant hardware to work at all. That's what makes this family [NISQ](../glossary.md#nisq)-friendly: usable on real devices today, rather than waiting for error correction to mature.
 
 - **[VQE (Variational Quantum Eigensolver)](variational-quantum-eigensolver.md)** — estimates the lowest-energy state of a quantum system, with applications in chemistry and materials science.
-- **QAOA (Quantum Approximate Optimization Algorithm)** — searches for good, though not necessarily perfect, solutions to combinatorial optimization problems, such as splitting up a graph.
+- **[QAOA (Quantum Approximate Optimization Algorithm)](quantum-approximate-optimization-algorithm.md)** — searches for good, though not necessarily perfect, solutions to combinatorial optimization problems, such as splitting up a graph.
 - **VQC (Variational Quantum Classifier)** — trains a parameterized circuit to classify data, the same hybrid pattern as VQE and QAOA applied to machine learning instead of chemistry or optimization.
 - **SQD (Sample-based Quantum Diagonalization) and similar** — uses samples measured from a quantum computer to help a classical computer solve a hard problem more accurately than it could alone.
 
