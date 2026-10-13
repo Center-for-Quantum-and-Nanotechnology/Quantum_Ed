@@ -28,8 +28,8 @@ Then open http://127.0.0.1:8000.
 
 Source material lives in `context_docs/`, organized as:
 
-- `context_docs/vision/` — [`Project Vision.docx`](context_docs/vision/Project%20Vision.docx), the overall educational philosophy and architecture (progressive-depth experience levels, visual language, reusable-component conventions). Review this before implementing any new section.
-- `context_docs/taxonomy/` — [`Quantum Computing Curriculum.docx`](context_docs/taxonomy/Quantum%20Computing%20Curriculum.docx), the course taxonomy. Module numbering in `docs/` follows this document; update both together if the taxonomy changes.
+- `context_docs/vision/` — [`ProjectVision.md`](context_docs/vision/ProjectVision.md), the overall educational philosophy and architecture (progressive-depth experience levels, visual language, reusable-component conventions). Review this before implementing any new section.
+- `context_docs/taxonomy/` — [`Quantum_Computing_Curriculum.md`](context_docs/taxonomy/Quantum_Computing_Curriculum.md), the course taxonomy. Module numbering in `docs/` follows this document; update both together if the taxonomy changes.
 - `context_docs/module_N/` — per-module section-instruction docs (one per page) that define what a specific lesson should teach.
 
 ## Glossary
