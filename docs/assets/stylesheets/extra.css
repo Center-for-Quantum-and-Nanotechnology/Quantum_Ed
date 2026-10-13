@@ -563,6 +563,15 @@ button.qed-qubit:not(:disabled):hover {
   stroke-width: 1.5;
 }
 
+/* Mixer-layer variant (docs/06-algorithms/quantum-approximate-
+   optimization-algorithm.md) — dashed + the "noise" color so a mixer
+   block (explores/perturbs) reads as visually distinct from a cost
+   block (encodes the problem, plain qed-circuit-gate-box). */
+.qed-circuit-gate-box--mixer {
+  stroke: var(--qed-color-noise);
+  stroke-dasharray: 3 2;
+}
+
 .qed-circuit-gate.is-active .qed-circuit-control,
 .qed-circuit-gate.is-active .qed-circuit-connector,
 .qed-circuit-gate.is-active .qed-circuit-target,
@@ -934,6 +943,20 @@ button.qed-qubit:not(:disabled):hover {
 .qed-graph-node.is-selected {
   stroke: var(--qed-color-logical);
   stroke-width: 3.5;
+}
+
+/* Group-membership variant (docs/06-algorithms/quantum-approximate-
+   optimization-algorithm.md, MaxCut "Try It By Hand") — overrides the
+   default syndrome-purple fill above with the two group colors, since
+   this graph represents a partition, not a decoding graph. */
+.qed-graph-node--group-a {
+  fill: color-mix(in srgb, var(--qed-color-logical) 25%, var(--md-code-bg-color));
+  stroke: var(--qed-color-logical);
+}
+
+.qed-graph-node--group-b {
+  fill: color-mix(in srgb, var(--qed-color-physical) 25%, var(--md-code-bg-color));
+  stroke: var(--qed-color-physical);
 }
 
 .qed-graph-node-label {
@@ -1312,4 +1335,45 @@ button.qed-qubit:not(:disabled):hover {
     display: block;
     width: auto;
   }
+}
+
+/* ---------------------------------------------------------------------
+   Hybrid-loop takeaway diagram (docs/06-algorithms/variational-quantum-
+   eigensolver.md and quantum-approximate-optimization-algorithm.md,
+   "Takeaway") — a small flowchart showing the loop as an actual cycle
+   (a curved return arrow), with a separate exit arrow to the converged
+   result, rather than a straight top-to-bottom stack of boxes.
+   ------------------------------------------------------------------- */
+.qed-loop-svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.qed-loop-box {
+  fill: var(--md-code-bg-color);
+  stroke: var(--qed-color-physical);
+  stroke-width: 1.5;
+}
+
+.qed-loop-box--protected {
+  stroke: var(--qed-color-protected);
+}
+
+.qed-loop-arrow {
+  stroke: var(--qed-color-physical);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.qed-loop-label {
+  font-size: 11px;
+  fill: var(--md-default-fg-color);
+  font-family: var(--md-code-font);
+  text-anchor: middle;
+}
+
+.qed-loop-arrowhead-fill {
+  fill: var(--qed-color-physical);
 }
