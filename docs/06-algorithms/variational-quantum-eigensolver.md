@@ -203,13 +203,14 @@ Notice the division of labor: the quantum computer only ever does two things —
 This time, step through the loop itself. The classical optimizer's proposed angles are scripted here — the point is to see the *shape* of the loop, not to control it by hand.
 
 <div class="qed-demo" id="vqe-loop-demo">
-  <div style="display:flex; justify-content:center; align-items:center; gap:1.5rem; flex-wrap:wrap;">
-    <div class="qed-qubit qed-qubit--logical" id="vqe-loop-quantum" style="min-width:11rem;">
+  <div style="display:grid; grid-template-columns: 12rem 10rem 12rem; grid-template-rows: auto auto; align-items:center; justify-items:center; gap:0.2rem 0; overflow-x:auto;">
+    <div class="qed-qubit qed-qubit--logical" id="vqe-loop-quantum" style="grid-row:1 / 3; grid-column:1; width:12rem; height:4.6rem;">
       <div class="qed-qubit__label">Quantum Processor</div>
       <div class="qed-qubit__state" id="vqe-loop-quantum-state">idle</div>
     </div>
-    <div class="qed-encode-demo__arrow"><span>measure energy</span><span aria-hidden="true">→</span></div>
-    <div class="qed-qubit qed-qubit--physical" id="vqe-loop-classical" style="min-width:11rem;">
+    <div class="qed-encode-demo__arrow" style="grid-row:1; grid-column:2;"><span id="vqe-loop-fwd-label">—</span><span aria-hidden="true">→</span></div>
+    <div class="qed-encode-demo__arrow" style="grid-row:2; grid-column:2;"><span aria-hidden="true">←</span><span id="vqe-loop-back-label">—</span></div>
+    <div class="qed-qubit qed-qubit--physical" id="vqe-loop-classical" style="grid-row:1 / 3; grid-column:3; width:12rem; height:4.6rem;">
       <div class="qed-qubit__label">Classical Optimizer</div>
       <div class="qed-qubit__state" id="vqe-loop-classical-state">idle</div>
     </div>
@@ -241,6 +242,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var quantumState = document.getElementById("vqe-loop-quantum-state");
   var classicalState = document.getElementById("vqe-loop-classical-state");
+  var fwdLabel = document.getElementById("vqe-loop-fwd-label");
+  var backLabel = document.getElementById("vqe-loop-back-label");
   var iterEl = document.getElementById("vqe-loop-iter");
   var hint = document.getElementById("vqe-loop-hint");
   var prepareBtn = document.getElementById("vqe-loop-prepare-btn");
@@ -252,6 +255,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function prepare() {
     quantumState.textContent = "θ = " + THETAS[i] + "°";
+    classicalState.textContent = "idle";
+    fwdLabel.textContent = "—";
+    backLabel.textContent = "—";
     hint.textContent = "State prepared with θ = " + THETAS[i] + "°. Now measure its energy.";
     prepareBtn.disabled = true;
     measureBtn.disabled = false;
@@ -259,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function measure() {
     var e = energyAt(THETAS[i]);
-    quantumState.textContent = "θ = " + THETAS[i] + "°  →  E ≈ " + e.toFixed(3);
+    fwdLabel.textContent = "E ≈ " + e.toFixed(3);
     iterEl.textContent = String(i + 1);
     measureBtn.disabled = true;
     if (i + 1 < THETAS.length) {
@@ -274,7 +280,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function classicalUpdate() {
     i += 1;
-    classicalState.textContent = "next θ ≈ " + THETAS[i] + "°";
+    classicalState.textContent = "ready";
+    backLabel.textContent = "θ ≈ " + THETAS[i] + "°";
     hint.textContent = "Classical optimizer proposed θ ≈ " + THETAS[i] + "°. Prepare the next iteration.";
     updateBtn.disabled = true;
     prepareBtn.disabled = false;
@@ -285,6 +292,8 @@ document.addEventListener("DOMContentLoaded", function () {
     i = 0;
     quantumState.textContent = "idle";
     classicalState.textContent = "idle";
+    fwdLabel.textContent = "—";
+    backLabel.textContent = "—";
     iterEl.textContent = "0";
     hint.textContent = "Click Prepare to begin the first iteration.";
     prepareBtn.disabled = false;
@@ -316,18 +325,44 @@ Compare this to Shor's Algorithm or Grover's Algorithm: those need long, precise
 
 ## Takeaway
 
-<div class="qed-demo" style="display:flex; flex-direction:column; align-items:center; gap:0.2rem;">
-  <div class="qed-qubit qed-qubit--logical" style="min-width:14rem;"><div class="qed-qubit__label">Ansatz prepares trial state</div></div>
-  <div class="qed-encode-demo__arrow">↓</div>
-  <div class="qed-qubit qed-qubit--physical" style="min-width:14rem;"><div class="qed-qubit__label">Measure energy ⟨H⟩</div></div>
-  <div class="qed-encode-demo__arrow">↓</div>
-  <div class="qed-qubit qed-qubit--physical" style="min-width:14rem;"><div class="qed-qubit__label">Classical optimizer updates θ</div></div>
-  <div class="qed-encode-demo__arrow">↓ (repeat)</div>
-  <div class="qed-qubit qed-qubit--protected" style="min-width:14rem;"><div class="qed-qubit__label">Converged ground-state estimate</div></div>
+<div class="qed-demo" style="text-align:center;">
+  <svg class="qed-loop-svg" viewBox="0 0 520 235" width="520" height="235" role="img" aria-label="Diagram of the VQE loop: the ansatz prepares a trial state, its energy is measured, the classical optimizer updates theta, and the cycle repeats until it converges on a ground-state estimate.">
+    <defs>
+      <marker id="vqe-loop-arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+        <path class="qed-loop-arrowhead-fill" d="M0,0 L8,4 L0,8 Z" />
+      </marker>
+    </defs>
+
+    <rect class="qed-loop-box" x="10" y="70" width="150" height="50" rx="6" />
+    <text class="qed-loop-label" x="85" y="90">Ansatz prepares</text>
+    <text class="qed-loop-label" x="85" y="104">trial state |ψ(θ)⟩</text>
+
+    <rect class="qed-loop-box" x="195" y="70" width="120" height="50" rx="6" />
+    <text class="qed-loop-label" x="255" y="90">Measure</text>
+    <text class="qed-loop-label" x="255" y="104">energy ⟨H⟩</text>
+
+    <rect class="qed-loop-box" x="350" y="70" width="160" height="50" rx="6" />
+    <text class="qed-loop-label" x="430" y="90">Classical optimizer</text>
+    <text class="qed-loop-label" x="430" y="104">updates θ</text>
+
+    <line class="qed-loop-arrow" x1="160" y1="95" x2="192" y2="95" marker-end="url(#vqe-loop-arrowhead)" />
+    <line class="qed-loop-arrow" x1="315" y1="95" x2="347" y2="95" marker-end="url(#vqe-loop-arrowhead)" />
+
+    <path class="qed-loop-arrow" d="M 430 70 L 430 20 L 85 20 L 85 70" marker-end="url(#vqe-loop-arrowhead)" />
+    <text class="qed-loop-label" x="257" y="18">repeat</text>
+
+    <line class="qed-loop-arrow" x1="430" y1="120" x2="430" y2="167" marker-end="url(#vqe-loop-arrowhead)" />
+    <text class="qed-loop-label" x="470" y="146">once</text>
+    <text class="qed-loop-label" x="470" y="158">converged</text>
+
+    <rect class="qed-loop-box qed-loop-box--protected" x="350" y="170" width="160" height="50" rx="6" />
+    <text class="qed-loop-label" x="430" y="190">Converged ground-</text>
+    <text class="qed-loop-label" x="430" y="204">state estimate</text>
+  </svg>
 </div>
 
 VQE's pattern — guess, measure, adjust, repeat — is the blueprint for a whole family of near-term quantum algorithms. What changes from one to the next is the problem, the ansatz, and what's being measured.
 
-What if, instead of a molecule's energy, the number you're trying to minimize described how good a solution is to a combinatorial choice — like how to split up a graph into two groups? That's the idea behind QAOA, coming next in this module.
+What if, instead of a molecule's energy, the number you're trying to minimize described how good a solution is to a combinatorial choice — like how to split up a graph into two groups? That's the idea behind QAOA.
 
-**[Back to Module 06 Overview →](index.md)**
+**[Next: QAOA →](quantum-approximate-optimization-algorithm.md)**
