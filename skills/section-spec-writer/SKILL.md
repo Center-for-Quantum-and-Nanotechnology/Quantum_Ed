@@ -1,6 +1,6 @@
 ---
 name: section-spec-writer
-description: Write a section instruction spec for the quantum education site in a standard format, built from @context_docs/module_7/SurfaceCodesInstruction.md file as a reference, for handing to Claude Code to build a module section.
+description: Write a section instruction spec for the quantum education site in a standard format, built from @context_docs/module_07/specs/07.04.01_SurfaceCodesInstruction.md file as a reference, for handing to Claude Code to build a module section.
 ---
 
 # Section Spec Writer
@@ -22,7 +22,7 @@ Collect these before drafting. Infer from the conversation, earlier specs, or th
 - An idea for the main interaction (or derive one: what can the learner manipulate to SEE the concept?)
 - Topics that belong to later sections and must be kept out
 - The module's established visual language (reuse it; only add new distinctions)
-- Shared components: which modules in the component table in @llm/CONVENTIONS.md (section 4) this page will reuse, which new reusable object it introduces, and which later sections will reuse that object (check @context_docs/taxonomy and earlier specs; if unknown, say so in the spec instead of guessing)
+- Shared components: which modules in the component table in @llm/CONVENTIONS.md (section 4) this page will reuse, which new reusable object it introduces, and which later sections will reuse that object (check @context_docs/taxonomy, the module taxonomy, and earlier specs in the module's specs/ folder; if unknown, say so in the spec instead of guessing)
 
 ## 2. Spec structure (fixed order)
 
@@ -34,7 +34,7 @@ Use the template below. Text in [brackets] is a placeholder; text in (parenthese
 ```
 [Section Title]
 Project Context
-Before implementing this section, review the project vision document in @context_docs/vision folder.
+Before implementing this section, review the project vision document in @context_docs/vision folder and the module taxonomy in @context_docs/module_[NN]/ (the taxonomy_*.md file).
 Follow its guidance for:
 	progressive experience levels
 	V1 development priorities
@@ -276,4 +276,4 @@ The numbered Page Structure subsections are a default arc, not a rigid list. Ren
 
 ## 5. Output
 
-Write the spec to a file named `[SectionTitleNoSpaces]Instruction.md` (e.g. `SurfaceCodesInstruction.md`) and hand it to the user. In the reply, add at most two lines: any assumptions made about previous/next sections, and any open question worth settling before handing the spec to Claude Code.
+Write the spec to `context_docs/module_[NN]/specs/[ID]_[SectionTitleNoSpaces]Instruction.md`, where [ID] is the page's taxonomy ID (e.g. `07.04.01_SurfaceCodesInstruction.md`, or `05.01_…` for a page with no subsection), following @context_docs/README.md, and hand it to the user. In the reply, add at most two lines: any assumptions made about previous/next sections, and any open question worth settling before handing the spec to Claude Code.

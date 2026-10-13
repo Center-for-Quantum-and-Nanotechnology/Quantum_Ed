@@ -30,7 +30,9 @@ Source material lives in `context_docs/`, organized as:
 
 - `context_docs/vision/` — [`ProjectVision.md`](context_docs/vision/ProjectVision.md), the overall educational philosophy and architecture (progressive-depth experience levels, visual language, reusable-component conventions). Review this before implementing any new section.
 - `context_docs/taxonomy/` — [`Quantum_Computing_Curriculum.md`](context_docs/taxonomy/Quantum_Computing_Curriculum.md), the course taxonomy. Module numbering in `docs/` follows this document; update both together if the taxonomy changes.
-- `context_docs/module_N/` — per-module section-instruction docs (one per page) that define what a specific lesson should teach.
+- `context_docs/module_NN/` — per-module folders, each with a `README.md`, a versioned `taxonomy_<Module>_v<X.Y>.md`, `specs/` (one approved instruction doc per page), and `archive/` (superseded material).
+
+See [`context_docs/README.md`](context_docs/README.md) for how these documents are used, which one wins in a conflict, and how to add or revise them.
 
 ## Glossary
 
