@@ -6,7 +6,7 @@ Running log of decisions, deviations, and known simplifications surfaced while b
 
 ## Deviations from the section-instruction docs
 
-These are cases where a `context_docs/module_07/specs/*` instruction docs said one thing but the actual site nav (driven by the taxonomy doc) said another, and I picked the site's nav order rather than the instruction doc's literal wording. Flagging in case the taxonomy changes and these should be revisited.
+These are cases where a `context_docs/modules/module_07/specs/*` instruction docs said one thing but the actual site nav (driven by the taxonomy doc) said another, and I picked the site's nav order rather than the instruction doc's literal wording. Flagging in case the taxonomy changes and these should be revisited.
 
 - **Encoding & Syndrome Measurement → CTA**: the instruction doc's own "End state" section says "Next: Decoding →", but our nav (QEC Machinery group) puts **Stabilizer Codes** immediately after this page, and the doc's own section 7 content ("From repetition codes to stabilizers") already points that direction too. Linked the CTA to Stabilizer Codes instead; "decoding" is named as a forward-looking concept in the takeaway flow but not linked yet.
 - **Repetition Codes → CTA**: doc referenced "Section 04 — Encoding & Repetition Codes" as one merged section; our site splits this into two pages (Repetition Codes, then Encoding & Syndrome Measurement). Linked forward to Encoding & Syndrome Measurement, the actual next page.

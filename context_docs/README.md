@@ -35,7 +35,10 @@ context_docs/
 ├── taxonomy/              global curriculum tree: module numbers, names, order
 ├── glossary/              glossary spec (the content itself is in data/glossary/)
 ├── templates/             templates for specs and module folders
-├── module_01/ … module_08/  one folder per module, all with the same layout (section 3)
+└── modules/               one folder per module
+    ├── module_01/
+    │   …
+    └── module_08/         every module folder has the same layout (section 3)
 ```
 
 | Folder | Holds | Authority |
@@ -44,11 +47,11 @@ context_docs/
 | `taxonomy/` | `Quantum_Computing_Curriculum.md`: the global tree of modules and sections | Defines module numbering and names. Update it together with any module taxonomy that changes page structure. |
 | `glossary/` | The glossary specification | Governs `data/glossary/`. |
 | `templates/` | Reusable templates, such as the Shared Components section for specs | Reference only. |
-| `module_NN/` | Everything specific to one module | See section 3. |
+| `modules/module_NN/` | Everything specific to one module | See section 3. |
 
 ## 3. The module folder
 
-Every `module_NN/` folder has the same four items, whether or not the module has been built yet.
+Every `modules/module_NN/` folder has the same four items, whether or not the module has been built yet.
 
 ```
 module_NN/
@@ -70,7 +73,7 @@ module_NN/
 Short. It orients a reader and keeps the status of the module in one place. It contains:
 
 1. **Purpose**: two or three sentences on what the module is for and how it differs from its neighbours.
-2. **Governing documents**: links to `../vision/ProjectVision.md`, the current taxonomy file, and `specs/`.
+2. **Governing documents**: links to `../../vision/ProjectVision.md`, the current taxonomy file, and `specs/`.
 3. **Page status table**: one row per page in the taxonomy.
 
    | ID | Page | Spec | Built page | Status |
@@ -136,8 +139,8 @@ Do not resolve a conflict silently, in either direction. If a spec contradicts i
 Before building or changing a page:
 
 1. `vision/ProjectVision.md`
-2. `module_NN/README.md`, then the module's current taxonomy file
-3. The page's spec in `module_NN/specs/`, and the specs of the previous and next pages
+2. `modules/module_NN/README.md`, then the module's current taxonomy file
+3. The page's spec in `modules/module_NN/specs/`, and the specs of the previous and next pages
 4. [`llm/CONVENTIONS.md`](../llm/CONVENTIONS.md) and [`llm/FLAGS.md`](../llm/FLAGS.md)
 5. The existing repository: previous sections of the module, shared components, and the glossary (`data/glossary/`)
 
@@ -157,7 +160,7 @@ Never build from `archive/`.
 
 ## 7. Conventions
 
-- **Folder names** are `module_NN`, zero padded so the convention holds if the curriculum grows past nine modules. This matches the two-digit form in `docs/` (`05-software-stack`). The module README's status table records the mapping.
+- **Folder names** are `module_NN` inside `modules/`, zero padded so the convention holds if the curriculum grows past nine modules. This matches the two-digit form in `docs/` (`05-software-stack`). The module README's status table records the mapping.
 - **Taxonomy filenames** follow `taxonomy_<Description>_v<X.Y>.md`. Spec filenames carry the page ID instead of a version, and a spec is revised in place or replaced (see section 6).
 - **One current taxonomy.** Only one `taxonomy_*` file sits at a module root. Everything older is in `archive/`.
 - **Status header.** The taxonomy file opens with its status, version and date. A spec that has been reviewed against a taxonomy revision should say so in its header.
