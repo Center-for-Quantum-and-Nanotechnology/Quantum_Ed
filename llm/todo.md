@@ -1,0 +1,70 @@
+# To do
+
+Planned work that is not finished yet. Tick items off (or delete them) as they land, and add new ones as they come up. Deviations and simplifications in work that is already built belong in [`FLAGS.md`](FLAGS.md), not here.
+
+Last updated: 2026-10-13
+
+---
+
+## Module 05: Quantum Software Stack (next up)
+
+Governing documents: `context_docs/modules/module_05/taxonomy_QuantumSoftwareStack_v1.1.md` and the 05.01 spec in `context_docs/modules/module_05/specs/`.
+
+- [ ] **Revise the 05.01 spec for taxonomy V1.1.** The taxonomy says the spec predates V1.1 and must be reconciled. Draft the revision as a diff for review rather than overwriting it.
+  - Add the Application Layer / Control Layer framing.
+  - Add a brief calibration and telemetry introduction, without teaching 05.04 content.
+  - Fix the rules that now conflict with V1.1: "do not teach calibration" in section 5, and the bans on "backend-property schemas" and "quantum control software" in the constraints. They should say "name it, don't teach it".
+  - Add the **Shared Components** section (template: `context_docs/templates/SharedComponentsSection.md`).
+  - Record that the spec was reviewed against taxonomy V1.1.
+- [ ] **Sync the global taxonomy and navigation.** `context_docs/taxonomy/Quantum_Computing_Curriculum.md` still has the old flat Module 05 list (Application Layer / Control Layer). Update it and `mkdocs.yml` to the seven approved pages (05.01–05.07, per taxonomy section 12). **Decision needed:** stub pages for 05.02–05.07, or nav entries only for pages that exist.
+- [ ] **Rewrite `docs/05-software-stack/index.md`**, whose "Planned sections" still describe the old structure.
+- [ ] **Build 05.01** (Understanding the Quantum Software Stack) from the revised spec.
+  - Module 03 is a placeholder, so there is no circuit display to reuse. Plan to reuse the `.qed-circuit-*` styles from Module 07.
+  - Terminology check against the glossary (see the glossary section below).
+- [ ] **Write specs 05.02–05.07** with the `section-spec-writer` skill, then build each page. Titles are fixed by the taxonomy.
+- [ ] **Module 05 README** with the page status table (`context_docs/README.md` section 3).
+
+## context_docs housekeeping
+
+- [ ] **Module READMEs** (entry point and page status table) for modules 01–08. None exist yet.
+- [ ] **Module taxonomy files** (`taxonomy_<Description>_v<X.Y>.md`) for modules 01–04, 06, 07 and 08. Module 07's can be written from the built pages and the global taxonomy; Module 06's from its existing pages.
+- [ ] **Module 01 specs.** The "What Is Quantum Computing?" page was drafted on `treys_branch` with no spec in `context_docs/modules/module_01/specs/`.
+- [ ] **Skill copy outside the repo.** If `section-spec-writer` is also installed in Claude settings, update it to match `skills/section-spec-writer/SKILL.md`.
+- [ ] **Add `~$*` to `.gitignore`.** Word lock files (`~$name.docx`) appear when a spec is open in Word and are not currently ignored.
+
+## Pull requests and CI
+
+- [ ] **Open the PR from `ricks_branch` to `main`.** The `gh` CLI is not installed and the built-in browser is not signed in to GitHub, so this has to be done from the GitHub page (compare link: `main...ricks_branch`). Then watch the checks.
+- [ ] **Unstick the deploy workflow.** Run #24 (the merge of PR #8) has been "Waiting", and #26 is "Pending" behind it. Likely cause: the `github-pages` environment needs an approval, or its settings changed. Check the run for a "Review pending deployments" banner and Settings → Environments → github-pages.
+- [ ] **Update the workflow's action versions.** The Node.js 20 deprecation warning does not block builds, but `.github/workflows/deploy.yml` uses `checkout@v4`, `setup-python@v5`, `upload-pages-artifact@v3` and `deploy-pages@v4`. Confirm the current majors before changing them.
+- [ ] **Merge `main` into `treys_branch`.** An attempt hit conflicts in `mkdocs.yml` and `docs/assets/stylesheets/extra.css` and was aborted. The conflicts are additive (CSS from both sides; both sets of `extra_javascript` lines). Trey's branch also needs the new conventions and context_docs layout.
+- [ ] **Migrate `errors-and-noise.md` onto `QedBloch`** once Trey's `bloch.js` reaches `main`. The page carries its own copy of the Bloch drawing code. Then add `QedBloch` to the component table in `llm/CONVENTIONS.md` section 4 and remove the "in progress" note there.
+
+## Glossary (146 terms)
+
+Governing documents: `context_docs/glossary/specs/glossary.md`, `data/glossary/`, and the workflow in the root `README.md`.
+
+- [ ] **Subject-matter review of all 146 definitions.** I wrote them and they have had no expert review. Check these first: Shor/Steane code, Threshold Theorem (polylogarithmic overhead), T1/T2, Transmon, Quantum Supremacy history, Magic State / Distillation, Erasure Qubit, Bias-Preserving Gate, Logical Architecture.
+- [ ] **Build the hover / inline definitions** from glossary spec section 10: hover definitions, side panels, definition cards, and links from lesson text into the glossary.
+- [ ] **Decide on near-synonym entries** kept separate for now, and merge any as aliases: Simulator / Quantum Simulator, Backend / Hardware Backend, Native Gate / Native Gate Set, Circuit Mapping / Qubit Mapping, Compilation / Transpilation / Quantum Compiler, Decoder / Decoding, Calibration / Calibration Data / Calibration Telemetry, Quantum Noise / Quantum Error, Dephasing / T2 / Phase-Flip Error.
+- [ ] **Review the generic alias "Layout"** on Qubit Mapping, the likeliest to surprise.
+- [ ] **Add Module 07 vocabulary** deliberately left out so far: parity check, code space, data qubit, error chain, detection event, logical equivalence.
+- [ ] **Re-audit "Appears in" lists** as modules are added. Placeholder pages and passing name-drops are not referenced.
+- [ ] **Terminology check for Module 05.** It will introduce terms such as intermediate representation, transpilation, backend, calibration telemetry and runtime. Several overlap existing entries (see the near-synonym item).
+- [ ] **Restart `mkdocs serve`** in your own terminal. It does not reload hook code, so it may still show the removed category chips.
+
+## Module 07 hardening (Beginner V1 is complete)
+
+- [ ] **Intermediate and Advanced content.** Each Module 07 spec lists future-hardening items; none are built.
+- [ ] **Experience-level toggle UI.** No toggle exists yet, and the pages carry no per-section level metadata.
+- [ ] **Cross-module links in Hardware-Aware QEC's "Future Hardening Note"** (Quantum Hardware, Software Stack, control/calibration, noise material). Deferred until those modules exist.
+- [ ] **Validate the Why QEC? journey links.** The `JOURNEY` array is hand-maintained and `mkdocs --strict` does not check it. Update it if Module 07 pages are renamed, or add a check.
+
+## Site and curriculum
+
+- [ ] **Review `llm/FLAGS.md`.** Go through each logged deviation, simplification and fixed bug, and decide whether to keep it, fix it, or promote it into a spec, a taxonomy or `CONVENTIONS.md`. Remove entries that are resolved or no longer true.
+  - Covers the deviations from instruction docs (such as CTA ordering), the lattice-surgery and MWPM simplifications, the synthetic telemetry data, and the Module 01 entries added on `treys_branch`.
+  - Check the entries that name old spec paths or filenames.
+- [ ] **Placeholder modules.** Modules 02–05 are placeholders, and Modules 01 and 06 are partly built.
+- [ ] **Navigation tabs (optional).** The Glossary is a top-level sidebar entry, because the site has no `navigation.tabs`. Real top tabs would be a site-wide layout change.
+- [ ] **Keep `llm/CONVENTIONS.md` current.** Add each new shared module to its component table and note when a duplicate is retired.
