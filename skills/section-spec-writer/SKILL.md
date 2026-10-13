@@ -1,6 +1,6 @@
 ---
 name: section-spec-writer
-description: Write a section instruction spec for the quantum education site in the standard SurfaceCodesInstruction format, for handing to Claude Code to build a module section.
+description: Write a section instruction spec for the quantum education site in a standard format, built from @context_docs/module_07/SurfaceCodesInstruction.md file as a reference, for handing to Claude Code to build a module section.
 ---
 
 # Section Spec Writer
