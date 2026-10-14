@@ -204,3 +204,32 @@ Logged while finishing this page (Qubits fixes + Superposition / Measurement / E
 - **`renderBars` width keeps one decimal of the fraction** (33.3%, not 33%), which slightly changes the old integer width of `QedShots` bars. The text still shows the rounded percentage.
 - **`qubit.js` is registered in `mkdocs.yml` but no page uses it yet.** It is loaded site-wide like the other shared modules.
 - **A script helper in my own tooling truncated `shots.js` once** (an error after the file was opened for writing). It was restored from git with nothing lost, and the helper now computes its result before opening the file.
+
+---
+
+## Module 02 — Qubit Representation (02.02)
+
+Built from `context_docs/modules/module_02/specs/02.02_QubitRepresentationInstruction.md`.
+
+### Deviations and simplifications
+
+- **Optional Intermediate parts were cut, as agreed in review: bra notation, inner products, and the orthonormality of |0⟩ and |1⟩.** The Intermediate block covers complex numbers and modulus, complex amplitudes with |α|² + |β|² = 1, global versus relative phase, and the editor's phase controls. Because bra notation and inner products were not built, no *Bra-Ket Notation* reference was added to the glossary, and no *Inner Product* entry was created.
+- **`QedQuiz` was extracted now, which departs from the spec's "keep the three checks page-local".** The spec predates the decision, recorded in `todo.md`, to extract the quiz builder as soon as a second Module 02 page needed it. 02.02's prediction and valid-pairs checks use `QedQuiz.mount`; 02.01 was migrated onto it. The challenge ("make outcome 1 happen 36% of the time") stays page-local because it reads the editor's state rather than offering choices.
+- **The amplitude editor is the first level-aware component.** At Beginner it has real-amplitude sliders and typed values. At Intermediate and above it replaces them with magnitude and phase controls (the real controls are hidden, not disabled), shows each modulus and the relative phase, and adds a "shift both phases together" slider that applies the shift incrementally. The Beginner behavior does not depend on the level.
+- **Dropping back to Beginner with a non-real state resets the editor to its starting state** and says why in the note. Real states, including presets and normalized real states, survive a level change.
+- **The editor starts at 0.60 and 0.80 (36% and 64%), not at a named preset**, so the first thing a learner sees is the 3–4–5 example from the page text.
+- **Invalid states are never silently corrected.** "Normalize" is disabled when the state is already valid or both amplitudes are zero, and an explicit note says why in the zero case.
+- **The challenge accepts any valid state whose outcome 1 is within 0.5 percentage points of 36%.** Both 0.8 and 0.6, and 0.8 and −0.6, pass, and the feedback names the sign point.
+- **Native number inputs show negatives with a hyphen-minus**, while the written form and generated tables use a proper minus sign.
+- **Hilbert Space is named and linked in the Advanced block but 02.02 is not added to its glossary references**, because the page only names it (not a substantive treatment).
+- **The generated ket table, comparison panels, and side-by-side lists are built from `QedQubit.PRESETS`**, so the page hardcodes no amplitudes apart from the 0.6/0.8 teaching example and the challenge target.
+
+### Not done
+
+- No screen-reader testing, only keyboard-operable native controls and an aria-live summary.
+
+### Reminders that applied here
+
+- Page script wrapped in `DOMContentLoaded`; gated blocks carry `markdown="1"` (checked by `level_hook.py`).
+- Probability bars come from `QedShots.renderBars`; amplitude math from `QedQubit`; no page-local copies.
+- Classes are `qed-` prefixed; new CSS is appended at the end of `extra.css`.

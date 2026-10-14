@@ -34,12 +34,14 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [x] **Check Module 01 before finalizing 02.01.** Done: the interference and Bell-test demos exist only on `origin/treys_branch`, not on this branch, so 02.01 uses the spec's fallback wording.
 - [x] **After Trey's Module 01 merges, update 02.01 section 5** to point at its interference (Superposition) and Bell-test/CHSH (Entanglement) demos. Done in the page and the spec.
 - [x] **Add the 02.01 page to the glossary's `moduleReferences`.** Done for State Preparation, Quantum State, Superposition, Basis State, Measurement, and Shot.
-- [ ] **Finalize the 02.02 spec** (all ten review questions are decided; run the `section-spec-writer` skill over the reviewed draft), then build it. Draft and approve specs 02.03 to 02.07 after that. Draft each from the taxonomy for review, then run the `section-spec-writer` skill over the reviewed draft. Each spec carries a level map and a Shared Components section.
-- [ ] **When 02.02 is built: log any cut Intermediate parts in `llm/FLAGS.md`.** The Intermediate layer is approved to be built with the page. If the optional parts (bra notation, inner products, orthonormality) are cut, record that as a deviation.
+- [x] **02.02 is final and built.** Draft and approve specs 02.03 to 02.07 next.
+- [x] **When 02.02 is built: log any cut Intermediate parts in `llm/FLAGS.md`.** Done: bra notation, inner products, and orthonormality were cut and logged.
 - [ ] **Add each remaining Module 02 page to `mkdocs.yml` as it is built** (02.01 is done), and link it from `docs/02-fundamentals/index.md`.
 - [ ] **Terminology check against the glossary** for each page. Many entries (qubit, superposition, Bloch sphere, gates, measurement) belong to this module.
+- [ ] **Add the 02.02 follow-ups to glossary references if the optional Intermediate parts are ever built:** Bra-Ket Notation, and a new Inner Product entry.
+- [ ] **Screen-reader and keyboard pass for the Module 02 interactives** (02.01 and 02.02 so far). They use native controls and aria-live summaries but have only been tested with scripted interaction.
 - [ ] **Reconcile `QedBloch` with `QedQubit` in 02.03.** Decide where the Bloch conversion lives and avoid duplicating the amplitude math.
-- [ ] **Extract the data-driven quiz builder** from `quantum-states.md` into a shared module when a second Module 02 page needs the same checks (and add tests for it).
+- [x] **Extract the data-driven quiz builder.** Done as `QedQuiz` (`quiz.js`), with tests; 02.01 was migrated onto it.
 - [ ] **Link Module 06's rotation-gate explanations to 02.04** during the hardening pass.
 - [ ] **Module 02 README** with the page status table.
 

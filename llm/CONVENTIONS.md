@@ -60,6 +60,7 @@ Keep this table current. It is the first thing to check before building.
 | `QedSoftwareStack` | `software-stack.js` | `RESPONSIBILITIES`, `GROUPS`, `RELATIONS`, `journey`, `comparison`, `catalogHTML`, `comparisonHTML`, `mount` | Understanding the Quantum Software Stack |
 | `QedShots` | `shots.js` | `rng`, `sample`, `session`, `defaultLabels`, `describe`, `renderBars`, `renderHTML` | Module 02 repeated-measurement pages (planned: 02.01, 02.05, 02.07) |
 | `QedQubit` | `qubit.js` | `real`, `complex`, `fromPolar`, `modulus`, `phase`, `probabilities`, `norm2`, `isNormalized`, `normalize`, `relativePhase`, `applyGlobalPhase`, `format`, `validity`, `PRESETS` | Module 02 single-qubit pages (planned: 02.02, 02.03, 02.04, 02.07) |
+| `QedQuiz` | `quiz.js` | `validate`, `check`, `mount` | Module 02 pages with multiple-choice checks (02.01, 02.02) |
 | `QedLevel` | `level.js` | `LEVELS`, `get`, `set`, `atLeast`, `rank`, `onChange`; also builds the header selector, page note, TOC filtering and hash auto-reveal | Every page (site-wide) |
 | (none) | `download.js` | Adds the module-download button | Every page |
 | (none) | `glossary.js` | Text filter and deep-link reveal | Glossary |
@@ -114,7 +115,7 @@ Beginner, Intermediate and Advanced are **cumulative views of one canonical page
 
 **Levels are not "Explore" blocks.** Optional exploration (`qed-details`) can be opened by anyone at any level and is a separate feature (Vision §7). Do not use one for the other.
 
-**Level-aware components.** An interactive may read `QedLevel.get()` or `QedLevel.atLeast("intermediate")` and subscribe with `QedLevel.onChange(fn)` to show deeper detail (for example complex amplitudes). Its Beginner behavior must not depend on the level. None exist yet.
+**Level-aware components.** An interactive may read `QedLevel.get()` or `QedLevel.atLeast("intermediate")` and subscribe with `QedLevel.onChange(fn)` to show deeper detail (for example complex amplitudes). Its Beginner behavior must not depend on the level. The first is the 02.02 amplitude editor, which swaps real-amplitude controls for magnitude and phase controls at Intermediate.
 
 **Search.** The search index is built once and cannot know the level, so gated text is indexed on purpose. A hit on hidden content raises the level on arrival (see `FLAGS.md`).
 
