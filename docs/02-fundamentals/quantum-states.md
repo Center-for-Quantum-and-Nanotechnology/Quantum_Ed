@@ -337,54 +337,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updateControls();
 
-  // ---- small checks (page-local, data-driven) -------------------------------
-  // Each item is a question with options; each option says whether it is right
-  // and why. Feedback is immediate and explains every choice.
-  function buildQuiz(root, config) {
-    var html = "<p><strong>" + config.title + "</strong></p>";
-    config.items.forEach(function (item, i) {
-      html += '<div class="qed-quiz__item" data-item="' + i + '">' +
-        '<p class="qed-quiz__prompt">' + item.prompt + "</p>" +
-        '<div class="qed-demo__controls" role="group" aria-label="' + item.label + '">' +
-        item.options.map(function (o, j) {
-          return '<button type="button" class="qed-button qed-button--secondary" data-option="' + j + '" aria-pressed="false">' + o.label + "</button>";
-        }).join("") +
-        "</div>" +
-        '<p class="qed-quiz__feedback" aria-live="polite"></p></div>';
-    });
-    html += '<div class="qed-demo__controls"><button type="button" class="qed-button qed-button--secondary" data-quiz-reset>Try again</button></div>';
-    root.innerHTML = html;
+  // ---- small checks: data-driven questions from the shared QedQuiz module ----
 
-    root.addEventListener("click", function (e) {
-      var btn = e.target.closest("button");
-      if (!btn || !root.contains(btn)) return;
-      if (btn.hasAttribute("data-quiz-reset")) {
-        Array.prototype.forEach.call(root.querySelectorAll(".qed-quiz__item"), function (el) {
-          el.querySelector(".qed-quiz__feedback").textContent = "";
-          el.querySelector(".qed-quiz__feedback").className = "qed-quiz__feedback";
-          Array.prototype.forEach.call(el.querySelectorAll("button"), function (b) {
-            b.classList.remove("qed-button--active");
-            b.setAttribute("aria-pressed", "false");
-          });
-        });
-        return;
-      }
-      var itemEl = btn.closest(".qed-quiz__item");
-      if (!itemEl) return;
-      var item = config.items[Number(itemEl.dataset.item)];
-      var option = item.options[Number(btn.dataset.option)];
-      Array.prototype.forEach.call(itemEl.querySelectorAll("button"), function (b) {
-        var on = b === btn;
-        b.classList.toggle("qed-button--active", on);
-        b.setAttribute("aria-pressed", on ? "true" : "false");
-      });
-      var fb = itemEl.querySelector(".qed-quiz__feedback");
-      fb.className = "qed-quiz__feedback " + (option.correct ? "is-correct" : "is-incorrect");
-      fb.textContent = (option.correct ? "Correct. " : "Not quite. ") + option.why;
-    });
-  }
-
-  buildQuiz(document.getElementById("qs-quiz-state"), {
+  window.QedQuiz.mount(document.getElementById("qs-quiz-state"), {
     title: "State or outcome? Mark each statement.",
     items: [
       {
@@ -422,7 +377,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ]
   });
 
-  buildQuiz(document.getElementById("qs-quiz-transfer"), {
+  window.QedQuiz.mount(document.getElementById("qs-quiz-transfer"), {
     title: "Apply it: a qubit is prepared the same way as the balanced one, then measured 100 times. What should the results look like?",
     items: [
       {

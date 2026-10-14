@@ -47,6 +47,7 @@ extra_javascript:
   - assets/javascripts/circuit.js
   - assets/javascripts/shots.js
   - assets/javascripts/qubit.js
+  - assets/javascripts/quiz.js
   - assets/javascripts/software-stack.js
   - assets/javascripts/bloch.js
   - assets/javascripts/mathjax.js
@@ -87,6 +88,7 @@ nav:
   - "02 · Quantum Computing Fundamentals":
       - Overview: 02-fundamentals/index.md
       - Quantum States: 02-fundamentals/quantum-states.md
+      - Qubit Representation: 02-fundamentals/qubit-representation.md
   - "03 · Quantum Programming":
       - 03-programming/index.md
   - "04 · Quantum Hardware":

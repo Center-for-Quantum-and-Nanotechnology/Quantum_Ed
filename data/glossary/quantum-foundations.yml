@@ -17,6 +17,7 @@
   relatedTerms: [qubit, superposition, pure-state, mixed-state, hilbert-space, measurement]
   moduleReferences:
     - 02-fundamentals/quantum-states.md
+    - 02-fundamentals/qubit-representation.md
   category: quantum-foundations
 
 - id: superposition
@@ -59,7 +60,8 @@
   definition: "A complex number associated with each basis state in a quantum state; the squared magnitude of an amplitude gives the probability of measuring that basis state."
   beginnerInterpretation: "Amplitudes are the numbers that, once squared in size, give the chances of each measurement result. Unlike probabilities they can be negative or complex, which lets different contributions cancel or reinforce each other."
   relatedTerms: [superposition, phase, quantum-interference, measurement, quantum-state]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/qubit-representation.md
   category: quantum-foundations
 
 - id: phase
@@ -71,6 +73,7 @@
   moduleReferences:
     - 01-foundations/what-is-quantum-computing.md
     - 07-error-correction/errors-and-noise.md
+    - 02-fundamentals/qubit-representation.md
   category: quantum-foundations
 
 - id: relative-phase
@@ -81,6 +84,7 @@
   relatedTerms: [phase, superposition, quantum-interference, phase-flip-error, pauli-z-gate]
   moduleReferences:
     - 07-error-correction/errors-and-noise.md
+    - 02-fundamentals/qubit-representation.md
   category: quantum-foundations
 
 - id: bloch-sphere
@@ -113,6 +117,7 @@
   relatedTerms: [computational-basis, superposition, hilbert-space, bra-ket-notation, quantum-state]
   moduleReferences:
     - 02-fundamentals/quantum-states.md
+    - 02-fundamentals/qubit-representation.md
   category: quantum-foundations
 
 - id: bra-ket-notation
@@ -188,7 +193,8 @@
   definition: "The requirement that the squared magnitudes of a state's amplitudes add up to 1, so that the probabilities of all measurement outcomes add up to 100%. A state whose amplitudes do not satisfy it is rescaled, or normalized, before it is used."
   beginnerInterpretation: "Normalization is the rule that the probabilities of all the possible results must add up to 100%. A valid qubit state always follows it."
   relatedTerms: [probability-amplitude, quantum-state, measurement, basis-state, superposition]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/qubit-representation.md
   category: quantum-foundations
 
 - id: global-phase
@@ -197,5 +203,6 @@
   definition: "A phase factor that multiplies every amplitude of a state by the same complex number of magnitude 1. It has no effect on any measurement probability, so two states that differ only by a global phase describe the same physical state."
   beginnerInterpretation: "A global phase is a shared twist applied to the whole state at once. It changes nothing you can ever observe, unlike a relative phase, which does."
   relatedTerms: [relative-phase, phase, quantum-state, probability-amplitude, pure-state]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/qubit-representation.md
   category: quantum-foundations

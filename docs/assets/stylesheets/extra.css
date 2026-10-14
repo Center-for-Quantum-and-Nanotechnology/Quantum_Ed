@@ -2140,3 +2140,111 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
   font-size: 0.78rem;
   color: var(--md-default-fg-color--light);
 }
+
+/* ---------------------------------------------------------------------
+   Module 02 — Qubit Representation (docs/02-fundamentals/qubit-
+   representation.md): the amplitude editor. Neutral treatment like the rest
+   of Module 02. Validity is shown with an icon AND words (a check mark for
+   valid, a cross for invalid), and a negative amplitude with its sign and a
+   written label, so nothing depends on color alone.
+   ------------------------------------------------------------------- */
+.qed-editor [hidden] {
+  display: none !important;
+}
+
+.qed-editor__amps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+  margin: 0.6rem 0;
+}
+
+@media (min-width: 40em) {
+  .qed-editor__amps {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.qed-editor__amp {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.4rem;
+}
+
+.qed-editor__amp-title {
+  margin: 0 0 0.3rem;
+}
+
+.qed-editor__inputs {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.qed-editor__inputs input[type="range"] {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.qed-editor__inputs input[type="number"] {
+  flex: 0 0 4.6rem;
+  width: 4.6rem;
+  font: inherit;
+  font-family: var(--md-code-font);
+  color: var(--md-default-fg-color);
+  background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: 0.25rem;
+  padding: 0.15rem 0.3rem;
+}
+
+.qed-editor__inputs output {
+  flex: 0 0 3.2rem;
+  font-family: var(--md-code-font);
+  text-align: right;
+}
+
+.qed-editor__polar label {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.qed-editor__global {
+  margin: 0.4rem 0 0.8rem;
+}
+
+.qed-editor__sign {
+  margin: 0.2rem 0 0;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-editor__details {
+  margin: 0.3rem 0;
+  font-size: 0.85rem;
+}
+
+.qed-editor__validity {
+  margin: 0.2rem 0 0.6rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 0.3rem;
+  border: 2px solid var(--md-default-fg-color--light);
+  font-weight: 600;
+}
+
+.qed-editor__validity.is-valid {
+  border-style: solid;
+}
+
+.qed-editor__validity.is-invalid {
+  border-style: dashed;
+}
+
+.qed-editor__note {
+  min-height: 1.2rem;
+  margin: 0.4rem 0;
+  font-size: 0.85rem;
+  font-style: italic;
+}
