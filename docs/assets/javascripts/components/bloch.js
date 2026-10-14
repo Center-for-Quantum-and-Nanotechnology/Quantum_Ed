@@ -1,18 +1,17 @@
-// Shared single-qubit state + Bloch-sphere drawing module, used by
-// docs/01-foundations/what-is-quantum-computing.md (the Qubits and
-// Measurement demos) and intended for reuse by Module 02's Bloch
-// Sphere section.
+// QedBloch — shared single-qubit state math + Bloch-sphere drawing.
+// A library (not a demo): used by the bloch-explorer and qubit-measurement
+// components, and intended for Module 02's Bloch Sphere section.
 //
-// Loaded site-wide via extra_javascript (like surface-code.js) since
-// MkDocs pages are separate documents, not a single-page app. It is a
-// no-op on pages that don't call it. Any page script that uses
-// window.QedBloch must run inside a DOMContentLoaded listener, because
-// Material injects extra_javascript files after inline page content.
+// Loaded site-wide via extra_javascript; it is a no-op on pages that don't
+// use it. Component code runs inside QedComponents.mount, which fires on
+// DOMContentLoaded, so load order is never a problem for components. Any
+// *inline* page script that touches window.QedBloch must still wrap itself
+// in a DOMContentLoaded listener (see llm/FLAGS.md).
 //
 // Separation convention (same as QedSurfaceCode / QedMatching):
 //   state math     -> pure functions of (thetaDeg, phiDeg)
 //   drawing        -> render(canvas, ...) is a pure function of its inputs
-//   DOM wiring     -> left to each page, so this file never touches
+//   DOM wiring     -> left to each component, so this file never touches
 //                     page-specific elements.
 window.QedBloch = (function () {
   var TILT_RAD = (20 * Math.PI) / 180;
@@ -37,10 +36,8 @@ window.QedBloch = (function () {
   // slider tick. Only numbers are interpolated, so innerHTML is safe.
   function formatHTML(thetaDeg, phiDeg) {
     var s = state(thetaDeg, phiDeg);
-    var amp0 = s.a0.toFixed(2);
-    var amp1 = s.a1.toFixed(2);
     return (
-      "|ψ⟩ = " + amp0 + "|0⟩ + <i>e</i><sup><i>i</i>·" + phiDeg + "°</sup>·" + amp1 + "|1⟩"
+      "|ψ⟩ = " + s.a0.toFixed(2) + "|0⟩ + <i>e</i><sup><i>i</i>·" + phiDeg + "°</sup>·" + s.a1.toFixed(2) + "|1⟩"
     );
   }
 

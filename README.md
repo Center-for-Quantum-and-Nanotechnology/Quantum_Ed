@@ -16,7 +16,8 @@ Then open http://127.0.0.1:8000.
 ## Project structure
 
 - `docs/` — all course content, one folder per module (`01-foundations/`, `02-fundamentals/`, …). Each module folder has an `index.md` landing page.
-- `docs/assets/` — shared stylesheets and JavaScript, including the interactive demos and the module-download button.
+- `docs/assets/` — shared stylesheets and JavaScript, including the interactive demos and the module-download button. Reusable demo components live in `docs/assets/javascripts/components/` and are used from pages with a single `<div data-qed-demo="…"></div>`.
+- `llm/` — working notes for contributors and AI assistants: [`COMPONENTS.md`](llm/COMPONENTS.md) is the catalog of reusable components (check it before building a new demo), and [`FLAGS.md`](llm/FLAGS.md) logs deviations, simplifications, and bugs by module.
 - `overrides/` — MkDocs Material theme overrides.
 - `hooks.py` — build hook that zips each module folder into `site/downloads/<module>.zip` for the offline-download button.
 - `mkdocs.yml` — site config and navigation.
