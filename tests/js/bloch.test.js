@@ -95,3 +95,22 @@ test("formatText and formatHTML describe the state the way the site shows it", (
 test("the module exposes the functions that the Module 01 and Module 02 pages call", () => {
   ["state", "formatHTML", "formatText", "project", "render"].forEach((name) => assert.equal(typeof B[name], "function", name));
 });
+
+test("project's depth is larger for points farther from the viewer", () => {
+  const cx = 100;
+  const cy = 100;
+  const r = 50;
+  const north = B.project(cx, cy, r, 0, 0);
+  const south = B.project(cx, cy, r, Math.PI, 0);
+  const back = B.project(cx, cy, r, Math.PI / 2, Math.PI / 2); // +y
+  const front = B.project(cx, cy, r, Math.PI / 2, (3 * Math.PI) / 2); // -y
+  // The viewer looks from the -y side, slightly above: the north pole tips toward
+  // them and the +y side of the equator is the far side.
+  assert.ok(north.depth < 0 && south.depth > 0);
+  assert.ok(back.depth > front.depth);
+  assert.ok(back.depth > 0 && front.depth < 0);
+});
+
+test("render accepts an options argument and still exposes the same functions", () => {
+  assert.equal(B.render.length, 4);
+});
