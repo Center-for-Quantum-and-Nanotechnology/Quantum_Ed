@@ -181,3 +181,21 @@
   moduleReferences:
     - 02-fundamentals/quantum-states.md
   category: quantum-foundations
+
+- id: normalization
+  term: Normalization
+  aliases: []
+  definition: "The requirement that the squared magnitudes of a state's amplitudes add up to 1, so that the probabilities of all measurement outcomes add up to 100%. A state whose amplitudes do not satisfy it is rescaled, or normalized, before it is used."
+  beginnerInterpretation: "Normalization is the rule that the probabilities of all the possible results must add up to 100%. A valid qubit state always follows it."
+  relatedTerms: [probability-amplitude, quantum-state, measurement, basis-state, superposition]
+  moduleReferences: []
+  category: quantum-foundations
+
+- id: global-phase
+  term: Global Phase
+  aliases: ["Overall Phase"]
+  definition: "A phase factor that multiplies every amplitude of a state by the same complex number of magnitude 1. It has no effect on any measurement probability, so two states that differ only by a global phase describe the same physical state."
+  beginnerInterpretation: "A global phase is a shared twist applied to the whole state at once. It changes nothing you can ever observe, unlike a relative phase, which does."
+  relatedTerms: [relative-phase, phase, quantum-state, probability-amplitude, pure-state]
+  moduleReferences: []
+  category: quantum-foundations

@@ -34,9 +34,11 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [x] **Check Module 01 before finalizing 02.01.** Done: the interference and Bell-test demos exist only on `origin/treys_branch`, not on this branch, so 02.01 uses the spec's fallback wording.
 - [x] **After Trey's Module 01 merges, update 02.01 section 5** to point at its interference (Superposition) and Bell-test/CHSH (Entanglement) demos. Done in the page and the spec.
 - [x] **Add the 02.01 page to the glossary's `moduleReferences`.** Done for State Preparation, Quantum State, Superposition, Basis State, Measurement, and Shot.
-- [ ] **Draft and approve specs 02.02 to 02.07** (02.01 is done and built). Draft each from the taxonomy for review, then run the `section-spec-writer` skill over the reviewed draft. Each spec carries a level map and a Shared Components section.
+- [ ] **Finalize the 02.02 spec** (all ten review questions are decided; run the `section-spec-writer` skill over the reviewed draft), then build it. Draft and approve specs 02.03 to 02.07 after that. Draft each from the taxonomy for review, then run the `section-spec-writer` skill over the reviewed draft. Each spec carries a level map and a Shared Components section.
+- [ ] **When 02.02 is built: log any cut Intermediate parts in `llm/FLAGS.md`.** The Intermediate layer is approved to be built with the page. If the optional parts (bra notation, inner products, orthonormality) are cut, record that as a deviation.
 - [ ] **Add each remaining Module 02 page to `mkdocs.yml` as it is built** (02.01 is done), and link it from `docs/02-fundamentals/index.md`.
 - [ ] **Terminology check against the glossary** for each page. Many entries (qubit, superposition, Bloch sphere, gates, measurement) belong to this module.
+- [ ] **Reconcile `QedBloch` with `QedQubit` in 02.03.** Decide where the Bloch conversion lives and avoid duplicating the amplitude math.
 - [ ] **Extract the data-driven quiz builder** from `quantum-states.md` into a shared module when a second Module 02 page needs the same checks (and add tests for it).
 - [ ] **Link Module 06's rotation-gate explanations to 02.04** during the hardening pass.
 - [ ] **Module 02 README** with the page status table.
@@ -57,11 +59,11 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [ ] **Merge `main` into `treys_branch`.** An attempt hit conflicts in `mkdocs.yml` and `docs/assets/stylesheets/extra.css` and was aborted. The conflicts are additive (CSS from both sides; both sets of `extra_javascript` lines). Trey's branch also needs the new conventions and context_docs layout.
 - [ ] **Migrate `errors-and-noise.md` onto `QedBloch`** once Trey's `bloch.js` reaches `main`. The page carries its own copy of the Bloch drawing code. Then add `QedBloch` to the component table in `llm/CONVENTIONS.md` section 4 and remove the "in progress" note there.
 
-## Glossary (150 terms)
+## Glossary (152 terms)
 
 Governing documents: `context_docs/glossary/specs/glossary.md`, `data/glossary/`, and the workflow in the root `README.md`.
 
-- [ ] **Subject-matter review of all 150 definitions.** I wrote them and they have had no expert review. Check these first: Shor/Steane code, Threshold Theorem (polylogarithmic overhead), T1/T2, Transmon, Quantum Supremacy history, Magic State / Distillation, Erasure Qubit, Bias-Preserving Gate, Logical Architecture.
+- [ ] **Subject-matter review of all 152 definitions.** I wrote them and they have had no expert review. Check these first: Shor/Steane code, Threshold Theorem (polylogarithmic overhead), T1/T2, Transmon, Quantum Supremacy history, Magic State / Distillation, Erasure Qubit, Bias-Preserving Gate, Logical Architecture.
 - [ ] **Build the hover / inline definitions** from glossary spec section 10: hover definitions, side panels, definition cards, and links from lesson text into the glossary.
 - [ ] **Decide on near-synonym entries** kept separate for now, and merge any as aliases: Simulator / Quantum Simulator, Backend / Hardware Backend, Native Gate / Native Gate Set, Circuit Mapping / Qubit Mapping, Compilation / Transpilation / Quantum Compiler, Decoder / Decoding, Calibration / Calibration Data / Calibration Telemetry, Quantum Noise / Quantum Error, Dephasing / T2 / Phase-Flip Error.
 - [ ] **Review the generic alias "Layout"** on Qubit Mapping, the likeliest to surprise.
