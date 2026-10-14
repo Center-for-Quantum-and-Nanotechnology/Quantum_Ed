@@ -139,3 +139,26 @@ Implemented per the plan agreed in discussion. Mechanism only so far; the first 
 - **CI uses the Node that ships on `ubuntu-latest`** rather than adding `actions/setup-node`. `node --test` with no arguments (run from `tests/js`) is the form that works across Node 18 and newer.
 - **Only pure layers are tested.** `level.js` needs `document` at load time and is not loadable in the stub; the level selector, note, TOC filtering and auto-reveal are verified in the browser.
 - **The `QedShots` tests were checked to fail when the module is broken** (accepting bad probability sums; a weak generator), then the module was restored.
+
+---
+
+## Module 02 — Quantum States (02.01)
+
+Built from `context_docs/modules/module_02/specs/02.01_QuantumStatesInstruction.md`.
+
+### Deviations and simplifications
+
+- **Section 5 uses the spec's fallback wording for the "not a hidden bit" evidence.** The spec says to point at Module 01's interference and Bell-test demos only if they exist when the page is built. They exist on `origin/treys_branch` (an interference demo in Superposition, the CHSH game in Entanglement) but not on this branch, where Module 01's page is still a short stub. The page therefore says the evidence appears later in this module (gates and measurement) and names no Module 01 demo. Once Trey's Module 01 merges, update section 5 to point at those demos (tracked in `todo.md`).
+- **Measure is disabled until a prediction is chosen.** This enforces the spec's "predict before observing", but a learner who just wants to click Measure must make a prediction first. A hint says so.
+- **Prediction feedback judges the prediction against the preparation, not against the sample.** A correct "about half each" for a balanced preparation stays correct even if 10 shots come out 7 to 3, and the feedback adds that few shots can look uneven.
+- **Switching preparation clears the prediction and the outcomes**, and each preparation keeps its own seeded series (so switching back continues that series). Reset clears all series, so the first run after Reset equals the first run after a fresh page load.
+- **Outcome tokens show at most 40 shots**, then "…and N more". The bars and text summary always cover every shot.
+- **The preparation data and the two small check widgets are page-local.** The preparation list (probabilities, description, expected prediction) is data inside the page script and is not a shared module, because the spec says no new shared module for this page. When 02.02 needs the same preparations, extract them then. The state-or-outcome and transfer checks use a small data-driven quiz builder inside the page; later Module 02 pages need the same checks, so this is the likeliest next shared component.
+- **The Beyond the Core heading sits inside the Intermediate block**, so a Beginner sees neither an empty heading nor a table-of-contents entry for it. At Advanced both blocks show under that one heading.
+- **The Advanced "pure and mixed states" block describes a mixed state as a qubit whose preparation is itself uncertain** (|0⟩ or |1⟩ with some probability), which also gives 50/50 counts. It uses the glossary's Pure State and Mixed State entries and adds no formalism. It has not had a subject-matter review, like the glossary entries.
+
+### Reminders that applied here
+
+- Page script wrapped in `DOMContentLoaded`; gated blocks carry `markdown="1"` (checked by `level_hook.py`).
+- Result bars come from `QedShots`; no page-local sampling code.
+- Classes are `qed-` prefixed; new CSS is appended at the end of `extra.css`.

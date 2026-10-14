@@ -31,11 +31,13 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 
 - [x] **Taxonomy v1.2 approved**, including the Beginner / Intermediate / Advanced split and gate coverage.
 - [x] **Global taxonomy synced and module index rewritten.** The nav still holds only the module index.
-- [ ] **Check Module 01 before finalizing 02.01.** Confirm that the merged "What Is Quantum Computing?" page contains the interference and Bell-test demos that 02.01 points back to. If it does not, change that sentence in the spec to promise the evidence later (02.04 and 02.07).
-- [ ] **Add the 02.01 page to the glossary's `moduleReferences`** (State Preparation, Quantum State, Superposition, Basis State, Measurement, Shot) once the page is built.
-- [ ] **Draft and approve specs 02.01 to 02.07.** Draft each from the taxonomy for review, then run the `section-spec-writer` skill over the reviewed draft. Each spec carries a level map and a Shared Components section.
-- [ ] **Add each Module 02 page to `mkdocs.yml` as it is built**, and link it from `docs/02-fundamentals/index.md`.
+- [x] **Check Module 01 before finalizing 02.01.** Done: the interference and Bell-test demos exist only on `origin/treys_branch`, not on this branch, so 02.01 uses the spec's fallback wording.
+- [ ] **After Trey's Module 01 merges, update 02.01 section 5** to point at its interference (Superposition) and Bell-test/CHSH (Entanglement) demos instead of saying the evidence comes later.
+- [x] **Add the 02.01 page to the glossary's `moduleReferences`.** Done for State Preparation, Quantum State, Superposition, Basis State, Measurement, and Shot.
+- [ ] **Draft and approve specs 02.02 to 02.07** (02.01 is done and built). Draft each from the taxonomy for review, then run the `section-spec-writer` skill over the reviewed draft. Each spec carries a level map and a Shared Components section.
+- [ ] **Add each remaining Module 02 page to `mkdocs.yml` as it is built** (02.01 is done), and link it from `docs/02-fundamentals/index.md`.
 - [ ] **Terminology check against the glossary** for each page. Many entries (qubit, superposition, Bloch sphere, gates, measurement) belong to this module.
+- [ ] **Extract the data-driven quiz builder** from `quantum-states.md` into a shared module when a second Module 02 page needs the same checks (and add tests for it).
 - [ ] **Link Module 06's rotation-gate explanations to 02.04** during the hardening pass.
 - [ ] **Module 02 README** with the page status table.
 
