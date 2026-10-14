@@ -14,9 +14,10 @@
 //   wiring  -> left to each page
 //
 // Scope, on purpose: amplitude-level math for ONE qubit only. It does not draw
-// anything and does not convert to Bloch coordinates (that belongs with the
-// shared Bloch module once it is reconciled with this one), apply gates, or
-// handle two-qubit states. Probability bars are drawn by QedShots.renderBars.
+// anything (probability bars come from QedShots.renderBars and the Bloch sphere
+// from QedBloch), apply gates, or handle two-qubit states. It does convert a
+// state to and from Bloch angles and the Bloch vector, because that is state
+// math; QedBloch only projects and draws.
 //
 // A state is { alpha: {re, im}, beta: {re, im} }: the amplitudes of |0> and
 // |1>. Functions never mutate their arguments.
@@ -157,6 +158,56 @@ window.QedQubit = (function () {
     return { re: a.re + b.re, im: a.im + b.im };
   }
 
+  // ---- Bloch picture ---------------------------------------------------------
+  // A normalized state, up to a global phase, is a point on the Bloch sphere:
+  //   |psi> = cos(theta/2)|0> + e^(i phi) sin(theta/2)|1>
+  // with theta measured from +z (0 to 180 degrees) and phi from +x toward +y.
+  // The same convention as QedBloch (bloch.js), which only draws; the state math
+  // lives here. Angles are in degrees, to match QedBloch.
+
+  function degrees(rad) {
+    var d = (rad * 180) / Math.PI;
+    return ((d % 360) + 360) % 360;
+  }
+
+  function requireNormalized(s, what) {
+    if (!isNormalized(s, 1e-6)) {
+      throw new Error("QedQubit: " + what + " needs a normalized state (the probabilities must add to 100%)");
+    }
+  }
+
+  // The state with the given Bloch angles, using the convention that the |0>
+  // amplitude is real and not negative (the global phase is fixed that way).
+  function fromBloch(thetaDeg, phiDeg) {
+    checkNumber(thetaDeg, "theta");
+    checkNumber(phiDeg, "phi");
+    if (thetaDeg < 0 || thetaDeg > 180) throw new Error("QedQubit: theta must be between 0 and 180 degrees");
+    var half = (thetaDeg * Math.PI) / 360;
+    var phi = (phiDeg * Math.PI) / 180;
+    return complex(Math.cos(half), 0, Math.sin(half) * Math.cos(phi), Math.sin(half) * Math.sin(phi));
+  }
+
+  // The Bloch angles of a normalized state: { thetaDeg, phiDeg, phiDefined }.
+  // At the poles (|0> and |1>) phi means nothing, so phiDeg is 0 and phiDefined
+  // is false. A global phase does not move the point.
+  function toBloch(s) {
+    requireNormalized(s, "toBloch");
+    var thetaDeg = ((2 * Math.atan2(modulus(s.beta), modulus(s.alpha))) * 180) / Math.PI;
+    var rel = relativePhase(s);
+    return { thetaDeg: thetaDeg, phiDeg: rel === null ? 0 : degrees(rel), phiDefined: rel !== null };
+  }
+
+  // The point on the unit sphere as {x, y, z}: x = 2 Re(alpha* beta),
+  // y = 2 Im(alpha* beta), z = |alpha|^2 - |beta|^2.
+  function blochVector(s) {
+    requireNormalized(s, "blochVector");
+    return {
+      x: 2 * (s.alpha.re * s.beta.re + s.alpha.im * s.beta.im),
+      y: 2 * (s.alpha.re * s.beta.im - s.alpha.im * s.beta.re),
+      z: s.alpha.re * s.alpha.re + s.alpha.im * s.alpha.im - (s.beta.re * s.beta.re + s.beta.im * s.beta.im),
+    };
+  }
+
   // Validity as data and as plain words.
   function validity(s) {
     var total = norm2(s);
@@ -197,6 +248,9 @@ window.QedQubit = (function () {
     format: format,
     formatAmplitude: formatAmplitude,
     innerProduct: innerProduct,
+    fromBloch: fromBloch,
+    toBloch: toBloch,
+    blochVector: blochVector,
     validity: validity,
     PRESETS: PRESETS,
   };
