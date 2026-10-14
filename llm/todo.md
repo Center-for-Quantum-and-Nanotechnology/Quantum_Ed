@@ -25,6 +25,18 @@ Governing documents: `context_docs/modules/module_05/taxonomy_QuantumSoftwareSta
 - [ ] **Write specs 05.02–05.07** with the `section-spec-writer` skill, then build each page. Titles are fixed by the taxonomy.
 - [ ] **Module 05 README** with the page status table (`context_docs/README.md` section 3).
 
+## Module 02: Quantum Computing Fundamentals
+
+Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFundamentals_v1.2.md` (approved).
+
+- [x] **Taxonomy v1.2 approved**, including the Beginner / Intermediate / Advanced split and gate coverage.
+- [x] **Global taxonomy synced and module index rewritten.** The nav still holds only the module index.
+- [ ] **Draft and approve specs 02.01 to 02.07.** Draft each from the taxonomy for review, then run the `section-spec-writer` skill over the reviewed draft. Each spec carries a level map and a Shared Components section.
+- [ ] **Add each Module 02 page to `mkdocs.yml` as it is built**, and link it from `docs/02-fundamentals/index.md`.
+- [ ] **Terminology check against the glossary** for each page. Many entries (qubit, superposition, Bloch sphere, gates, measurement) belong to this module.
+- [ ] **Link Module 06's rotation-gate explanations to 02.04** during the hardening pass.
+- [ ] **Module 02 README** with the page status table.
+
 ## context_docs housekeeping
 
 - [ ] **Module READMEs** (entry point and page status table) for modules 01–08. None exist yet.

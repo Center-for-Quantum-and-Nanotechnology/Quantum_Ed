@@ -20,19 +20,42 @@
 - Current Limitations
 ## 02 — Quantum Computing Fundamentals
 
-### Qubit Representation
-
 ### Quantum States
 
+- State versus measurement outcome
+- Preparation
+- Superposition
+### Qubit Representation
+
+- Amplitudes and probabilities
+- Normalization
+- Phase
 ### Bloch Sphere
 
+- Poles and equator
+- Phase as an angle
+- Bloch coordinates
 ### Quantum Gates
 
+- I, X, Y, Z, H
+- Rotation gates
+- Composition and order
+### Multi-Qubit Systems
+
+- Joint states
+- CNOT
+- Product and entangled states
+- Bell states
 ### Quantum Circuits
 
+- Wires and symbols
+- Reading and building circuits
+- Bell-state circuit
 ### Measurement
 
-### Multi-Qubit Systems
+- Born rule
+- Shots and distributions
+- State update after measurement
 
 ## 03 — Quantum Programming
 
