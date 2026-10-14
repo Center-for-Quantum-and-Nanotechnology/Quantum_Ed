@@ -39,6 +39,7 @@ extra_css:
 
 extra_javascript:
   - assets/javascripts/download.js
+  - assets/javascripts/level.js
   - assets/javascripts/surface-code.js
   - assets/javascripts/matching.js
   - assets/javascripts/lattice-surgery.js
@@ -71,6 +72,7 @@ markdown_extensions:
 hooks:
   - hooks.py
   - glossary_hook.py
+  - level_hook.py
 
 nav:
   - Home: index.md
