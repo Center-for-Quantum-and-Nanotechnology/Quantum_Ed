@@ -2248,3 +2248,59 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
   font-size: 0.85rem;
   font-style: italic;
 }
+
+/* ---------------------------------------------------------------------
+   Module 02 - Bloch Sphere (docs/02-fundamentals/bloch-sphere.md): the sphere
+   explorer. Neutral treatment like the rest of Module 02. The live point is a
+   filled dot, the pinned state a faded diamond, the named points small dots
+   with text labels, and the projection a dashed line, so nothing depends on
+   color alone.
+   ------------------------------------------------------------------- */
+.qed-sphere [hidden] {
+  display: none !important;
+}
+
+.qed-sphere__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0.6rem 0;
+  align-items: start;
+}
+
+@media (min-width: 48em) {
+  .qed-sphere__layout {
+    grid-template-columns: minmax(0, 360px) 1fr;
+  }
+}
+
+.qed-sphere__view canvas,
+#bs-bridge canvas,
+#bs-compare canvas {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+}
+
+#bs-compare .qed-demo__layout {
+  align-items: flex-start;
+}
+
+#bs-compare canvas {
+  flex: 0 1 300px;
+}
+
+.qed-sphere__bars {
+  flex: 1 1 220px;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.qed-sphere__controls .qed-editor__amp {
+  margin-bottom: 0.7rem;
+}

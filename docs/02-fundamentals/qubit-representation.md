@@ -260,7 +260,7 @@ A qubit's state can be written as two amplitudes. Their squares give the probabi
 
 > **How can we picture a state, including its sign, instead of reading a list of numbers?**
 
-**Next: Bloch Sphere →** *(coming soon)*
+**Next: [Bloch Sphere →](bloch-sphere.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {

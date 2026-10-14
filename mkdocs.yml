@@ -89,6 +89,7 @@ nav:
       - Overview: 02-fundamentals/index.md
       - Quantum States: 02-fundamentals/quantum-states.md
       - Qubit Representation: 02-fundamentals/qubit-representation.md
+      - Bloch Sphere: 02-fundamentals/bloch-sphere.md
   - "03 · Quantum Programming":
       - 03-programming/index.md
   - "04 · Quantum Hardware":

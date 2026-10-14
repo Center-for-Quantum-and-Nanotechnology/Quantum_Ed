@@ -74,6 +74,7 @@
     - 01-foundations/what-is-quantum-computing.md
     - 07-error-correction/errors-and-noise.md
     - 02-fundamentals/qubit-representation.md
+    - 02-fundamentals/bloch-sphere.md
   category: quantum-foundations
 
 - id: relative-phase
@@ -96,6 +97,7 @@
   moduleReferences:
     - 01-foundations/what-is-quantum-computing.md
     - 07-error-correction/errors-and-noise.md
+    - 02-fundamentals/bloch-sphere.md
   category: quantum-foundations
 
 - id: computational-basis
@@ -145,7 +147,8 @@
   definition: "A quantum state described by a single state vector, representing complete knowledge of the system's quantum state, as opposed to a statistical mixture of states."
   beginnerInterpretation: "A pure state is a fully specified quantum state, with no leftover uncertainty about which state the system is in."
   relatedTerms: [mixed-state, quantum-state, density-matrix, bloch-sphere]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/bloch-sphere.md
   category: quantum-foundations
 
 - id: mixed-state
@@ -206,6 +209,7 @@
   relatedTerms: [relative-phase, phase, quantum-state, probability-amplitude, pure-state]
   moduleReferences:
     - 02-fundamentals/qubit-representation.md
+    - 02-fundamentals/bloch-sphere.md
   category: quantum-foundations
 
 - id: inner-product
@@ -226,4 +230,5 @@
   relatedTerms: [inner-product, basis-state, bra-ket-notation, quantum-state, bloch-sphere]
   moduleReferences:
     - 02-fundamentals/qubit-representation.md
+    - 02-fundamentals/bloch-sphere.md
   category: quantum-foundations
