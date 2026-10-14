@@ -1889,3 +1889,108 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
     flex: 1 0 100%;
   }
 }
+
+/* ---------------------------------------------------------------------
+   Module 02 — Quantum States (docs/02-fundamentals/quantum-states.md).
+   Module 02 has no palette of its own and does not reuse Module 07's color
+   meanings. The page tells its objects apart by shape and a text label, not
+   by color:
+     rounded rectangle with a tag = a prepared state or preparation
+     circle                       = one measurement outcome
+     horizontal bar               = counts (shared .qed-confidence-* styles)
+   ------------------------------------------------------------------- */
+.qed-prepared {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1 1 11rem;
+  padding: 0.6rem 0.8rem;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 0.5rem;
+  background: var(--md-code-bg-color);
+  font-size: 0.9rem;
+}
+
+.qed-prepared--live {
+  margin: 0.6rem 0;
+}
+
+.qed-prepared__tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-demo__step {
+  margin: 0.8rem 0 0.2rem;
+}
+
+.qed-demo__hint {
+  min-height: 1.2rem;
+  margin: 0.2rem 0;
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-demo__feedback {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+}
+
+.qed-outcomes {
+  margin-top: 0.8rem;
+}
+
+.qed-tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0.3rem 0 0.6rem;
+  min-height: 1.6rem;
+}
+
+.qed-outcome-token {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 50%;
+  background: var(--md-default-bg-color);
+  font-family: var(--md-code-font);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.qed-tokens__more {
+  align-self: center;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-quiz__item {
+  margin: 0.6rem 0 1rem;
+}
+
+.qed-quiz__prompt {
+  margin: 0.2rem 0;
+}
+
+.qed-quiz__feedback {
+  min-height: 1.2rem;
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+}
+
+.qed-quiz__feedback.is-correct::before {
+  content: "✓ ";
+  font-weight: 700;
+}
+
+.qed-quiz__feedback.is-incorrect::before {
+  content: "✗ ";
+  font-weight: 700;
+}

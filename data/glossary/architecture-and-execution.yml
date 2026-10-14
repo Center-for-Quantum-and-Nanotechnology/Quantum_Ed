@@ -96,7 +96,8 @@
   definition: "A single execution of a circuit followed by measurement, producing one set of classical outcomes. Results are gathered by repeating many shots."
   beginnerInterpretation: "A shot is one run of the circuit and one readout. Because results are probabilistic, you take many shots to see the pattern."
   relatedTerms: [sampling, measurement, expectation-value, backend, readout-error]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/quantum-states.md
   category: architecture-and-execution
 
 - id: sampling

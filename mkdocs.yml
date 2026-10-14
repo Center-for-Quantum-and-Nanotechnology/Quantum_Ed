@@ -83,7 +83,8 @@ nav:
       - What Is Quantum Computing?: 01-foundations/what-is-quantum-computing.md
       - Quantum Computing Today: 01-foundations/quantum-computing-today.md
   - "02 · Quantum Computing Fundamentals":
-      - 02-fundamentals/index.md
+      - Overview: 02-fundamentals/index.md
+      - Quantum States: 02-fundamentals/quantum-states.md
   - "03 · Quantum Programming":
       - 03-programming/index.md
   - "04 · Quantum Hardware":

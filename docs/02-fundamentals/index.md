@@ -11,7 +11,7 @@ Every page starts with the core idea, taught through pictures, tables, and inter
 
 Pages are linked here as they are written.
 
-- **Quantum States** — what a state is, and how it differs from a measurement result.
+- **[Quantum States](quantum-states.md)** — what a state is, and how it differs from a measurement result.
 - **Qubit Representation** — how to write down and calculate with the state of one qubit.
 - **Bloch Sphere** — a picture of one qubit's state.
 - **Quantum Gates** — how ideal gates transform states.
