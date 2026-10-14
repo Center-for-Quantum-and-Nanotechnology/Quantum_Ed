@@ -70,19 +70,41 @@
 - Dual-Rail / Bosonic Encodings
 ## 05 — Quantum Software Stack
 
-### Application Layer
+### Understanding the Quantum Software Stack
 
-### Algorithms
+- Application Layer and Control Layer responsibilities
+- Representation, transformation, backend description, execution, runtime, and results
+- Calibration and calibration telemetry (introduced, not taught)
+- Simulator versus hardware paths
+### Quantum Program Representations
 
-### Compilation & Transpilation
+- Source representation versus downstream forms
+- Conceptual intermediate representations
+### Compilation and Transpilation
 
-### Runtime
+- Equivalent program transformations
+- Native-operation and connectivity constraints
+- Optimization tradeoffs
+### Hardware Abstraction and Backend Capabilities
 
-### Control Layer
+- Supported operations, native gates, and connectivity
+- Simulator versus hardware targets
+- Control-software boundary
+- Why calibration is performed
+- Calibration telemetry: fields, meaning, units, variability, and uses
+### Simulation Engines and Methods
 
-### Calibration
+- Simulation approaches, capabilities, and limitations
+- Resource implications
+### Quantum Runtime and Classical-Quantum Orchestration
 
-### Calibration Telemetry
+- Job submission and lifecycle
+- Measurement and result handling
+- Hybrid classical-quantum loops
+### Integrated Quantum Software Workflows
+
+- End-to-end simulator and hardware paths
+- How responsibilities interact and vary by platform
 
 ## 06 — Quantum Algorithms & Methods
 

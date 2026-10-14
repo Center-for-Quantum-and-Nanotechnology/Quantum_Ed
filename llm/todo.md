@@ -10,14 +10,15 @@ Last updated: 2026-10-13
 
 Governing documents: `context_docs/modules/module_05/taxonomy_QuantumSoftwareStack_v1.1.md` and the 05.01 spec in `context_docs/modules/module_05/specs/`.
 
-- [ ] **Revise the 05.01 spec for taxonomy V1.1.** The taxonomy says the spec predates V1.1 and must be reconciled. Draft the revision as a diff for review rather than overwriting it.
+- [x] **Revise the 05.01 spec for taxonomy V1.1.** Done (`61ea053`). The taxonomy says the spec predates V1.1 and must be reconciled. Draft the revision as a diff for review rather than overwriting it.
   - Add the Application Layer / Control Layer framing.
   - Add a brief calibration and telemetry introduction, without teaching 05.04 content.
   - Fix the rules that now conflict with V1.1: "do not teach calibration" in section 5, and the bans on "backend-property schemas" and "quantum control software" in the constraints. They should say "name it, don't teach it".
   - Add the **Shared Components** section (template: `context_docs/templates/SharedComponentsSection.md`).
   - Record that the spec was reviewed against taxonomy V1.1.
-- [ ] **Sync the global taxonomy and navigation.** `context_docs/taxonomy/Quantum_Computing_Curriculum.md` still has the old flat Module 05 list (Application Layer / Control Layer). Update it and `mkdocs.yml` to the seven approved pages (05.01–05.07, per taxonomy section 12). **Decision needed:** stub pages for 05.02–05.07, or nav entries only for pages that exist.
-- [ ] **Rewrite `docs/05-software-stack/index.md`**, whose "Planned sections" still describe the old structure.
+- [x] **Sync the global taxonomy.** `context_docs/taxonomy/Quantum_Computing_Curriculum.md` now lists the seven approved pages.
+- [ ] **Add each Module 05 page to `mkdocs.yml` as it is built.** Decision: nav entries only for pages that exist, no stub pages. The nav currently holds just the module index.
+- [x] **Rewrite `docs/05-software-stack/index.md`.** It now describes the module and lists the seven planned pages. Link each page there as it is written.
 - [ ] **Build 05.01** (Understanding the Quantum Software Stack) from the revised spec.
   - Module 03 is a placeholder, so there is no circuit display to reuse. Plan to reuse the `.qed-circuit-*` styles from Module 07.
   - Terminology check against the glossary (see the glossary section below).
