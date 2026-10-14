@@ -59,7 +59,7 @@ Keep this table current. It is the first thing to check before building.
 | `QedCircuit` | `circuit.js` | `bell`, `describe`, `renderSVG`, `qubitName` | Understanding the Quantum Software Stack |
 | `QedSoftwareStack` | `software-stack.js` | `RESPONSIBILITIES`, `GROUPS`, `RELATIONS`, `journey`, `comparison`, `catalogHTML`, `comparisonHTML`, `mount` | Understanding the Quantum Software Stack |
 | `QedShots` | `shots.js` | `rng`, `sample`, `session`, `defaultLabels`, `describe`, `renderBars`, `renderHTML` | Module 02 repeated-measurement pages (planned: 02.01, 02.05, 02.07) |
-| `QedQubit` | `qubit.js` | `real`, `complex`, `fromPolar`, `modulus`, `phase`, `probabilities`, `norm2`, `isNormalized`, `normalize`, `relativePhase`, `applyGlobalPhase`, `format`, `validity`, `PRESETS` | Module 02 single-qubit pages (planned: 02.02, 02.03, 02.04, 02.07) |
+| `QedQubit` | `qubit.js` | `real`, `complex`, `fromPolar`, `modulus`, `phase`, `probabilities`, `norm2`, `isNormalized`, `normalize`, `relativePhase`, `applyGlobalPhase`, `format`, `formatAmplitude`, `innerProduct`, `validity`, `PRESETS` | Module 02 single-qubit pages (planned: 02.02, 02.03, 02.04, 02.07) |
 | `QedQuiz` | `quiz.js` | `validate`, `check`, `mount` | Module 02 pages with multiple-choice checks (02.01, 02.02) |
 | `QedLevel` | `level.js` | `LEVELS`, `get`, `set`, `atLeast`, `rank`, `onChange`; also builds the header selector, page note, TOC filtering and hash auto-reveal | Every page (site-wide) |
 | (none) | `download.js` | Adds the module-download button | Every page |

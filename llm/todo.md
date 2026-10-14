@@ -38,7 +38,7 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [x] **When 02.02 is built: log any cut Intermediate parts in `llm/FLAGS.md`.** Done: bra notation, inner products, and orthonormality were cut and logged.
 - [ ] **Add each remaining Module 02 page to `mkdocs.yml` as it is built** (02.01 is done), and link it from `docs/02-fundamentals/index.md`.
 - [ ] **Terminology check against the glossary** for each page. Many entries (qubit, superposition, Bloch sphere, gates, measurement) belong to this module.
-- [ ] **Add the 02.02 follow-ups to glossary references if the optional Intermediate parts are ever built:** Bra-Ket Notation, and a new Inner Product entry.
+- [x] **Optional Intermediate parts of 02.02 (bra notation, inner products, orthonormality) are built**, with an *Inner Product* glossary entry and a Bra-Ket Notation reference.
 - [ ] **Screen-reader and keyboard pass for the Module 02 interactives** (02.01 and 02.02 so far). They use native controls and aria-live summaries but have only been tested with scripted interaction.
 - [ ] **Reconcile `QedBloch` with `QedQubit` in 02.03.** Decide where the Bloch conversion lives and avoid duplicating the amplitude math.
 - [x] **Extract the data-driven quiz builder.** Done as `QedQuiz` (`quiz.js`), with tests; 02.01 was migrated onto it.
@@ -61,11 +61,11 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [ ] **Merge `main` into `treys_branch`.** An attempt hit conflicts in `mkdocs.yml` and `docs/assets/stylesheets/extra.css` and was aborted. The conflicts are additive (CSS from both sides; both sets of `extra_javascript` lines). Trey's branch also needs the new conventions and context_docs layout.
 - [ ] **Migrate `errors-and-noise.md` onto `QedBloch`** once Trey's `bloch.js` reaches `main`. The page carries its own copy of the Bloch drawing code. Then add `QedBloch` to the component table in `llm/CONVENTIONS.md` section 4 and remove the "in progress" note there.
 
-## Glossary (152 terms)
+## Glossary (153 terms)
 
 Governing documents: `context_docs/glossary/specs/glossary.md`, `data/glossary/`, and the workflow in the root `README.md`.
 
-- [ ] **Subject-matter review of all 152 definitions.** I wrote them and they have had no expert review. Check these first: Shor/Steane code, Threshold Theorem (polylogarithmic overhead), T1/T2, Transmon, Quantum Supremacy history, Magic State / Distillation, Erasure Qubit, Bias-Preserving Gate, Logical Architecture.
+- [ ] **Subject-matter review of all 153 definitions.** I wrote them and they have had no expert review. Check these first: Shor/Steane code, Threshold Theorem (polylogarithmic overhead), T1/T2, Transmon, Quantum Supremacy history, Magic State / Distillation, Erasure Qubit, Bias-Preserving Gate, Logical Architecture.
 - [ ] **Build the hover / inline definitions** from glossary spec section 10: hover definitions, side panels, definition cards, and links from lesson text into the glossary.
 - [ ] **Decide on near-synonym entries** kept separate for now, and merge any as aliases: Simulator / Quantum Simulator, Backend / Hardware Backend, Native Gate / Native Gate Set, Circuit Mapping / Qubit Mapping, Compilation / Transpilation / Quantum Compiler, Decoder / Decoding, Calibration / Calibration Data / Calibration Telemetry, Quantum Noise / Quantum Error, Dephasing / T2 / Phase-Flip Error.
 - [ ] **Review the generic alias "Layout"** on Qubit Mapping, the likeliest to surprise.
