@@ -314,6 +314,22 @@ document.addEventListener("DOMContentLoaded", function () {
 !!! info "Preview: t = (d − 1) / 2"
     For an idealized distance-\(d\) code, the number of errors it can correct is \(t = \lfloor (d-1)/2 \rfloor\) under the relevant assumptions. We won't derive this here — the visual above (more distance → more checks → more resources) is what matters at this level.
 
+<div class="qed-level" data-min-level="intermediate" markdown="1">
+
+### Code distance, more precisely
+
+An error pattern that trips no check but still changes the encoded information is a **logical operator**: it commutes with every stabilizer check, yet it is not itself a product of checks. Its *weight* is the number of qubits it acts on. The code distance is the smallest weight of any such operator:
+
+\[ d = \min \{\, |L| : L \text{ is a nontrivial logical operator} \,\} \]
+
+In the square patch used here, a logical X error is a chain of X errors running from one boundary of the patch to the opposite boundary, and a logical Z error is a chain of Z errors across the other pair of boundaries. Each such chain involves at least \(d\) qubits, so both distances equal \(d\).
+
+**Why \(t = \lfloor (d-1)/2 \rfloor\).** Suppose at most \(t\) errors occurred, and a decoder proposes the smallest correction consistent with the syndrome, so the correction also involves at most \(t\) qubits. The actual error and the correction together act on at most \(2t \le d-1\) qubits, and together they trip no checks. An operator that trips no checks and acts on fewer than \(d\) qubits cannot be a nontrivial logical operator, so it is a product of checks and leaves the logical information unchanged. The error is therefore corrected.
+
+This argument assumes errors only on data qubits, perfect syndrome measurement, and minimum-weight decoding. Real devices relax each of these, which is part of what [Hardware-Aware QEC](hardware-aware-qec.md) is about. The patch drawn above also shows only its interior checks; a complete patch has checks along its boundaries too, which is why boundaries matter at this level.
+
+</div>
+
 Bigger distance means better protection, but it isn't free:
 
 <div class="qed-demo" style="display:flex; flex-direction:column; align-items:center; gap:0.2rem;">
