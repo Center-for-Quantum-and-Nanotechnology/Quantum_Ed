@@ -1377,3 +1377,347 @@ button.qed-qubit:not(:disabled):hover {
 .qed-loop-arrowhead-fill {
   fill: var(--qed-color-physical);
 }
+
+/* ---------------------------------------------------------------------
+   Module 05 software-stack explorer (docs/05-software-stack/, driven by
+   docs/assets/javascripts/software-stack.js). Module 05 has no palette of
+   its own: the groups are told apart by border style AND a text label, never
+   by color alone. Device-reported information reuses the telemetry convention
+   (teal, dashed border) because it means the same thing as in Module 07.
+     solid border  = Application Layer
+     double border = Control Layer
+     left bar      = where the groups meet (backend / target description)
+     rounded pill  = execution target
+   ------------------------------------------------------------------- */
+.qed-stack__toolbar {
+  margin: 0.4rem 0;
+  align-items: center;
+}
+
+.qed-stack__progress {
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-stack__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0.8rem 0;
+}
+
+@media (min-width: 40em) {
+  .qed-stack__grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.qed-stack__side {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.qed-stack__group {
+  border-radius: 0.4rem;
+  padding: 0.6rem 0.8rem 0.8rem;
+  background: var(--md-code-bg-color);
+}
+
+.qed-stack__group-title {
+  margin: 0 0 0.3rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.qed-stack__group-blurb {
+  margin: 0 0 0.4rem;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-stack__group--application {
+  border: 2px solid var(--md-default-fg-color--light);
+}
+
+.qed-stack__group--control {
+  border: 5px double var(--md-default-fg-color--light);
+}
+
+.qed-stack__group--meeting {
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-left: 6px solid var(--md-default-fg-color--light);
+}
+
+.qed-stack__group--target {
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 1.2rem;
+}
+
+.qed-stack__cards,
+.qed-stack__catalog ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+[dir] .md-typeset .qed-stack__cards,
+[dir] .md-typeset .qed-stack__catalog ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+[dir] .md-typeset .qed-stack__cards li {
+  margin: 0.35rem 0;
+}
+
+[dir] .md-typeset .qed-stack__catalog li {
+  margin: 0.3rem 0;
+}
+
+.qed-stack__cards li + li {
+  position: relative;
+}
+
+.qed-stack__group--application .qed-stack__cards li + li::before {
+  content: "↓";
+  display: block;
+  text-align: center;
+  line-height: 0.9;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-stack__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: var(--md-default-fg-color);
+  background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.3rem;
+  padding: 0.45rem 0.6rem;
+  cursor: pointer;
+}
+
+.qed-stack__card:hover {
+  border-color: var(--md-accent-fg-color);
+}
+
+.qed-stack__card:focus-visible {
+  outline: 2px solid var(--md-accent-fg-color);
+  outline-offset: 2px;
+}
+
+.qed-stack__card-label {
+  font-weight: 600;
+}
+
+.qed-stack__step {
+  font-size: 0.7rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-stack__card.is-visited {
+  background: color-mix(in srgb, var(--md-default-fg-color--lightest) 70%, var(--md-default-bg-color));
+}
+
+.qed-stack__card.is-related {
+  border-style: dashed;
+  border-width: 2px;
+  border-color: var(--md-accent-fg-color);
+}
+
+.qed-stack__card.is-current,
+.qed-stack__card.is-selected {
+  border-color: var(--md-accent-fg-color);
+  border-width: 2px;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--md-accent-fg-color) 25%, transparent);
+}
+
+.qed-stack__card.is-selected .qed-stack__card-label::before {
+  content: "▶ ";
+}
+
+.qed-stack__card.is-inactive {
+  border-style: dotted;
+  color: var(--md-default-fg-color--light);
+  background: transparent;
+}
+
+.qed-stack__panel {
+  border-left: 4px solid var(--md-accent-fg-color);
+  background: var(--md-code-bg-color);
+  border-radius: 0 0.3rem 0.3rem 0;
+  padding: 0.6rem 0.9rem;
+  margin: 0.8rem 0;
+  min-height: 3rem;
+}
+
+.qed-stack__panel p {
+  margin: 0.3rem 0;
+}
+
+.qed-stack__field {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--md-default-fg-color--light);
+}
+
+@media (min-width: 60em) {
+  .qed-stack__panel p:not(.qed-stack__note):not(.qed-stack__hint):not(.qed-stack__panel-title) {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 0 0.8rem;
+  }
+}
+
+.qed-stack__note {
+  font-style: italic;
+}
+
+.qed-stack__tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 0 0.4rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--md-default-fg-color--light);
+  white-space: nowrap;
+}
+
+.qed-stack__tag--control {
+  border-style: double;
+  border-width: 3px;
+}
+
+.qed-stack__tag--meeting {
+  border-left-width: 4px;
+}
+
+.qed-stack__relations {
+  margin: 0.8rem 0;
+}
+
+.qed-stack__relations ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.qed-stack__relation {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: var(--md-default-fg-color);
+  background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.3rem;
+  padding: 0.5rem 0.7rem;
+  margin: 0.35rem 0;
+  cursor: pointer;
+}
+
+.qed-stack__relation:focus-visible {
+  outline: 2px solid var(--md-accent-fg-color);
+  outline-offset: 2px;
+}
+
+.qed-stack__relation.is-active {
+  border-color: var(--md-accent-fg-color);
+  border-width: 2px;
+}
+
+.qed-stack__relation.is-inactive {
+  border-style: dotted;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-stack__relation-title {
+  display: block;
+  font-weight: 600;
+}
+
+.qed-stack__relation-chain {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-stack__relation-note {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+}
+
+/* Device-reported information: same meaning as the Module 07 telemetry
+   convention (teal, dashed), always paired with a text label. */
+.qed-stack__reported {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border: 2px dashed var(--qed-color-telemetry);
+  border-radius: 0.3rem;
+  background: color-mix(in srgb, var(--qed-color-telemetry) 10%, var(--md-code-bg-color));
+  font-size: 0.85rem;
+}
+
+.qed-stack__scroll {
+  overflow-x: auto;
+}
+
+.qed-stack__compare th,
+.qed-stack__compare td {
+  vertical-align: top;
+}
+
+.qed-stack__caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+  padding-bottom: 0.3rem;
+}
+
+.qed-stack__shared--differs {
+  font-weight: 700;
+}
+
+.qed-stack__shared--hardware-only {
+  font-style: italic;
+  font-weight: 700;
+}
+
+.qed-stack__catalog {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+  margin: 0.8rem 0;
+}
+
+@media (min-width: 40em) {
+  .qed-stack__catalog {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.qed-stack__catalog li {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+.qed-stack__circuit {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
