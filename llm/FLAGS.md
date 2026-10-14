@@ -122,3 +122,10 @@ Implemented per the plan agreed in discussion. Mechanism only so far; the first 
 - Level-aware interactive components (a convention is documented only).
 - Intermediate/Advanced content, apart from the pilot.
 - A per-module or per-page remembered level (decided against; one setting follows the learner).
+
+---
+
+## Shared sampler (`QedShots`) and a fixed bar bug
+
+- **`shots.js` (`window.QedShots`) was built before its first page.** Module 02's 02.01, 02.05 and 02.07 all show repeated measurements, so the sampler and result bars were extracted up front rather than kept page-local. It is seeded and deterministic: a session advances through one seeded stream, so a page shows the same first run on every load while "run again" gives new results. Unit checks live outside the repo (determinism, counts, validation, labels, text); rerun equivalent checks if the module changes. Module 01's measurement demo (on `treys_branch`) has its own sampling code and is a migration candidate.
+- **Fixed: `.qed-confidence-bar__fill` was `display: inline`, so its width was ignored and the bars never filled.** This affected the Decoding page's hypothesis bars (they showed an empty frame). Added `display: block`. Verified the fill now matches the inline width (95% of the bar at 1000px). At very narrow widths those older bars are still squeezed by their 9rem label; `QedShots` bars wrap the label and count above the bar below 30em.

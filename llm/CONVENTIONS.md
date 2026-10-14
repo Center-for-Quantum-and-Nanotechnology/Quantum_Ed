@@ -56,6 +56,7 @@ Keep this table current. It is the first thing to check before building.
 | `QedLatticeSurgery` | `lattice-surgery.js` | `STAGE_ORDER`, `buildScene`, `renderSVG`, `mount` | Lattice Surgery |
 | `QedCircuit` | `circuit.js` | `bell`, `describe`, `renderSVG`, `qubitName` | Understanding the Quantum Software Stack |
 | `QedSoftwareStack` | `software-stack.js` | `RESPONSIBILITIES`, `GROUPS`, `RELATIONS`, `journey`, `comparison`, `catalogHTML`, `comparisonHTML`, `mount` | Understanding the Quantum Software Stack |
+| `QedShots` | `shots.js` | `rng`, `sample`, `session`, `defaultLabels`, `describe`, `renderHTML` | Module 02 repeated-measurement pages (planned: 02.01, 02.05, 02.07) |
 | `QedLevel` | `level.js` | `LEVELS`, `get`, `set`, `atLeast`, `rank`, `onChange`; also builds the header selector, page note, TOC filtering and hash auto-reveal | Every page (site-wide) |
 | (none) | `download.js` | Adds the module-download button | Every page |
 | (none) | `glossary.js` | Text filter and deep-link reveal | Glossary |
