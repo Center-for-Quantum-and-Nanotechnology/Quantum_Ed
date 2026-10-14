@@ -47,6 +47,7 @@ extra_javascript:
   - assets/javascripts/circuit.js
   - assets/javascripts/shots.js
   - assets/javascripts/software-stack.js
+  - assets/javascripts/bloch.js
   - assets/javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 

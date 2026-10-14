@@ -162,3 +162,33 @@ Built from `context_docs/modules/module_02/specs/02.01_QuantumStatesInstruction.
 - Page script wrapped in `DOMContentLoaded`; gated blocks carry `markdown="1"` (checked by `level_hook.py`).
 - Result bars come from `QedShots`; no page-local sampling code.
 - Classes are `qed-` prefixed; new CSS is appended at the end of `extra.css`.
+
+---
+
+## Module 01 — What Is Quantum Computing? (Foundations)
+
+Logged while finishing this page (Qubits fixes + Superposition / Measurement / Entanglement). No `context_docs/module_1/` instruction docs exist, so content follows the taxonomy doc and Project Vision only.
+
+### Changes to existing work
+
+- **New shared module `docs/assets/javascripts/bloch.js` (`window.QedBloch`)**: `state(theta, phi)`, `formatHTML` / `formatText`, `project`, `render(canvas, theta, phi)`. Pure math + pure drawing; page scripts do the DOM wiring (same convention as `QedSurfaceCode`). Intended for reuse by Module 02's Bloch Sphere section. Module 07's `errors-and-noise.md` still has its own page-local copy of the Bloch drawing code — a candidate to migrate onto `QedBloch` later (not touched here).
+- **Qubits demo readout bug fixed**: the state formula used `textContent` and showed raw `e^{i0°}`. It now uses `innerHTML` with a real superscript (numbers only, so safe) instead of re-typesetting MathJax on every slider tick.
+- **Bloch canvas colors now read `--qed-color-logical`** (and the theme's muted foreground) via `getComputedStyle` instead of hard-coded hex values; canvas gets an `aria-label` that updates with the state.
+- **Removed the `polyfill.io` script from `mkdocs.yml`** (compromised domain in 2024; unnecessary for MathJax 3 on modern browsers).
+- **Qubits intro sentence changed** from "phase becomes important once qubits interact" to "invisible to a single measurement, but crucial the moment states are combined", because the Superposition demo now shows phase mattering for a *single* qubit via interference.
+
+### Known simplifications / conceptual caveats
+
+- **The "mix" button is the Hadamard gate, previewed before Module 02 introduces gates.** Labeled "Apply mix (H)" with a pointer to Module 02. It is the smallest operation that lets a learner see interference (a hidden coin can't return to a certain 0 after two mixes). The qubit amplitudes in that demo are real-valued only.
+- **Measurement and entanglement demos are simulated from the textbook predictions**, not from a state-vector simulator or real hardware: single-qubit outcomes are `Math.random() < p0`; the Bell-pair CHSH rounds sample each answer as a fair coin and make the pair agree with probability cos²((α−β)/2). The page says so in the "Simplified model" note. Measurement is ideal (no readout error); that links forward to Modules 04 / 07.
+- **"Pre-agreed coins vs entangled pair" table uses the same generator in both modes.** That is deliberate and accurate — with both sides asking the same question the statistics are identical, which is the lesson ("agreement alone doesn't prove entanglement").
+- **Entanglement is taught through the CHSH game, not a Bell-state circuit.** Classical 75% bound is proven in the page's "Show the math" block (XOR argument); quantum strategy uses tilts 0°/90° (Alice) and 45°/−45° (Bob) → ≈85.4%. Measurement "tilt" is introduced informally (a direction on the Bloch sphere); formal bases/observables are left to Module 02.
+- **Collapse is presented in the standard textbook (projective-measurement) picture**; interpretation questions are intentionally out of scope.
+- **Page mentions the 2022 Nobel Prize in Physics** (Aspect, Clauser, Zeilinger) as context for Bell tests without naming the laureates — worth a reference link in a content-hardening pass.
+
+### Reminders that applied here
+
+- The `<details class="qed-details">` blocks include `markdown="1"` (per the Module 07 bug above).
+- All page scripts are wrapped in `DOMContentLoaded` because they depend on the shared `extra_javascript` module.
+- New CSS (`.qed-panel`, `.qed-amp-*`, `.qed-confidence-bar--marked`, `.qed-results-table`, `.qed-chsh-row`) is appended at the end of `extra.css`. Negative amplitudes are drawn hatched *and* carry a "−" sign so sign never depends on color alone.
+
