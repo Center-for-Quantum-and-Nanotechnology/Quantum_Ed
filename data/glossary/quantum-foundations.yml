@@ -217,3 +217,13 @@
   moduleReferences:
     - 02-fundamentals/qubit-representation.md
   category: quantum-foundations
+
+- id: orthogonal-states
+  term: Orthogonal States
+  aliases: []
+  definition: "Two states whose inner product is zero. A suitable measurement can in principle tell orthogonal states apart with certainty. On the Bloch sphere, orthogonal states are opposite points."
+  beginnerInterpretation: "Orthogonal states are as different as two states can be: a suitable measurement can always tell them apart. |0⟩ and |1⟩ are an example."
+  relatedTerms: [inner-product, basis-state, bra-ket-notation, quantum-state, bloch-sphere]
+  moduleReferences:
+    - 02-fundamentals/qubit-representation.md
+  category: quantum-foundations
