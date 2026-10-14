@@ -14,6 +14,8 @@ Read this before writing any page script. Log deviations in [`FLAGS.md`](FLAGS.m
 | Wiring for **one page**: reading sliders, toggling buttons, updating text | An inline `<script>` at the bottom of that page's `.md` | The page itself |
 | Styles | `docs/assets/stylesheets/extra.css`, `qed-` prefixed classes | `extra_css` |
 | Learner-facing vocabulary | `data/glossary/*.yml` (never hand-edit `docs/glossary.md`) | `glossary_hook.py` |
+| Tests for shared-module logic | `tests/js/<name>.test.js` | `node --test` (run from `tests/js`) |
+| Tests for the build hooks | `tests/python/test_<name>.py` | `python -m unittest discover -s tests/python` |
 
 MkDocs pages are separate documents, not a single-page app, so a shared module has to be loaded on every page. A module must therefore be a **no-op on pages that don't use it**.
 
@@ -115,9 +117,39 @@ Beginner, Intermediate and Advanced are **cumulative views of one canonical page
 
 **Search.** The search index is built once and cannot know the level, so gated text is indexed on purpose. A hit on hidden content raises the level on arrival (see `FLAGS.md`).
 
-## 8. Before you commit
+## 8. Tests
+
+Automated tests cover the **pure layers**: shared-module logic and rendering strings, and the build hooks. DOM wiring and page layout stay covered by browser verification.
+
+**JavaScript (`tests/js/`).** Zero dependencies: Node's built-in runner and `node:assert`. There is no `package.json` and no `node_modules`.
+
+```bash
+cd tests/js
+node --test
+```
+
+- One `<module>.test.js` per shared module. `load.js` evaluates a module file against a stub `window` and returns it, so a test reads `window.QedShots` exactly as a page script would.
+- Only modules whose top level touches nothing but `window` can be loaded this way. A module that needs `document` at load time (for example `level.js`) is verified in the browser instead.
+- Test the model, not the markup: determinism, totals, validation, labels and text. A rendering function can be checked for the strings it must contain.
+- Keep tests deterministic. Use seeded generators (see `QedShots`) and tolerances that hold across seeds.
+- When you fix a bug in a shared module, add the test that would have caught it.
+
+**Python (`tests/python/`).** The standard library's `unittest`, run from the repository root with the packages from `requirements.txt` installed (the hooks import mkdocs).
+
+```bash
+python -m unittest discover -s tests/python -v
+```
+
+- One `test_<hook>.py` per build hook. Call the hook function directly with a stub page object, and check both the pass case and every failure the hook promises to raise.
+
+**When they run.** `.github/workflows/deploy.yml` runs both suites before `mkdocs build --strict`, on every pull request and on pushes to `main`. A failing test blocks the merge. You do not need Node to build the site, only to run the JavaScript tests.
+
+**Not tested here:** the explorers' DOM behavior, CSS, page text, and anything that needs a browser. Do not add a browser-automation framework without a discussion.
+
+## 9. Before you commit
 
 1. `mkdocs build --strict` passes (it also validates the glossary data).
 2. Open the page in `mkdocs serve`: console clean, demos work, narrow (phone-width) layout still reads.
 3. Anything simplified, deferred, or deviating from the spec goes in `FLAGS.md`.
 4. New shared module: added to `extra_javascript`, listed in section 4 above.
+5. Tests pass: `cd tests/js && node --test`, and `python -m unittest discover -s tests/python`. A new shared module with a pure logic layer comes with a test file.

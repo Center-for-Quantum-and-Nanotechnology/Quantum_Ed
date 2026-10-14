@@ -8,7 +8,7 @@ Before building or changing any section:
 2. Read `llm/CONVENTIONS.md` for where shared JS lives, how modules are built, and the page-script rules. Check its component table before writing a new component.
 3. Check `llm/FLAGS.md` for earlier deviations and open items. Record new ones there.
 4. When a page introduces vocabulary, follow the glossary workflow in `README.md`.
-5. Verify with `mkdocs build --strict` and by viewing the page. The glossary and nav links are validated at build time.
+5. Verify with `mkdocs build --strict` and by viewing the page. The glossary and nav links are validated at build time. Run the tests (`llm/CONVENTIONS.md`, section 8); a shared module with a pure logic layer gets a test file in `tests/js/`.
 
 Specs are named `<ID>_<PageTitle>.md` (for example `07.04.01_SurfaceCodesInstruction.md`) and include a "Shared Components" section before "Technical Requirements"; the template is `context_docs/templates/SharedComponentsSection.md`. If a spec contradicts its module taxonomy, stop and flag it rather than resolving it silently.
 

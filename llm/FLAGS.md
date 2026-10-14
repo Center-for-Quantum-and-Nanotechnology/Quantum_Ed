@@ -129,3 +129,13 @@ Implemented per the plan agreed in discussion. Mechanism only so far; the first 
 
 - **`shots.js` (`window.QedShots`) was built before its first page.** Module 02's 02.01, 02.05 and 02.07 all show repeated measurements, so the sampler and result bars were extracted up front rather than kept page-local. It is seeded and deterministic: a session advances through one seeded stream, so a page shows the same first run on every load while "run again" gives new results. Unit checks live outside the repo (determinism, counts, validation, labels, text); rerun equivalent checks if the module changes. Module 01's measurement demo (on `treys_branch`) has its own sampling code and is a migration candidate.
 - **Fixed: `.qed-confidence-bar__fill` was `display: inline`, so its width was ignored and the bars never filled.** This affected the Decoding page's hypothesis bars (they showed an empty frame). Added `display: block`. Verified the fill now matches the inline width (95% of the bar at 1000px). At very narrow widths those older bars are still squeezed by their 9rem label; `QedShots` bars wrap the label and count above the bar below 30em.
+
+---
+
+## Automated tests
+
+- **`tests/js/` uses Node's built-in runner with no dependencies and no `package.json`.** Run with `cd tests/js && node --test`. `load.js` evaluates a shared module against a stub `window`. Chosen to match the Vision's "minimal dependencies"; a framework (Jest, Vitest) would add `node_modules` and a lockfile for a handful of modules.
+- **`tests/python/` uses `unittest`** and needs the packages in `requirements.txt` (the hooks import mkdocs). First suite: `level_hook.py`.
+- **CI uses the Node that ships on `ubuntu-latest`** rather than adding `actions/setup-node`. `node --test` with no arguments (run from `tests/js`) is the form that works across Node 18 and newer.
+- **Only pure layers are tested.** `level.js` needs `document` at load time and is not loadable in the stub; the level selector, note, TOC filtering and auto-reveal are verified in the browser.
+- **The `QedShots` tests were checked to fail when the module is broken** (accepting bad probability sums; a weak generator), then the module was restored.

@@ -73,6 +73,15 @@ Governing documents: `context_docs/glossary/specs/glossary.md`, `data/glossary/`
 - [ ] **Cross-module links in Hardware-Aware QEC's "Future Hardening Note"** (Quantum Hardware, Software Stack, control/calibration, noise material). Deferred until those modules exist.
 - [ ] **Validate the Why QEC? journey links.** The `JOURNEY` array is hand-maintained and `mkdocs --strict` does not check it. Update it if Module 07 pages are renamed, or add a check.
 
+## Tests
+
+`tests/js/` (QedShots) and `tests/python/` (level_hook) exist and run in CI. Conventions: `llm/CONVENTIONS.md` section 8.
+
+- [ ] **Backfill JavaScript tests, one module at a time as each is next touched.** Cheap, high-value first: `QedSoftwareStack` invariants (every journey ID exists, every relation member exists, no numeric calibration values), `QedSurfaceCode` (`buildLattice`, `computeSyndrome`), `QedMatching` (`solveMWPM`, weights), `QedCircuit` (`describe`, `renderSVG` strings), and Trey's `QedBloch` once merged.
+- [ ] **Python tests for `glossary_hook.py`:** each validation failure (duplicate ID, unknown category, dead related term, alias collision, bad `moduleReferences`) and the pass case.
+- [ ] **Module 02 math checks** (taxonomy section 10 quality gates) as tests once the Module 02 modules exist: normalization, gate matrix actions, circuit-state tracing, probability sums.
+- [ ] **Decide whether to pin or set up Node in CI.** The workflow uses the Node that ships on `ubuntu-latest`. Revisit if a test needs a specific Node version.
+
 ## Experience levels
 
 Mechanism is built (`level.js`, `level_hook.py`, CSS, header selector). Design notes are in `llm/FLAGS.md` and `llm/CONVENTIONS.md` section 7.

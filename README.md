@@ -13,6 +13,13 @@ mkdocs serve
 
 Then open http://127.0.0.1:8000.
 
+## Running the tests
+
+```bash
+python -m unittest discover -s tests/python -v   # build hooks, from the repository root
+cd tests/js && node --test                       # shared JavaScript modules (needs Node 18 or newer)
+```
+
 ## Project structure
 
 - `docs/` — all course content, one folder per module (`01-foundations/`, `02-fundamentals/`, …). Each module folder has an `index.md` landing page.
@@ -22,7 +29,8 @@ Then open http://127.0.0.1:8000.
 - `data/glossary/` — structured source for the global [glossary](docs/glossary.md): one YAML file per category plus `categories.yml`, following the schema in `context_docs/glossary/`.
 - `glossary_hook.py` — build hook that validates `data/glossary/` (unique IDs, related-term IDs, links to real pages) and renders it into `docs/glossary.md`. A bad entry fails the build.
 - `mkdocs.yml` — site config and navigation.
-- `.github/workflows/deploy.yml` — builds on every PR, deploys to GitHub Pages on merge to `main`.
+- `tests/` — automated tests: `tests/js/` for shared JavaScript modules (Node's built-in runner, no dependencies) and `tests/python/` for the build hooks (`unittest`). See `llm/CONVENTIONS.md`, section 8.
+- `.github/workflows/deploy.yml` — runs the tests and builds on every PR, deploys to GitHub Pages on merge to `main`.
 
 ## Content sourcing
 
