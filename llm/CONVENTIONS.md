@@ -59,14 +59,17 @@ Keep this table current. It is the first thing to check before building.
 | `QedCircuit` | `circuit.js` | `bell`, `describe`, `renderSVG`, `qubitName` | Understanding the Quantum Software Stack |
 | `QedSoftwareStack` | `software-stack.js` | `RESPONSIBILITIES`, `GROUPS`, `RELATIONS`, `journey`, `comparison`, `catalogHTML`, `comparisonHTML`, `mount` | Understanding the Quantum Software Stack |
 | `QedShots` | `shots.js` | `rng`, `sample`, `session`, `defaultLabels`, `describe`, `renderBars`, `renderHTML` | Module 02 repeated-measurement pages (planned: 02.01, 02.05, 02.07) |
-| `QedQubit` | `qubit.js` | `real`, `complex`, `fromPolar`, `modulus`, `phase`, `probabilities`, `norm2`, `isNormalized`, `normalize`, `relativePhase`, `applyGlobalPhase`, `format`, `formatAmplitude`, `innerProduct`, `validity`, `PRESETS` | Module 02 single-qubit pages (planned: 02.02, 02.03, 02.04, 02.07) |
+| `QedQubit` | `qubit.js` | `real`, `complex`, `fromPolar`, `modulus`, `phase`, `probabilities`, `norm2`, `isNormalized`, `normalize`, `relativePhase`, `applyGlobalPhase`, `format`, `formatAmplitude`, `innerProduct`, `fromBloch`, `toBloch`, `blochVector`, `validity`, `PRESETS` | Module 02 single-qubit pages (02.02; planned: 02.03, 02.04, 02.07) |
+| `QedBloch` | `bloch.js` | `state`, `formatHTML`, `formatText`, `project`, `render` | What Is Quantum Computing? (Module 01); planned: 02.03 Bloch Sphere. Draws and projects only; the state math is `QedQubit`'s |
 | `QedQuiz` | `quiz.js` | `validate`, `check`, `mount` | Module 02 pages with multiple-choice checks (02.01, 02.02) |
 | `QedLevel` | `level.js` | `LEVELS`, `get`, `set`, `atLeast`, `rank`, `onChange`; also builds the header selector, page note, TOC filtering and hash auto-reveal | Every page (site-wide) |
 | (none) | `download.js` | Adds the module-download button | Every page |
 | (none) | `glossary.js` | Text filter and deep-link reveal | Glossary |
 | (none) | `mathjax.js` | MathJax configuration | Every page |
 
-Known duplication: `errors-and-noise.md` carries a page-local Bloch-sphere drawing. A shared Bloch module is in progress on `treys_branch`; once it lands on `main`, migrate this page onto it.
+Known duplication: `errors-and-noise.md` still carries a page-local Bloch-sphere drawing. `QedBloch` is now on `main`, so migrate that page onto it when it is next touched.
+
+**Bloch picture, who does what.** `QedQubit` is the source of truth for a state and converts it to and from Bloch angles and the Bloch vector (`fromBloch`, `toBloch`, `blochVector`, in degrees). `QedBloch` only projects and draws a point given by angles, and does not depend on `QedQubit`. `tests/js/bloch.test.js` checks that the two agree, so neither can drift.
 
 ## 5. Rules every page script follows
 

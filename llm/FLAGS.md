@@ -240,3 +240,23 @@ Built from `context_docs/modules/module_02/specs/02.02_QubitRepresentationInstru
 - Page script wrapped in `DOMContentLoaded`; gated blocks carry `markdown="1"` (checked by `level_hook.py`).
 - Probability bars come from `QedShots.renderBars`; amplitude math from `QedQubit`; no page-local copies.
 - Classes are `qed-` prefixed; new CSS is appended at the end of `extra.css`.
+
+---
+
+## Bloch conversions (QedQubit) and the first QedBloch tests
+
+Done before drafting the 02.03 spec, so the spec can say "reuse".
+
+- **The Bloch conversions live in `QedQubit`** (`fromBloch(thetaDeg, phiDeg)`, `toBloch(state)`, `blochVector(state)`), because they are state math. **`QedBloch` stays projection and drawing only** and gains no dependency on `QedQubit`, so Module 01 is untouched.
+- **Conventions:** angles in degrees (to match `QedBloch`), θ from +z (0 to 180), φ from +x toward +y. `fromBloch` fixes the global phase by making the |0⟩ amplitude real and not negative. A global phase does not move the point. `toBloch` and `blochVector` throw for a state that is not normalized (the probabilities must add to 100%). At the poles φ is meaningless, so `toBloch` returns `phiDeg: 0` with `phiDefined: false`. φ is returned in [0, 360).
+- **Tests:** `tests/js/qubit-bloch.test.js` (11 tests) and `tests/js/bloch.test.js` (7 tests, the first for `QedBloch`). Total suite: 76 JS tests.
+  - **The cross-module tests are the point.** They check that `QedBloch.state` and `QedQubit` give the same probabilities and magnitudes for a grid of angles, and that `QedBloch.project` places a point exactly where `QedQubit.blochVector` says it should, through the site's 20° tilt.
+  - Three mutations were checked and caught: swapping sin and cos in `fromBloch`, flipping the y sign in `blochVector`, and flipping y in `QedBloch.project` (a disagreement between the two modules).
+- **`QedBloch.project` returns a `depth` that `render` does not use**, and its sign is not interpreted anywhere (the north pole has negative depth). The tests assert only the formula. Settle the meaning when a depth cue is added.
+- **`QedBloch.render` is not covered by tests** (it draws on a canvas). It is verified in the browser.
+
+### Deferred, on purpose
+
+- **Extending `QedBloch.render` with an options argument** (labelled |+⟩/|−⟩ markers and axes, the projection onto the vertical axis, a depth cue, a second vector). It is backward compatible by default and will be done in the 02.03 build.
+- **Making `QedBloch.state` delegate to `QedQubit`** to remove the duplicated probability math. The cross-tests would protect that change; do it when Module 01 is next touched.
+- **Migrating the page-local Bloch drawing in `errors-and-noise.md` onto `QedBloch`.**

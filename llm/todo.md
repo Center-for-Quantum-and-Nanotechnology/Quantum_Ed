@@ -40,7 +40,9 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [ ] **Terminology check against the glossary** for each page. Many entries (qubit, superposition, Bloch sphere, gates, measurement) belong to this module.
 - [x] **Optional Intermediate parts of 02.02 (bra notation, inner products, orthonormality) are built**, with an *Inner Product* glossary entry and a Bra-Ket Notation reference.
 - [ ] **Screen-reader and keyboard pass for the Module 02 interactives** (02.01 and 02.02 so far). They use native controls and aria-live summaries but have only been tested with scripted interaction.
-- [ ] **Reconcile `QedBloch` with `QedQubit` in 02.03.** Decide where the Bloch conversion lives and avoid duplicating the amplitude math.
+- [x] **Reconcile `QedBloch` with `QedQubit`.** Done ahead of 02.03: the conversions live in `QedQubit`, `QedBloch` stays drawing-only, and cross-module tests keep them in agreement. See `FLAGS.md`.
+- [ ] **Extend `QedBloch.render` with an options argument in the 02.03 build** (|+⟩/|−⟩ markers and axes, projection onto the vertical axis, a depth cue, a second vector), defaulting to today's look so Module 01 is unaffected.
+- [ ] **Later: make `QedBloch.state` delegate to `QedQubit`** when Module 01 is next touched (the cross-tests protect the change).
 - [x] **Extract the data-driven quiz builder.** Done as `QedQuiz` (`quiz.js`), with tests; 02.01 was migrated onto it.
 - [ ] **Link Module 06's rotation-gate explanations to 02.04** during the hardening pass.
 - [ ] **Module 02 README** with the page status table.
@@ -59,7 +61,7 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [ ] **Unstick the deploy workflow.** Run #24 (the merge of PR #8) has been "Waiting", and #26 is "Pending" behind it. Likely cause: the `github-pages` environment needs an approval, or its settings changed. Check the run for a "Review pending deployments" banner and Settings → Environments → github-pages.
 - [ ] **Update the workflow's action versions.** The Node.js 20 deprecation warning does not block builds, but `.github/workflows/deploy.yml` uses `checkout@v4`, `setup-python@v5`, `upload-pages-artifact@v3` and `deploy-pages@v4`. Confirm the current majors before changing them.
 - [ ] **Merge `main` into `treys_branch`.** An attempt hit conflicts in `mkdocs.yml` and `docs/assets/stylesheets/extra.css` and was aborted. The conflicts are additive (CSS from both sides; both sets of `extra_javascript` lines). Trey's branch also needs the new conventions and context_docs layout.
-- [ ] **Migrate `errors-and-noise.md` onto `QedBloch`** once Trey's `bloch.js` reaches `main`. The page carries its own copy of the Bloch drawing code. Then add `QedBloch` to the component table in `llm/CONVENTIONS.md` section 4 and remove the "in progress" note there.
+- [ ] **Migrate `errors-and-noise.md` onto `QedBloch`.** `QedBloch` is on `main` now. The page still carries its own copy of the Bloch drawing code; migrate it when the page is next touched.
 
 ## Glossary (153 terms)
 
@@ -85,7 +87,7 @@ Governing documents: `context_docs/glossary/specs/glossary.md`, `data/glossary/`
 
 `tests/js/` (QedShots) and `tests/python/` (level_hook) exist and run in CI. Conventions: `llm/CONVENTIONS.md` section 8.
 
-- [ ] **Backfill JavaScript tests, one module at a time as each is next touched.** Cheap, high-value first: `QedSoftwareStack` invariants (every journey ID exists, every relation member exists, no numeric calibration values), `QedSurfaceCode` (`buildLattice`, `computeSyndrome`), `QedMatching` (`solveMWPM`, weights), `QedCircuit` (`describe`, `renderSVG` strings), and Trey's `QedBloch` once merged.
+- [ ] **Backfill JavaScript tests, one module at a time as each is next touched.** Cheap, high-value first: `QedSoftwareStack` invariants (every journey ID exists, every relation member exists, no numeric calibration values), `QedSurfaceCode` (`buildLattice`, `computeSyndrome`), `QedMatching` (`solveMWPM`, weights), `QedCircuit` (`describe`, `renderSVG` strings),. `QedBloch` now has tests (`state`, `project`, text), added with the Bloch conversions.
 - [ ] **Python tests for `glossary_hook.py`:** each validation failure (duplicate ID, unknown category, dead related term, alias collision, bad `moduleReferences`) and the pass case.
 - [ ] **Module 02 math checks** (taxonomy section 10 quality gates) as tests once the Module 02 modules exist: normalization, gate matrix actions, circuit-state tracing, probability sums.
 - [ ] **Decide whether to pin or set up Node in CI.** The workflow uses the Node that ships on `ubuntu-latest`. Revisit if a test needs a specific Node version.
