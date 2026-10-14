@@ -17,9 +17,9 @@ Governing documents: `context_docs/modules/module_05/taxonomy_QuantumSoftwareSta
   - Add the **Shared Components** section (template: `context_docs/templates/SharedComponentsSection.md`).
   - Record that the spec was reviewed against taxonomy V1.1.
 - [x] **Sync the global taxonomy.** `context_docs/taxonomy/Quantum_Computing_Curriculum.md` now lists the seven approved pages.
-- [ ] **Add each Module 05 page to `mkdocs.yml` as it is built.** Decision: nav entries only for pages that exist, no stub pages. The nav currently holds just the module index.
+- [ ] **Add each remaining Module 05 page to `mkdocs.yml` as it is built** (05.01 is done). Decision: nav entries only for pages that exist, no stub pages. The nav currently holds just the module index.
 - [x] **Rewrite `docs/05-software-stack/index.md`.** It now describes the module and lists the seven planned pages. Link each page there as it is written.
-- [ ] **Build 05.01** (Understanding the Quantum Software Stack) from the revised spec.
+- [x] **Build 05.01** (Understanding the Quantum Software Stack) from the revised spec. Built; added `QedCircuit`, `QedSoftwareStack`, three glossary entries, and the nav entry. See the Module 05 section of `FLAGS.md`.
   - Module 03 is a placeholder, so there is no circuit display to reuse. Plan to reuse the `.qed-circuit-*` styles from Module 07.
   - Terminology check against the glossary (see the glossary section below).
 - [ ] **Write specs 05.02–05.07** with the `section-spec-writer` skill, then build each page. Titles are fixed by the taxonomy.
@@ -41,17 +41,17 @@ Governing documents: `context_docs/modules/module_05/taxonomy_QuantumSoftwareSta
 - [ ] **Merge `main` into `treys_branch`.** An attempt hit conflicts in `mkdocs.yml` and `docs/assets/stylesheets/extra.css` and was aborted. The conflicts are additive (CSS from both sides; both sets of `extra_javascript` lines). Trey's branch also needs the new conventions and context_docs layout.
 - [ ] **Migrate `errors-and-noise.md` onto `QedBloch`** once Trey's `bloch.js` reaches `main`. The page carries its own copy of the Bloch drawing code. Then add `QedBloch` to the component table in `llm/CONVENTIONS.md` section 4 and remove the "in progress" note there.
 
-## Glossary (146 terms)
+## Glossary (149 terms)
 
 Governing documents: `context_docs/glossary/specs/glossary.md`, `data/glossary/`, and the workflow in the root `README.md`.
 
-- [ ] **Subject-matter review of all 146 definitions.** I wrote them and they have had no expert review. Check these first: Shor/Steane code, Threshold Theorem (polylogarithmic overhead), T1/T2, Transmon, Quantum Supremacy history, Magic State / Distillation, Erasure Qubit, Bias-Preserving Gate, Logical Architecture.
+- [ ] **Subject-matter review of all 149 definitions.** I wrote them and they have had no expert review. Check these first: Shor/Steane code, Threshold Theorem (polylogarithmic overhead), T1/T2, Transmon, Quantum Supremacy history, Magic State / Distillation, Erasure Qubit, Bias-Preserving Gate, Logical Architecture.
 - [ ] **Build the hover / inline definitions** from glossary spec section 10: hover definitions, side panels, definition cards, and links from lesson text into the glossary.
 - [ ] **Decide on near-synonym entries** kept separate for now, and merge any as aliases: Simulator / Quantum Simulator, Backend / Hardware Backend, Native Gate / Native Gate Set, Circuit Mapping / Qubit Mapping, Compilation / Transpilation / Quantum Compiler, Decoder / Decoding, Calibration / Calibration Data / Calibration Telemetry, Quantum Noise / Quantum Error, Dephasing / T2 / Phase-Flip Error.
 - [ ] **Review the generic alias "Layout"** on Qubit Mapping, the likeliest to surprise.
 - [ ] **Add Module 07 vocabulary** deliberately left out so far: parity check, code space, data qubit, error chain, detection event, logical equivalence.
 - [ ] **Re-audit "Appears in" lists** as modules are added. Placeholder pages and passing name-drops are not referenced.
-- [ ] **Terminology check for Module 05.** It will introduce terms such as intermediate representation, transpilation, backend, calibration telemetry and runtime. Several overlap existing entries (see the near-synonym item).
+- [ ] **Terminology check for the remaining Module 05 pages (05.01 is done).** It will introduce terms such as intermediate representation, transpilation, backend, calibration telemetry and runtime. Several overlap existing entries (see the near-synonym item).
 - [ ] **Restart `mkdocs serve`** in your own terminal. It does not reload hook code, so it may still show the removed category chips.
 
 ## Module 07 hardening (Beginner V1 is complete)

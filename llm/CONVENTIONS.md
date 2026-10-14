@@ -54,6 +54,8 @@ Keep this table current. It is the first thing to check before building.
 | `QedSurfaceCode` | `surface-code.js` | `buildLattice`, `computeSyndrome`, `anticommutes`, `renderSVG`, `mount` | Surface Codes, MWPM, Hardware-Aware QEC, Lattice Surgery |
 | `QedMatching` | `matching.js` | `edgeKey`, `manhattan`, `allPerfectMatchings`, `matchingWeight`, `buildWeights`, `solveMWPM`, `renderGraphSVG` | Minimum-Weight Perfect Matching |
 | `QedLatticeSurgery` | `lattice-surgery.js` | `STAGE_ORDER`, `buildScene`, `renderSVG`, `mount` | Lattice Surgery |
+| `QedCircuit` | `circuit.js` | `bell`, `describe`, `renderSVG`, `qubitName` | Understanding the Quantum Software Stack |
+| `QedSoftwareStack` | `software-stack.js` | `RESPONSIBILITIES`, `GROUPS`, `RELATIONS`, `journey`, `comparison`, `catalogHTML`, `comparisonHTML`, `mount` | Understanding the Quantum Software Stack |
 | (none) | `download.js` | Adds the module-download button | Every page |
 | (none) | `glossary.js` | Text filter and deep-link reveal | Glossary |
 | (none) | `mathjax.js` | MathJax configuration | Every page |

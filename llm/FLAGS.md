@@ -20,7 +20,7 @@ These are cases where a `context_docs/modules/module_07/specs/*` instruction doc
 
 Places where the built content is honest about a simplification but the simplification itself might be worth hardening later (this maps to the Project Vision's "Intermediate/Advanced — Future Hardening" categories).
 
-- **Glossary definitions were authored in one pass and have not had a subject-matter expert review.** All 146 entries (definition + beginner interpretation) were written from general knowledge to the spec's rules (1-3 sentence definitions, no circularity, hedged wording for emerging terms per section 11). Spec section 13 calls for a dedicated verification pass; worth prioritizing entries with specific factual claims: Shor/Steane code, Threshold Theorem (polylogarithmic overhead), T2 vs T1, Transmon, Quantum Supremacy history, Magic State / Distillation, Erasure Qubit, Bias-Preserving Gate, Logical Architecture (the vaguest of the emerging terms).
+- **Glossary definitions were authored in one pass and have not had a subject-matter expert review.** All 149 entries (definition + beginner interpretation) were written from general knowledge to the spec's rules (1-3 sentence definitions, no circularity, hedged wording for emerging terms per section 11). Spec section 13 calls for a dedicated verification pass; worth prioritizing entries with specific factual claims: Shor/Steane code, Threshold Theorem (polylogarithmic overhead), T2 vs T1, Transmon, Quantum Supremacy history, Magic State / Distillation, Erasure Qubit, Bias-Preserving Gate, Logical Architecture (the vaguest of the emerging terms).
 - **Glossary "Appears in" lists only pages that teach or substantively use the concept, and several entries are deliberately empty.** Built by auditing the actual page text in both directions (links to pages that never use the term, and pages that use it but weren't linked). Judgment calls: the Module 01 pages `why-quantum-computing` and `quantum-computing-today` are placeholder outlines, so they're not referenced; passing name-drops (e.g. the Errors and Noise "Going Deeper" note naming decoherence/dephasing) are not referenced; forward links to a later page are not referenced. Where a page teaches the concept without the exact term (e.g. the VQE page on noisy near-term hardware for NISQ, the MWPM weights toggle for Noise-Aware Decoding), it is referenced. Re-audit as modules are added.
 - **Glossary keeps near-synonym baseline terms as separate entries** (Simulator vs Quantum Simulator, Backend vs Hardware Backend, Native Gate vs Native Gate Set, Circuit Mapping vs Qubit Mapping, Compilation vs Transpilation vs Quantum Compiler, Decoder vs Decoding, Calibration vs Calibration Data vs Calibration Telemetry, Quantum Noise vs Quantum Error, Dephasing vs T2 vs Phase-Flip Error). Spec section 2.2 says one canonical entry per concept, but sections 7 and 6 require an entry for every baseline term and say to distinguish closely related terms rather than collapse them. Each pair was written with a real distinction; if you'd rather merge any as aliases, say which.
 - **Glossary alias "Layout" (on Qubit Mapping) is a generic word** (it's the Qiskit term). It only affects that entry's anchor `#layout` and filter text, but it's the aliases most likely to surprise.
@@ -55,3 +55,33 @@ Places where the built content is honest about a simplification but the simplifi
 - **Toggle button groups looked "all selected" after the first switch.** The page JS only toggles `qed-button--active`, so every button in a group must carry `qed-button--secondary` permanently (the outlined look); `--active` then overrides just the fill. Buttons that *started* selected had `qed-button--active` but no `--secondary`, so once deselected they fell back to the filled base style and matched the selected one. Fixed on Why QEC? and in 8 places across Surface Codes (3), MWPM (1), Lattice Surgery (2), and Hardware-Aware QEC (2); verified every group in-browser (exactly one filled button after each click). **Convention for any new toggle group: give every button `qed-button--secondary`, and add `qed-button--active` to the initially-selected one as well — never `--active` alone.**
 
 - **`<details class="qed-details">` blocks were silently not processing embedded Markdown** (`**bold**`, `*italic*`, `[links](...)`, MathJax `\[...\]`) — they rendered as literal asterisks/text instead. Root cause: `mkdocs.yml`'s `md_in_html` extension only treats a raw HTML block's contents as Markdown when the tag carries `markdown="1"`; none of our `<details>` blocks had it. This affected every optional-exploration `<details>` block written so far, not just new ones: `encoding-and-syndrome-measurement.md`'s "Explore the circuit," `stabilizer-codes.md`'s "Explore the stabilizer circuit," and this page's "Optional: how this is usually written" / "Optional: follow the checks." Fixed all four by adding `markdown="1"` to the `<details>` tag; verified via live-rendered HTML (`**ancilla**` → `<strong>ancilla</strong>`, MathJax equations render) and a strict `mkdocs build`. Any future `<details class="qed-details">` block needs `markdown="1"` too, or its Markdown will silently pass through as plain text.
+
+---
+
+## Module 05 — Understanding the Quantum Software Stack (05.01)
+
+Built from `context_docs/modules/module_05/specs/05.01_UnderstandingTheQuantumSoftwareStackInstruction.md` (revised for taxonomy V1.1). Module 03 is still a placeholder, so there were no Module 03 circuit displays to reuse.
+
+### New shared modules
+
+- **`circuit.js` (`window.QedCircuit`)**: circuit as data (`bell()`), `renderSVG(circuit)` and `describe(circuit)`. Draws only H, CNOT and measure glyphs with the existing `.qed-circuit-*` classes. Older circuit drawings (Module 06 QAOA/VQE, Module 07 syndrome circuit) are still page-local SVG and were not migrated.
+- **`software-stack.js` (`window.QedSoftwareStack`)**: the responsibility model (`RESPONSIBILITIES`, `GROUPS`, `RELATIONS`, `journey(path)`, `comparison()`), HTML renderers, and `mount(root, opts)` for the explorer. Intended for reuse by 05.02–05.07.
+
+### Simplifications and deviations
+
+- **The explorer is HTML cards, not an SVG diagram with drawn connection lines.** Relationships are shown by step numbers, ↓ separators in the Application column, highlighted participants, and a text description in the panel. Chosen for keyboard access, screen readers and phone width. Arrows between columns (for example the device status report flowing back to the backend) appear as text and highlighting only.
+- **Journey order is a teaching choice.** On the hardware path, "calibrate and report" is placed before "check target" so the status report can reach the backend description first. Real systems do not follow one fixed order, and the page says so.
+- **Results are described, not drawn as counts.** Both paths say "about half 00, about half 11, counts vary". No numeric counts, timings or telemetry values are shown, per the spec's no-fabrication rule.
+- **Device-reported information reuses the teal dashed telemetry convention** from Module 07 as a CSS class (`.qed-stack__reported`), but the page itself currently shows the report only as text. The class is defined for 05.04's use.
+- **"Highlight the Application and Control groups" (optional in spec section 6) was not built.** Groups are always labeled and drawn with different border styles (solid, double, left bar, rounded).
+- **The page has 12 learning outcomes** (the spec's V1.1 reconciliation added two to the usual 8–10).
+- **Next-page link is plain text "coming soon".** `Quantum Program Representations` does not exist yet and the nav only lists built pages.
+
+### Glossary
+
+Added three entries (`quantum-software-stack`, `execution-target`, `quantum-runtime`) and added this page to `moduleReferences` of `backend`, `compilation`, `simulator`, `calibration` and `calibration-telemetry`. The new entries overlap in spirit with the existing near-synonym pairs (Backend / Hardware Backend, Simulator / Quantum Simulator). Not merged.
+
+### Reminders that applied here
+
+- All page scripts are wrapped in `DOMContentLoaded`.
+- Selectors that must override Material's list styles need `[dir] .md-typeset …` specificity.

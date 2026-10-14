@@ -43,6 +43,8 @@ extra_javascript:
   - assets/javascripts/matching.js
   - assets/javascripts/lattice-surgery.js
   - assets/javascripts/glossary.js
+  - assets/javascripts/circuit.js
+  - assets/javascripts/software-stack.js
   - assets/javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
@@ -84,7 +86,8 @@ nav:
   - "04 · Quantum Hardware":
       - 04-hardware/index.md
   - "05 · Quantum Software Stack":
-      - 05-software-stack/index.md
+      - Overview: 05-software-stack/index.md
+      - Understanding the Quantum Software Stack: 05-software-stack/understanding-the-quantum-software-stack.md
   - "06 · Quantum Algorithms & Methods":
       - Overview: 06-algorithms/index.md
       - Variational Algorithms:
