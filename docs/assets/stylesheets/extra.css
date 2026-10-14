@@ -1377,6 +1377,8 @@ button.qed-qubit:not(:disabled):hover {
 .qed-loop-arrowhead-fill {
   fill: var(--qed-color-physical);
 }
+
+/* ---------------------------------------------------------------------
    What Is Quantum Computing? (docs/01-foundations/what-is-quantum-
    computing.md) — side-by-side comparison panels, signed amplitude
    bars, probability-bar markers, and small result tables used by the
