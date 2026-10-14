@@ -302,10 +302,24 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ---- static, data-driven tables built from the shared presets ----------------
+  // The column listing of one amplitude: a plain signed number when real, "0.71i"
+  // for a purely imaginary amplitude, and the bracketed form otherwise.
+  function listAmp(z) {
+    if (Math.abs(z.im) < EPS) return signed(z.re, 2);
+    if (Math.abs(z.re) < EPS) return signed(z.im, 2) + "i";
+    return Q.formatAmplitude(z);
+  }
+
+  // Presets the current level offers: the real ones at Beginner, all of them at
+  // Intermediate and above (|+i> and |-i> need complex amplitudes).
+  function visiblePresets() {
+    var inter = QL.atLeast("intermediate");
+    return Q.PRESETS.filter(function (p) { return p.real || inter; });
+  }
+
   function buildKets() {
-    var rows = Q.PRESETS.map(function (p) {
-      var a = signed(p.state.alpha.re, 2), b = signed(p.state.beta.re, 2);
-      return "<tr><th scope=\"row\">" + p.name + "</th><td>" + Q.format(p.state) + "</td><td>(" + a + ", " + b + ")</td></tr>";
+    var rows = visiblePresets().map(function (p) {
+      return "<tr><th scope=\"row\">" + p.name + "</th><td>" + Q.format(p.state) + "</td><td>(" + listAmp(p.state.alpha) + ", " + listAmp(p.state.beta) + ")</td></tr>";
     }).join("");
     $("qr-kets").innerHTML =
       '<table class="qed-comparison-table"><thead><tr><th scope="col">Ket (the name)</th><th scope="col">Written as</th><th scope="col">The same pair, as a column of two numbers</th></tr></thead><tbody>' +
@@ -483,17 +497,21 @@ document.addEventListener("DOMContentLoaded", function () {
     render(this);
   });
 
-  // Presets, built from the shared model
-  Q.PRESETS.forEach(function (p) {
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = "qed-button qed-button--secondary";
-    b.textContent = p.name;
-    b.dataset.name = p.name;
-    b.setAttribute("aria-pressed", "false");
-    b.addEventListener("click", function () { setState(p.state, ""); });
-    $("qr-presets").appendChild(b);
-  });
+  // Presets, built from the shared model and rebuilt when the level changes
+  function buildPresets() {
+    var box = $("qr-presets");
+    box.innerHTML = "";
+    visiblePresets().forEach(function (p) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "qed-button qed-button--secondary";
+      b.textContent = p.name;
+      b.dataset.name = p.name;
+      b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", function () { setState(p.state, ""); });
+      box.appendChild(b);
+    });
+  }
 
   $("qr-normalize").addEventListener("click", function () {
     try {
@@ -532,6 +550,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // ---- level-aware behavior (additive: the Beginner view is the baseline) -----------
   function applyLevel() {
     var inter = showLevelControls();
+    buildPresets();
+    buildKets();
     if (!inter && !isReal(state)) {
       setState(START, "Phase controls belong to the Intermediate view, so the editor went back to real amplitudes.");
       return;
@@ -584,6 +604,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ]
   });
 
+  buildPresets();
   buildKets();
   buildCompare();
   buildLists();

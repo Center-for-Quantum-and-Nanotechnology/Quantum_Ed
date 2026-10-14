@@ -83,6 +83,12 @@ window.QedQubit = (function () {
     return p[0] + p[1];
   }
 
+  // True when both amplitudes are real numbers (no imaginary part), which is
+  // the Beginner view of a state.
+  function isReal(s) {
+    return Math.abs(s.alpha.im) < EPS && Math.abs(s.beta.im) < EPS;
+  }
+
   function isNormalized(s, tolerance) {
     return Math.abs(norm2(s) - 1) <= (tolerance === undefined ? EPS : tolerance);
   }
@@ -225,13 +231,21 @@ window.QedQubit = (function () {
 
   var HALF = Math.SQRT1_2;
 
-  // Named states that the Module 02 pages use. Names are display labels.
+  // Named states that the Module 02 pages use. Names are display labels. `real`
+  // says whether the state needs only real amplitudes: pages in the Beginner view
+  // offer just those, and the Intermediate view offers all of them. |+i> and |-i>
+  // sit on the equator at phases 90 and 270 degrees, so they are complex.
   var PRESETS = [
     { id: "zero", name: "|0⟩", state: real(1, 0) },
     { id: "one", name: "|1⟩", state: real(0, 1) },
     { id: "plus", name: "|+⟩", state: real(HALF, HALF) },
     { id: "minus", name: "|−⟩", state: real(HALF, -HALF) },
+    { id: "plusI", name: "|+i⟩", state: complex(HALF, 0, 0, HALF) },
+    { id: "minusI", name: "|−i⟩", state: complex(HALF, 0, 0, -HALF) },
   ];
+  PRESETS.forEach(function (p) {
+    p.real = isReal(p.state);
+  });
 
   return {
     real: real,
@@ -242,6 +256,7 @@ window.QedQubit = (function () {
     probabilities: probabilities,
     norm2: norm2,
     isNormalized: isNormalized,
+    isReal: isReal,
     normalize: normalize,
     relativePhase: relativePhase,
     applyGlobalPhase: applyGlobalPhase,

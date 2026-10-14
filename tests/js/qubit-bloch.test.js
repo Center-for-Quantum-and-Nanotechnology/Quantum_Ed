@@ -108,3 +108,20 @@ test("fromBloch rejects bad angles", () => {
   assert.throws(() => Q.fromBloch(NaN, 0));
   assert.throws(() => Q.fromBloch(90, Infinity));
 });
+
+test("the two further equator presets sit at phase 90 and 270 degrees", () => {
+  const byId = Object.fromEntries(Q.PRESETS.map((p) => [p.id, p.state]));
+  const a = Q.toBloch(byId.plusI);
+  const b = Q.toBloch(byId.minusI);
+  assert.ok(close(a.thetaDeg, 90) && close(a.phiDeg, 90));
+  assert.ok(close(b.thetaDeg, 90) && close(b.phiDeg, 270));
+});
+
+test("every preset lands where its Bloch angles say, and round-trips", () => {
+  Q.PRESETS.forEach((p) => {
+    const b = Q.toBloch(p.state);
+    const back = Q.fromBloch(b.thetaDeg, b.phiDeg);
+    const ip = Q.innerProduct(p.state, back);
+    assert.ok(close(ip.re * ip.re + ip.im * ip.im, 1, 1e-9), p.name);
+  });
+});

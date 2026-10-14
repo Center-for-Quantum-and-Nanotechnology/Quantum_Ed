@@ -17,7 +17,7 @@ test("the 3-4-5 pair gives 36% and 64%", () => {
 });
 
 test("every preset is a valid state whose probabilities add to 1", () => {
-  assert.equal(Q.PRESETS.length, 4);
+  assert.equal(Q.PRESETS.length, 6);
   Q.PRESETS.forEach((preset) => {
     assert.ok(Q.isNormalized(preset.state), preset.name);
     const p = Q.probabilities(preset.state);
@@ -233,4 +233,36 @@ test("the inner product does not change its arguments", () => {
   Q.innerProduct(phi, psi);
   assert.deepEqual(phi, phiCopy);
   assert.deepEqual(psi, psiCopy);
+});
+
+test("the presets are the four real states and the two complex equator states", () => {
+  assert.deepEqual(Q.PRESETS.map((p) => p.id), ["zero", "one", "plus", "minus", "plusI", "minusI"]);
+  assert.deepEqual(Q.PRESETS.map((p) => p.real), [true, true, true, true, false, false]);
+  Q.PRESETS.forEach((p) => assert.equal(p.real, Q.isReal(p.state), p.name));
+});
+
+test("|+i> and |-i> are valid, 50/50, and a quarter turn from |+> on the equator", () => {
+  const byId = Object.fromEntries(Q.PRESETS.map((p) => [p.id, p.state]));
+  [byId.plusI, byId.minusI].forEach((s) => {
+    assert.ok(Q.isNormalized(s));
+    const p = Q.probabilities(s);
+    assert.ok(close(p[0], 0.5) && close(p[1], 0.5));
+  });
+  assert.ok(close(Q.relativePhase(byId.plusI), Math.PI / 2));
+  assert.ok(close(Q.relativePhase(byId.minusI), -Math.PI / 2));
+});
+
+test("the two equator pairs are each orthonormal, and the pairs are not orthogonal to each other", () => {
+  const byId = Object.fromEntries(Q.PRESETS.map((p) => [p.id, p.state]));
+  const ip = (a, b) => Q.innerProduct(byId[a], byId[b]);
+  const z = ip("plusI", "minusI");
+  assert.ok(close(z.re, 0) && close(z.im, 0));
+  const pi = ip("plus", "plusI");
+  assert.ok(close(pi.re, 0.5) && close(Math.abs(pi.im), 0.5));
+});
+
+test("isReal separates real from complex states", () => {
+  assert.equal(Q.isReal(Q.real(0.6, -0.8)), true);
+  assert.equal(Q.isReal(Q.complex(0.6, 0, 0, 0.8)), false);
+  assert.equal(Q.isReal(Q.complex(0.6, 1e-12, 0, 0)), true);
 });
