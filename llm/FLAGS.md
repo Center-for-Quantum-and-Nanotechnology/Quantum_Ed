@@ -272,3 +272,22 @@ Done before drafting the 02.03 spec, so the spec can say "reuse".
 - **The axis labels sit below their end points** so they do not collide with marker labels, which sit above.
 - **`QedBloch.render` is still verified in the browser, not in unit tests.** I drew the full option set on a throwaway canvas and checked it by eye; the 02.03 page will need a proper look at its real size.
 - **Glossary:** an *Orthogonal States* entry was added (154 entries) and 02.02, which teaches orthonormality, is its reference. The 02.03 page will be added at Intermediate when it is built.
+
+---
+
+## 02.03 Bloch Sphere (built)
+
+- **Page:** `docs/02-fundamentals/bloch-sphere.md`, built from the final spec. No new shared module. It reuses `QedQubit` (presets, `toBloch`, `fromBloch`, `blochVector`, `applyGlobalPhase`, `innerProduct`), `QedBloch` (`state`, `formatText`, `render` with its options), `QedShots.renderBars`, `QedQuiz`, and `QedLevel`.
+- **Beginner state description has no complex notation.** It shows the sizes of the two amplitudes (`QedBloch.state`) and the phase angle in degrees. At a pole the phase reads "not needed here", using the `phiDefined` rule: the state is the same whatever the angle. The Intermediate readouts (written form, (x, y, z), P(0) = (1 + z)/2, overall-phase slider) are added beside it and never replace it.
+- **Overall-phase slider (Intermediate).** It multiplies the displayed amplitudes by a shared phase factor through `QedQubit.applyGlobalPhase`. The point, the bars, and the Bloch vector come from `fromBloch(theta, phi)` and so do not change, which is the lesson.
+- **Typed angles outside their range are shown clamped, with a note**, rather than corrected silently (same rule as 02.02).
+- **The "certain 0", "certain 1" and "50/50" words are drawn by the page** on top of `QedBloch.render` (page-local, 12px text). `render` itself was not changed. The "50/50" sits at the left end of the equator and a one-line key under the canvas repeats all three in plain text, because there is no room for a longer equator label on the canvas without colliding with the live vector.
+- **Palette variables are read from `document.body`.** Material sets `--md-default-fg-color` and the `--light` variants on the body for the dark scheme, so reading them from `documentElement` gave the light scheme's defaults (checked: `#0000008a` on the root against `hsla(225deg,15%,90%,0.56)` on the body), which is a dark vector on the dark page. The page passes explicit `color` and `neutral` options. `QedBloch.render` still reads its own default `neutral` from `documentElement`, so Module 01's sphere outline gets the light scheme's dark gray in the dark scheme. That was already the case and is unchanged; I have not looked at Module 01 in the dark scheme. Worth fixing in `bloch.js` later; it would change Module 01's look slightly.
+- **The explorer redraws when the light/dark palette changes** (a `MutationObserver` on `data-md-color-scheme`).
+- **When the pinned state is a named point, its marker is dropped** so the pinned label is not doubled. The pole labels come from `render` itself, so the markers are the four equator points only.
+- **The two fixed pictures are static.** The |+⟩ against |−⟩ comparison (section 5) and the "from here / to here" picture (section 7) are drawn once with fixed angles. The spec's "learner's own pinned point" in section 7 was not used: a fixed start (|0⟩) and target keep the closing picture identical for everyone and independent of the explorer.
+- **The prediction task shows its bars after any answer**, not only a correct one, as on 02.02 (that is how `QedQuiz` `onAnswer` fires).
+- **The taxonomy's "locate |0⟩ and |+⟩" recurring example** is covered by the map table (those two are listed first in the prose) and the presets, not by a separate "find it" check.
+- **Glossary:** this page was added to `moduleReferences` for Bloch Sphere, Phase, Pure State, Global Phase, and Orthogonal States. Mixed State and Density Matrix are named at Advanced only, so they are linked from the page but not referenced.
+- **Verified:** strict build; 84 JS tests and 8 Python tests unchanged; in the browser at desktop and phone width (no horizontal scroll), all six presets, both sliders, typed values with clamping, pin and clear, reset, the poles, the three checks, and the Beginner, Intermediate, and Advanced views. `QedBloch.render` options were looked at at the real canvas size (360 px), including a far-side point and a pinned diamond.
+- **Not done:** no screen-reader pass (still on the to-do list).

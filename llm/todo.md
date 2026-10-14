@@ -36,12 +36,14 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [x] **Add the 02.01 page to the glossary's `moduleReferences`.** Done for State Preparation, Quantum State, Superposition, Basis State, Measurement, and Shot.
 - [x] **02.02 is final and built.** Draft and approve specs 02.03 to 02.07 next.
 - [x] **When 02.02 is built: log any cut Intermediate parts in `llm/FLAGS.md`.** Done: bra notation, inner products, and orthonormality were cut and logged.
-- [ ] **Add each remaining Module 02 page to `mkdocs.yml` as it is built** (02.01 is done), and link it from `docs/02-fundamentals/index.md`.
+- [ ] **Add each remaining Module 02 page to `mkdocs.yml` as it is built** (02.01 to 02.03 are done), and link it from `docs/02-fundamentals/index.md`.
 - [ ] **Terminology check against the glossary** for each page. Many entries (qubit, superposition, Bloch sphere, gates, measurement) belong to this module.
 - [x] **Optional Intermediate parts of 02.02 (bra notation, inner products, orthonormality) are built**, with an *Inner Product* glossary entry and a Bra-Ket Notation reference.
-- [ ] **Screen-reader and keyboard pass for the Module 02 interactives** (02.01 and 02.02 so far). They use native controls and aria-live summaries but have only been tested with scripted interaction.
+- [ ] **Screen-reader and keyboard pass for the Module 02 interactives** (02.01 to 02.03 so far). They use native controls and aria-live summaries but have only been tested with scripted interaction.
 - [x] **Reconcile `QedBloch` with `QedQubit`.** Done ahead of 02.03: the conversions live in `QedQubit`, `QedBloch` stays drawing-only, and cross-module tests keep them in agreement. See `FLAGS.md`.
-- [x] **`QedBloch.render` options are built** (`color`, `neutral`, `axes`, `markers`, `pinned`, `projection`, `depth`), pixel-identical by default. The 02.03 page still needs a proper look at its real size.
+- [x] **`QedBloch.render` options are built** (`color`, `neutral`, `axes`, `markers`, `pinned`, `projection`, `depth`), pixel-identical by default, and checked at real size on the 02.03 page.
+- [x] **02.03 is final and built.** Draft and approve specs 02.04 to 02.07 next.
+- [ ] **`QedBloch.render` reads its default `neutral` from `documentElement`**, which gives the light scheme's dark gray in the dark scheme (Material sets the variables on the body). Module 01's sphere outline is probably affected; check it. Read it from the body in `bloch.js` and recheck Module 01.
 - [ ] **Later: make `QedBloch.state` delegate to `QedQubit`** when Module 01 is next touched (the cross-tests protect the change).
 - [x] **Extract the data-driven quiz builder.** Done as `QedQuiz` (`quiz.js`), with tests; 02.01 was migrated onto it.
 - [ ] **Link Module 06's rotation-gate explanations to 02.04** during the hardening pass.
