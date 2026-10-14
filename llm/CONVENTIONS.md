@@ -56,6 +56,7 @@ Keep this table current. It is the first thing to check before building.
 | `QedLatticeSurgery` | `lattice-surgery.js` | `STAGE_ORDER`, `buildScene`, `renderSVG`, `mount` | Lattice Surgery |
 | `QedCircuit` | `circuit.js` | `bell`, `describe`, `renderSVG`, `qubitName` | Understanding the Quantum Software Stack |
 | `QedSoftwareStack` | `software-stack.js` | `RESPONSIBILITIES`, `GROUPS`, `RELATIONS`, `journey`, `comparison`, `catalogHTML`, `comparisonHTML`, `mount` | Understanding the Quantum Software Stack |
+| `QedLevel` | `level.js` | `LEVELS`, `get`, `set`, `atLeast`, `rank`, `onChange`; also builds the header selector, page note, TOC filtering and hash auto-reveal | Every page (site-wide) |
 | (none) | `download.js` | Adds the module-download button | Every page |
 | (none) | `glossary.js` | Text filter and deep-link reveal | Glossary |
 | (none) | `mathjax.js` | MathJax configuration | Every page |
@@ -85,7 +86,35 @@ Known duplication: `errors-and-noise.md` carries a page-local Bloch-sphere drawi
 - **`<details class="qed-details">` needs `markdown="1"`**, or the Markdown inside is not processed.
 - **Glossary-heavy pages.** When a page introduces reusable vocabulary, follow the workflow in [`README.md`](../README.md#glossary): reuse entries, add only reusable terms, and add the page to each relevant entry's `moduleReferences`.
 
-## 7. Before you commit
+## 7. Experience levels
+
+Beginner, Intermediate and Advanced are **cumulative views of one canonical page**, never separate pages (Vision §3, §4, §6). A single selector in the header sets the level site-wide. It is remembered in the browser, defaults to Beginner, and follows the learner across modules.
+
+**Marking content.** Wrap anything above Beginner in a gated block:
+
+```html
+<div class="qed-level" data-min-level="intermediate" markdown="1">
+
+## A heading, text, an equation, or an interactive
+
+</div>
+```
+
+- Allowed values are `intermediate` and `advanced`. Untagged content is Beginner and always visible.
+- `markdown="1"` is required, as with `qed-details`. `level_hook.py` fails `mkdocs build --strict` on a misspelled level or a missing `markdown="1"`.
+- Each shown block gets a text badge and a border (single bar for Intermediate, double for Advanced), so the level never relies on color alone.
+- Intermediate shows Beginner + Intermediate; Advanced shows all three. A page with nothing at the chosen level shows its Beginner content and a short note.
+- Headings inside a gated block get normal ids. The table of contents hides entries for hidden headings, and a link or search result that lands on hidden content raises the level automatically.
+
+**What may be gated.** Never gate anything a learner needs for the page's Core Learning Contract. Gate depth: formal notation, derivations, larger examples, implementation detail. A page's Beginner list in its spec is its contract.
+
+**Levels are not "Explore" blocks.** Optional exploration (`qed-details`) can be opened by anyone at any level and is a separate feature (Vision §7). Do not use one for the other.
+
+**Level-aware components.** An interactive may read `QedLevel.get()` or `QedLevel.atLeast("intermediate")` and subscribe with `QedLevel.onChange(fn)` to show deeper detail (for example complex amplitudes). Its Beginner behavior must not depend on the level. None exist yet.
+
+**Search.** The search index is built once and cannot know the level, so gated text is indexed on purpose. A hit on hidden content raises the level on arrival (see `FLAGS.md`).
+
+## 8. Before you commit
 
 1. `mkdocs build --strict` passes (it also validates the glossary data).
 2. Open the page in `mkdocs serve`: console clean, demos work, narrow (phone-width) layout still reads.

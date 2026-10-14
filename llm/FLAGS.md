@@ -85,3 +85,40 @@ Added three entries (`quantum-software-stack`, `execution-target`, `quantum-runt
 
 - All page scripts are wrapped in `DOMContentLoaded`.
 - Selectors that must override Material's list styles need `[dir] .md-typeset …` specificity.
+
+---
+
+## Module 02 / Module 03 — qubit-ordering convention (heads-up)
+
+Raised in the review of `taxonomy_QuantumComputingFundamentals_v1.0.md`; carried into v1.1. Not yet built.
+
+- **The convention:** Module 02 defines two-qubit basis order as |00⟩, |01⟩, |10⟩, |11⟩ with q0 as the first (leftmost) qubit and the CNOT control. Circuit drawings put q0 on the top wire. `QedCircuit` already draws q0 on top.
+- **The risk:** common SDKs, Qiskit included, print bit strings with qubit 0 on the *right* (little-endian). A learner who moves from Module 02 to Module 03 and reads `01` off a result may be looking at the opposite qubit order.
+- **What to do when building:** state the convention explicitly in 02.05 (Multi-Qubit Systems), and note in the 02.05 and 02.07 specs that SDK output order may differ. Tell the Module 03 author so the first SDK example addresses it. Do not assert any vendor's convention beyond that without checking its current documentation.
+- **What is unaffected today:** the built 05.01 page and Module 07 only discuss symmetric outcomes (00 and 11) or do not print bit strings, so nothing built needs changing.
+
+---
+
+## Experience levels (site-wide Beginner / Intermediate / Advanced)
+
+Implemented per the plan agreed in discussion. Mechanism only so far; the first real content is a pilot on one Module 07 page.
+
+### Deviations from the plan
+
+- **The selector is a native `<select>`, not a row of toggle buttons.** One control that works on desktop and phone widths, is keyboard-operable by default, and fits in the header. The plan described buttons on wide screens and something compact on narrow ones.
+- **The selector is injected by JavaScript** into `.md-header__inner` (after `.md-header__title`). If Material changes its header markup, the selector falls back to the end of the header or disappears. Re-check after Material upgrades.
+
+### Behavior worth knowing
+
+- **Without JavaScript or without the `data-qed-level` attribute, gated blocks stay hidden.** Safe because essential content is never gated.
+- **The page note appears on every content page** once the level is above Beginner, including pages with no gated blocks ("No Intermediate content on this page yet. Showing Beginner."). Chosen so the selector never seems to do nothing.
+- **Gated text is deliberately indexed by search.** The index is built once and cannot know the level. A hit on hidden content raises the level on arrival. Material's `data-search-exclude` exists and could be used instead if this proves confusing.
+- **The level is remembered in `localStorage` under `qed-level`.** If storage is blocked it still works for the current page and falls back to Beginner on the next load.
+- **Another tab changing the level is followed** via the `storage` event.
+- **The early-paint snippet in `overrides/main.html` repeats the key and level names from `level.js`.** Keep the two in sync.
+
+### Not built
+
+- Level-aware interactive components (a convention is documented only).
+- Intermediate/Advanced content, apart from the pilot.
+- A per-module or per-page remembered level (decided against; one setting follows the learner).

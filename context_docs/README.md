@@ -110,6 +110,7 @@ One Markdown file per page, written with the [`section-spec-writer`](../skills/s
 - Filename: `<ID>_<PageTitleNoSpaces>.md`, where `<ID>` is the page's taxonomy ID (`07.01`, or `07.04.01` when the module groups pages into subsections), for example `07.04.01_SurfaceCodesInstruction.md`. The ID keeps specs in nav order and ties each one to its row in the taxonomy. A trailing `Instruction` in the title part is optional.
 - Fixed section order: Project Context, Goal, Learning Outcomes, Experience-Level Scope, Page Structure (including one Main Interactive), Visual / UX Requirements, **Shared Components**, Technical Requirements, Important Pedagogical Constraints, End State
 - Each spec names the previous and next page and ends by motivating the next one
+- Experience levels: the Experience-Level Scope lists the Beginner contract; any Page Structure subsection or interaction above Beginner is tagged `[Intermediate]` or `[Advanced]`. Levels are cumulative views of one page, built as gated blocks (see `llm/CONVENTIONS.md`, section 7)
 
 `specs/` holds only specs that are currently approved. A spec that has been superseded moves to `archive/`.
 

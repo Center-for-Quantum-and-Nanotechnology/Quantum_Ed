@@ -6,6 +6,8 @@
 
 **For the spec writer:** check the component table in `llm/CONVENTIONS.md` (section 4) and the previous sections' specs before filling this in. If a component is new, say which later pages you expect to reuse it. If you don't know, say so.
 
+**Levels:** a spec's Intermediate or Advanced items are built as gated blocks, not separate components. Tag them in Page Structure; see `llm/CONVENTIONS.md` section 7.
+
 **For the implementer:** if the spec's Shared Components section conflicts with what the repository actually contains, flag it in `llm/FLAGS.md` and take the smaller change.
 
 ---

@@ -67,6 +67,8 @@ The V1 page should teach:
 	[topic]
 	(short noun phrases, roughly one per page subsection idea)
 [One sentence priority, e.g. Prioritize visual intuition and interaction over mathematical formalism.]
+Level map: any Page Structure subsection or interaction that is not Beginner is tagged [Intermediate] or [Advanced] in its heading. Untagged means Beginner.
+(The Beginner list is the page's Core Learning Contract; never tag anything essential. Tagged items are built as gated blocks, see @llm/CONVENTIONS.md section 7. Items still under Intermediate / Advanced — Future Hardening are not tagged until they are actually built.)
 Intermediate — Future Hardening
 Future Intermediate content may add:
 	[notation, circuits, formal definitions, more precise geometry, larger examples ...]
@@ -267,6 +269,7 @@ The numbered Page Structure subsections are a default arc, not a rigid list. Ren
 
 - Goal, End State, and the final "Next:" all point at the same next section.
 - Every Learning Outcome is taught somewhere in Page Structure, and nothing in Beginner scope is missing from Page Structure.
+- Level-tagged items are never needed for a Learning Outcome in the Beginner list, and the Beginner list stands on its own.
 - No Intermediate/Advanced item appears as a V1 requirement.
 - The main interactive separates cause from derived/observed information and is resettable.
 - Visual requirements reuse the module palette and include a "Do not rely on color alone" line and a ≠ chain.

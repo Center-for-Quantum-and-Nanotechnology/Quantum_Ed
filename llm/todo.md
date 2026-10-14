@@ -61,6 +61,16 @@ Governing documents: `context_docs/glossary/specs/glossary.md`, `data/glossary/`
 - [ ] **Cross-module links in Hardware-Aware QEC's "Future Hardening Note"** (Quantum Hardware, Software Stack, control/calibration, noise material). Deferred until those modules exist.
 - [ ] **Validate the Why QEC? journey links.** The `JOURNEY` array is hand-maintained and `mkdocs --strict` does not check it. Update it if Module 07 pages are renamed, or add a check.
 
+## Experience levels
+
+Mechanism is built (`level.js`, `level_hook.py`, CSS, header selector). Design notes are in `llm/FLAGS.md` and `llm/CONVENTIONS.md` section 7.
+
+- [ ] **Pilot on Module 07 Surface Codes.** Draft one or two short Intermediate blocks from that spec's own list (more rigorous treatment of code distance; logical operators and boundaries), review the text with you, then commit.
+- [ ] **Module 02 taxonomy v1.2.** Define each page's Beginner V1 contract and an Intermediate map. Likely placement: complex amplitudes, matrices, tensor products and formal notation at Intermediate; rotation gates geometric at Beginner with matrices at Intermediate; S and T optional at Intermediate. Resolves open items 1 and 4 from the v1.1 draft.
+- [ ] **Add level maps to the specs** (Module 05 and Module 07) when their Intermediate items are built.
+- [ ] **Build the first level-aware component** when a page needs one (for example a Module 02 amplitude editor that shows complex amplitudes at Intermediate).
+- [ ] **Review the selector after any Material upgrade.** It is injected into the header by JavaScript.
+
 ## Site and curriculum
 
 - [ ] **Review `llm/FLAGS.md`.** Go through each logged deviation, simplification and fixed bug, and decide whether to keep it, fix it, or promote it into a spec, a taxonomy or `CONVENTIONS.md`. Remove entries that are resolved or no longer true.
