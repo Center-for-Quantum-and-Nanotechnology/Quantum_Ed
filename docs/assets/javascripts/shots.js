@@ -145,23 +145,40 @@ window.QedShots = (function () {
     return result.shots + " simulated shots: " + parts.join("; ") + ".";
   }
 
-  // Bars with text counts, built on the shared .qed-confidence-* styles.
-  // opts: { labels }
-  function renderHTML(result, opts) {
-    opts = opts || {};
-    var labels = opts.labels || defaultLabels(result.counts.length);
-    var rows = result.counts
-      .map(function (c, i) {
-        var width = pct(c, result.shots);
+  // Rows of bars, built on the shared .qed-confidence-* styles. Each row is
+  // { label, fraction (0 to 1), text }. The fraction sets the bar width and is
+  // clamped to the 0 to 1 range; the text is shown beside the bar. Used for shot
+  // counts here and for probabilities elsewhere (for example QedQubit states).
+  function renderBars(rows) {
+    return rows
+      .map(function (r) {
+        var f = typeof r.fraction === "number" && isFinite(r.fraction) ? Math.min(1, Math.max(0, r.fraction)) : 0;
+        var width = Math.round(f * 1000) / 10;
         return (
           '<div class="qed-confidence-row">' +
-          '<span class="qed-confidence-row__label">Outcome ' + esc(labels[i]) + "</span>" +
+          '<span class="qed-confidence-row__label">' + esc(r.label) + "</span>" +
           '<span class="qed-confidence-bar"><span class="qed-confidence-bar__fill" style="width:' + width + '%"></span></span>' +
-          '<span class="qed-confidence-row__pct">' + c + " (" + width + "%)</span>" +
+          '<span class="qed-confidence-row__pct">' + esc(r.text) + "</span>" +
           "</div>"
         );
       })
       .join("");
+  }
+
+  // Bars with text counts for a sampled result.
+  // opts: { labels }
+  function renderHTML(result, opts) {
+    opts = opts || {};
+    var labels = opts.labels || defaultLabels(result.counts.length);
+    var rows = renderBars(
+      result.counts.map(function (c, i) {
+        return {
+          label: "Outcome " + labels[i],
+          fraction: result.shots === 0 ? 0 : c / result.shots,
+          text: c + " (" + pct(c, result.shots) + "%)",
+        };
+      })
+    );
     return (
       '<div class="qed-shots" role="group" aria-label="Simulated measurement results">' +
       '<p class="qed-shots__summary">' + esc(describe(result, labels)) + "</p>" +
@@ -176,6 +193,7 @@ window.QedShots = (function () {
     session: session,
     defaultLabels: defaultLabels,
     describe: describe,
+    renderBars: renderBars,
     renderHTML: renderHTML,
   };
 })();

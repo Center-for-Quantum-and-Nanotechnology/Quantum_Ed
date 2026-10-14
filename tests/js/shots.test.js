@@ -124,3 +124,39 @@ test("renderHTML escapes custom labels", () => {
   assert.ok(!html.includes("<b>"));
   assert.ok(html.includes("&lt;b&gt;"));
 });
+
+test("renderBars draws one row per input with width, label, and text", () => {
+  const html = S.renderBars([
+    { label: "Outcome 0", fraction: 0.36, text: "36%" },
+    { label: "Outcome 1", fraction: 0.64, text: "64%" },
+  ]);
+  assert.equal((html.match(/class="qed-confidence-row"/g) || []).length, 2);
+  assert.match(html, /width:36%/);
+  assert.match(html, /width:64%/);
+  assert.match(html, /Outcome 0/);
+  assert.match(html, />64%</);
+});
+
+test("renderBars keeps one decimal of the fraction and clamps out-of-range values", () => {
+  assert.match(S.renderBars([{ label: "a", fraction: 1 / 3, text: "" }]), /width:33\.3%/);
+  assert.match(S.renderBars([{ label: "a", fraction: 1.7, text: "" }]), /width:100%/);
+  assert.match(S.renderBars([{ label: "a", fraction: -0.2, text: "" }]), /width:0%/);
+  assert.match(S.renderBars([{ label: "a", fraction: NaN, text: "" }]), /width:0%/);
+  assert.match(S.renderBars([{ label: "a", fraction: "0.5", text: "" }]), /width:0%/);
+});
+
+test("renderBars escapes labels and text", () => {
+  const html = S.renderBars([{ label: "<i>", fraction: 0.5, text: "<b>" }]);
+  assert.ok(!html.includes("<i>") && !html.includes("<b>"));
+  assert.ok(html.includes("&lt;i&gt;") && html.includes("&lt;b&gt;"));
+});
+
+test("renderBars of nothing is empty", () => {
+  assert.equal(S.renderBars([]), "");
+});
+
+test("renderHTML still shows counts and percentages through renderBars", () => {
+  const html = S.renderHTML({ shots: 100, counts: [52, 48], sequence: [] });
+  assert.match(html, />52 \(52%\)</);
+  assert.match(html, />48 \(48%\)</);
+});

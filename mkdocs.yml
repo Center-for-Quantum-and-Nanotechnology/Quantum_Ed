@@ -46,6 +46,7 @@ extra_javascript:
   - assets/javascripts/glossary.js
   - assets/javascripts/circuit.js
   - assets/javascripts/shots.js
+  - assets/javascripts/qubit.js
   - assets/javascripts/software-stack.js
   - assets/javascripts/bloch.js
   - assets/javascripts/mathjax.js
