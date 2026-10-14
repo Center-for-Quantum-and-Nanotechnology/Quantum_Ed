@@ -32,7 +32,7 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [x] **Taxonomy v1.2 approved**, including the Beginner / Intermediate / Advanced split and gate coverage.
 - [x] **Global taxonomy synced and module index rewritten.** The nav still holds only the module index.
 - [x] **Check Module 01 before finalizing 02.01.** Done: the interference and Bell-test demos exist only on `origin/treys_branch`, not on this branch, so 02.01 uses the spec's fallback wording.
-- [ ] **After Trey's Module 01 merges, update 02.01 section 5** to point at its interference (Superposition) and Bell-test/CHSH (Entanglement) demos instead of saying the evidence comes later.
+- [x] **After Trey's Module 01 merges, update 02.01 section 5** to point at its interference (Superposition) and Bell-test/CHSH (Entanglement) demos. Done in the page and the spec.
 - [x] **Add the 02.01 page to the glossary's `moduleReferences`.** Done for State Preparation, Quantum State, Superposition, Basis State, Measurement, and Shot.
 - [ ] **Draft and approve specs 02.02 to 02.07** (02.01 is done and built). Draft each from the taxonomy for review, then run the `section-spec-writer` skill over the reviewed draft. Each spec carries a level map and a Shared Components section.
 - [ ] **Add each remaining Module 02 page to `mkdocs.yml` as it is built** (02.01 is done), and link it from `docs/02-fundamentals/index.md`.
