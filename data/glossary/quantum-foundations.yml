@@ -167,3 +167,12 @@
     - 07-error-correction/physical-vs-logical-qubits.md
     - 07-error-correction/repetition-codes.md
   category: quantum-foundations
+
+- id: state-preparation
+  term: State Preparation
+  aliases: []
+  definition: "The process of putting a quantum system into a chosen starting state, for example by resetting qubits to |0⟩ and then applying operations. Preparing a system the same way again aims to produce the same state, although a single measurement of that state can still give different outcomes."
+  beginnerInterpretation: "State preparation is the recipe that sets up the state you start with. The same recipe gives the same state, even though one measurement of it may give a different result each time."
+  relatedTerms: [quantum-state, basis-state, reset, qubit, measurement]
+  moduleReferences: []
+  category: quantum-foundations
