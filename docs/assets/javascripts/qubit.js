@@ -138,6 +138,25 @@ window.QedQubit = (function () {
     return term(s.alpha, "|0⟩", digits, true) + term(s.beta, "|1⟩", digits, false);
   }
 
+  // One amplitude (or any complex number) as text: a plain signed number when it
+  // is real, "(a + bi)" in brackets when it is not. Same style as format().
+  function formatAmplitude(z, digits) {
+    digits = digits === undefined ? 2 : digits;
+    return term(z, "", digits, true);
+  }
+
+  // Inner product <phi|psi> of two states: the conjugate of each amplitude of phi
+  // times the matching amplitude of psi, added up. One complex number {re, im}.
+  // <psi|psi> equals norm2(psi), and <0|psi> is psi's alpha.
+  function innerProduct(phi, psi) {
+    function conjTimes(u, v) {
+      return { re: u.re * v.re + u.im * v.im, im: u.re * v.im - u.im * v.re };
+    }
+    var a = conjTimes(phi.alpha, psi.alpha);
+    var b = conjTimes(phi.beta, psi.beta);
+    return { re: a.re + b.re, im: a.im + b.im };
+  }
+
   // Validity as data and as plain words.
   function validity(s) {
     var total = norm2(s);
@@ -176,6 +195,8 @@ window.QedQubit = (function () {
     relativePhase: relativePhase,
     applyGlobalPhase: applyGlobalPhase,
     format: format,
+    formatAmplitude: formatAmplitude,
+    innerProduct: innerProduct,
     validity: validity,
     PRESETS: PRESETS,
   };

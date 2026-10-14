@@ -105,6 +105,7 @@ Set the two amplitudes and watch what happens. Start from a preset or drag the s
     <span><span id="qr-form"></span> <span id="qr-name"></span></span>
   </div>
   <p class="qed-editor__details" id="qr-details" hidden></p>
+  <p class="qed-editor__details" id="qr-braket" hidden></p>
 
   <p class="qed-demo__step"><strong>3. Is it a valid state?</strong></p>
   <p class="qed-editor__validity" id="qr-validity"></p>
@@ -179,6 +180,28 @@ Amplitudes can be complex. Write the state as \(|\psi\rangle = \alpha|0\rangle +
 Real amplitudes are the special case where each amplitude has a phase of 0° or 180°. At this level the editor above shows each amplitude as a magnitude and a phase, so you can see this directly: change a phase and watch what the probabilities do.
 
 **Global phase and relative phase.** Multiply both amplitudes by the same phase factor and nothing you can observe changes: no probability, and no relationship between the two amplitudes. That shared factor is the **[global phase](../glossary.md#global-phase)**. What does matter is the phase of \(\beta\) relative to \(\alpha\), the **[relative phase](../glossary.md#relative-phase)**. It is 0° for |+⟩ and 180° for |−⟩, which is exactly the sign difference you saw above. Use the "shift both phases" control in the editor to see the bars and the relative phase stay put.
+
+</div>
+
+<div class="qed-level" data-min-level="intermediate" markdown="1">
+
+### Bra notation and inner products
+
+**The bra.** The ket \(|\psi\rangle\) has a partner, the **bra** \(\langle\psi|\). It lists the same two amplitudes, with each one replaced by its complex conjugate (the sign of the imaginary part is flipped). For real amplitudes the numbers do not change.
+
+**The inner product.** \(\langle\varphi|\psi\rangle\) is a single number. Multiply the conjugate of each amplitude of \(\varphi\) by the matching amplitude of \(\psi\), then add the two products:
+
+\[ \langle\varphi|\psi\rangle = \varphi_0^{*}\,\psi_0 + \varphi_1^{*}\,\psi_1 . \]
+
+Three results are worth seeing. The editor above now shows the first two as numbers beside the written form.
+
+- \(\langle\psi|\psi\rangle = |\alpha|^2 + |\beta|^2\), so normalization says \(\langle\psi|\psi\rangle = 1\). Watch it reach 1 when the state becomes valid.
+- \(\langle 0|\psi\rangle = \alpha\) and \(\langle 1|\psi\rangle = \beta\). The inner product with a basis state reads off that basis state's amplitude.
+- \(\langle 0|0\rangle = \langle 1|1\rangle = 1\) and \(\langle 0|1\rangle = 0\). The basis states are **orthonormal**: each is normalized, and the inner product of the two is zero.
+
+The table shows the inner product of each named state (row) with each other named state (column). The diagonal is always 1, and some off-diagonal entries are 0. |+⟩ and |−⟩ are orthonormal too.
+
+<div id="qr-inner"></div>
 
 </div>
 
@@ -299,6 +322,17 @@ document.addEventListener("DOMContentLoaded", function () {
     $("qr-compare").innerHTML = '<div class="qed-demo__layout" style="justify-content: space-around; align-items:stretch;">' + panel(plus) + panel(minus) + "</div>";
   }
 
+  function buildInner() {
+    var P = Q.PRESETS;
+    var head = "<tr><th scope=\"col\">⟨row|column⟩</th>" + P.map(function (p) { return "<th scope=\"col\">" + p.name + "</th>"; }).join("") + "</tr>";
+    var body = P.map(function (r) {
+      return "<tr><th scope=\"row\">" + r.name + "</th>" + P.map(function (c) {
+        return "<td>" + Q.formatAmplitude(Q.innerProduct(r.state, c.state)) + "</td>";
+      }).join("") + "</tr>";
+    }).join("");
+    $("qr-inner").innerHTML = '<table class="qed-comparison-table"><caption class="qed-stack__caption">Inner products of the four named states</caption><thead>' + head + "</thead><tbody>" + body + "</tbody></table>";
+  }
+
   function buildLists() {
     var rows = Q.PRESETS.filter(function (p) { return p.id === "plus" || p.id === "minus"; }).map(function (p) {
       return "<tr><th scope=\"row\">" + p.name + "</th><td>(" + signed(p.state.alpha.re, 2) + ", " + signed(p.state.beta.re, 2) + ")</td></tr>";
@@ -322,6 +356,7 @@ document.addEventListener("DOMContentLoaded", function () {
     Array.prototype.forEach.call(document.querySelectorAll("#qr-editor [data-mode='polar']"), function (el) { el.hidden = !inter; });
     $("qr-global").hidden = !inter;
     $("qr-details").hidden = !inter;
+    $("qr-braket").hidden = !inter;
     return inter;
   }
 
@@ -363,6 +398,12 @@ document.addEventListener("DOMContentLoaded", function () {
       $("qr-details").textContent =
         "Modulus of the |0⟩ amplitude: " + fixed(mags[0], 2) + ". Modulus of the |1⟩ amplitude: " + fixed(mags[1], 2) + ". " +
         (rel === null ? "Relative phase: undefined while an amplitude is zero." : "Relative phase: " + fixed(toDeg(rel), 0) + "°.");
+      var zeroKet = Q.PRESETS.filter(function (x) { return x.id === "zero"; })[0].state;
+      var oneKet = Q.PRESETS.filter(function (x) { return x.id === "one"; })[0].state;
+      $("qr-braket").textContent =
+        "⟨ψ|ψ⟩ = " + Q.formatAmplitude(Q.innerProduct(state, state)) +
+        ". ⟨0|ψ⟩ = " + Q.formatAmplitude(Q.innerProduct(zeroKet, state)) +
+        ". ⟨1|ψ⟩ = " + Q.formatAmplitude(Q.innerProduct(oneKet, state)) + ".";
     }
 
     // preset buttons show which one matches
@@ -546,6 +587,7 @@ document.addEventListener("DOMContentLoaded", function () {
   buildKets();
   buildCompare();
   buildLists();
+  buildInner();
   showLevelControls();
   setState(START, "");
 });

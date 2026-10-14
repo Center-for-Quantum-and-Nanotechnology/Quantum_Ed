@@ -161,3 +161,76 @@ test("format honours the number of digits", () => {
   assert.equal(Q.format(Q.real(0.6, 0.8), 1), "0.6|0⟩ + 0.8|1⟩");
   assert.equal(Q.format(Q.real(0.6, 0.8), 3), "0.600|0⟩ + 0.800|1⟩");
 });
+
+test("formatAmplitude writes a real number plainly and a complex number in brackets", () => {
+  assert.equal(Q.formatAmplitude({ re: 0.6, im: 0 }), "0.60");
+  assert.equal(Q.formatAmplitude({ re: -0.6, im: 0 }), "−0.60");
+  assert.equal(Q.formatAmplitude({ re: 0.6, im: -0.2 }), "(0.60 − 0.20i)");
+  assert.equal(Q.formatAmplitude({ re: -0.3, im: 0.4 }), "(−0.30 + 0.40i)");
+  assert.equal(Q.formatAmplitude({ re: -1e-9, im: 0 }), "0.00");
+  assert.equal(Q.formatAmplitude({ re: 0.6, im: 0 }, 1), "0.6");
+});
+
+const byId = () => Object.fromEntries(Q.PRESETS.map((p) => [p.id, p.state]));
+
+test("the basis states are orthonormal", () => {
+  const { zero, one } = byId();
+  const ip = (a, b) => Q.innerProduct(a, b);
+  assert.deepEqual(ip(zero, zero), { re: 1, im: 0 });
+  assert.deepEqual(ip(one, one), { re: 1, im: 0 });
+  assert.deepEqual(ip(zero, one), { re: 0, im: 0 });
+  assert.deepEqual(ip(one, zero), { re: 0, im: 0 });
+});
+
+test("|+> and |-> are orthonormal too", () => {
+  const { plus, minus } = byId();
+  const pm = Q.innerProduct(plus, minus);
+  assert.ok(close(pm.re, 0) && close(pm.im, 0));
+  assert.ok(close(Q.innerProduct(plus, plus).re, 1));
+  assert.ok(close(Q.innerProduct(minus, minus).re, 1));
+});
+
+test("<psi|psi> equals the norm, so a valid state has <psi|psi> = 1", () => {
+  [Q.real(0.6, 0.8), Q.real(3, -4), Q.complex(0.5, 0.2, -0.3, 0.7), Q.PRESETS[2].state].forEach((s) => {
+    const ip = Q.innerProduct(s, s);
+    assert.ok(close(ip.re, Q.norm2(s)));
+    assert.ok(close(ip.im, 0));
+  });
+  assert.ok(close(Q.innerProduct(Q.real(0.6, 0.8), Q.real(0.6, 0.8)).re, 1));
+});
+
+test("<0|psi> and <1|psi> read off the amplitudes", () => {
+  const { zero, one } = byId();
+  const s = Q.complex(0.5, 0.2, -0.3, 0.7);
+  const a = Q.innerProduct(zero, s);
+  const b = Q.innerProduct(one, s);
+  assert.ok(close(a.re, 0.5) && close(a.im, 0.2));
+  assert.ok(close(b.re, -0.3) && close(b.im, 0.7));
+});
+
+test("swapping the arguments conjugates the inner product", () => {
+  const phi = Q.complex(0.5, 0.2, -0.3, 0.7);
+  const psi = Q.complex(0.1, -0.4, 0.8, 0.25);
+  const ab = Q.innerProduct(phi, psi);
+  const ba = Q.innerProduct(psi, phi);
+  assert.ok(close(ab.re, ba.re));
+  assert.ok(close(ab.im, -ba.im));
+});
+
+test("the inner product conjugates the first argument only", () => {
+  // <phi|psi> with phi = i|0> and psi = |0>: conj(i) * 1 = -i
+  const phi = Q.complex(0, 1, 0, 0);
+  const psi = Q.real(1, 0);
+  const ip = Q.innerProduct(phi, psi);
+  assert.ok(close(ip.re, 0) && close(ip.im, -1));
+});
+
+test("the inner product does not change its arguments", () => {
+  const phi = Q.complex(0.5, 0.2, -0.3, 0.7);
+  const psi = Q.real(0.6, 0.8);
+  const phiCopy = JSON.parse(JSON.stringify(phi));
+  const psiCopy = JSON.parse(JSON.stringify(psi));
+  Q.innerProduct(phi, psi);
+  assert.deepEqual(phi, phiCopy);
+  assert.deepEqual(psi, psiCopy);
+});

@@ -126,7 +126,8 @@
   definition: "Notation in which a state vector is written as a ket |ψ⟩ and its conjugate transpose as a bra ⟨ψ|; the inner product of two states is written ⟨φ|ψ⟩."
   beginnerInterpretation: "Bra-ket notation is shorthand for writing quantum states: |ψ⟩ names a state, and expressions like ⟨φ|ψ⟩ describe how much two states overlap."
   relatedTerms: [quantum-state, basis-state, hilbert-space, probability-amplitude]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/qubit-representation.md
   category: quantum-foundations
 
 - id: hilbert-space
@@ -203,6 +204,16 @@
   definition: "A phase factor that multiplies every amplitude of a state by the same complex number of magnitude 1. It has no effect on any measurement probability, so two states that differ only by a global phase describe the same physical state."
   beginnerInterpretation: "A global phase is a shared twist applied to the whole state at once. It changes nothing you can ever observe, unlike a relative phase, which does."
   relatedTerms: [relative-phase, phase, quantum-state, probability-amplitude, pure-state]
+  moduleReferences:
+    - 02-fundamentals/qubit-representation.md
+  category: quantum-foundations
+
+- id: inner-product
+  term: Inner Product
+  aliases: []
+  definition: "A way of combining two states into a single number: multiply the complex conjugate of each amplitude of the first state by the matching amplitude of the second, and add the results. The inner product of a normalized state with itself is 1, and the inner product of two orthogonal states is 0."
+  beginnerInterpretation: "The inner product is a single number that compares two states. A normalized state compared with itself gives 1, and two states that are completely different in this sense give 0."
+  relatedTerms: [bra-ket-notation, normalization, probability-amplitude, quantum-state, basis-state]
   moduleReferences:
     - 02-fundamentals/qubit-representation.md
   category: quantum-foundations
