@@ -4,7 +4,7 @@ A quantum computer is not just a faster laptop. It is a different kind of machin
 
 ## Where the idea came from
 
-The idea started with a problem in physics. In 1981 the physicist Richard Feynman pointed out that simulating quantum systems, such as molecules, on an ordinary computer gets very hard, very fast. His suggestion was to turn the problem around: if nature is quantum, build the computer out of quantum parts. In 1985 David Deutsch described a universal quantum computer. Then in the 1990s Peter Shor (1994) and Lov Grover (1996) showed that such a machine could speed up problems far beyond physics, namely factoring large numbers and searching.
+The idea of a quantum computer started with a problem in physics. In 1981 the physicist Richard Feynman pointed out that simulating quantum systems, such as molecules, on an ordinary computer gets very hard, very fast. His suggestion was to turn the problem around: if nature is quantum, build the computer out of quantum parts. In 1985 David Deutsch described a universal quantum computer. Then in the 1990s Peter Shor (1994) and Lov Grover (1996) showed that such a machine could speed up problems far beyond physics, namely factoring large numbers and searching.
 
 Why is simulation so hard? Describing *n* ordinary bits takes *n* numbers. Describing *n* qubits takes \(2^n\) numbers, called **amplitudes**. The demonstration below shows what it costs an ordinary computer to store them.
 
@@ -48,7 +48,7 @@ A quantum computer manipulates a different kind of information, so the two machi
 | **Copying** | Any bit can be copied | An unknown quantum state cannot be copied |
 | **Source of speedups** | Faster hardware, more of it | Interference and entanglement, arranged by the algorithm |
 
-Two things follow. A quantum computer cannot compute anything an ordinary one cannot. It may just do certain jobs far more efficiently. And it is expected to help with *some* problems, not all. Word processing and web browsing gain nothing.
+Two things follow. First, a quantum computer cannot compute anything an ordinary one cannot. It may just do certain jobs far more efficiently. Second, it is expected to help with *some* problems, not all. Word processing and web browsing gain nothing.
 
 You may hear that a quantum computer "tries every answer at once", but that is misleading. The demonstration below puts *n* qubits in an equal mix of all outcomes and then measures them.
 

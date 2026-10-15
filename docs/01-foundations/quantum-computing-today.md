@@ -6,7 +6,7 @@ Quantum computers are not a distant idea. Real machines exist and run in labs an
 
 In 2018 the physicist John Preskill named the current stage of the field **NISQ**, short for **Noisy Intermediate-Scale Quantum**. "Intermediate-scale" means devices with tens to a few hundred qubits, enough that an ordinary computer can no longer simulate them exactly. "Noisy" means the qubits and gates are imperfect and there is not yet error correction, so every operation has a small chance of going wrong.
 
-That chance is small and shrinking. Quantinuum reported a two-qubit gate fidelity of 99.921% on its 98-qubit Helios system in November 2025, an error rate of about 0.08%, or roughly one mistake in every 1,250 operations. Even so, errors add up. If each gate fails with probability *p*, a circuit of *G* gates runs without any error with probability \((1 - p)^G\). The demonstration below lets you vary both.
+That chance is small and shrinking. In November 2025, Quantinuum reported a two-qubit gate fidelity of 99.921% on its 98-qubit Helios system, an error rate of about 0.08%, or roughly one mistake in every 1,250 operations. Even so, errors add up. If each gate fails with probability *p*, a circuit of *G* gates runs without any error with probability \((1 - p)^G\). The demonstration below lets you vary both.
 
 <div data-qed-demo="error-budget"></div>
 
@@ -26,7 +26,7 @@ The theory behind this predicts a **threshold**. If the physical error rate is b
 
 In 2024 Google Quantum AI showed it on hardware, in a result published in *Nature* in 2025. On its Willow chip, each step up in the size of the error-correcting code, from distance 3 to 5 to 7, cut the logical error rate roughly in half. The largest code used 101 of the chip's 105 qubits, and its logical qubit lasted longer than the best physical qubit on the chip. Other groups are advancing too: Quantinuum reports 48 error-corrected logical qubits on Helios (company-reported, November 2025).
 
-This is a turning point. The result shows that stored quantum information can be protected, and that the road to large machines is an engineering problem rather than a question of whether the physics allows it. There is still a long way to go. A full computation on logical qubits has yet to be demonstrated, and at present error rates a good logical qubit may need over a thousand physical ones. How error correction works, and why it is hard, is the subject of [Module 07 · Quantum Error Correction](../07-error-correction/index.md), which begins with the [Why QEC?](../07-error-correction/why-qec.md) section.
+This is a turning point. The result shows that stored quantum information can be protected, and that the road to large machines is an engineering problem rather than a question of whether the physics allows it. There is still a long way to go. A full computation on logical qubits has yet to be demonstrated, and at present error rates, a good logical qubit may need over a thousand physical ones. How error correction works, and why it is hard, is the subject of [Module 07 · Quantum Error Correction](../07-error-correction/index.md), which begins with the [Why QEC?](../07-error-correction/why-qec.md) section.
 
 ## The Open Frontier
 
