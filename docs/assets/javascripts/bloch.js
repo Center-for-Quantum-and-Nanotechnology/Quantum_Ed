@@ -205,8 +205,22 @@ window.QedBloch = (function () {
     ctx.closePath();
     ctx.stroke();
     ctx.font = "12px sans-serif";
-    ctx.textAlign = p.x < cx ? "right" : "left";
-    ctx.fillText(pinned.label || "pinned", p.x + (p.x < cx ? -9 : 9), p.y + 14);
+    // The label sits below the diamond, clear of the axis label and of any marker
+    // label above it. Near an edge it turns inward so it is never cut off.
+    var text = pinned.label || "pinned";
+    var w = ctx.measureText(text).width;
+    var onLeft = p.x < cx;
+    var x = p.x + (onLeft ? -9 : 9);
+    var align = onLeft ? "right" : "left";
+    if (!onLeft && x + w > ctx.canvas.width - 2) {
+      align = "right";
+      x = p.x + 6;
+    } else if (onLeft && x - w < 2) {
+      align = "left";
+      x = p.x - 6;
+    }
+    ctx.textAlign = align;
+    ctx.fillText(text, x, p.y + 24);
     ctx.restore();
   }
 

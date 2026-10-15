@@ -247,6 +247,18 @@ window.QedQubit = (function () {
     p.real = isReal(p.state);
   });
 
+  // Which named preset a state is, up to a global phase: the preset object, or null
+  // when the state is not one of them (or is not normalized). Two normalized states
+  // are the same point on the Bloch sphere exactly when |<phi|psi>|^2 is 1.
+  function nameOf(s, tolerance) {
+    tolerance = tolerance === undefined ? 1e-6 : tolerance;
+    if (!isNormalized(s, tolerance)) return null;
+    for (var i = 0; i < PRESETS.length; i++) {
+      if (Math.abs(square(innerProduct(PRESETS[i].state, s)) - 1) <= tolerance) return PRESETS[i];
+    }
+    return null;
+  }
+
   return {
     real: real,
     complex: complex,
@@ -268,5 +280,6 @@ window.QedQubit = (function () {
     blochVector: blochVector,
     validity: validity,
     PRESETS: PRESETS,
+    nameOf: nameOf,
   };
 })();

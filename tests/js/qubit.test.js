@@ -266,3 +266,23 @@ test("isReal separates real from complex states", () => {
   assert.equal(Q.isReal(Q.complex(0.6, 0, 0, 0.8)), false);
   assert.equal(Q.isReal(Q.complex(0.6, 1e-12, 0, 0)), true);
 });
+
+test("nameOf finds each named state, including with a global phase", () => {
+  Q.PRESETS.forEach((p) => {
+    assert.equal(Q.nameOf(p.state).id, p.id);
+    [0.7, Math.PI, -2.4].forEach((g) => assert.equal(Q.nameOf(Q.applyGlobalPhase(p.state, g)).id, p.id, `${p.id} gamma ${g}`));
+  });
+});
+
+test("nameOf is null for any other point, and for a state that is not normalized", () => {
+  assert.equal(Q.nameOf(Q.fromBloch(60, 0)), null);
+  assert.equal(Q.nameOf(Q.fromBloch(90, 45)), null);
+  assert.equal(Q.nameOf(Q.real(0.6, 0.6)), null);
+  assert.equal(Q.nameOf(Q.real(0, 0)), null);
+});
+
+test("nameOf tells |+> from |-> and the equator points from each other", () => {
+  const plus = Q.PRESETS.filter((p) => p.id === "plus")[0].state;
+  assert.equal(Q.nameOf(Q.real(HALF, -HALF)).id, "minus");
+  assert.equal(Q.nameOf(plus).id, "plus");
+});

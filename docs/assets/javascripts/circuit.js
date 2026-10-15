@@ -15,8 +15,9 @@
 //                   SVG string, drawn with the shared .qed-circuit-* classes
 //   DOM wiring   -> left to each page
 //
-// Deliberately small. It draws a few gate glyphs (H, CNOT, measure) on
-// horizontal wires and nothing else; it is not a general circuit renderer.
+// Deliberately small. It draws a few gate glyphs (H, CNOT, measure, and a
+// generic labelled single-qubit box) on horizontal wires and nothing else; it is
+// not a general circuit renderer.
 // Older circuit drawings on other pages are page-local SVG and are not
 // migrated here.
 window.QedCircuit = (function () {
@@ -66,15 +67,30 @@ window.QedCircuit = (function () {
       if (op.type === "h") return "a Hadamard gate on " + qubitName(op.targets[0]);
       if (op.type === "cx") return "a controlled-NOT with control " + qubitName(op.control) + " and target " + qubitName(op.target);
       if (op.type === "measure") return "a measurement of " + qubitName(op.targets[0]);
+      if (op.type === "gate") return "a " + (op.name || op.label) + " gate on " + qubitName(op.targets[0]);
       return "an operation";
     });
     return "Circuit on " + n + " qubits: " + parts.join(", then ") + ".";
   }
 
-  function glyphH(x, y) {
+  function glyphH(x, y, boxClass) {
     return (
-      '<rect class="qed-circuit-gate-box" x="' + (x - 13) + '" y="' + (y - 12) + '" width="26" height="24" rx="3" />' +
+      '<rect class="' + boxClass + '" x="' + (x - 13) + '" y="' + (y - 12) + '" width="26" height="24" rx="3" />' +
       '<text class="qed-circuit-label" x="' + x + '" y="' + (y + 4) + '" text-anchor="middle">H</text>'
+    );
+  }
+
+  // A generic single-qubit gate box with a text label (I, X, Y, Z, S, T, or a
+  // rotation such as "Rx(60°)"). The box grows with the label.
+  function gateBoxWidth(label) {
+    return Math.max(26, 7 * String(label).length + 12);
+  }
+
+  function glyphGate(x, y, label, boxClass) {
+    var w = gateBoxWidth(label);
+    return (
+      '<rect class="' + boxClass + '" x="' + (x - w / 2) + '" y="' + (y - 12) + '" width="' + w + '" height="24" rx="3" />' +
+      '<text class="qed-circuit-label" x="' + x + '" y="' + (y + 4) + '" text-anchor="middle">' + esc(label) + "</text>"
     );
   }
 
@@ -99,16 +115,25 @@ window.QedCircuit = (function () {
     );
   }
 
-  // opts: { idPrefix, ariaLabel (defaults to describe(circuit)) }
+  // opts: { idPrefix, ariaLabel (defaults to describe(circuit)), neutral }
+  // neutral draws every gate box in the page's neutral line color instead of the
+  // logical-information blue, for pages (Module 02) that do not use Module 07's
+  // color meanings. A circuit with no generic gate ops and no neutral option is
+  // drawn exactly as before.
   function renderSVG(circuit, opts) {
     opts = opts || {};
     var n = circuit.qubits.length;
     var cols = columns(circuit);
     var maxCol = cols.reduce(function (m, c) { return Math.max(m, c); }, 0);
-    var width = LEFT + (maxCol + 1) * COL_W + 20;
+    var colW = COL_W;
+    circuit.ops.forEach(function (op) {
+      if (op.type === "gate") colW = Math.max(colW, gateBoxWidth(op.label) + 14);
+    });
+    var boxClass = "qed-circuit-gate-box" + (opts.neutral ? " qed-circuit-gate-box--neutral" : "");
+    var width = LEFT + (maxCol + 1) * colW + 20;
     var height = TOP + (n - 1) * ROW_H + 26;
     function yOf(i) { return TOP + i * ROW_H; }
-    function xOf(col) { return LEFT + 10 + col * COL_W + COL_W / 2 - 10; }
+    function xOf(col) { return LEFT + 10 + col * colW + colW / 2 - 10; }
 
     var out = [];
     out.push(
@@ -122,7 +147,8 @@ window.QedCircuit = (function () {
     }
     circuit.ops.forEach(function (op, k) {
       var x = xOf(cols[k]);
-      if (op.type === "h") out.push(glyphH(x, yOf(op.targets[0])));
+      if (op.type === "h") out.push(glyphH(x, yOf(op.targets[0]), boxClass));
+      else if (op.type === "gate") out.push(glyphGate(x, yOf(op.targets[0]), op.label, boxClass));
       else if (op.type === "cx") out.push(glyphCX(x, yOf(op.control), yOf(op.target)));
       else if (op.type === "measure") out.push(glyphMeasure(x, yOf(op.targets[0])));
     });
