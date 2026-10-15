@@ -169,6 +169,24 @@ window.QedTwoQubit = (function () {
     return p.every(function (x, i) { return Math.abs(x - t[i]) <= tol; });
   }
 
+  // The two one-qubit states of a product state, or null when the state is not a
+  // product: { q0, q1 }, each in QedQubit's shape { alpha, beta }. Each is found up
+  // to a global phase (a product state has no single way to split a global phase
+  // between its two factors).
+  function factor(s) {
+    if (!isProduct(s)) return null;
+    function unit(x, y) {
+      var n = Math.sqrt(square(x) + square(y));
+      return { alpha: { re: x.re / n, im: x.im / n }, beta: { re: y.re / n, im: y.im / n } };
+    }
+    var rowFirst = square(s[0]) + square(s[1]) >= square(s[2]) + square(s[3]);
+    var colFirst = square(s[0]) + square(s[2]) >= square(s[1]) + square(s[3]);
+    return {
+      q0: colFirst ? unit(s[0], s[2]) : unit(s[1], s[3]),
+      q1: rowFirst ? unit(s[0], s[1]) : unit(s[2], s[3]),
+    };
+  }
+
   function inner(a, b) {
     // <a|b>
     var sum = c(0);
@@ -253,6 +271,7 @@ window.QedTwoQubit = (function () {
     apply: apply,
     separability: separability,
     isProduct: isProduct,
+    factor: factor,
     passesProductTest: passesProductTest,
     BELL: BELL,
     bellOf: bellOf,

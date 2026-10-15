@@ -263,3 +263,29 @@ test("|+> on the control and |+> in the target is left alone by CNOT, as X leave
   assert.ok(equalState(T.apply(G.CNOT, s), s));
   assert.ok(T.isProduct(T.apply(G.CNOT, s)));
 });
+
+test("factor splits a product state back into its two one-qubit states, up to a global phase", () => {
+  const overlap = (a, b) => {
+    const ip = Q.innerProduct(a, b);
+    return ip.re * ip.re + ip.im * ip.im;
+  };
+  ANGLES.forEach(([t1, f1]) => {
+    ANGLES.forEach(([t2, f2]) => {
+      const a = Q.fromBloch(t1, f1);
+      const b = Q.fromBloch(t2, f2);
+      const f = T.factor(T.product(a, b));
+      assert.ok(f, `${t1},${f1} ${t2},${f2}`);
+      assert.ok(close(overlap(f.q0, a), 1, 1e-9), `q0 ${t1},${f1}`);
+      assert.ok(close(overlap(f.q1, b), 1, 1e-9), `q1 ${t2},${f2}`);
+    });
+  });
+});
+
+test("factor is null for an entangled state, and works when one amplitude row or column is zero", () => {
+  assert.equal(T.factor(BELL_AGREE), null);
+  assert.equal(T.factor(T.real(0.5, 0.5, 0.5, -0.5)), null);
+  const basis = T.factor(T.real(0, 0, 0, 1));
+  assert.ok(close(basis.q0.beta.re, 1) && close(basis.q1.beta.re, 1));
+  const f = T.factor(T.real(0, 0, HALF, HALF));
+  assert.ok(close(f.q0.beta.re, 1) && close(f.q1.alpha.re, HALF) && close(f.q1.beta.re, HALF));
+});

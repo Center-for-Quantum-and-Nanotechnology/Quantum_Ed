@@ -300,3 +300,33 @@ test("compose needs gates on the same number of qubits, and identity(n) is the i
   assert.equal(G.identity(4)[2][3].re, 0);
   assert.equal(G.compose([]).matrix.length, 2);
 });
+
+// ---- cnot(controlWire): the CNOT with either wire as the control (02.06) ---------------
+
+test("cnot(0) is the CNOT of 02.05, and cnot(1) flips q0 when q1 is 1", () => {
+  assert.equal(G.cnot(0), G.CNOT);
+  const rev = G.cnot(1);
+  assert.deepEqual(rev.matrix.map((row) => row.map((z) => z.re)), [[1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0], [0, 1, 0, 0]]);
+  assert.equal(rev.control, 1);
+  assert.equal(rev.target, 0);
+  assert.equal(rev.name, "CNOT");
+  assert.ok(G.isUnitary(rev));
+  assert.equal(G.inverse(rev), rev, "its own inverse");
+  assert.equal(G.cnot(1), G.cnot(1), "built once");
+  assert.equal(G.describe(rev), "CNOT is a flip of q0 when q1 is 1.");
+});
+
+test("cnot(1) truth table: it exchanges 01 and 11 and leaves 00 and 10 alone", () => {
+  const rev = G.cnot(1).matrix;
+  const sends = (from) => rev.findIndex((row) => close(row[from].re, 1));
+  assert.equal(sends(0), 0);
+  assert.equal(sends(1), 3);
+  assert.equal(sends(2), 2);
+  assert.equal(sends(3), 1);
+});
+
+test("cnot rejects any wire but 0 and 1", () => {
+  assert.throws(() => G.cnot(2), /control wire must be 0 or 1/);
+  assert.throws(() => G.cnot(-1), /control wire must be 0 or 1/);
+  assert.throws(() => G.cnot("0"), /control wire must be 0 or 1/);
+});

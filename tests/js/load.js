@@ -22,4 +22,16 @@ function loadModule(fileName) {
   return window;
 }
 
-module.exports = { loadModule };
+// Load several modules into ONE stub window, in the order given, so a module that
+// calls another at run time (QedTrace calls QedGates, QedTwoQubit, QedQubit, and
+// QedCircuit) can be tested with the real ones. The result is that shared window.
+function loadModules(fileNames) {
+  const window = {};
+  fileNames.forEach((fileName) => {
+    const source = fs.readFileSync(path.join(JS_DIR, fileName), "utf8");
+    new Function("window", source)(window);
+  });
+  return window;
+}
+
+module.exports = { loadModule, loadModules };

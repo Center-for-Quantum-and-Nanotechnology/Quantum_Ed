@@ -259,6 +259,35 @@ window.QedGates = (function () {
   var CNOT = controlled(gate("x"), "CNOT");
   CNOT.words = "a flip of q1 when q0 is 1";
 
+  // CNOT with either wire as the control. cnot(0) is CNOT above (q0 control, q1
+  // target). cnot(1) has q1 as the control and q0 as the target: in the order 00,
+  // 01, 10, 11 it exchanges the amplitudes of 01 and 11.
+  var CNOT_REVERSED = null;
+
+  function cnot(controlWire) {
+    if (controlWire === 0) return CNOT;
+    if (controlWire !== 1) throw new Error("QedGates: the control wire must be 0 or 1");
+    if (!CNOT_REVERSED) {
+      var m = identity(4);
+      m[1][1] = z(0);
+      m[1][3] = z(1);
+      m[3][3] = z(0);
+      m[3][1] = z(1);
+      CNOT_REVERSED = {
+        id: "cx1",
+        name: "CNOT",
+        label: "CNOT",
+        matrix: m,
+        words: "a flip of q0 when q1 is 1",
+        kind: "controlled",
+        control: 1,
+        target: 0,
+        base: gate("x"),
+      };
+    }
+    return CNOT_REVERSED;
+  }
+
   // Rotate a point (a 3-vector) by angleDeg about a unit axis, right-handed
   // (Rodrigues' formula). The axis may be 'x', 'y', 'z' or a unit vector.
   function blochRotate(v, axis, angleDeg) {
@@ -308,6 +337,7 @@ window.QedGates = (function () {
     controlled: controlled,
     identity: identity,
     CNOT: CNOT,
+    cnot: cnot,
     AXES: AXES,
   };
 })();
