@@ -25,6 +25,7 @@
   relatedTerms: [probability-amplitude, relative-phase, superposition, quantum-algorithm, amplitude-amplification]
   moduleReferences:
     - 07-error-correction/errors-and-noise.md
+    - 02-fundamentals/measurement.md
   category: algorithms-and-computational-methods
 
 - id: oracle
@@ -144,4 +145,5 @@
   relatedTerms: [measurement, hamiltonian, variational-quantum-eigensolver, shot, sampling]
   moduleReferences:
     - 06-algorithms/variational-quantum-eigensolver.md
+    - 02-fundamentals/measurement.md
   category: algorithms-and-computational-methods

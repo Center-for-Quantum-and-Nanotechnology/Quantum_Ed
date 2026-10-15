@@ -98,6 +98,7 @@
   relatedTerms: [sampling, measurement, expectation-value, backend, readout-error]
   moduleReferences:
     - 02-fundamentals/quantum-states.md
+    - 02-fundamentals/measurement.md
   category: architecture-and-execution
 
 - id: sampling
