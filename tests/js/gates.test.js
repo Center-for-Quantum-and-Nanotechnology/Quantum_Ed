@@ -251,3 +251,52 @@ test("the rotation matrices are exp(-i theta sigma / 2)", () => {
   assert.ok(near(m(G.rotation("y", 70)), [[[c, 0], [-s, 0]], [[s, 0], [c, 0]]]));
   assert.ok(near(m(G.rotation("z", 70)), [[[c, -s], [0, 0]], [[0, 0], [c, s]]]));
 });
+
+// ---- the two-qubit building blocks added for 02.05 -----------------------------------
+
+test("kron puts the first factor on q0: kron(A, B) has A[i][j] * B[k][l] at row 2i+k, column 2j+l", () => {
+  const A = G.gate("x").matrix;
+  const B = G.gate("y").matrix;
+  const K = G.kron(A, B);
+  assert.equal(K.length, 4);
+  for (let i = 0; i < 2; i++) for (let j = 0; j < 2; j++) for (let k = 0; k < 2; k++) for (let l = 0; l < 2; l++) {
+    const a = A[i][j];
+    const b = B[k][l];
+    const entry = K[2 * i + k][2 * j + l];
+    assert.ok(close(entry.re, a.re * b.re - a.im * b.im, 1e-12) && close(entry.im, a.re * b.im + a.im * b.re, 1e-12), `${i}${j}${k}${l}`);
+  }
+  // X on q0 and nothing on q1 moves 00 to 10 (column 0 has its 1 in row 2)
+  const XI = G.kron(G.gate("x").matrix, G.gate("i").matrix);
+  assert.equal(XI[2][0].re, 1);
+  const IX = G.kron(G.gate("i").matrix, G.gate("x").matrix);
+  assert.equal(IX[1][0].re, 1);
+});
+
+test("controlled(gate) is the identity on q0 = 0 and the gate on q1 when q0 = 1", () => {
+  const cz = G.controlled(G.gate("z"));
+  assert.deepEqual(cz.matrix.map((row) => row.map((z) => z.re)), [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, -1]]);
+  assert.equal(cz.control, 0);
+  assert.equal(cz.target, 1);
+  assert.ok(G.isUnitary(cz));
+  assert.throws(() => G.controlled(cz), /one-qubit/);
+  assert.equal(G.CNOT.name, "CNOT");
+  assert.equal(G.describe(G.CNOT), "CNOT is a flip of q1 when q0 is 1.");
+});
+
+test("the two-qubit matrices are unitary and CNOT is its own inverse", () => {
+  assert.ok(G.isUnitary(G.CNOT));
+  ["h", "x", "y", "z", "s", "t"].forEach((id) => {
+    assert.ok(G.isUnitary({ matrix: G.kron(G.gate(id).matrix, G.gate("i").matrix) }), id);
+    assert.ok(G.isUnitary({ matrix: G.kron(G.gate("h").matrix, G.gate(id).matrix) }), id);
+  });
+  assert.equal(G.inverse(G.CNOT), G.CNOT);
+  const two = G.compose([G.CNOT, G.CNOT]).matrix;
+  assert.deepEqual(two.map((row) => row.map((z) => Math.round(z.re * 1e9) / 1e9)), [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]);
+});
+
+test("compose needs gates on the same number of qubits, and identity(n) is the identity", () => {
+  assert.throws(() => G.compose([G.gate("h"), G.CNOT]), /same number of qubits/);
+  assert.equal(G.identity(4)[2][2].re, 1);
+  assert.equal(G.identity(4)[2][3].re, 0);
+  assert.equal(G.compose([]).matrix.length, 2);
+});

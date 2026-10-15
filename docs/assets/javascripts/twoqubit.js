@@ -1,0 +1,262 @@
+// Shared two-qubit state module, used by Module 02 (02.05 Multi-Qubit Systems
+// first; 02.06 Quantum Circuits will trace a circuit through it and 02.07
+// Measurement will sample from its probabilities) and available to any page that
+// shows the state of exactly two qubits.
+//
+// Loaded site-wide via extra_javascript like the other shared modules; a no-op
+// on pages that don't call it. Page scripts that use window.QedTwoQubit must run
+// inside a DOMContentLoaded listener.
+//
+// Separation convention (same as QedSurfaceCode / QedMatching):
+//   model   -> pure functions of a state: probabilities, each qubit's own
+//              probabilities, the independent table, separability. No DOM.
+//   text    -> format(), describe(): plain strings for display and aria-live
+//   wiring  -> left to each page
+//
+// Scope, on purpose: exactly TWO qubits, as QedQubit is exactly one. It does not
+// draw (bars come from QedShots.renderBars and circuits from QedCircuit), does
+// not define gates (QedGates does: it supplies the 2x2 and 4x4 matrices passed in
+// here), and has no state for three or more qubits. It does not call QedQubit or
+// QedGates, so it loads and tests on its own.
+//
+// Basis order and qubit order, fixed once:
+//   a state is [c00, c01, c10, c11], each {re, im}
+//   the left digit is q0 (the first qubit, the CNOT control, the top wire)
+//   the right digit is q1
+// Some software libraries write bit strings with qubit 0 on the right; this module
+// does not, and a page that shows its order should say so.
+//
+// Functions never mutate their arguments.
+window.QedTwoQubit = (function () {
+  var EPS = 1e-9;
+  var LABELS = ["00", "01", "10", "11"];
+
+  function checkIndex(q) {
+    if (q !== 0 && q !== 1) throw new Error("QedTwoQubit: the qubit must be 0 or 1");
+  }
+
+  function checkNumber(x, what) {
+    if (typeof x !== "number" || !isFinite(x)) {
+      throw new Error("QedTwoQubit: " + what + " must be a finite number");
+    }
+  }
+
+  function c(re, im) {
+    return { re: re, im: im === undefined ? 0 : im };
+  }
+
+  function mul(u, v) {
+    return { re: u.re * v.re - u.im * v.im, im: u.re * v.im + u.im * v.re };
+  }
+
+  function add(u, v) {
+    return { re: u.re + v.re, im: u.im + v.im };
+  }
+
+  function sub(u, v) {
+    return { re: u.re - v.re, im: u.im - v.im };
+  }
+
+  function square(u) {
+    return u.re * u.re + u.im * u.im;
+  }
+
+  function checkState(s) {
+    if (!Array.isArray(s) || s.length !== 4) throw new Error("QedTwoQubit: a state has four amplitudes");
+  }
+
+  // A state from four real amplitudes, in the order 00, 01, 10, 11.
+  function real(a00, a01, a10, a11) {
+    [a00, a01, a10, a11].forEach(function (x) { checkNumber(x, "amplitude"); });
+    return [c(a00), c(a01), c(a10), c(a11)];
+  }
+
+  // The state of two independent qubits: a is q0 and b is q1, each in QedQubit's
+  // shape { alpha, beta }. The amplitude of "xy" is a_x times b_y.
+  function product(a, b) {
+    return [
+      mul(a.alpha, b.alpha),
+      mul(a.alpha, b.beta),
+      mul(a.beta, b.alpha),
+      mul(a.beta, b.beta),
+    ];
+  }
+
+  // Joint probabilities [p00, p01, p10, p11]: the squared magnitudes. For a valid
+  // (normalized) state they add to 1.
+  function probabilities(s) {
+    checkState(s);
+    return s.map(square);
+  }
+
+  function norm2(s) {
+    return probabilities(s).reduce(function (a, b) { return a + b; }, 0);
+  }
+
+  function isNormalized(s, tolerance) {
+    return Math.abs(norm2(s) - 1) <= (tolerance === undefined ? EPS : tolerance);
+  }
+
+  // Each qubit's own probabilities, read off the joint table by adding along rows
+  // (q0) and columns (q1): { q0: [P(q0=0), P(q0=1)], q1: [P(q1=0), P(q1=1)] }.
+  function marginals(s) {
+    var p = probabilities(s);
+    return {
+      q0: [p[0] + p[1], p[2] + p[3]],
+      q1: [p[0] + p[2], p[1] + p[3]],
+    };
+  }
+
+  // The joint table that two independent qubits with these own probabilities
+  // would give: each entry is the product of the matching own probabilities.
+  function independentTable(m) {
+    return [m.q0[0] * m.q1[0], m.q0[0] * m.q1[1], m.q0[1] * m.q1[0], m.q0[1] * m.q1[1]];
+  }
+
+  // Apply a 2x2 matrix to one qubit (q0 or q1), leaving the other alone.
+  // The matrix may be a gate object from QedGates (it has .matrix) or a bare matrix.
+  function applyToQubit(gate, qubit, s) {
+    checkState(s);
+    checkIndex(qubit);
+    var m = gate.matrix || gate;
+    if (m.length !== 2) throw new Error("QedTwoQubit: applyToQubit needs a 2x2 matrix");
+    var out = [c(0), c(0), c(0), c(0)];
+    for (var i = 0; i < 4; i++) {
+      var q0 = i >> 1;
+      var q1 = i & 1;
+      var acting = qubit === 0 ? q0 : q1;
+      for (var from = 0; from < 2; from++) {
+        var j = qubit === 0 ? from * 2 + q1 : q0 * 2 + from;
+        out[i] = add(out[i], mul(m[acting][from], s[j]));
+      }
+    }
+    return out;
+  }
+
+  // Apply a 4x4 matrix (or a gate object with .matrix) to the four amplitudes.
+  function apply(gate, s) {
+    checkState(s);
+    var m = gate.matrix || gate;
+    if (m.length !== 4) throw new Error("QedTwoQubit: apply needs a 4x4 matrix");
+    return m.map(function (row) {
+      var sum = c(0);
+      for (var j = 0; j < 4; j++) sum = add(sum, mul(row[j], s[j]));
+      return sum;
+    });
+  }
+
+  // alpha*delta - beta*gamma for the amplitudes of 00, 01, 10, 11 (alpha, beta,
+  // gamma, delta). It is zero exactly when the state is a product of one-qubit
+  // states. Returns { re, im, modulus }.
+  function separability(s) {
+    checkState(s);
+    var d = sub(mul(s[0], s[3]), mul(s[1], s[2]));
+    return { re: d.re, im: d.im, modulus: Math.sqrt(square(d)) };
+  }
+
+  function isProduct(s, tolerance) {
+    return separability(s).modulus <= (tolerance === undefined ? 1e-9 : tolerance);
+  }
+
+  // True when the joint probabilities equal the product of each qubit's own
+  // probabilities. Independent qubits always pass this. A state can pass it and
+  // still be entangled (for example amplitudes 1/2, 1/2, 1/2, -1/2), so passing
+  // proves nothing by itself; failing it proves the qubits are not independent.
+  function passesProductTest(s, tolerance) {
+    var p = probabilities(s);
+    var t = independentTable(marginals(s));
+    var tol = tolerance === undefined ? 1e-9 : tolerance;
+    return p.every(function (x, i) { return Math.abs(x - t[i]) <= tol; });
+  }
+
+  function inner(a, b) {
+    // <a|b>
+    var sum = c(0);
+    for (var i = 0; i < 4; i++) {
+      sum = add(sum, { re: a[i].re * b[i].re + a[i].im * b[i].im, im: a[i].re * b[i].im - a[i].im * b[i].re });
+    }
+    return sum;
+  }
+
+  var HALF = Math.SQRT1_2;
+
+  // The four Bell states. All are entangled. In two of them the outcomes always
+  // agree and in two they are always opposite; the "minus" ones carry a minus sign
+  // that the joint probabilities do not show. H then CNOT on |00> gives the first.
+  var BELL = [
+    { id: "agree", name: "the Bell state (outcomes always agree)", state: real(HALF, 0, 0, HALF) },
+    { id: "opposite", name: "the Bell state (outcomes always opposite)", state: real(0, HALF, HALF, 0) },
+    { id: "agreeMinus", name: "a Bell state with a minus sign (outcomes always agree)", state: real(HALF, 0, 0, -HALF) },
+    { id: "oppositeMinus", name: "a Bell state with a minus sign (outcomes always opposite)", state: real(0, HALF, -HALF, 0) },
+  ];
+
+  // Which Bell state this is, up to a global phase: the entry from BELL, or null.
+  function bellOf(s, tolerance) {
+    var tol = tolerance === undefined ? 1e-6 : tolerance;
+    if (!isNormalized(s, tol)) return null;
+    for (var i = 0; i < BELL.length; i++) {
+      if (Math.abs(square(inner(BELL[i].state, s)) - 1) <= tol) return BELL[i];
+    }
+    return null;
+  }
+
+  // ---- text -----------------------------------------------------------------------
+  function num(x, digits) {
+    var t = Math.abs(x).toFixed(digits);
+    return { text: t, negative: x < 0 && parseFloat(t) !== 0, zero: parseFloat(t) === 0 };
+  }
+
+  function term(z, ket, digits, first) {
+    var isReal = Math.abs(z.im) < EPS;
+    if (isReal) {
+      var n = num(z.re, digits);
+      if (first) return (n.negative ? "−" : "") + n.text + ket;
+      return " " + (n.negative ? "−" : "+") + " " + n.text + ket;
+    }
+    var re = num(z.re, digits);
+    var im = num(z.im, digits);
+    var body = "(" + (re.negative ? "−" : "") + re.text + (im.negative ? " − " : " + ") + im.text + "i)" + ket;
+    return first ? body : " + " + body;
+  }
+
+  // The written form with only the terms that are not zero, for example
+  // "0.71|00⟩ + 0.71|11⟩". All amplitudes zero gives "0".
+  function format(s, digits) {
+    checkState(s);
+    digits = digits === undefined ? 2 : digits;
+    var out = "";
+    for (var i = 0; i < 4; i++) {
+      if (Math.sqrt(square(s[i])) < Math.pow(10, -digits) / 2) continue;
+      out += term(s[i], "|" + LABELS[i] + "⟩", digits, out === "");
+    }
+    return out === "" ? "0" : out;
+  }
+
+  // A plain sentence about a state's joint probabilities, for aria text.
+  function describe(s) {
+    var p = probabilities(s);
+    return LABELS.map(function (l, i) {
+      return "outcome " + l + " " + Math.round(p[i] * 1000) / 10 + " percent";
+    }).join(", ") + ".";
+  }
+
+  return {
+    LABELS: LABELS,
+    real: real,
+    product: product,
+    probabilities: probabilities,
+    norm2: norm2,
+    isNormalized: isNormalized,
+    marginals: marginals,
+    independentTable: independentTable,
+    applyToQubit: applyToQubit,
+    apply: apply,
+    separability: separability,
+    isProduct: isProduct,
+    passesProductTest: passesProductTest,
+    BELL: BELL,
+    bellOf: bellOf,
+    format: format,
+    describe: describe,
+  };
+})();

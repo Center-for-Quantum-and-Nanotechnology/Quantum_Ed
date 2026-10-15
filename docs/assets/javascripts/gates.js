@@ -12,9 +12,11 @@
 //   text      -> describe(): plain strings for captions and aria-live
 //   wiring    -> left to each page
 //
-// Scope, on purpose: ONE qubit. It does not draw (the sphere is QedBloch and the
-// circuit symbols are QedCircuit), does not hold the state model (QedQubit does),
-// and has no two-qubit gates yet. It builds on QedQubit's state shape only:
+// Scope, on purpose: operations on ONE qubit (GATES, rotation) and the building
+// blocks for the first two-qubit gate (kron, controlled, CNOT). It does not draw
+// (the sphere is QedBloch and the circuit symbols are QedCircuit), does not hold
+// a state model (QedQubit holds one qubit, QedTwoQubit holds two), and has no gate
+// on more than two qubits. apply() acts on a one-qubit state in QedQubit's shape,
 // { alpha: {re, im}, beta: {re, im} }. It does not call QedQubit.
 //
 // Each gate is described twice, and the two descriptions must agree (a test
@@ -34,6 +36,10 @@
 // Order convention: compose([g1, g2]) means g1 is applied first. Its matrix is
 // the product M2 times M1, so the matrix reads right to left while the list (and
 // a circuit diagram) reads left to right.
+//
+// Two-qubit convention: a two-qubit matrix acts on the column (c00, c01, c10, c11).
+// The first (left) digit is q0, which is also the first factor of kron(A, B) and
+// the control of controlled(g). CNOT is controlled(X).
 window.QedGates = (function () {
   var EPS = 1e-9;
   var S2 = Math.SQRT1_2;
@@ -61,32 +67,53 @@ window.QedGates = (function () {
     return { re: u.re, im: -u.im };
   }
 
-  // A 2x2 matrix is [[a, b], [c, d]] with each entry {re, im}.
+  // A matrix is an array of rows, each entry {re, im}. A one-qubit gate is 2x2
+  // ([[a, b], [c, d]]) and a two-qubit gate is 4x4. Only square matrices are used.
   function matMul(m, n) {
-    return [
-      [add(mul(m[0][0], n[0][0]), mul(m[0][1], n[1][0])), add(mul(m[0][0], n[0][1]), mul(m[0][1], n[1][1]))],
-      [add(mul(m[1][0], n[0][0]), mul(m[1][1], n[1][0])), add(mul(m[1][0], n[0][1]), mul(m[1][1], n[1][1]))],
-    ];
+    var size = m.length;
+    var out = [];
+    for (var i = 0; i < size; i++) {
+      var row = [];
+      for (var j = 0; j < size; j++) {
+        var sum = z(0);
+        for (var k = 0; k < size; k++) sum = add(sum, mul(m[i][k], n[k][j]));
+        row.push(sum);
+      }
+      out.push(row);
+    }
+    return out;
   }
 
   function dagger(m) {
-    return [
-      [conj(m[0][0]), conj(m[1][0])],
-      [conj(m[0][1]), conj(m[1][1])],
-    ];
+    return m.map(function (row, i) {
+      return row.map(function (_, j) {
+        return conj(m[j][i]);
+      });
+    });
   }
 
   function close(u, v, tol) {
     return Math.abs(u.re - v.re) <= tol && Math.abs(u.im - v.im) <= tol;
   }
 
-  var IDENTITY = [
-    [z(1), z(0)],
-    [z(0), z(1)],
-  ];
+  function identity(size) {
+    var out = [];
+    for (var i = 0; i < size; i++) {
+      var row = [];
+      for (var j = 0; j < size; j++) row.push(z(i === j ? 1 : 0));
+      out.push(row);
+    }
+    return out;
+  }
+
+  var IDENTITY = identity(2);
 
   function matricesEqual(m, n, tol) {
-    return close(m[0][0], n[0][0], tol) && close(m[0][1], n[0][1], tol) && close(m[1][0], n[1][0], tol) && close(m[1][1], n[1][1], tol);
+    if (m.length !== n.length) return false;
+    for (var i = 0; i < m.length; i++) {
+      for (var j = 0; j < m.length; j++) if (!close(m[i][j], n[i][j], tol)) return false;
+    }
+    return true;
   }
 
   // ---- the named gates -------------------------------------------------------------
@@ -150,8 +177,9 @@ window.QedGates = (function () {
   // The single gate that equals applying gates[0] first, then gates[1], and so on.
   // The matrix is the product in the opposite order: M_n ... M_2 M_1.
   function compose(gates) {
-    var m = IDENTITY;
+    var m = identity(gates.length ? gates[0].matrix.length : 2);
     gates.forEach(function (g) {
+      if (g.matrix.length !== m.length) throw new Error("QedGates: compose needs gates on the same number of qubits");
       m = matMul(g.matrix, m);
     });
     return {
@@ -165,7 +193,7 @@ window.QedGates = (function () {
   }
 
   function isUnitary(g, tolerance) {
-    return matricesEqual(matMul(dagger(g.matrix), g.matrix), IDENTITY, tolerance === undefined ? 1e-9 : tolerance);
+    return matricesEqual(matMul(dagger(g.matrix), g.matrix), identity(g.matrix.length), tolerance === undefined ? 1e-9 : tolerance);
   }
 
   // The gate that undoes g. A gate that is its own inverse (I, X, Y, Z, H) is
@@ -185,6 +213,51 @@ window.QedGates = (function () {
       kind: g.kind === "composed" ? "composed" : "named",
     };
   }
+
+  // The Kronecker (tensor) product of two matrices. The first factor acts on the
+  // first (left) qubit, so kron(A, B) acts as A on q0 and B on q1: entry
+  // [i * rows(B) + k][j * cols(B) + l] is A[i][j] times B[k][l].
+  function kron(a, b) {
+    var out = [];
+    for (var i = 0; i < a.length; i++) {
+      for (var k = 0; k < b.length; k++) {
+        var row = [];
+        for (var j = 0; j < a[0].length; j++) {
+          for (var l = 0; l < b[0].length; l++) row.push(mul(a[i][j], b[k][l]));
+        }
+        out.push(row);
+      }
+    }
+    return out;
+  }
+
+  // A one-qubit gate made conditional on q0: the identity when q0 is 0, and g
+  // acting on q1 when q0 is 1. The control is q0 and the target is q1.
+  function controlled(g, name) {
+    if (g.matrix.length !== 2) throw new Error("QedGates: controlled needs a one-qubit gate");
+    var m = identity(4);
+    m[2][2] = g.matrix[0][0];
+    m[2][3] = g.matrix[0][1];
+    m[3][2] = g.matrix[1][0];
+    m[3][3] = g.matrix[1][1];
+    var label = name || "C-" + g.name;
+    return {
+      id: "c" + g.id,
+      name: label,
+      label: label,
+      matrix: m,
+      words: "a conditional gate: " + g.name + " on q1 when q0 is 1",
+      kind: "controlled",
+      control: 0,
+      target: 1,
+      base: g,
+    };
+  }
+
+  // CNOT: flips q1 when q0 is 1. In the order 00, 01, 10, 11 its matrix swaps the
+  // amplitudes of 10 and 11 and leaves 00 and 01 alone.
+  var CNOT = controlled(gate("x"), "CNOT");
+  CNOT.words = "a flip of q1 when q0 is 1";
 
   // Rotate a point (a 3-vector) by angleDeg about a unit axis, right-handed
   // (Rodrigues' formula). The axis may be 'x', 'y', 'z' or a unit vector.
@@ -231,6 +304,10 @@ window.QedGates = (function () {
     blochRotate: blochRotate,
     blochPartial: blochPartial,
     describe: describe,
+    kron: kron,
+    controlled: controlled,
+    identity: identity,
+    CNOT: CNOT,
     AXES: AXES,
   };
 })();
