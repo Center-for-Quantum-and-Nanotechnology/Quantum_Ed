@@ -36,14 +36,18 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [x] **Add the 02.01 page to the glossary's `moduleReferences`.** Done for State Preparation, Quantum State, Superposition, Basis State, Measurement, and Shot.
 - [x] **02.02 is final and built.** Draft and approve specs 02.03 to 02.07 next.
 - [x] **When 02.02 is built: log any cut Intermediate parts in `llm/FLAGS.md`.** Done: bra notation, inner products, and orthonormality were cut and logged.
-- [ ] **Add each remaining Module 02 page to `mkdocs.yml` as it is built** (02.01 to 02.04 are done), and link it from `docs/02-fundamentals/index.md`.
+- [ ] **Add each remaining Module 02 page to `mkdocs.yml` as it is built** (02.01 to 02.06 are done), and link it from `docs/02-fundamentals/index.md`.
 - [ ] **Terminology check against the glossary** for each page. Many entries (qubit, superposition, Bloch sphere, gates, measurement) belong to this module.
 - [x] **Optional Intermediate parts of 02.02 (bra notation, inner products, orthonormality) are built**, with an *Inner Product* glossary entry and a Bra-Ket Notation reference.
-- [ ] **Screen-reader and keyboard pass for the Module 02 interactives** (02.01 to 02.04 so far). They use native controls and aria-live summaries but have only been tested with scripted interaction.
+- [ ] **Screen-reader and keyboard pass for the Module 02 interactives** (02.01 to 02.06 so far). They use native controls and aria-live summaries but have only been tested with scripted interaction.
 - [x] **Reconcile `QedBloch` with `QedQubit`.** Done ahead of 02.03: the conversions live in `QedQubit`, `QedBloch` stays drawing-only, and cross-module tests keep them in agreement. See `FLAGS.md`.
 - [x] **`QedBloch.render` options are built** (`color`, `neutral`, `axes`, `markers`, `pinned`, `projection`, `depth`), pixel-identical by default, and checked at real size on the 02.03 page.
 - [x] **02.03 is final and built.**
-- [x] **02.04 is final and built.** Draft and approve specs 02.05 to 02.07 next.
+- [x] **02.04 is final and built.**
+- [x] **02.05 is final and built.**
+- [x] **02.06 is final and built.** Draft and approve spec 02.07 next.
+- [ ] **Module 06's local circuit drawings (the RY boxes in VQE and QAOA)** could move onto the `QedCircuit` generic gate box (with its `neutral` option off, for Module 06's own colors) during the hardening pass.
+- [ ] **Tell the Module 03 author about the qubit-order convention** (q0 first, on the left; some libraries write bit strings the other way) so the first SDK example addresses it. The 02.05 page states it from the Module 02 side.
 - [ ] **Link Module 06's rotation-gate explanations and Module 07's phase-flip text to 02.04** during the hardening pass.
 - [ ] **Move the shared sphere-drawing helper into `QedBloch`** (it is on both 02.03 and 02.04) when 02.07 needs it.
 - [ ] **`QedBloch.render` reads its default `neutral` from `documentElement`**, which gives the light scheme's dark gray in the dark scheme (Material sets the variables on the body). Module 01's sphere outline is probably affected; check it. Read it from the body in `bloch.js` and recheck Module 01.
@@ -67,11 +71,11 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [ ] **Merge `main` into `treys_branch`.** An attempt hit conflicts in `mkdocs.yml` and `docs/assets/stylesheets/extra.css` and was aborted. The conflicts are additive (CSS from both sides; both sets of `extra_javascript` lines). Trey's branch also needs the new conventions and context_docs layout.
 - [ ] **Migrate `errors-and-noise.md` onto `QedBloch`.** `QedBloch` is on `main` now. The page still carries its own copy of the Bloch drawing code; migrate it when the page is next touched.
 
-## Glossary (154 terms)
+## Glossary (155 terms)
 
 Governing documents: `context_docs/glossary/specs/glossary.md`, `data/glossary/`, and the workflow in the root `README.md`.
 
-- [ ] **Subject-matter review of all 154 definitions.** I wrote them and they have had no expert review. Check these first: Shor/Steane code, Threshold Theorem (polylogarithmic overhead), T1/T2, Transmon, Quantum Supremacy history, Magic State / Distillation, Erasure Qubit, Bias-Preserving Gate, Logical Architecture.
+- [ ] **Subject-matter review of all 155 definitions.** I wrote them and they have had no expert review. Check these first: Shor/Steane code, Threshold Theorem (polylogarithmic overhead), T1/T2, Transmon, Quantum Supremacy history, Magic State / Distillation, Erasure Qubit, Bias-Preserving Gate, Logical Architecture.
 - [ ] **Build the hover / inline definitions** from glossary spec section 10: hover definitions, side panels, definition cards, and links from lesson text into the glossary.
 - [ ] **Decide on near-synonym entries** kept separate for now, and merge any as aliases: Simulator / Quantum Simulator, Backend / Hardware Backend, Native Gate / Native Gate Set, Circuit Mapping / Qubit Mapping, Compilation / Transpilation / Quantum Compiler, Decoder / Decoding, Calibration / Calibration Data / Calibration Telemetry, Quantum Noise / Quantum Error, Dephasing / T2 / Phase-Flip Error.
 - [ ] **Review the generic alias "Layout"** on Qubit Mapping, the likeliest to surprise.

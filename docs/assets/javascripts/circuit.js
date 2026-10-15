@@ -18,6 +18,16 @@
 // Deliberately small. It draws a few gate glyphs (H, CNOT, measure, and a
 // generic labelled single-qubit box) on horizontal wires and nothing else; it is
 // not a general circuit renderer.
+//
+// It also holds the circuit as editable data, for the Module 02 circuit builder
+// (02.06): emptyCircuit, place, remove, opAt, validate, columns, and summarize.
+// These are pure and depend on nothing. A circuit is { qubits, ops, maxColumns? }
+// and every op that the builder places has a column (`col`, from 0):
+//   { type: "gate", gateId, label, name, targets: [wire], col, angleDeg? }
+//   { type: "cx", control, target, col }
+//   { type: "measure", targets: [wire], col }
+// The gateId links a drawn gate to QedGates, which QedTrace uses to run it. The
+// rules in validate() are the ones the builder shows the learner.
 // Older circuit drawings on other pages are page-local SVG and are not
 // migrated here.
 window.QedCircuit = (function () {
@@ -51,7 +61,7 @@ window.QedCircuit = (function () {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
-  function columns(circuit) {
+  function opColumns(circuit) {
     var next = 0;
     return circuit.ops.map(function (op) {
       var col = typeof op.col === "number" ? op.col : next;
@@ -123,7 +133,7 @@ window.QedCircuit = (function () {
   function renderSVG(circuit, opts) {
     opts = opts || {};
     var n = circuit.qubits.length;
-    var cols = columns(circuit);
+    var cols = opColumns(circuit);
     var maxCol = cols.reduce(function (m, c) { return Math.max(m, c); }, 0);
     var colW = COL_W;
     circuit.ops.forEach(function (op) {
@@ -156,5 +166,167 @@ window.QedCircuit = (function () {
     return out.join("");
   }
 
-  return { bell: bell, describe: describe, renderSVG: renderSVG, qubitName: qubitName };
+
+  // ---- the circuit as editable data -----------------------------------------------
+  var WIRES = 2;
+
+  function wiresOf(op) {
+    return op.type === "cx" ? [op.control, op.target] : op.targets;
+  }
+
+  function stepText(col) {
+    return "step " + (col + 1);
+  }
+
+  // A circuit with two wires, q0 on top, and room for `columns` steps.
+  function emptyCircuit(columns) {
+    return { qubits: ["q0", "q1"], ops: [], maxColumns: columns === undefined ? 5 : columns };
+  }
+
+  // The op that occupies this wire in this column, or null. A CNOT occupies both of
+  // its wires.
+  function opAt(circuit, wire, col) {
+    for (var i = 0; i < circuit.ops.length; i++) {
+      var op = circuit.ops[i];
+      if (op.col === col && wiresOf(op).indexOf(wire) >= 0) return op;
+    }
+    return null;
+  }
+
+  function thing(op) {
+    return op.type === "cx" ? "a CNOT" : op.type === "measure" ? "a measurement" : "a gate";
+  }
+
+  // Check a circuit against the builder's rules and return { ok, problems } with
+  // each problem as a plain sentence. Ops are taken in order, so an op later in the
+  // list is the one reported when two ops clash.
+  function validate(circuit) {
+    var problems = [];
+    var max = circuit.maxColumns;
+    var seen = {};
+    circuit.ops.forEach(function (op) {
+      var wires = wiresOf(op);
+      var col = op.col;
+      if (typeof col !== "number" || col < 0 || col !== Math.floor(col)) {
+        problems.push("Every operation needs a step number.");
+        return;
+      }
+      if (max !== undefined && col >= max) {
+        problems.push("The circuit has " + max + " steps at most.");
+        return;
+      }
+      if (op.type === "cx" && op.control === op.target) {
+        problems.push("A CNOT's control and target must be different wires.");
+        return;
+      }
+      var bad = wires.some(function (w) { return typeof w !== "number" || w < 0 || w >= circuit.qubits.length; });
+      if (bad) {
+        problems.push("That wire does not exist.");
+        return;
+      }
+      wires.forEach(function (w) {
+        var key = w + ":" + col;
+        var other = seen[key];
+        if (other) {
+          if (op.type === "cx") {
+            problems.push("A CNOT needs both wires in its column, and " + qubitName(w) + " already has " + thing(other) + " in " + stepText(col) + ".");
+          } else if (other.type === "cx") {
+            problems.push(qubitName(w) + " is already part of the CNOT in " + stepText(col) + ".");
+          } else {
+            problems.push(qubitName(w) + " already has " + thing(other) + " in " + stepText(col) + ".");
+          }
+        } else {
+          seen[key] = op;
+        }
+      });
+    });
+    // a measurement is the last thing on its wire
+    circuit.ops.forEach(function (m) {
+      if (m.type !== "measure") return;
+      var w = m.targets[0];
+      circuit.ops.forEach(function (op) {
+        if (op === m || op.col === undefined || op.col <= m.col || wiresOf(op).indexOf(w) < 0) return;
+        if (op.type === "cx") {
+          problems.push("A CNOT cannot come after a measurement on a wire it uses (" + qubitName(w) + " is measured in " + stepText(m.col) + ").");
+        } else {
+          problems.push(qubitName(w) + " is measured in " + stepText(m.col) + ", and a measurement must be the last thing on its wire.");
+        }
+      });
+    });
+    return { ok: problems.length === 0, problems: problems };
+  }
+
+  // Add an op. Returns { ok, circuit, problem }: a new circuit when the placement is
+  // allowed, and otherwise the circuit unchanged with a plain sentence saying why.
+  // Never mutates the circuit it is given.
+  function place(circuit, op) {
+    var next = {
+      qubits: circuit.qubits,
+      maxColumns: circuit.maxColumns,
+      ops: circuit.ops.concat([op]),
+    };
+    var result = validate(next);
+    if (!result.ok) return { ok: false, circuit: circuit, problem: result.problems[0] };
+    return { ok: true, circuit: next, problem: "" };
+  }
+
+  // Remove whatever occupies this wire in this column (all of a CNOT). Returns a new
+  // circuit, or the same one when the cell is empty.
+  function remove(circuit, wire, col) {
+    var hit = opAt(circuit, wire, col);
+    if (!hit) return circuit;
+    return {
+      qubits: circuit.qubits,
+      maxColumns: circuit.maxColumns,
+      ops: circuit.ops.filter(function (op) { return op !== hit; }),
+    };
+  }
+
+  // The ops grouped by column: an array whose entry c holds the ops in column c
+  // (empty for a column with nothing in it), up to the last column used.
+  function columns(circuit) {
+    var cols = [];
+    var cur = opColumns(circuit);
+    circuit.ops.forEach(function (op, k) {
+      while (cols.length <= cur[k]) cols.push([]);
+      cols[cur[k]].push(op);
+    });
+    return cols;
+  }
+
+  function phrase(op) {
+    if (op.type === "cx") return "CNOT with control " + qubitName(op.control) + " and target " + qubitName(op.target);
+    if (op.type === "measure") return "a measurement of " + qubitName(op.targets[0]);
+    if (op.type === "h") return "H on " + qubitName(op.targets[0]);
+    return (op.name || op.label) + " on " + qubitName(op.targets[0]);
+  }
+
+  // One plain line for the whole circuit, step by step: "H on q₀, then CNOT with
+  // control q₀ and target q₁, then a measurement of both". Gates in the same step
+  // are joined with "and".
+  function summarize(circuit) {
+    var steps = columns(circuit).filter(function (c) { return c.length > 0; });
+    if (!steps.length) return "No gates yet.";
+    return steps.map(function (ops) {
+      var measures = ops.filter(function (o) { return o.type === "measure"; });
+      var others = ops.filter(function (o) { return o.type !== "measure"; }).map(phrase);
+      if (measures.length === circuit.qubits.length) others.push("a measurement of both");
+      else measures.forEach(function (m) { others.push(phrase(m)); });
+      return others.join(" and ");
+    }).join(", then ");
+  }
+
+  return {
+    bell: bell,
+    describe: describe,
+    renderSVG: renderSVG,
+    qubitName: qubitName,
+    emptyCircuit: emptyCircuit,
+    opAt: opAt,
+    validate: validate,
+    place: place,
+    remove: remove,
+    columns: columns,
+    summarize: summarize,
+  };
 })();

@@ -15,8 +15,8 @@ Pages are linked here as they are written.
 - **[Qubit Representation](qubit-representation.md)** — how to write down and calculate with the state of one qubit.
 - **[Bloch Sphere](bloch-sphere.md)** — a picture of one qubit's state.
 - **[Quantum Gates](quantum-gates.md)** — how ideal gates transform states.
-- **Multi-Qubit Systems** — what changes when qubits are considered together, including entanglement.
-- **Quantum Circuits** — combining qubits and gates into a computation.
+- **[Multi-Qubit Systems](multi-qubit-systems.md)** — what changes when qubits are considered together, including entanglement.
+- **[Quantum Circuits](quantum-circuits.md)** — combining qubits and gates into a computation.
 - **Measurement** — how quantum states produce classical observations.
 
 A single example, preparing and measuring a Bell state, runs through the whole module.

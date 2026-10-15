@@ -291,7 +291,7 @@ A gate is a reversible move of a state. On the sphere each gate here is a rotati
 
 > **What changes when there is more than one qubit?**
 
-**Next: Multi-Qubit Systems →** *(coming soon)*
+**Next: [Multi-Qubit Systems →](multi-qubit-systems.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
