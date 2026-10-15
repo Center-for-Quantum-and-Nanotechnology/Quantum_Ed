@@ -6,7 +6,7 @@
 //   Options: data-opt-theta (default 90), data-opt-phi (default 0)
 //
 // Used by: 01-foundations/what-is-quantum-computing.md (Qubits).
-// Depends on: QedBloch (components/bloch.js), QedComponents, QedUI.
+// Depends on: QedBloch (bloch.js, a shared library one level up), QedComponents, QedUI.
 (function () {
   function mount(root, opts) {
     var id = QedComponents.uid("bloch");

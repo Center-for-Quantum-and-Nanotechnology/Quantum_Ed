@@ -11,11 +11,11 @@ Related: [`FLAGS.md`](FLAGS.md) logs per-module deviations, simplifications and 
 ```
 docs/assets/
   javascripts/
-    components/                 <- everything reusable lives here
+    components/                 <- the Foundations demo components
       registry.js               QedComponents  — finds and mounts demos on a page
       ui.js                     QedUI          — shared HTML/number helpers
-      bloch.js                  QedBloch       — single-qubit state math + sphere drawing (library)
       <name>.js                 one file per demo component (see catalog below)
+    bloch.js                    QedBloch       — single-qubit state math + sphere drawing (library, shared with Module 02)
     surface-code.js             QedSurfaceCode    ┐ Module 07 modules, older
     matching.js                 QedMatching       │ "global library + inline
     lattice-surgery.js          QedLatticeSurgery ┘ page script" pattern (see §7)
@@ -42,7 +42,7 @@ Why this pattern:
 Set in `mkdocs.yml` under `extra_javascript`, and it matters:
 
 1. `components/registry.js`, `components/ui.js`
-2. `components/bloch.js` (library)
+2. `bloch.js` (library, a shared module one level up from `components/`)
 3. the individual component files (any order)
 4. `mathjax.js`, then the MathJax CDN script
 

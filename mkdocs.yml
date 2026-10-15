@@ -47,7 +47,7 @@ extra_javascript:
   # registry and helpers first, then the Bloch library, then components.
   - assets/javascripts/components/registry.js
   - assets/javascripts/components/ui.js
-  - assets/javascripts/components/bloch.js
+  - assets/javascripts/bloch.js
   - assets/javascripts/components/bloch-explorer.js
   - assets/javascripts/components/interference-mix.js
   - assets/javascripts/components/qubit-measurement.js

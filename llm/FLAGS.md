@@ -172,7 +172,7 @@ Written without `context_docs/module_1/` instruction docs; content follows the t
 ### Architecture
 
 - **Every Foundations demo is a registry component** (`docs/assets/javascripts/components/`, catalog in `llm/COMPONENTS.md`). Pages contain `<div data-qed-demo="…">` tags and no inline scripts, so the `DOMContentLoaded` and `markdown="1"` gotchas from Module 07 do not apply to them. (`<details class="qed-details">` blocks on these pages do include `markdown="1"`.)
-- **`QedBloch` (`components/bloch.js`)** is the shared Bloch-sphere library, intended for Module 02. Module 07's `errors-and-noise.md` still has its own page-local copy of the drawing code (not touched).
+- **`QedBloch` (`bloch.js`)** is the shared Bloch-sphere library, intended for Module 02. Module 07's `errors-and-noise.md` still has its own page-local copy of the drawing code (not touched).
 - **Removed `polyfill.io`** from `mkdocs.yml` (domain compromised in 2024; unnecessary for MathJax 3 on modern browsers).
 - **Readout bug fixed:** the Qubits state formula used `textContent` and showed raw `e^{i0°}`; it now uses an HTML superscript (numbers only, so safe). `QedUI.sci` / `human` return HTML and must be assigned with `innerHTML`.
 

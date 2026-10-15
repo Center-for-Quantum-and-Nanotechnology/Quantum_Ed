@@ -1,4 +1,4 @@
-// Tests for docs/assets/javascripts/components/bloch.js (window.QedBloch), and checks that
+// Tests for docs/assets/javascripts/bloch.js (window.QedBloch), and checks that
 // it agrees with QedQubit about the Bloch picture. QedBloch only projects and
 // draws; QedQubit holds the state math. These tests keep the two from drifting
 // apart. render() draws on a canvas and is verified in the browser.
@@ -7,7 +7,7 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const { loadModule } = require("./load.js");
 
-const B = loadModule("components/bloch.js").QedBloch;
+const B = loadModule("bloch.js").QedBloch;
 const Q = loadModule("qubit.js").QedQubit;
 
 const close = (a, b, tol = 1e-9) => Math.abs(a - b) <= tol;
