@@ -3,8 +3,9 @@
   aliases: []
   definition: "The system on which a quantum circuit is executed, either quantum hardware or a simulator, reached through a software interface."
   beginnerInterpretation: "A backend is whatever actually runs your circuit: a real quantum device or a simulation of one."
-  relatedTerms: [hardware-backend, simulator, quantum-processing-unit, quantum-compiler, shot]
-  moduleReferences: []
+  relatedTerms: [hardware-backend, simulator, quantum-processing-unit, quantum-compiler, shot, execution-target]
+  moduleReferences:
+    - 05-software-stack/understanding-the-quantum-software-stack.md
   category: architecture-and-execution
 
 - id: quantum-compiler
@@ -22,7 +23,8 @@
   definition: "The process of translating a quantum program into lower-level operations suited to a specific target, including decomposition into native gates, mapping to hardware, and optimization."
   beginnerInterpretation: "Compilation is the translation step between the circuit you have in mind and what the hardware can really do."
   relatedTerms: [quantum-compiler, transpilation, native-gate-set, circuit-mapping, circuit-optimization]
-  moduleReferences: []
+  moduleReferences:
+    - 05-software-stack/understanding-the-quantum-software-stack.md
   category: architecture-and-execution
 
 - id: transpilation
@@ -94,7 +96,8 @@
   definition: "A single execution of a circuit followed by measurement, producing one set of classical outcomes. Results are gathered by repeating many shots."
   beginnerInterpretation: "A shot is one run of the circuit and one readout. Because results are probabilistic, you take many shots to see the pattern."
   relatedTerms: [sampling, measurement, expectation-value, backend, readout-error]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/quantum-states.md
   category: architecture-and-execution
 
 - id: sampling
@@ -112,7 +115,8 @@
   definition: "A program that emulates the behavior of quantum circuits on a classical computer, allowing circuits to be run and tested without quantum hardware. Its cost generally grows rapidly with the number of qubits."
   beginnerInterpretation: "A simulator is a quantum computer imitated on an ordinary computer. It is great for testing small circuits but becomes very expensive as the number of qubits grows."
   relatedTerms: [quantum-simulator, backend, shot, noise-model, hardware-backend]
-  moduleReferences: []
+  moduleReferences:
+    - 05-software-stack/understanding-the-quantum-software-stack.md
   category: architecture-and-execution
 
 - id: quantum-simulator
@@ -171,4 +175,34 @@
   beginnerInterpretation: "Quantum supremacy named the milestone of a quantum computer beating classical computers at some task, even a useless one. Many researchers now say 'quantum advantage' instead."
   relatedTerms: [quantum-advantage, nisq, quantum-algorithm]
   moduleReferences: []
+  category: architecture-and-execution
+
+- id: quantum-software-stack
+  term: Quantum Software Stack
+  aliases: ["Software Stack"]
+  definition: "A way of organizing the software responsibilities that cooperate to run a quantum computation, such as describing a program, adapting it to a target, executing it, coordinating the run, and returning results. It is a teaching model rather than one fixed architecture, and real platforms may combine, distribute, or reorder these responsibilities."
+  beginnerInterpretation: "The software stack is the set of cooperating jobs that sit between the code you write and the results you get back. It is a way of thinking about the pieces, not a design every platform follows exactly."
+  relatedTerms: [backend, compilation, quantum-runtime, execution-target, calibration]
+  moduleReferences:
+    - 05-software-stack/understanding-the-quantum-software-stack.md
+  category: architecture-and-execution
+
+- id: execution-target
+  term: Execution Target
+  aliases: []
+  definition: "The system selected to carry out a quantum computation, whether a classical simulator or a physical quantum device."
+  beginnerInterpretation: "The execution target is where your circuit actually gets run, either on a simulation or on real quantum hardware."
+  relatedTerms: [backend, simulator, hardware-backend, quantum-software-stack]
+  moduleReferences:
+    - 05-software-stack/understanding-the-quantum-software-stack.md
+  category: architecture-and-execution
+
+- id: quantum-runtime
+  term: Quantum Runtime
+  aliases: ["Orchestration"]
+  definition: "Software that coordinates the execution of a quantum computation, which can include submitting jobs, tracking them, exchanging data with classical processing, and handling results."
+  beginnerInterpretation: "The runtime is the coordinator: it hands work to the target, keeps track of the run, and helps bring the results back."
+  relatedTerms: [quantum-software-stack, backend, quantum-classical-hybrid-computing, shot, execution-target]
+  moduleReferences:
+    - 05-software-stack/understanding-the-quantum-software-stack.md
   category: architecture-and-execution

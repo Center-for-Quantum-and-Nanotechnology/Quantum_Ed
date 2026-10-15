@@ -15,7 +15,9 @@
   definition: "A complete mathematical description of a quantum system, from which the probabilities of every possible measurement outcome can be calculated. It is written as a state vector (a ket) or, more generally, as a density matrix."
   beginnerInterpretation: "The quantum state is everything you would need to know about a quantum system to predict the odds of each result if you measured it."
   relatedTerms: [qubit, superposition, pure-state, mixed-state, hilbert-space, measurement]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/quantum-states.md
+    - 02-fundamentals/qubit-representation.md
   category: quantum-foundations
 
 - id: superposition
@@ -26,6 +28,7 @@
   relatedTerms: [qubit, probability-amplitude, basis-state, measurement, quantum-interference, relative-phase]
   moduleReferences:
     - 01-foundations/what-is-quantum-computing.md
+    - 02-fundamentals/quantum-states.md
   category: quantum-foundations
 
 - id: entanglement
@@ -48,6 +51,7 @@
     - 01-foundations/what-is-quantum-computing.md
     - 07-error-correction/errors-and-noise.md
     - 07-error-correction/encoding-and-syndrome-measurement.md
+    - 02-fundamentals/quantum-states.md
   category: quantum-foundations
 
 - id: probability-amplitude
@@ -56,7 +60,8 @@
   definition: "A complex number associated with each basis state in a quantum state; the squared magnitude of an amplitude gives the probability of measuring that basis state."
   beginnerInterpretation: "Amplitudes are the numbers that, once squared in size, give the chances of each measurement result. Unlike probabilities they can be negative or complex, which lets different contributions cancel or reinforce each other."
   relatedTerms: [superposition, phase, quantum-interference, measurement, quantum-state]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/qubit-representation.md
   category: quantum-foundations
 
 - id: phase
@@ -68,6 +73,8 @@
   moduleReferences:
     - 01-foundations/what-is-quantum-computing.md
     - 07-error-correction/errors-and-noise.md
+    - 02-fundamentals/qubit-representation.md
+    - 02-fundamentals/bloch-sphere.md
   category: quantum-foundations
 
 - id: relative-phase
@@ -78,6 +85,7 @@
   relatedTerms: [phase, superposition, quantum-interference, phase-flip-error, pauli-z-gate]
   moduleReferences:
     - 07-error-correction/errors-and-noise.md
+    - 02-fundamentals/qubit-representation.md
   category: quantum-foundations
 
 - id: bloch-sphere
@@ -89,6 +97,7 @@
   moduleReferences:
     - 01-foundations/what-is-quantum-computing.md
     - 07-error-correction/errors-and-noise.md
+    - 02-fundamentals/bloch-sphere.md
   category: quantum-foundations
 
 - id: computational-basis
@@ -108,7 +117,9 @@
   definition: "One of a set of mutually orthogonal states that can be used to express any other state of the system as a superposition."
   beginnerInterpretation: "Basis states are the reference states that every other state is described in terms of, much as east and north are the reference directions for describing any position on a map."
   relatedTerms: [computational-basis, superposition, hilbert-space, bra-ket-notation, quantum-state]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/quantum-states.md
+    - 02-fundamentals/qubit-representation.md
   category: quantum-foundations
 
 - id: bra-ket-notation
@@ -117,7 +128,8 @@
   definition: "Notation in which a state vector is written as a ket |ψ⟩ and its conjugate transpose as a bra ⟨ψ|; the inner product of two states is written ⟨φ|ψ⟩."
   beginnerInterpretation: "Bra-ket notation is shorthand for writing quantum states: |ψ⟩ names a state, and expressions like ⟨φ|ψ⟩ describe how much two states overlap."
   relatedTerms: [quantum-state, basis-state, hilbert-space, probability-amplitude]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/qubit-representation.md
   category: quantum-foundations
 
 - id: hilbert-space
@@ -135,7 +147,8 @@
   definition: "A quantum state described by a single state vector, representing complete knowledge of the system's quantum state, as opposed to a statistical mixture of states."
   beginnerInterpretation: "A pure state is a fully specified quantum state, with no leftover uncertainty about which state the system is in."
   relatedTerms: [mixed-state, quantum-state, density-matrix, bloch-sphere]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/bloch-sphere.md
   category: quantum-foundations
 
 - id: mixed-state
@@ -166,4 +179,56 @@
     - 07-error-correction/why-qec.md
     - 07-error-correction/physical-vs-logical-qubits.md
     - 07-error-correction/repetition-codes.md
+  category: quantum-foundations
+
+- id: state-preparation
+  term: State Preparation
+  aliases: []
+  definition: "The process of putting a quantum system into a chosen starting state, for example by resetting qubits to |0⟩ and then applying operations. Preparing a system the same way again aims to produce the same state, although a single measurement of that state can still give different outcomes."
+  beginnerInterpretation: "State preparation is the recipe that sets up the state you start with. The same recipe gives the same state, even though one measurement of it may give a different result each time."
+  relatedTerms: [quantum-state, basis-state, reset, qubit, measurement]
+  moduleReferences:
+    - 02-fundamentals/quantum-states.md
+  category: quantum-foundations
+
+- id: normalization
+  term: Normalization
+  aliases: []
+  definition: "The requirement that the squared magnitudes of a state's amplitudes add up to 1, so that the probabilities of all measurement outcomes add up to 100%. A state whose amplitudes do not satisfy it is rescaled, or normalized, before it is used."
+  beginnerInterpretation: "Normalization is the rule that the probabilities of all the possible results must add up to 100%. A valid qubit state always follows it."
+  relatedTerms: [probability-amplitude, quantum-state, measurement, basis-state, superposition]
+  moduleReferences:
+    - 02-fundamentals/qubit-representation.md
+  category: quantum-foundations
+
+- id: global-phase
+  term: Global Phase
+  aliases: ["Overall Phase"]
+  definition: "A phase factor that multiplies every amplitude of a state by the same complex number of magnitude 1. It has no effect on any measurement probability, so two states that differ only by a global phase describe the same physical state."
+  beginnerInterpretation: "A global phase is a shared twist applied to the whole state at once. It changes nothing you can ever observe, unlike a relative phase, which does."
+  relatedTerms: [relative-phase, phase, quantum-state, probability-amplitude, pure-state]
+  moduleReferences:
+    - 02-fundamentals/qubit-representation.md
+    - 02-fundamentals/bloch-sphere.md
+  category: quantum-foundations
+
+- id: inner-product
+  term: Inner Product
+  aliases: []
+  definition: "A way of combining two states into a single number: multiply the complex conjugate of each amplitude of the first state by the matching amplitude of the second, and add the results. The inner product of a normalized state with itself is 1, and the inner product of two orthogonal states is 0."
+  beginnerInterpretation: "The inner product is a single number that compares two states. A normalized state compared with itself gives 1, and two states that are completely different in this sense give 0."
+  relatedTerms: [bra-ket-notation, normalization, probability-amplitude, quantum-state, basis-state]
+  moduleReferences:
+    - 02-fundamentals/qubit-representation.md
+  category: quantum-foundations
+
+- id: orthogonal-states
+  term: Orthogonal States
+  aliases: []
+  definition: "Two states whose inner product is zero. A suitable measurement can in principle tell orthogonal states apart with certainty. On the Bloch sphere, orthogonal states are opposite points."
+  beginnerInterpretation: "Orthogonal states are as different as two states can be: a suitable measurement can always tell them apart. |0⟩ and |1⟩ are an example."
+  relatedTerms: [inner-product, basis-state, bra-ket-notation, quantum-state, bloch-sphere]
+  moduleReferences:
+    - 02-fundamentals/qubit-representation.md
+    - 02-fundamentals/bloch-sphere.md
   category: quantum-foundations

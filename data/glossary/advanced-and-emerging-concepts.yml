@@ -36,6 +36,7 @@
   relatedTerms: [calibration-data, calibration, noise-model, hardware-aware-quantum-error-correction, time-dependent-noise]
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
+    - 05-software-stack/understanding-the-quantum-software-stack.md
   category: advanced-and-emerging-concepts
 
 - id: time-dependent-noise

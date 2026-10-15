@@ -14,6 +14,8 @@ Read this before writing any page script. Log deviations in [`FLAGS.md`](FLAGS.m
 | Wiring for **one page**: reading sliders, toggling buttons, updating text | An inline `<script>` at the bottom of that page's `.md` | The page itself |
 | Styles | `docs/assets/stylesheets/extra.css`, `qed-` prefixed classes | `extra_css` |
 | Learner-facing vocabulary | `data/glossary/*.yml` (never hand-edit `docs/glossary.md`) | `glossary_hook.py` |
+| Tests for shared-module logic | `tests/js/<name>.test.js` | `node --test` (run from `tests/js`) |
+| Tests for the build hooks | `tests/python/test_<name>.py` | `python -m unittest discover -s tests/python` |
 
 MkDocs pages are separate documents, not a single-page app, so a shared module has to be loaded on every page. A module must therefore be a **no-op on pages that don't use it**.
 
@@ -54,11 +56,21 @@ Keep this table current. It is the first thing to check before building.
 | `QedSurfaceCode` | `surface-code.js` | `buildLattice`, `computeSyndrome`, `anticommutes`, `renderSVG`, `mount` | Surface Codes, MWPM, Hardware-Aware QEC, Lattice Surgery |
 | `QedMatching` | `matching.js` | `edgeKey`, `manhattan`, `allPerfectMatchings`, `matchingWeight`, `buildWeights`, `solveMWPM`, `renderGraphSVG` | Minimum-Weight Perfect Matching |
 | `QedLatticeSurgery` | `lattice-surgery.js` | `STAGE_ORDER`, `buildScene`, `renderSVG`, `mount` | Lattice Surgery |
+| `QedCircuit` | `circuit.js` | `bell`, `describe`, `renderSVG(circuit, opts)`, `qubitName`. Ops: `h`, `cx`, `measure`, and a generic labelled single-qubit `gate` (`{type: "gate", label, name, targets}`). `opts.neutral` draws gate boxes in the neutral line color | Understanding the Quantum Software Stack, 02.04 Quantum Gates. Without a generic gate op and without `neutral` the drawing is unchanged (a test pins the Bell drawing byte for byte) |
+| `QedSoftwareStack` | `software-stack.js` | `RESPONSIBILITIES`, `GROUPS`, `RELATIONS`, `journey`, `comparison`, `catalogHTML`, `comparisonHTML`, `mount` | Understanding the Quantum Software Stack |
+| `QedShots` | `shots.js` | `rng`, `sample`, `session`, `defaultLabels`, `describe`, `renderBars`, `renderHTML` | Module 02 repeated-measurement pages (planned: 02.01, 02.05, 02.07) |
+| `QedQubit` | `qubit.js` | `real`, `complex`, `fromPolar`, `modulus`, `phase`, `probabilities`, `norm2`, `isNormalized`, `isReal`, `normalize`, `relativePhase`, `applyGlobalPhase`, `format`, `formatAmplitude`, `innerProduct`, `fromBloch`, `toBloch`, `blochVector`, `validity`, `nameOf`, `PRESETS` (six named states, each with a `real` flag) | Module 02 single-qubit pages (02.02, 02.03, 02.04; planned: 02.07) |
+| `QedGates` | `gates.js` | `GATES` (I, X, Y, Z, H, S, T), `gate`, `rotation(axis, angleDeg)`, `apply`, `compose` (first gate first; the matrix product reads right to left), `inverse`, `isUnitary`, `blochRotate`, `blochPartial`, `describe`, `AXES` | 02.04 Quantum Gates; planned: 02.05 (controlled gates), 02.06 (the builder's palette), 02.07 (basis-change gates). One qubit only. Operations, not state (`QedQubit`) and not drawing (`QedBloch`, `QedCircuit`). Each gate has a matrix and a Bloch rotation (axis, angle) that a test keeps in agreement |
+| `QedBloch` | `bloch.js` | `state`, `formatHTML`, `formatText`, `project`, `render(canvas, theta, phi, opts)` | What Is Quantum Computing? (Module 01), 02.03 Bloch Sphere. Draws and projects only; the state math is `QedQubit`'s. `opts` (all optional, off by default): `color`, `neutral`, `axes`, `markers`, `pinned`, `projection`, `depth` |
+| `QedQuiz` | `quiz.js` | `validate`, `check`, `mount` | Module 02 pages with multiple-choice checks (02.01 to 02.04) |
+| `QedLevel` | `level.js` | `LEVELS`, `get`, `set`, `atLeast`, `rank`, `onChange`; also builds the header selector, page note, TOC filtering and hash auto-reveal | Every page (site-wide) |
 | (none) | `download.js` | Adds the module-download button | Every page |
 | (none) | `glossary.js` | Text filter and deep-link reveal | Glossary |
 | (none) | `mathjax.js` | MathJax configuration | Every page |
 
-Known duplication: `errors-and-noise.md` carries a page-local Bloch-sphere drawing. A shared Bloch module is in progress on `treys_branch`; once it lands on `main`, migrate this page onto it.
+Known duplication: `errors-and-noise.md` still carries a page-local Bloch-sphere drawing. `QedBloch` is now on `main`, so migrate that page onto it when it is next touched.
+
+**Bloch picture, who does what.** `QedQubit` is the source of truth for a state and converts it to and from Bloch angles and the Bloch vector (`fromBloch`, `toBloch`, `blochVector`, in degrees). `QedBloch` only projects and draws a point given by angles, and does not depend on `QedQubit`. `tests/js/bloch.test.js` checks that the two agree, so neither can drift.
 
 ## 5. Rules every page script follows
 
@@ -83,9 +95,67 @@ Known duplication: `errors-and-noise.md` carries a page-local Bloch-sphere drawi
 - **`<details class="qed-details">` needs `markdown="1"`**, or the Markdown inside is not processed.
 - **Glossary-heavy pages.** When a page introduces reusable vocabulary, follow the workflow in [`README.md`](../README.md#glossary): reuse entries, add only reusable terms, and add the page to each relevant entry's `moduleReferences`.
 
-## 7. Before you commit
+## 7. Experience levels
+
+Beginner, Intermediate and Advanced are **cumulative views of one canonical page**, never separate pages (Vision §3, §4, §6). A single selector in the header sets the level site-wide. It is remembered in the browser, defaults to Beginner, and follows the learner across modules.
+
+**Marking content.** Wrap anything above Beginner in a gated block:
+
+```html
+<div class="qed-level" data-min-level="intermediate" markdown="1">
+
+## A heading, text, an equation, or an interactive
+
+</div>
+```
+
+- Allowed values are `intermediate` and `advanced`. Untagged content is Beginner and always visible.
+- `markdown="1"` is required, as with `qed-details`. `level_hook.py` fails `mkdocs build --strict` on a misspelled level or a missing `markdown="1"`.
+- Each shown block gets a text badge and a border (single bar for Intermediate, double for Advanced), so the level never relies on color alone.
+- Intermediate shows Beginner + Intermediate; Advanced shows all three. A page with nothing at the chosen level shows its Beginner content and a short note.
+- Headings inside a gated block get normal ids. The table of contents hides entries for hidden headings, and a link or search result that lands on hidden content raises the level automatically.
+
+**What may be gated.** Never gate anything a learner needs for the page's Core Learning Contract. Gate depth: formal notation, derivations, larger examples, implementation detail. A page's Beginner list in its spec is its contract.
+
+**Levels are not "Explore" blocks.** Optional exploration (`qed-details`) can be opened by anyone at any level and is a separate feature (Vision §7). Do not use one for the other.
+
+**Level-aware components.** An interactive may read `QedLevel.get()` or `QedLevel.atLeast("intermediate")` and subscribe with `QedLevel.onChange(fn)` to show deeper detail (for example complex amplitudes). Its Beginner behavior must not depend on the level. The first is the 02.02 amplitude editor, which swaps real-amplitude controls for magnitude and phase controls at Intermediate.
+
+**Search.** The search index is built once and cannot know the level, so gated text is indexed on purpose. A hit on hidden content raises the level on arrival (see `FLAGS.md`).
+
+## 8. Tests
+
+Automated tests cover the **pure layers**: shared-module logic and rendering strings, and the build hooks. DOM wiring and page layout stay covered by browser verification.
+
+**JavaScript (`tests/js/`).** Zero dependencies: Node's built-in runner and `node:assert`. There is no `package.json` and no `node_modules`.
+
+```bash
+cd tests/js
+node --test
+```
+
+- One `<module>.test.js` per shared module. `load.js` evaluates a module file against a stub `window` and returns it, so a test reads `window.QedShots` exactly as a page script would.
+- Only modules whose top level touches nothing but `window` can be loaded this way. A module that needs `document` at load time (for example `level.js`) is verified in the browser instead.
+- Test the model, not the markup: determinism, totals, validation, labels and text. A rendering function can be checked for the strings it must contain.
+- Keep tests deterministic. Use seeded generators (see `QedShots`) and tolerances that hold across seeds.
+- When you fix a bug in a shared module, add the test that would have caught it.
+
+**Python (`tests/python/`).** The standard library's `unittest`, run from the repository root with the packages from `requirements.txt` installed (the hooks import mkdocs).
+
+```bash
+python -m unittest discover -s tests/python -v
+```
+
+- One `test_<hook>.py` per build hook. Call the hook function directly with a stub page object, and check both the pass case and every failure the hook promises to raise.
+
+**When they run.** `.github/workflows/deploy.yml` runs both suites before `mkdocs build --strict`, on every pull request and on pushes to `main`. A failing test blocks the merge. You do not need Node to build the site, only to run the JavaScript tests.
+
+**Not tested here:** the explorers' DOM behavior, CSS, page text, and anything that needs a browser. Do not add a browser-automation framework without a discussion.
+
+## 9. Before you commit
 
 1. `mkdocs build --strict` passes (it also validates the glossary data).
 2. Open the page in `mkdocs serve`: console clean, demos work, narrow (phone-width) layout still reads.
 3. Anything simplified, deferred, or deviating from the spec goes in `FLAGS.md`.
 4. New shared module: added to `extra_javascript`, listed in section 4 above.
+5. Tests pass: `cd tests/js && node --test`, and `python -m unittest discover -s tests/python`. A new shared module with a pure logic layer comes with a test file.

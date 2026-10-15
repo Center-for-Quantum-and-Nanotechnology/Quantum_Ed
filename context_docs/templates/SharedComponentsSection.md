@@ -1,10 +1,12 @@
 # Spec template addition: Shared Components
 
-**Where it goes:** a new section in every section-instruction spec, placed **immediately before "Technical Requirements"** (after "Page Structure"). The existing "Technical Requirements" bullets such as "Reuse existing components where appropriate" stay, but this section replaces their vagueness with specifics.
+**Where it goes:** a new section in every section-instruction spec (specs live in `context_docs/modules/module_NN/specs/`; see [`../README.md`](../README.md)), placed **immediately before "Technical Requirements"** (after "Page Structure"). The existing "Technical Requirements" bullets such as "Reuse existing components where appropriate" stay, but this section replaces their vagueness with specifics.
 
 **Why it belongs in the spec, not the Vision:** the Vision (§14–16) already sets the principle of reuse. Only the spec author knows which later sections will want a component the current page introduces. The engineering mechanics (file layout, naming, load order) live in [`llm/CONVENTIONS.md`](../../llm/CONVENTIONS.md).
 
 **For the spec writer:** check the component table in `llm/CONVENTIONS.md` (section 4) and the previous sections' specs before filling this in. If a component is new, say which later pages you expect to reuse it. If you don't know, say so.
+
+**Levels:** a spec's Intermediate or Advanced items are built as gated blocks, not separate components. Tag them in Page Structure; see `llm/CONVENTIONS.md` section 7.
 
 **For the implementer:** if the spec's Shared Components section conflicts with what the repository actually contains, flag it in `llm/FLAGS.md` and take the smaller change.
 
