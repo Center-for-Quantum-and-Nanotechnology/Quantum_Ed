@@ -40,6 +40,7 @@
   moduleReferences:
     - 01-foundations/what-is-quantum-computing.md
     - 02-fundamentals/multi-qubit-systems.md
+    - 02-fundamentals/measurement.md
   category: quantum-foundations
 
 - id: measurement
@@ -53,6 +54,7 @@
     - 07-error-correction/errors-and-noise.md
     - 07-error-correction/encoding-and-syndrome-measurement.md
     - 02-fundamentals/quantum-states.md
+    - 02-fundamentals/measurement.md
   category: quantum-foundations
 
 - id: probability-amplitude
@@ -110,6 +112,7 @@
   moduleReferences:
     - 07-error-correction/errors-and-noise.md
     - 07-error-correction/repetition-codes.md
+    - 02-fundamentals/measurement.md
   category: quantum-foundations
 
 - id: basis-state
@@ -242,4 +245,5 @@
   relatedTerms: [entanglement, cnot-gate, hadamard-gate, quantum-state]
   moduleReferences:
     - 02-fundamentals/multi-qubit-systems.md
+    - 02-fundamentals/measurement.md
   category: quantum-foundations

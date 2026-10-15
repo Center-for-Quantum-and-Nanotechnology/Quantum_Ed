@@ -2,7 +2,7 @@
 // probabilities, and draw the results as bars with text counts.
 //
 // Used by the Module 02 pages that show repeated measurements (02.01 Quantum
-// States, and later 02.05 Multi-Qubit Systems and 02.07 Measurement), and
+// States, 02.05 Multi-Qubit Systems and 02.07 Measurement), and
 // available to any page that shows counts. Loaded site-wide via
 // extra_javascript like the other shared modules; a no-op on pages that don't
 // call it. Page scripts that use window.QedShots must run inside a
@@ -102,6 +102,46 @@ window.QedShots = (function () {
     };
   }
 
+  // Run the same experiment `experiments` times, each with `shots` shots, continuing
+  // the same random stream. Returns { shots, experiments, runs }, where runs holds the
+  // counts of each experiment. Used to show how much sampled frequencies vary.
+  function repeat(probs, shots, experiments, random) {
+    checkProbs(probs);
+    checkShots(shots);
+    if (typeof experiments !== "number" || experiments < 1 || Math.floor(experiments) !== experiments) {
+      throw new Error("QedShots: experiments must be a whole number >= 1");
+    }
+    var runs = [];
+    for (var e = 0; e < experiments; e++) runs.push(sample(probs, shots, random).counts);
+    return { shots: shots, experiments: experiments, runs: runs };
+  }
+
+  // How the fraction of one outcome varies across the experiments of a repeat():
+  // { outcome, fractions, mean, sd, min, max }. The sd is the population standard
+  // deviation of the fractions.
+  function spread(repeated, outcome) {
+    var fractions = repeated.runs.map(function (counts) {
+      return repeated.shots === 0 ? 0 : counts[outcome] / repeated.shots;
+    });
+    var n = fractions.length;
+    var mean = fractions.reduce(function (a, b) { return a + b; }, 0) / n;
+    var variance = fractions.reduce(function (a, f) { return a + (f - mean) * (f - mean); }, 0) / n;
+    return {
+      outcome: outcome,
+      fractions: fractions,
+      mean: mean,
+      sd: Math.sqrt(variance),
+      min: Math.min.apply(null, fractions),
+      max: Math.max.apply(null, fractions),
+    };
+  }
+
+  // The spread to expect for an outcome with probability p over `shots` shots:
+  // sqrt(p (1 - p) / shots), which shrinks as 1 / sqrt(shots).
+  function expectedSpread(p, shots) {
+    return shots === 0 ? 0 : Math.sqrt((p * (1 - p)) / shots);
+  }
+
   // Default labels: binary strings when the outcome count is a power of two
   // (0, 1 for two outcomes; 00, 01, 10, 11 for four), otherwise indices.
   function defaultLabels(n) {
@@ -191,6 +231,9 @@ window.QedShots = (function () {
     rng: rng,
     sample: sample,
     session: session,
+    repeat: repeat,
+    spread: spread,
+    expectedSpread: expectedSpread,
     defaultLabels: defaultLabels,
     describe: describe,
     renderBars: renderBars,

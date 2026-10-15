@@ -160,3 +160,47 @@ test("renderHTML still shows counts and percentages through renderBars", () => {
   assert.match(html, />52 \(52%\)</);
   assert.match(html, />48 \(48%\)</);
 });
+
+// ---- repeated experiments and their spread (02.07, Intermediate) ---------------------------
+
+test("repeat runs the experiment the stated number of times and every run adds up", () => {
+  const r = S.repeat([0.25, 0.75], 40, 12, S.rng(3));
+  assert.equal(r.shots, 40);
+  assert.equal(r.experiments, 12);
+  assert.equal(r.runs.length, 12);
+  r.runs.forEach((counts) => assert.equal(sum(counts), 40));
+  assert.deepEqual(S.repeat([0.25, 0.75], 40, 12, S.rng(3)).runs, r.runs, "the same seed gives the same runs");
+  assert.notDeepEqual(S.repeat([0.25, 0.75], 40, 12, S.rng(4)).runs, r.runs);
+});
+
+test("repeat refuses bad arguments", () => {
+  assert.throws(() => S.repeat([0.5, 0.5], 10, 0, S.rng(1)), /experiments/);
+  assert.throws(() => S.repeat([0.5, 0.5], 10, 2.5, S.rng(1)), /experiments/);
+  assert.throws(() => S.repeat([0.5, 0.5], -1, 2, S.rng(1)), /shots/);
+  assert.throws(() => S.repeat([0.4, 0.4], 10, 2, S.rng(1)), /sum to 1/);
+});
+
+test("spread reports the fractions, their mean, spread, and range", () => {
+  const sp = S.spread({ shots: 10, experiments: 4, runs: [[2, 8], [4, 6], [6, 4], [8, 2]] }, 0);
+  assert.deepEqual(sp.fractions, [0.2, 0.4, 0.6, 0.8]);
+  assert.ok(Math.abs(sp.mean - 0.5) < 1e-12);
+  assert.ok(Math.abs(sp.sd - Math.sqrt(0.05)) < 1e-12);
+  assert.equal(sp.min, 0.2);
+  assert.equal(sp.max, 0.8);
+  assert.equal(S.spread({ shots: 10, experiments: 1, runs: [[3, 7]] }, 1).fractions[0], 0.7);
+});
+
+test("the spread of the sampled frequencies shrinks as the shots grow, and follows sqrt(p(1-p)/N)", () => {
+  const p = 0.3;
+  const sd = (shots, seed) => S.spread(S.repeat([p, 1 - p], shots, 200, S.rng(seed)), 0).sd;
+  const shots = [10, 100, 1000, 10000];
+  shots.forEach((n) => {
+    const measured = sd(n, 21);
+    const expected = S.expectedSpread(p, n);
+    assert.ok(Math.abs(measured - expected) < 0.2 * expected, `N=${n}: ${measured} against ${expected}`);
+  });
+  for (let i = 1; i < shots.length; i++) assert.ok(sd(shots[i], 21) < sd(shots[i - 1], 21), `N=${shots[i]}`);
+  assert.ok(Math.abs(S.expectedSpread(0.5, 100) - 0.05) < 1e-12);
+  assert.equal(S.expectedSpread(0.5, 0), 0);
+  assert.equal(S.expectedSpread(1, 100), 0);
+});
