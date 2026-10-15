@@ -1,5 +1,5 @@
 // Shared circuit-trace module, used by Module 02 (02.06 Quantum Circuits first;
-// 02.07 Measurement will sample from a circuit's final distribution) and available
+// 02.07 Measurement measures the state a short circuit prepares) and available
 // to any page that wants the state after each step of a small circuit.
 //
 // Loaded site-wide via extra_javascript like the other shared modules; a no-op
@@ -20,7 +20,8 @@
 // Scope, on purpose: two wires, in the order 00, 01, 10, 11 with q0 the left digit
 // and the top wire. A measurement op does not change the state: it marks its wire as
 // read out, and the probabilities at that step are what a measurement there would
-// show (not a result, and not a state update; that belongs to 02.07). Gates on the
+// show (not a result, and not a state update; QedTwoQubit.measure does that, as on
+// 02.07). Gates on the
 // other wire may follow, since they commute with a Z-basis measurement of a different
 // qubit.
 window.QedTrace = (function () {
@@ -38,6 +39,7 @@ window.QedTrace = (function () {
   function gateOf(op) {
     var G = modules().G;
     var id = op.gateId;
+    if (id === "sdg") return G.inverse(G.gate("s")); // S-dagger, used to measure in the Y basis
     if (typeof id === "string" && id.length === 2 && id.charAt(0) === "r" && "xyz".indexOf(id.charAt(1)) >= 0) {
       return G.rotation(id.charAt(1), op.angleDeg);
     }
@@ -64,6 +66,21 @@ window.QedTrace = (function () {
       M = G.compose([{ matrix: M }, { matrix: opMatrix(op) }]).matrix;
     });
     return M;
+  }
+
+  // The gates to put before a Z-basis measurement so that it reads out the X or the Y
+  // basis, in the order they act: [] for Z, [H] for X, and [S-dagger, H] for Y. Each
+  // is a gate op for the given wire and first column (column numbers count up from
+  // `col`), ready for QedCircuit. The measured outcome 0 then means the first state of
+  // the basis (+ for X, +i for Y) and 1 the second.
+  function basisGates(basis, wire, col) {
+    var G = modules().G;
+    var ids = basis === "x" ? ["h"] : basis === "y" ? ["sdg", "h"] : [];
+    if (basis !== "z" && basis !== "x" && basis !== "y") throw new Error("QedTrace: the basis is z, x, or y");
+    return ids.map(function (id, k) {
+      var g = id === "sdg" ? G.inverse(G.gate("s")) : G.gate(id);
+      return { type: "gate", gateId: id, label: g.label, name: g.name, targets: [wire], col: col + k };
+    });
   }
 
   // A name for a two-qubit state: independent qubits each named when they are one of
@@ -136,5 +153,6 @@ window.QedTrace = (function () {
     columnMatrix: columnMatrix,
     describeState: describeState,
     gateOf: gateOf,
+    basisGates: basisGates,
   };
 })();

@@ -289,3 +289,165 @@ test("factor is null for an entangled state, and works when one amplitude row or
   const f = T.factor(T.real(0, 0, HALF, HALF));
   assert.ok(close(f.q0.beta.re, 1) && close(f.q1.alpha.re, HALF) && close(f.q1.beta.re, HALF));
 });
+
+// ---- measurement (02.07) ---------------------------------------------------------------
+
+const frozen = (s) => { s.forEach((z) => Object.freeze(z)); return Object.freeze(s); };
+const sumP = (s) => T.probabilities(s).reduce((a, b) => a + b, 0);
+const PLUS_ZERO = () => T.product(preset("plus"), preset("zero")); // (|00> + |10>)/sqrt 2
+const own = (s, wire) => T.marginals(s)[wire === 0 ? "q0" : "q1"];
+
+test("measureQubit returns the probability of the outcome, which is the marginal", () => {
+  ANGLES.forEach(([t1, f1]) => {
+    ANGLES.forEach(([t2, f2]) => {
+      const s = T.product(Q.fromBloch(t1, f1), Q.fromBloch(t2, f2));
+      [0, 1].forEach((wire) => [0, 1].forEach((outcome) => {
+        const p = own(s, wire)[outcome];
+        if (p < 1e-6) return;
+        assert.ok(close(T.measureQubit(s, wire, outcome).probability, p), `${t1},${f1} ${t2},${f2} q${wire}=${outcome}`);
+      }));
+    });
+  });
+});
+
+test("the state after a measurement is normalized and has only the amplitudes that match the outcome", () => {
+  const s = T.real(0.5, 0.5, 0.5, -0.5);
+  [0, 1].forEach((wire) => [0, 1].forEach((outcome) => {
+    const r = T.measureQubit(s, wire, outcome);
+    assert.ok(close(sumP(r.state), 1));
+    r.state.forEach((z, i) => {
+      const digit = wire === 0 ? i >> 1 : i & 1;
+      if (digit !== outcome) assert.deepEqual([z.re, z.im], [0, 0], `q${wire}=${outcome}, index ${i}`);
+    });
+  }));
+});
+
+test("measuring the same wire again gives the same outcome with probability 1", () => {
+  const s = T.real(0.5, 0.5, 0.5, -0.5);
+  [0, 1].forEach((wire) => [0, 1].forEach((outcome) => {
+    const first = T.measureQubit(s, wire, outcome);
+    const again = T.measureQubit(first.state, wire, outcome);
+    assert.ok(close(again.probability, 1));
+    assert.ok(equalState(again.state, first.state));
+    assert.throws(() => T.measureQubit(first.state, wire, 1 - outcome), /probability is 0/);
+  }));
+});
+
+test("on a product state, measuring q0 leaves q1 exactly as it was", () => {
+  ANGLES.forEach(([t1, f1]) => {
+    ANGLES.forEach(([t2, f2]) => {
+      const a = Q.fromBloch(t1, f1);
+      const b = Q.fromBloch(t2, f2);
+      const s = T.product(a, b);
+      [0, 1].forEach((outcome) => {
+        if (own(s, 0)[outcome] < 1e-6) return;
+        const f = T.factor(T.measureQubit(s, 0, outcome).state);
+        const ip = Q.innerProduct(f.q1, b);
+        assert.ok(close(ip.re * ip.re + ip.im * ip.im, 1, 1e-9), `${t1},${f1} ${t2},${f2} q0=${outcome}`);
+      });
+    });
+  });
+});
+
+test("on the Bell state, either wire first gives 00 or 11, and the other wire is then certain", () => {
+  [0, 1].forEach((wire) => {
+    [0, 1].forEach((outcome) => {
+      const first = T.measureQubit(BELL_AGREE, wire, outcome);
+      assert.ok(close(first.probability, 0.5));
+      assert.ok(equalState(first.state, outcome === 0 ? T.real(1, 0, 0, 0) : T.real(0, 0, 0, 1)));
+      const second = T.measureQubit(first.state, 1 - wire, outcome);
+      assert.ok(close(second.probability, 1));
+    });
+  });
+});
+
+test("the joint distribution is the same whichever wire is measured first", () => {
+  const states = [BELL_AGREE, T.real(0, HALF, HALF, 0), T.real(0.5, 0.5, 0.5, -0.5), PLUS_ZERO(), T.product(preset("plus"), preset("minus"))];
+  states.forEach((s) => {
+    const joint = (order) => {
+      const out = [0, 0, 0, 0];
+      [0, 1].forEach((x) => {
+        if (own(s, order[0])[x] < 1e-12) return;
+        const first = T.measureQubit(s, order[0], x);
+        [0, 1].forEach((y) => {
+          if (own(first.state, order[1])[y] < 1e-12) return;
+          const second = T.measureQubit(first.state, order[1], y);
+          const q0 = order[0] === 0 ? x : y;
+          const q1 = order[0] === 0 ? y : x;
+          out[q0 * 2 + q1] += first.probability * second.probability;
+        });
+      });
+      return out;
+    };
+    const a = joint([0, 1]);
+    const b = joint([1, 0]);
+    const p = T.probabilities(s);
+    a.forEach((x, i) => { assert.ok(close(x, p[i]), `q0 first, ${i}`); assert.ok(close(b[i], p[i]), `q1 first, ${i}`); });
+  });
+});
+
+test("an outcome that cannot happen is refused with a reason, and bad arguments are refused", () => {
+  assert.throws(() => T.measureQubit(T.real(1, 0, 0, 0), 0, 1), /q0 cannot give 1, because its probability is 0/);
+  assert.throws(() => T.measureQubit(T.real(1, 0, 0, 0), 2, 0), /must be 0 or 1/);
+  assert.throws(() => T.measureQubit(T.real(1, 0, 0, 0), 0, 2), /an outcome is 0 or 1/);
+  assert.throws(() => T.measureQubit(T.real(1, 0, 0, 0).slice(0, 1), 0, 0), /four amplitudes/);
+  assert.throws(() => T.measure(BELL_AGREE, [0, 0], () => 0.1), /two different wires/);
+  assert.throws(() => T.measure(BELL_AGREE, [], () => 0.1), /one or two wires/);
+  assert.throws(() => T.measure(BELL_AGREE, [0], 0.3), /random function/);
+});
+
+test("the random number at the edges of the range picks the expected outcome", () => {
+  const s = T.product(Q.fromBloch(60, 0), preset("zero")); // P(q0 = 0) = cos^2(30 deg) = 0.75
+  const p0 = own(s, 0)[0];
+  assert.ok(close(p0, 0.75));
+  assert.equal(T.measure(s, [0], () => 0).outcomes[0], 0);
+  assert.equal(T.measure(s, [0], () => p0 - 1e-9).outcomes[0], 0);
+  assert.equal(T.measure(s, [0], () => p0).outcomes[0], 1);
+  assert.equal(T.measure(s, [0], () => 0.999999).outcomes[0], 1);
+  // certain outcomes ignore the random number
+  assert.equal(T.measure(T.real(1, 0, 0, 0), [0], () => 0.999999).outcomes[0], 0);
+  assert.equal(T.measure(T.real(0, 0, 1, 0), [0], () => 0).outcomes[0], 1);
+});
+
+test("measure draws each wire in turn, reports both outcomes, and leaves unmeasured wires null", () => {
+  const both = T.measure(BELL_AGREE, [0, 1], () => 0.7);
+  assert.deepEqual(both.outcomes, [1, 1]);
+  assert.equal(both.steps.length, 2);
+  assert.ok(close(both.steps[0].probability, 0.5) && close(both.steps[1].probability, 1));
+  assert.ok(equalState(both.state, T.real(0, 0, 0, 1)));
+  const one = T.measure(BELL_AGREE, [1], () => 0.2);
+  assert.deepEqual(one.outcomes, [null, 0]);
+  const reversed = T.measure(BELL_AGREE, [1, 0], () => 0.7);
+  assert.deepEqual(reversed.steps.map((x) => x.wire), [1, 0]);
+  assert.deepEqual(reversed.outcomes, [1, 1]);
+});
+
+test("the same seed gives the same measurements, and the frequencies follow the probabilities", () => {
+  const S = loadModule("shots.js").QedShots;
+  const run = (seed) => {
+    const random = S.rng(seed);
+    const counts = [0, 0, 0, 0];
+    for (let i = 0; i < 4000; i++) {
+      const r = T.measure(BELL_AGREE, [0, 1], random);
+      counts[r.outcomes[0] * 2 + r.outcomes[1]]++;
+    }
+    return counts;
+  };
+  assert.deepEqual(run(11), run(11));
+  const c = run(11);
+  assert.equal(c[1] + c[2], 0, "01 and 10 never happen");
+  assert.ok(Math.abs(c[0] - 2000) < 200 && Math.abs(c[3] - 2000) < 200, String(c));
+  const biased = T.product(Q.fromBloch(60, 0), preset("zero"));
+  const random = S.rng(5);
+  let zeros = 0;
+  for (let i = 0; i < 4000; i++) if (T.measure(biased, [0], random).outcomes[0] === 0) zeros++;
+  assert.ok(Math.abs(zeros / 4000 - 0.75) < 0.03, String(zeros));
+});
+
+test("a measurement never changes the state it is given", () => {
+  const s = frozen(T.real(0.5, 0.5, 0.5, -0.5));
+  const before = JSON.stringify(s);
+  T.measureQubit(s, 0, 1);
+  T.measure(s, [0, 1], () => 0.3);
+  assert.equal(JSON.stringify(s), before);
+});

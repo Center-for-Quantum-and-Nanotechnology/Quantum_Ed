@@ -190,3 +190,40 @@ test("it needs the modules it calls", () => {
   const alone = loadModule("trace.js").QedTrace;
   assert.throws(() => alone.run({ qubits: ["q0", "q1"], ops: [] }), /needs QedGates/);
 });
+
+// ---- the Y-basis gate and the basis-change gates (02.07, Intermediate) -----------------------
+
+test("sdg is S-dagger: it undoes S, and the draw label says so", () => {
+  const g = R.gateOf({ type: "gate", gateId: "sdg" });
+  assert.equal(g.label, "S†");
+  const back = G.compose([G.gate("s"), g]);
+  assert.ok(G.isUnitary(g));
+  assert.ok(back.matrix.every((row, i) => row.every((z, j) => close(z.re, i === j ? 1 : 0) && close(z.im, 0))));
+});
+
+test("basisGates: Z needs none, X is H, and Y is S-dagger then H, in successive columns", () => {
+  assert.deepEqual(R.basisGates("z", 0, 2), []);
+  const x = R.basisGates("x", 0, 2);
+  assert.deepEqual(x.map((o) => [o.gateId, o.col, o.targets[0]]), [["h", 2, 0]]);
+  const y = R.basisGates("y", 1, 3);
+  assert.deepEqual(y.map((o) => [o.gateId, o.col, o.targets[0], o.label]), [["sdg", 3, 1, "S†"], ["h", 4, 1, "H"]]);
+  assert.throws(() => R.basisGates("w", 0, 0), /z, x, or y/);
+});
+
+test("a Z-basis readout after the basis-change gates reads out the X or Y basis", () => {
+  // outcome 0 is the first state of the basis: |+> for X, |+i> for Y; outcome 1 the second
+  const after = (state, basis) => {
+    const t = R.run(build(R.basisGates(basis, 0, 0)), [state, preset("zero")]);
+    const p = t.final.probabilities;
+    return [p[0] + p[1], p[2] + p[3]];
+  };
+  const eq = (a, b) => a.every((x, i) => close(x, b[i], 1e-9));
+  assert.ok(eq(after(preset("plus"), "x"), [1, 0]));
+  assert.ok(eq(after(preset("minus"), "x"), [0, 1]));
+  assert.ok(eq(after(preset("plusI"), "y"), [1, 0]));
+  assert.ok(eq(after(preset("minusI"), "y"), [0, 1]));
+  assert.ok(eq(after(preset("zero"), "x"), [0.5, 0.5]));
+  assert.ok(eq(after(preset("zero"), "y"), [0.5, 0.5]));
+  assert.ok(eq(after(preset("plus"), "y"), [0.5, 0.5]));
+  assert.ok(eq(after(preset("plusI"), "x"), [0.5, 0.5]));
+});

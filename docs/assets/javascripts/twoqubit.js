@@ -1,6 +1,6 @@
 // Shared two-qubit state module, used by Module 02 (02.05 Multi-Qubit Systems
-// first; 02.06 Quantum Circuits will trace a circuit through it and 02.07
-// Measurement will sample from its probabilities) and available to any page that
+// first; 02.06 Quantum Circuits traces a circuit through it and 02.07 Measurement
+// measures it, with measureQubit and measure) and available to any page that
 // shows the state of exactly two qubits.
 //
 // Loaded site-wide via extra_javascript like the other shared modules; a no-op
@@ -10,6 +10,8 @@
 // Separation convention (same as QedSurfaceCode / QedMatching):
 //   model   -> pure functions of a state: probabilities, each qubit's own
 //              probabilities, the independent table, separability. No DOM.
+//   measure -> measureQubit(), measure(): the ideal measurement rule and the state
+//              update, with the random number passed in. No DOM.
 //   text    -> format(), describe(): plain strings for display and aria-live
 //   wiring  -> left to each page
 //
@@ -218,6 +220,68 @@ window.QedTwoQubit = (function () {
     return null;
   }
 
+  // ---- measurement -------------------------------------------------------------------
+  // The ideal rule for a computational-basis measurement of one qubit: the outcome
+  // comes with the probability found by adding the joint probabilities that have that
+  // digit, and the state afterwards keeps only the amplitudes that match the outcome,
+  // divided by the square root of that probability so it is normalized again. These
+  // functions expect a normalized state. They never draw a random number themselves.
+  function bitOf(index, wire) {
+    return wire === 0 ? index >> 1 : index & 1;
+  }
+
+  function checkOutcome(outcome) {
+    if (outcome !== 0 && outcome !== 1) throw new Error("QedTwoQubit: an outcome is 0 or 1");
+  }
+
+  // Measure `wire` (0 for q0, 1 for q1) and suppose the result is `outcome`. Returns
+  // { wire, outcome, probability, state }: the chance of that outcome and the state
+  // afterwards. Throws when the outcome has probability 0, since a measurement cannot
+  // give it.
+  function measureQubit(s, wire, outcome) {
+    checkState(s);
+    checkIndex(wire);
+    checkOutcome(outcome);
+    var p = marginals(s)[wire === 0 ? "q0" : "q1"][outcome];
+    if (p <= EPS) {
+      throw new Error("QedTwoQubit: q" + wire + " cannot give " + outcome + ", because its probability is 0");
+    }
+    var scale = 1 / Math.sqrt(p);
+    var after = s.map(function (z, i) {
+      return bitOf(i, wire) === outcome ? { re: z.re * scale, im: z.im * scale } : c(0);
+    });
+    return { wire: wire, outcome: outcome, probability: p, state: after };
+  }
+
+  // Measure the listed wires one after another, in the order given, drawing each
+  // outcome from the chances the state has at that moment. `random` is any function
+  // returning a number in [0, 1), such as QedShots.rng(seed). Returns
+  // { steps, outcomes, state }: steps has one { wire, outcome, probability, state } per
+  // wire, outcomes is [result for q0, result for q1] with null for a wire that was not
+  // measured, and state is the state after the last measurement.
+  function measure(s, wires, random) {
+    checkState(s);
+    if (!Array.isArray(wires) || wires.length < 1 || wires.length > 2) {
+      throw new Error("QedTwoQubit: measure needs a list of one or two wires");
+    }
+    wires.forEach(checkIndex);
+    if (wires.length === 2 && wires[0] === wires[1]) throw new Error("QedTwoQubit: measure needs two different wires");
+    if (typeof random !== "function") throw new Error("QedTwoQubit: measure needs a random function");
+    var state = s;
+    var steps = [];
+    var outcomes = [null, null];
+    wires.forEach(function (wire) {
+      var own = marginals(state)[wire === 0 ? "q0" : "q1"];
+      var outcome = random() < own[0] ? 0 : 1;
+      if (own[outcome] <= EPS) outcome = 1 - outcome; // rounding at the very edge of the range
+      var step = measureQubit(state, wire, outcome);
+      state = step.state;
+      outcomes[wire] = outcome;
+      steps.push(step);
+    });
+    return { steps: steps, outcomes: outcomes, state: state };
+  }
+
   // ---- text -----------------------------------------------------------------------
   function num(x, digits) {
     var t = Math.abs(x).toFixed(digits);
@@ -275,6 +339,8 @@ window.QedTwoQubit = (function () {
     passesProductTest: passesProductTest,
     BELL: BELL,
     bellOf: bellOf,
+    measureQubit: measureQubit,
+    measure: measure,
     format: format,
     describe: describe,
   };
