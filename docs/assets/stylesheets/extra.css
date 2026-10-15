@@ -2372,3 +2372,44 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
   border-right: 2px solid var(--md-default-fg-color--light);
   text-align: center;
 }
+
+/* ---------------------------------------------------------------------
+   Module 02 - Multi-Qubit Systems (docs/02-fundamentals/multi-qubit-
+   systems.md): the two-qubit explorer. Neutral treatment like the rest of
+   Module 02. The two qubits are named q0 and q1 in text, the control is a dot
+   and the target a circled plus, the actual table and the table that
+   independent qubits would give sit in labelled panels, and the product-test
+   verdict carries an icon and words, so nothing depends on color alone.
+   ------------------------------------------------------------------- */
+.qed-twoq [hidden] {
+  display: none !important;
+}
+
+.qed-twoq__tables {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (min-width: 48em) {
+  .qed-twoq__tables {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.qed-jointtable {
+  border-collapse: collapse;
+}
+
+[dir] .md-typeset .qed-jointtable td,
+[dir] .md-typeset .qed-jointtable th {
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  text-align: center;
+}
+
+.qed-twoq__tables .qed-circuit-svg {
+  display: block;
+  margin: 0 auto;
+}

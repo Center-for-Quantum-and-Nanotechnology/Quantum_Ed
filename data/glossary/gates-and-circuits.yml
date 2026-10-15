@@ -109,7 +109,8 @@
   definition: "A gate that applies an operation to a target qubit depending on the state of a control qubit: the operation is applied when the control is |1⟩. For a control in superposition, the gate acts on each component accordingly."
   beginnerInterpretation: "A controlled gate says 'do this to one qubit only if another qubit is 1'. When the control is in a superposition, this can link the qubits together."
   relatedTerms: [cnot-gate, multi-qubit-gate, entanglement, quantum-gate]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/multi-qubit-systems.md
   category: gates-and-circuits
 
 - id: cnot-gate
@@ -122,6 +123,7 @@
     - 07-error-correction/encoding-and-syndrome-measurement.md
     - 07-error-correction/stabilizer-codes.md
     - 07-error-correction/lattice-surgery.md
+    - 02-fundamentals/multi-qubit-systems.md
   category: gates-and-circuits
 
 - id: swap-gate

@@ -36,9 +36,10 @@
   aliases: []
   definition: "A property of a multi-qubit quantum state that cannot be written as a product of separate states for the individual qubits, so the qubits must be described together."
   beginnerInterpretation: "Entangled qubits are linked: you can't fully describe one without the other, and measuring them gives correlated results."
-  relatedTerms: [quantum-state, superposition, cnot-gate, multi-qubit-gate, measurement]
+  relatedTerms: [quantum-state, superposition, cnot-gate, multi-qubit-gate, measurement, bell-state]
   moduleReferences:
     - 01-foundations/what-is-quantum-computing.md
+    - 02-fundamentals/multi-qubit-systems.md
   category: quantum-foundations
 
 - id: measurement
@@ -231,4 +232,14 @@
   moduleReferences:
     - 02-fundamentals/qubit-representation.md
     - 02-fundamentals/bloch-sphere.md
+  category: quantum-foundations
+
+- id: bell-state
+  term: Bell State
+  aliases: [Bell Pair]
+  definition: "One of four maximally entangled states of two qubits, such as (|00⟩ + |11⟩)/√2. Each qubit alone is equally likely to give 0 or 1, but the two outcomes are perfectly correlated: they always agree, or always differ."
+  beginnerInterpretation: "A Bell state is the standard example of two entangled qubits. Each qubit alone looks like a coin flip, but the pair's results always match (or always differ), and no pair of independent qubits can do that."
+  relatedTerms: [entanglement, cnot-gate, hadamard-gate, quantum-state]
+  moduleReferences:
+    - 02-fundamentals/multi-qubit-systems.md
   category: quantum-foundations
