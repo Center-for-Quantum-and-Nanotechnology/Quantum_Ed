@@ -2304,3 +2304,71 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-sphere__controls .qed-editor__amp {
   margin-bottom: 0.7rem;
 }
+
+/* ---------------------------------------------------------------------
+   Module 02 - Quantum Gates (docs/02-fundamentals/quantum-gates.md): the gate
+   explorer. Neutral treatment like the rest of Module 02: the start is a faded
+   diamond, the result a filled dot, the two orders sit in labelled panels, and
+   gate boxes use the neutral line color rather than Module 07's logical blue,
+   so nothing depends on color alone.
+   ------------------------------------------------------------------- */
+.qed-gates [hidden] {
+  display: none !important;
+}
+
+.qed-circuit-gate-box--neutral {
+  stroke: var(--md-default-fg-color--light);
+}
+
+.qed-gates__rotation {
+  margin: 0.8rem 0;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.4rem;
+}
+
+.qed-gates__result {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0.6rem 0;
+  align-items: start;
+}
+
+@media (min-width: 48em) {
+  .qed-gates__result {
+    grid-template-columns: minmax(0, 360px) 1fr;
+  }
+}
+
+.qed-gates__view canvas {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+}
+
+.qed-gates__arrow {
+  margin: 0 0 0.4rem;
+  text-align: center;
+}
+
+.qed-matrixline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.3rem 0 0.8rem;
+  font-family: var(--md-code-font);
+}
+
+.qed-matrix {
+  display: inline-grid;
+  gap: 0.2rem 0.9rem;
+  padding: 0.2rem 0.6rem;
+  border-left: 2px solid var(--md-default-fg-color--light);
+  border-right: 2px solid var(--md-default-fg-color--light);
+  text-align: center;
+}

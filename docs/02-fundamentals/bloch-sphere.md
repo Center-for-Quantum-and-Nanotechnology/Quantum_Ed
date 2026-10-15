@@ -239,7 +239,7 @@ A qubit's state can be pictured as a point on a sphere. Height sets the probabil
 
 > **How can we move a state from one point to another?**
 
-**Next: Quantum Gates →** *(coming soon)*
+**Next: [Quantum Gates →](quantum-gates.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {

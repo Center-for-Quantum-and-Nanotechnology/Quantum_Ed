@@ -14,7 +14,7 @@ Pages are linked here as they are written.
 - **[Quantum States](quantum-states.md)** — what a state is, and how it differs from a measurement result.
 - **[Qubit Representation](qubit-representation.md)** — how to write down and calculate with the state of one qubit.
 - **[Bloch Sphere](bloch-sphere.md)** — a picture of one qubit's state.
-- **Quantum Gates** — how ideal gates transform states.
+- **[Quantum Gates](quantum-gates.md)** — how ideal gates transform states.
 - **Multi-Qubit Systems** — what changes when qubits are considered together, including entanglement.
 - **Quantum Circuits** — combining qubits and gates into a computation.
 - **Measurement** — how quantum states produce classical observations.

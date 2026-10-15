@@ -47,6 +47,7 @@ extra_javascript:
   - assets/javascripts/circuit.js
   - assets/javascripts/shots.js
   - assets/javascripts/qubit.js
+  - assets/javascripts/gates.js
   - assets/javascripts/quiz.js
   - assets/javascripts/software-stack.js
   - assets/javascripts/bloch.js
@@ -90,6 +91,7 @@ nav:
       - Quantum States: 02-fundamentals/quantum-states.md
       - Qubit Representation: 02-fundamentals/qubit-representation.md
       - Bloch Sphere: 02-fundamentals/bloch-sphere.md
+      - Quantum Gates: 02-fundamentals/quantum-gates.md
   - "03 · Quantum Programming":
       - 03-programming/index.md
   - "04 · Quantum Hardware":
