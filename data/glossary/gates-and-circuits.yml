@@ -19,6 +19,7 @@
   moduleReferences:
     - 06-algorithms/variational-quantum-eigensolver.md
     - 07-error-correction/encoding-and-syndrome-measurement.md
+    - 02-fundamentals/quantum-circuits.md
   category: gates-and-circuits
 
 - id: unitary-operation
@@ -49,6 +50,7 @@
   moduleReferences:
     - 07-error-correction/errors-and-noise.md
     - 02-fundamentals/quantum-gates.md
+    - 02-fundamentals/quantum-circuits.md
   category: gates-and-circuits
 
 - id: pauli-y-gate
@@ -71,6 +73,7 @@
   moduleReferences:
     - 07-error-correction/errors-and-noise.md
     - 02-fundamentals/quantum-gates.md
+    - 02-fundamentals/quantum-circuits.md
   category: gates-and-circuits
 
 - id: hadamard-gate
@@ -81,6 +84,7 @@
   relatedTerms: [superposition, quantum-gate, cnot-gate, computational-basis]
   moduleReferences:
     - 02-fundamentals/quantum-gates.md
+    - 02-fundamentals/quantum-circuits.md
   category: gates-and-circuits
 
 - id: phase-gate
@@ -124,6 +128,7 @@
     - 07-error-correction/stabilizer-codes.md
     - 07-error-correction/lattice-surgery.md
     - 02-fundamentals/multi-qubit-systems.md
+    - 02-fundamentals/quantum-circuits.md
   category: gates-and-circuits
 
 - id: swap-gate

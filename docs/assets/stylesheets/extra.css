@@ -2413,3 +2413,67 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
   display: block;
   margin: 0 auto;
 }
+
+/* ---------------------------------------------------------------------
+   Module 02 - Quantum Circuits (docs/02-fundamentals/quantum-circuits.md): the
+   circuit builder. Neutral treatment like the rest of Module 02. Every gate is
+   a labelled box, the control is a dot and the target a circled plus, the
+   measurement is a meter, the chosen palette item has a label and a border, and
+   a refused placement carries an icon and words, so nothing depends on color
+   alone.
+   ------------------------------------------------------------------- */
+.qed-cb [hidden] {
+  display: none !important;
+}
+
+.qed-cb__grid {
+  display: grid;
+  grid-template-columns: 2rem repeat(5, minmax(0, 1fr));
+  gap: 0.3rem;
+  align-items: center;
+  margin: 0.6rem 0;
+  max-width: 28rem;
+}
+
+.qed-cb__wire {
+  font-family: var(--md-code-font);
+  font-weight: 700;
+}
+
+.qed-cb__cell {
+  min-width: 0;
+  padding: 0.5rem 0;
+  font-size: 0.75rem;
+  overflow: hidden;
+  text-align: center;
+  justify-content: center;
+}
+
+.qed-cb__cell.is-empty {
+  opacity: 0.6;
+  border-style: dashed;
+}
+
+.qed-cb__select {
+  font: inherit;
+  color: var(--md-default-fg-color);
+  background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: 0.25rem;
+  padding: 0.3rem 0.5rem;
+  max-width: 100%;
+}
+
+.qed-cb__step {
+  margin: 0 0 1rem;
+  padding: 0.3rem 0 0.3rem 0.8rem;
+  border-left: 3px solid var(--md-default-fg-color--lighter);
+}
+
+.qed-cb__steptitle {
+  margin: 0 0 0.3rem;
+}
+
+.qed-cb .qed-circuit-svg {
+  display: block;
+}

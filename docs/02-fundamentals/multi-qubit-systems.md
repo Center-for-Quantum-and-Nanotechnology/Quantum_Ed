@@ -262,7 +262,7 @@ Two qubits have four joint outcomes. Independent qubits multiply their probabili
 
 > **How can we write these steps down as a diagram?**
 
-**Next: Quantum Circuits →** *(coming soon)*
+**Next: [Quantum Circuits →](quantum-circuits.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
