@@ -36,15 +36,17 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [x] **Add the 02.01 page to the glossary's `moduleReferences`.** Done for State Preparation, Quantum State, Superposition, Basis State, Measurement, and Shot.
 - [x] **02.02 is final and built.** Draft and approve specs 02.03 to 02.07 next.
 - [x] **When 02.02 is built: log any cut Intermediate parts in `llm/FLAGS.md`.** Done: bra notation, inner products, and orthonormality were cut and logged.
-- [ ] **Add each remaining Module 02 page to `mkdocs.yml` as it is built** (02.01 to 02.05 are done), and link it from `docs/02-fundamentals/index.md`.
+- [ ] **Add each remaining Module 02 page to `mkdocs.yml` as it is built** (02.01 to 02.06 are done), and link it from `docs/02-fundamentals/index.md`.
 - [ ] **Terminology check against the glossary** for each page. Many entries (qubit, superposition, Bloch sphere, gates, measurement) belong to this module.
 - [x] **Optional Intermediate parts of 02.02 (bra notation, inner products, orthonormality) are built**, with an *Inner Product* glossary entry and a Bra-Ket Notation reference.
-- [ ] **Screen-reader and keyboard pass for the Module 02 interactives** (02.01 to 02.05 so far). They use native controls and aria-live summaries but have only been tested with scripted interaction.
+- [ ] **Screen-reader and keyboard pass for the Module 02 interactives** (02.01 to 02.06 so far). They use native controls and aria-live summaries but have only been tested with scripted interaction.
 - [x] **Reconcile `QedBloch` with `QedQubit`.** Done ahead of 02.03: the conversions live in `QedQubit`, `QedBloch` stays drawing-only, and cross-module tests keep them in agreement. See `FLAGS.md`.
 - [x] **`QedBloch.render` options are built** (`color`, `neutral`, `axes`, `markers`, `pinned`, `projection`, `depth`), pixel-identical by default, and checked at real size on the 02.03 page.
 - [x] **02.03 is final and built.**
 - [x] **02.04 is final and built.**
-- [x] **02.05 is final and built.** Draft and approve specs 02.06 and 02.07 next.
+- [x] **02.05 is final and built.**
+- [x] **02.06 is final and built.** Draft and approve spec 02.07 next.
+- [ ] **Module 06's local circuit drawings (the RY boxes in VQE and QAOA)** could move onto the `QedCircuit` generic gate box (with its `neutral` option off, for Module 06's own colors) during the hardening pass.
 - [ ] **Tell the Module 03 author about the qubit-order convention** (q0 first, on the left; some libraries write bit strings the other way) so the first SDK example addresses it. The 02.05 page states it from the Module 02 side.
 - [ ] **Link Module 06's rotation-gate explanations and Module 07's phase-flip text to 02.04** during the hardening pass.
 - [ ] **Move the shared sphere-drawing helper into `QedBloch`** (it is on both 02.03 and 02.04) when 02.07 needs it.
