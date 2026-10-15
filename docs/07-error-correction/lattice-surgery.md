@@ -243,14 +243,14 @@ The main interactive above focuses on the sequence itself. This one focuses on *
   <div id="ls-explore-scene"></div>
   <div class="qed-demo__controls" style="text-align:center;">
     <div>
-      <button type="button" class="qed-button qed-button--active ls-explore-stage" data-stage="prepare">Before Merge</button>
+      <button type="button" class="qed-button qed-button--secondary qed-button--active ls-explore-stage" data-stage="prepare">Before Merge</button>
       <button type="button" class="qed-button qed-button--secondary ls-explore-stage" data-stage="merge">During Merge</button>
       <button type="button" class="qed-button qed-button--secondary ls-explore-stage" data-stage="measure">During Measurement</button>
       <button type="button" class="qed-button qed-button--secondary ls-explore-stage" data-stage="split">After Split</button>
     </div>
     <div>
       <button type="button" class="qed-button qed-button--secondary ls-explore-view" data-view="physical">Show Physical Qubits</button>
-      <button type="button" class="qed-button qed-button--active ls-explore-view" data-view="checks">Show Stabilizer Checks</button>
+      <button type="button" class="qed-button qed-button--secondary qed-button--active ls-explore-view" data-view="checks">Show Stabilizer Checks</button>
       <button type="button" class="qed-button qed-button--secondary ls-explore-view" data-view="logical">Show Logical View</button>
     </div>
   </div>

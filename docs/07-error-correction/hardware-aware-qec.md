@@ -192,7 +192,7 @@ This connects directly back to [Minimum-Weight Perfect Matching](minimum-weight-
 
 <div class="qed-demo" id="hw-mwpm-demo">
   <div class="qed-demo__controls" style="text-align:center;">
-    <button type="button" class="qed-button qed-button--active hw-mwpm-btn" data-model="uniform">Uniform Model</button>
+    <button type="button" class="qed-button qed-button--secondary qed-button--active hw-mwpm-btn" data-model="uniform">Uniform Model</button>
     <button type="button" class="qed-button qed-button--secondary hw-mwpm-btn" data-model="hardware">Hardware-Informed Model</button>
   </div>
   <div id="hw-mwpm-graph"></div>
@@ -365,7 +365,7 @@ The device map above shows spatial variation at a single point in time. This one
 
 <div class="qed-demo" id="hw-explore-demo">
   <div class="qed-demo__controls" style="text-align:center;">
-    <button type="button" class="qed-button qed-button--active hw-explore-snap" data-snap="a">Calibration Snapshot A</button>
+    <button type="button" class="qed-button qed-button--secondary qed-button--active hw-explore-snap" data-snap="a">Calibration Snapshot A</button>
     <button type="button" class="qed-button qed-button--secondary hw-explore-snap" data-snap="b">Calibration Snapshot B</button>
   </div>
   <div id="hw-explore-lattice"></div>

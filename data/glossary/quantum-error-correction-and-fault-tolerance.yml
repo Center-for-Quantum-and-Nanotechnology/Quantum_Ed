@@ -1,0 +1,302 @@
+- id: quantum-error-correction
+  term: Quantum Error Correction
+  aliases: ["QEC"]
+  definition: "A family of techniques that protect quantum information by encoding it across many physical qubits and using measurements that reveal information about errors without directly measuring the encoded logical information, so that errors can be detected and corrected."
+  beginnerInterpretation: "QEC protects fragile quantum information by spreading it over many qubits and checking for signs of errors, without peeking at the information itself."
+  relatedTerms: [quantum-error-correcting-code, logical-qubit, syndrome, decoder, fault-tolerance, no-cloning-theorem]
+  moduleReferences:
+    - 07-error-correction/why-qec.md
+    - 07-error-correction/physical-vs-logical-qubits.md
+    - 07-error-correction/repetition-codes.md
+    - 07-error-correction/lattice-surgery.md
+    - 07-error-correction/hardware-aware-qec.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: quantum-error-correcting-code
+  term: Quantum Error-Correcting Code
+  aliases: ["QEC code", "Quantum code"]
+  definition: "A scheme for encoding logical quantum information into a larger number of physical qubits so that a specified set of errors can be detected and corrected."
+  beginnerInterpretation: "A quantum error-correcting code is a specific recipe for spreading information over qubits so that certain errors can be spotted and fixed. Different codes trade off protection against cost."
+  relatedTerms: [quantum-error-correction, logical-qubit, stabilizer-code, repetition-code, surface-code, code-distance]
+  moduleReferences:
+    - 07-error-correction/repetition-codes.md
+    - 07-error-correction/stabilizer-codes.md
+    - 07-error-correction/surface-codes.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: logical-error
+  term: Logical Error
+  aliases: ["Logical failure"]
+  definition: "A failure in which the encoded logical information is changed, for example when physical errors combine with the decoder's recovery to apply a logical operator."
+  beginnerInterpretation: "A logical error is when the protected information itself gets corrupted. It can still happen while error correction is running, if too many errors pile up or the decoder guesses wrong."
+  relatedTerms: [logical-operator, logical-error-rate, decoder, code-distance, physical-qubit]
+  moduleReferences:
+    - 07-error-correction/why-qec.md
+    - 07-error-correction/decoding.md
+    - 07-error-correction/surface-codes.md
+    - 07-error-correction/minimum-weight-perfect-matching.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: logical-error-rate
+  term: Logical Error Rate
+  aliases: []
+  definition: "The probability that the encoded logical information is corrupted over a given operation or time interval; it is the quantity quantum error correction aims to push below the underlying physical error rates."
+  beginnerInterpretation: "The logical error rate is how often the protected information fails. Error correction aims to make this smaller than how often the raw qubits fail, as long as the hardware is good enough."
+  relatedTerms: [logical-error, error-rate, error-correction-threshold, code-distance, fault-tolerance]
+  moduleReferences: []
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: code-distance
+  term: Code Distance
+  aliases: []
+  definition: "The minimum number of physical-qubit errors that can change the encoded logical information without being detected, equal to the weight of the smallest nontrivial logical operator. It determines how many errors a code can correct."
+  beginnerInterpretation: "Code distance measures how hard it is to fool the code: the larger it is, the more errors it takes to corrupt the information without anyone noticing."
+  relatedTerms: [quantum-error-correcting-code, logical-operator, surface-code, logical-error-rate, repetition-code]
+  moduleReferences:
+    - 07-error-correction/repetition-codes.md
+    - 07-error-correction/surface-codes.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: stabilizer
+  term: Stabilizer
+  aliases: []
+  definition: "An operator, built from Pauli operators acting on several qubits, whose measurement outcome is +1 for every valid encoded state of a stabilizer code. Measuring stabilizers reveals whether errors have changed the state."
+  beginnerInterpretation: "A stabilizer is a check that every correctly encoded state passes. If an error breaks the check, the failed result is a clue that something went wrong."
+  relatedTerms: [stabilizer-code, stabilizer-measurement, syndrome, pauli-error, logical-operator]
+  moduleReferences:
+    - 07-error-correction/stabilizer-codes.md
+    - 07-error-correction/surface-codes.md
+    - 07-error-correction/encoding-and-syndrome-measurement.md
+    - 07-error-correction/lattice-surgery.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: stabilizer-code
+  term: Stabilizer Code
+  aliases: []
+  definition: "A quantum error-correcting code defined by a set of commuting Pauli operators, the stabilizers; its code space is the set of states that every stabilizer leaves unchanged."
+  beginnerInterpretation: "A stabilizer code is a code described by a list of checks. States that pass every check are the valid encoded states."
+  relatedTerms: [stabilizer, quantum-error-correcting-code, syndrome, surface-code, steane-code, shor-code]
+  moduleReferences:
+    - 07-error-correction/stabilizer-codes.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: stabilizer-measurement
+  term: Stabilizer Measurement
+  aliases: []
+  definition: "A measurement of a stabilizer operator. It yields +1 or −1 and reveals information about errors without revealing the logical information."
+  beginnerInterpretation: "Measuring a stabilizer is running one of the code's checks. A +1 means it passed, and a −1 means an error disturbed it."
+  relatedTerms: [stabilizer, syndrome-extraction, ancilla-assisted-measurement, syndrome, ancilla-qubit]
+  moduleReferences:
+    - 07-error-correction/encoding-and-syndrome-measurement.md
+    - 07-error-correction/stabilizer-codes.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: syndrome
+  term: Syndrome
+  aliases: ["Error syndrome"]
+  definition: "Information obtained from measurements associated with a quantum error-correcting code that indicates the presence or characteristics of errors without directly measuring the encoded logical quantum information."
+  beginnerInterpretation: "A syndrome is a set of clues that tells an error-correction system what may have gone wrong with the qubits without revealing the quantum information being protected."
+  relatedTerms: [stabilizer, syndrome-extraction, decoder, ancilla-qubit, quantum-error-correction]
+  moduleReferences:
+    - 07-error-correction/encoding-and-syndrome-measurement.md
+    - 07-error-correction/stabilizer-codes.md
+    - 07-error-correction/decoding.md
+    - 07-error-correction/surface-codes.md
+    - 07-error-correction/repetition-codes.md
+    - 07-error-correction/minimum-weight-perfect-matching.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: syndrome-extraction
+  term: Syndrome Extraction
+  aliases: ["Syndrome measurement"]
+  definition: "The procedure of measuring a code's stabilizers, typically using ancilla qubits, to obtain the syndrome."
+  beginnerInterpretation: "Syndrome extraction is the step where the system runs its checks to gather the clues about errors."
+  relatedTerms: [syndrome, stabilizer-measurement, ancilla-assisted-measurement, ancilla-qubit, decoder]
+  moduleReferences:
+    - 07-error-correction/encoding-and-syndrome-measurement.md
+    - 07-error-correction/stabilizer-codes.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: decoder
+  term: Decoder
+  aliases: []
+  definition: "A classical algorithm or system that takes syndrome information, and often a noise model, and infers a recovery operation intended to preserve the logical information."
+  beginnerInterpretation: "A decoder is the detective of error correction: it reads the clues from the syndrome and decides what correction to apply."
+  relatedTerms: [decoding, syndrome, noise-model, minimum-weight-perfect-matching, logical-error, real-time-decoding]
+  moduleReferences:
+    - 07-error-correction/decoding.md
+    - 07-error-correction/minimum-weight-perfect-matching.md
+    - 07-error-correction/surface-codes.md
+    - 07-error-correction/hardware-aware-qec.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: decoding
+  term: Decoding
+  aliases: []
+  definition: "The process of inferring, from a syndrome, which recovery operation to apply to the encoded qubits."
+  beginnerInterpretation: "Decoding is the step of turning error clues into a decision about how to fix the qubits."
+  relatedTerms: [decoder, syndrome, logical-error, noise-model, minimum-weight-perfect-matching]
+  moduleReferences:
+    - 07-error-correction/decoding.md
+    - 07-error-correction/minimum-weight-perfect-matching.md
+    - 07-error-correction/surface-codes.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: ancilla-assisted-measurement
+  term: Ancilla-Assisted Measurement
+  aliases: []
+  definition: "A measurement technique in which information about a property of the data qubits is transferred to an ancilla qubit, and the ancilla is measured instead of measuring the data qubits directly."
+  beginnerInterpretation: "Instead of looking at the important qubits, you let a helper qubit pick up the answer and then measure the helper."
+  relatedTerms: [ancilla-qubit, stabilizer-measurement, syndrome-extraction, cnot-gate, mid-circuit-measurement]
+  moduleReferences:
+    - 07-error-correction/encoding-and-syndrome-measurement.md
+    - 07-error-correction/stabilizer-codes.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: repetition-code
+  term: Repetition Code
+  aliases: []
+  definition: "The simplest quantum error-correcting code: it encodes one logical qubit into several physical qubits by repeating the computational-basis value (for example |0⟩ → |000⟩ and |1⟩ → |111⟩). It can correct bit-flip errors but not phase flips."
+  beginnerInterpretation: "The repetition code spreads a qubit's 0-or-1 value across several qubits and uses pairwise checks to find and fix a flipped one. On its own it protects only against bit flips."
+  relatedTerms: [bit-flip-error, quantum-error-correcting-code, stabilizer-code, syndrome, code-distance]
+  moduleReferences:
+    - 07-error-correction/repetition-codes.md
+    - 07-error-correction/encoding-and-syndrome-measurement.md
+    - 07-error-correction/stabilizer-codes.md
+    - 07-error-correction/errors-and-noise.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: shor-code
+  term: Shor Code
+  aliases: ["Nine-qubit code"]
+  definition: "A nine-qubit quantum error-correcting code that encodes one logical qubit and can correct an arbitrary error on any single physical qubit. It was the first code shown to protect against both bit-flip and phase-flip errors."
+  beginnerInterpretation: "The Shor code was the first demonstration that quantum information can be protected against any single-qubit error. It uses nine qubits to protect one."
+  relatedTerms: [quantum-error-correcting-code, repetition-code, steane-code, bit-flip-error, phase-flip-error]
+  moduleReferences: []
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: steane-code
+  term: Steane Code
+  aliases: ["Seven-qubit code"]
+  definition: "A seven-qubit stabilizer code, written [[7,1,3]], that encodes one logical qubit and can correct an arbitrary error on any single physical qubit."
+  beginnerInterpretation: "The Steane code is a seven-qubit code that protects one logical qubit against any single-qubit error. It is a standard textbook example of a stabilizer code."
+  relatedTerms: [stabilizer-code, shor-code, quantum-error-correcting-code, code-distance, transversal-gate]
+  moduleReferences: []
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: surface-code
+  term: Surface Code
+  aliases: []
+  definition: "A stabilizer code in which physical qubits are arranged on a two-dimensional lattice, with local X-type and Z-type checks measured on neighboring qubits. It is one of the most widely studied codes for scalable quantum error correction."
+  beginnerInterpretation: "A surface code arranges qubits in a grid and checks small groups of neighbors. The pattern of failed checks reveals where errors happened."
+  relatedTerms: [stabilizer-code, code-distance, lattice-surgery, minimum-weight-perfect-matching, decoder, logical-qubit]
+  moduleReferences:
+    - 07-error-correction/surface-codes.md
+    - 07-error-correction/minimum-weight-perfect-matching.md
+    - 07-error-correction/lattice-surgery.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: logical-operator
+  term: Logical Operator
+  aliases: []
+  definition: "An operator acting on the encoded qubits that changes the logical information (for example a logical X or logical Z) while keeping the state within the code space. Undetected errors that happen to implement a logical operator cause logical errors."
+  beginnerInterpretation: "A logical operator is an action on the protected information itself, such as flipping the logical qubit. Errors that look exactly like one slip past the checks."
+  relatedTerms: [logical-qubit, logical-error, stabilizer, code-distance, quantum-error-correcting-code]
+  moduleReferences:
+    - 07-error-correction/stabilizer-codes.md
+    - 07-error-correction/decoding.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: fault-tolerance
+  term: Fault Tolerance
+  aliases: []
+  definition: "A property of a computation or protocol designed so that failures of individual components, including those in the error-correction procedure itself, do not cause uncontrolled errors in the result."
+  beginnerInterpretation: "Fault tolerance means designing the whole computation so that small failures, even in the error correction itself, don't snowball into a wrong answer."
+  relatedTerms: [quantum-error-correction, fault-tolerant-quantum-computing, error-correction-threshold, transversal-gate, logical-error-rate]
+  moduleReferences: []
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: fault-tolerant-quantum-computing
+  term: Fault-Tolerant Quantum Computing
+  aliases: ["FTQC"]
+  definition: "Quantum computation carried out with quantum error correction and fault-tolerant operations so that long computations can be run reliably, provided the physical error rates are low enough."
+  beginnerInterpretation: "FTQC is the goal of running long quantum programs reliably by protecting the information at every step."
+  relatedTerms: [fault-tolerance, quantum-error-correction, error-correction-threshold, logical-qubit, nisq]
+  moduleReferences: []
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: error-correction-threshold
+  term: Error-Correction Threshold
+  aliases: ["Threshold"]
+  definition: "The physical error rate below which, for a given code family, noise model, and decoder, increasing the size of the code reduces the logical error rate. Above it, adding qubits stops helping."
+  beginnerInterpretation: "The threshold is a tipping point: if the hardware's errors are rarer than it, bigger codes get better, and if they are more common, bigger codes stop helping."
+  relatedTerms: [threshold-theorem, logical-error-rate, code-distance, fault-tolerance, noise-model]
+  moduleReferences: []
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: threshold-theorem
+  term: Threshold Theorem
+  aliases: ["Fault-tolerant threshold theorem"]
+  definition: "The result that arbitrarily long quantum computations can be performed reliably, with a resource overhead that grows only polylogarithmically in the size of the computation, provided the error rate per operation is below a constant threshold and the noise satisfies suitable assumptions."
+  beginnerInterpretation: "The threshold theorem says that if hardware errors are rare enough, under certain assumptions, error correction can in principle make a quantum computation as reliable as you like."
+  relatedTerms: [error-correction-threshold, fault-tolerance, fault-tolerant-quantum-computing, quantum-error-correction]
+  moduleReferences: []
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: lattice-surgery
+  term: Lattice Surgery
+  aliases: []
+  definition: "A technique for performing operations between logical qubits encoded in surface-code patches by temporarily merging and splitting the patches, which measures joint logical information through changes to the stabilizer checks along their shared boundary."
+  beginnerInterpretation: "Lattice surgery lets protected qubits interact by temporarily changing which checks are measured where two patches meet, instead of taking the information out of the code."
+  relatedTerms: [surface-code, logical-qubit, logical-operator, code-deformation, stabilizer-measurement]
+  moduleReferences:
+    - 07-error-correction/lattice-surgery.md
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: code-deformation
+  term: Code Deformation
+  aliases: []
+  definition: "A technique in which a code's stabilizers or geometry are changed over time, for example by growing, shrinking, merging, or moving encoded regions, while the information stays encoded."
+  beginnerInterpretation: "Code deformation reshapes a code's checks step by step so that a protected qubit can be moved, enlarged, or combined with another without leaving the code."
+  relatedTerms: [lattice-surgery, surface-code, stabilizer, logical-qubit]
+  moduleReferences: []
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: transversal-gate
+  term: Transversal Gate
+  aliases: []
+  definition: "A logical gate implemented by applying gates independently to corresponding physical qubits of the encoded blocks, so that a single physical fault cannot spread to several qubits within the same block."
+  beginnerInterpretation: "A transversal gate does a logical operation by acting separately on each physical qubit, which keeps errors from spreading. Not every code allows every gate to be done this way."
+  relatedTerms: [fault-tolerance, logical-qubit, magic-state, steane-code, quantum-error-correcting-code]
+  moduleReferences: []
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: magic-state
+  term: Magic State
+  aliases: []
+  definition: "A specially prepared quantum state used as a resource to implement gates outside a code's easily protected set, such as the T gate, within fault-tolerant schemes."
+  beginnerInterpretation: "Magic states are specially prepared ingredient states that let an error-corrected computer perform a kind of gate it can't do directly."
+  relatedTerms: [magic-state-distillation, transversal-gate, fault-tolerance, phase-gate, logical-qubit]
+  moduleReferences: []
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: magic-state-distillation
+  term: Magic-State Distillation
+  aliases: []
+  definition: "A procedure that uses many imperfectly prepared magic states, together with error-corrected operations, to produce fewer magic states of higher fidelity."
+  beginnerInterpretation: "Distillation is a kind of refining: it takes many rough magic states and turns them into fewer, better ones."
+  relatedTerms: [magic-state, fault-tolerance, gate-fidelity, logical-qubit]
+  moduleReferences: []
+  category: quantum-error-correction-and-fault-tolerance
+
+- id: minimum-weight-perfect-matching
+  term: Minimum-Weight Perfect Matching
+  aliases: ["MWPM"]
+  definition: "A decoding technique that pairs up the detection events in a syndrome so that the total weight, or cost, of the pairing is as small as possible. It is widely used as a decoder for surface codes."
+  beginnerInterpretation: "MWPM links the failed checks in pairs, using the cheapest overall pairing as its best guess for where the errors were."
+  relatedTerms: [decoder, decoding, surface-code, syndrome, noise-model]
+  moduleReferences:
+    - 07-error-correction/minimum-weight-perfect-matching.md
+    - 07-error-correction/decoding.md
+    - 07-error-correction/hardware-aware-qec.md
+  category: quantum-error-correction-and-fault-tolerance

@@ -13,6 +13,13 @@ mkdocs serve
 
 Then open http://127.0.0.1:8000.
 
+## Running the tests
+
+```bash
+python -m unittest discover -s tests/python -v   # build hooks, from the repository root
+cd tests/js && node --test                       # shared JavaScript modules (needs Node 18 or newer)
+```
+
 ## Project structure
 
 - `docs/` — all course content, one folder per module (`01-foundations/`, `02-fundamentals/`, …). Each module folder has an `index.md` landing page.
@@ -20,16 +27,25 @@ Then open http://127.0.0.1:8000.
 - `llm/` — working notes for contributors and AI assistants: [`COMPONENTS.md`](llm/COMPONENTS.md) is the catalog of reusable components (check it before building a new demo), and [`FLAGS.md`](llm/FLAGS.md) logs deviations, simplifications, and bugs by module.
 - `overrides/` — MkDocs Material theme overrides.
 - `hooks.py` — build hook that zips each module folder into `site/downloads/<module>.zip` for the offline-download button.
+- `data/glossary/` — structured source for the global [glossary](docs/glossary.md): one YAML file per category plus `categories.yml`, following the schema in `context_docs/glossary/`.
+- `glossary_hook.py` — build hook that validates `data/glossary/` (unique IDs, related-term IDs, links to real pages) and renders it into `docs/glossary.md`. A bad entry fails the build.
 - `mkdocs.yml` — site config and navigation.
-- `.github/workflows/deploy.yml` — builds on every PR, deploys to GitHub Pages on merge to `main`.
+- `tests/` — automated tests: `tests/js/` for shared JavaScript modules (Node's built-in runner, no dependencies) and `tests/python/` for the build hooks (`unittest`). See `llm/CONVENTIONS.md`, section 8.
+- `.github/workflows/deploy.yml` — runs the tests and builds on every PR, deploys to GitHub Pages on merge to `main`.
 
 ## Content sourcing
 
 Source material lives in `context_docs/`, organized as:
 
-- `context_docs/vision/` — [`Project Vision.docx`](context_docs/vision/Project%20Vision.docx), the overall educational philosophy and architecture (progressive-depth experience levels, visual language, reusable-component conventions). Review this before implementing any new section.
-- `context_docs/taxonomy/` — [`Quantum Computing Curriculum.docx`](context_docs/taxonomy/Quantum%20Computing%20Curriculum.docx), the course taxonomy. Module numbering in `docs/` follows this document; update both together if the taxonomy changes.
-- `context_docs/module_N/` — per-module section-instruction docs (one per page) that define what a specific lesson should teach.
+- `context_docs/vision/` — [`ProjectVision.md`](context_docs/vision/ProjectVision.md), the overall educational philosophy and architecture (progressive-depth experience levels, visual language, reusable-component conventions). Review this before implementing any new section.
+- `context_docs/taxonomy/` — [`Quantum_Computing_Curriculum.md`](context_docs/taxonomy/Quantum_Computing_Curriculum.md), the course taxonomy. Module numbering in `docs/` follows this document; update both together if the taxonomy changes.
+- `context_docs/modules/module_NN/` — per-module folders, each with a `README.md`, a versioned `taxonomy_<Module>_v<X.Y>.md`, `specs/` (one approved instruction doc per page), and `archive/` (superseded material).
+
+See [`context_docs/README.md`](context_docs/README.md) for how these documents are used, which one wins in a conflict, and how to add or revise them.
+
+## Glossary
+
+The glossary is a cross-cutting resource, not a module. Edit `data/glossary/*.yml`, never `docs/glossary.md` (its entry list is generated). When a new module introduces important terminology, follow the expansion workflow in the glossary spec: reuse existing entries, add missing terms only if they are reusable vocabulary, and add the new page to each relevant entry's `moduleReferences`. `mkdocs serve` does not reload hook code, so restart it after editing `glossary_hook.py`.
 
 ## Contributing
 

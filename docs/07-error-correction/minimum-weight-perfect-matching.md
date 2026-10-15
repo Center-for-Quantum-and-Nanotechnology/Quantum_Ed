@@ -414,7 +414,7 @@ Back to the 4-node graph. Same detection events, same candidate connections — 
 
 <div class="qed-demo" id="mwpm-model-demo">
   <div class="qed-demo__controls" style="text-align:center;">
-    <button type="button" class="qed-button qed-button--active mwpm-model-btn" data-model="a">Model A — Uniform Errors</button>
+    <button type="button" class="qed-button qed-button--secondary qed-button--active mwpm-model-btn" data-model="a">Model A — Uniform Errors</button>
     <button type="button" class="qed-button qed-button--secondary mwpm-model-btn" data-model="b">Model B — Unequal Probabilities</button>
   </div>
   <div id="mwpm-model-graph"></div>

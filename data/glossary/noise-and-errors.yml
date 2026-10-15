@@ -1,0 +1,151 @@
+- id: quantum-noise
+  term: Quantum Noise
+  aliases: ["Noise"]
+  definition: "Unwanted physical processes, such as interaction with the environment and imperfect control, that cause a qubit's actual behavior to deviate from the ideal."
+  beginnerInterpretation: "Noise is anything physical that disturbs a qubit from doing exactly what it should."
+  relatedTerms: [quantum-error, decoherence, noise-model, error-channel, error-rate]
+  moduleReferences:
+    - 07-error-correction/why-qec.md
+    - 07-error-correction/errors-and-noise.md
+  category: noise-and-errors
+
+- id: quantum-error
+  term: Quantum Error
+  aliases: []
+  definition: "A deviation of a quantum state or operation from its intended behavior, typically caused by noise, that changes the encoded information."
+  beginnerInterpretation: "A quantum error is the actual damage noise does to the information in a qubit."
+  relatedTerms: [quantum-noise, pauli-error, bit-flip-error, phase-flip-error, logical-error, error-rate]
+  moduleReferences:
+    - 07-error-correction/errors-and-noise.md
+  category: noise-and-errors
+
+- id: bit-flip-error
+  term: Bit-Flip Error
+  aliases: ["X error"]
+  definition: "An error that swaps the computational-basis states |0⟩ and |1⟩, described by the Pauli X operator."
+  beginnerInterpretation: "A bit flip changes a 0 into a 1 or a 1 into a 0, like flipping a classical bit."
+  relatedTerms: [phase-flip-error, pauli-error, pauli-x-gate, repetition-code, quantum-error]
+  moduleReferences:
+    - 07-error-correction/errors-and-noise.md
+    - 07-error-correction/repetition-codes.md
+    - 07-error-correction/physical-vs-logical-qubits.md
+    - 07-error-correction/encoding-and-syndrome-measurement.md
+    - 07-error-correction/decoding.md
+  category: noise-and-errors
+
+- id: phase-flip-error
+  term: Phase-Flip Error
+  aliases: ["Z error"]
+  definition: "An error that changes the relative phase between |0⟩ and |1⟩ by mapping |1⟩ to −|1⟩, described by the Pauli Z operator."
+  beginnerInterpretation: "A phase flip doesn't change whether a qubit reads 0 or 1, but it flips the sign of the 1 part of a superposition, which changes how the qubit behaves later."
+  relatedTerms: [bit-flip-error, pauli-error, pauli-z-gate, relative-phase, dephasing]
+  moduleReferences:
+    - 07-error-correction/errors-and-noise.md
+    - 07-error-correction/repetition-codes.md
+  category: noise-and-errors
+
+- id: pauli-error
+  term: Pauli Error
+  aliases: []
+  definition: "An error described by one of the Pauli operators X, Y, or Z (or the identity, meaning no error) applied to one or more qubits. Any single-qubit error can be written as a combination of Pauli operators."
+  beginnerInterpretation: "Pauli errors are the three basic kinds of single-qubit error: bit flip (X), phase flip (Z), and both at once (Y). More complicated errors can be understood as combinations of them."
+  relatedTerms: [bit-flip-error, phase-flip-error, pauli-x-gate, pauli-y-gate, pauli-z-gate, depolarizing-noise]
+  moduleReferences:
+    - 07-error-correction/errors-and-noise.md
+    - 07-error-correction/stabilizer-codes.md
+  category: noise-and-errors
+
+- id: depolarizing-noise
+  term: Depolarizing Noise
+  aliases: ["Depolarizing channel"]
+  definition: "A noise model in which, with some probability, a qubit suffers a random Pauli error (X, Y, or Z with equal likelihood). It is commonly used as a simple, symmetric model of noise."
+  beginnerInterpretation: "Depolarizing noise is a simple model where errors strike at random and each of the three basic error types is equally likely."
+  relatedTerms: [pauli-error, noise-model, error-channel, error-rate, quantum-noise]
+  moduleReferences: []
+  category: noise-and-errors
+
+- id: amplitude-damping
+  term: Amplitude Damping
+  aliases: []
+  definition: "A noise process in which a qubit loses energy to its environment, causing decay from the excited state toward the ground state; it is the process behind T1 relaxation."
+  beginnerInterpretation: "Amplitude damping is a qubit gradually losing energy and sliding from its higher-energy state down to its resting state."
+  relatedTerms: [t1-relaxation-time, decoherence, error-channel, quantum-noise, dephasing]
+  moduleReferences: []
+  category: noise-and-errors
+
+- id: dephasing
+  term: Dephasing
+  aliases: []
+  definition: "A noise process that randomizes the relative phase between a qubit's basis states without changing the probabilities of measuring them, which degrades superpositions."
+  beginnerInterpretation: "Dephasing blurs a qubit's phase: it still reads 0 or 1 with the same odds, but the superposition's delicate timing is scrambled."
+  relatedTerms: [phase-flip-error, t2-dephasing-time, decoherence, relative-phase, quantum-noise]
+  moduleReferences: []
+  category: noise-and-errors
+
+- id: leakage
+  term: Leakage
+  aliases: []
+  definition: "An error in which a qubit leaves its two computational states and enters another energy level of the physical system."
+  beginnerInterpretation: "Leakage is when a qubit escapes the 0 and 1 it is supposed to live in and ends up in some other state the hardware happens to have."
+  relatedTerms: [quantum-error, erasure, physical-qubit, error-channel, erasure-qubit]
+  moduleReferences: []
+  category: noise-and-errors
+
+- id: erasure
+  term: Erasure
+  aliases: ["Erasure error"]
+  definition: "An error whose location is known, such as a qubit flagged as lost or corrupted, as opposed to an error whose location must be inferred from a syndrome."
+  beginnerInterpretation: "An erasure is an error you know about: you are told which qubit was lost or damaged, which makes it easier to handle than an error at an unknown location."
+  relatedTerms: [erasure-conversion, erasure-qubit, leakage, decoder, quantum-error]
+  moduleReferences: []
+  category: noise-and-errors
+
+- id: correlated-error
+  term: Correlated Error
+  aliases: []
+  definition: "Errors that affect multiple qubits or multiple time steps in a statistically dependent way, rather than occurring independently."
+  beginnerInterpretation: "Correlated errors tend to happen together instead of separately, which can be harder on error-correction methods that assume errors are independent."
+  relatedTerms: [crosstalk, noise-model, quantum-error-correction, error-channel, time-dependent-noise]
+  moduleReferences: []
+  category: noise-and-errors
+
+- id: error-channel
+  term: Error Channel
+  aliases: ["Noise channel", "Quantum channel"]
+  definition: "A mathematical description of how noise transforms a quantum state, usually written as a set of operations that occur with given probabilities."
+  beginnerInterpretation: "An error channel is a precise description of what a particular kind of noise does to a qubit and how often."
+  relatedTerms: [noise-model, density-matrix, depolarizing-noise, amplitude-damping, pauli-error]
+  moduleReferences: []
+  category: noise-and-errors
+
+- id: noise-model
+  term: Noise Model
+  aliases: ["Error model"]
+  definition: "A set of assumptions describing which errors occur, on which qubits, operations, and measurements, and with what probabilities. It is used for simulation, analysis, and decoding."
+  beginnerInterpretation: "A noise model is a written-down guess about how a device goes wrong: which errors happen, where, and how often."
+  relatedTerms: [error-channel, error-rate, decoder, noise-aware-decoding, depolarizing-noise]
+  moduleReferences:
+    - 07-error-correction/decoding.md
+    - 07-error-correction/minimum-weight-perfect-matching.md
+    - 07-error-correction/hardware-aware-qec.md
+  category: noise-and-errors
+
+- id: error-rate
+  term: Error Rate
+  aliases: []
+  definition: "The probability, or an estimate of the probability, that a particular operation, qubit, or measurement results in an error. Its value depends on how an error is defined and measured."
+  beginnerInterpretation: "Error rate is how often something goes wrong, for example the chance that a gate gives the wrong result."
+  relatedTerms: [gate-fidelity, readout-error, logical-error-rate, noise-model, quantum-noise]
+  moduleReferences:
+    - 07-error-correction/decoding.md
+  category: noise-and-errors
+
+- id: readout-error
+  term: Readout Error
+  aliases: ["Measurement error"]
+  definition: "An error in the measurement process in which the reported outcome differs from the qubit's actual state at the time of measurement."
+  beginnerInterpretation: "A readout error is when reading a qubit gives the wrong answer even though the qubit itself was fine."
+  relatedTerms: [readout-fidelity, measurement, error-rate, calibration-data, gate-fidelity]
+  moduleReferences:
+    - 07-error-correction/hardware-aware-qec.md
+  category: noise-and-errors

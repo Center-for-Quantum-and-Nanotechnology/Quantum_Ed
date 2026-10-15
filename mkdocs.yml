@@ -39,6 +39,7 @@ extra_css:
 
 extra_javascript:
   - assets/javascripts/download.js
+  - assets/javascripts/level.js
   - assets/javascripts/surface-code.js
   - assets/javascripts/matching.js
   - assets/javascripts/lattice-surgery.js
@@ -58,6 +59,15 @@ extra_javascript:
   - assets/javascripts/components/many-amplitudes.js
   - assets/javascripts/components/error-budget.js
   - assets/javascripts/components/log-bars.js
+  - assets/javascripts/glossary.js
+  - assets/javascripts/circuit.js
+  - assets/javascripts/shots.js
+  - assets/javascripts/qubit.js
+  - assets/javascripts/gates.js
+  - assets/javascripts/twoqubit.js
+  - assets/javascripts/trace.js
+  - assets/javascripts/quiz.js
+  - assets/javascripts/software-stack.js
   - assets/javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
@@ -83,6 +93,8 @@ markdown_extensions:
 
 hooks:
   - hooks.py
+  - glossary_hook.py
+  - level_hook.py
 
 nav:
   - Home: index.md
@@ -92,15 +104,26 @@ nav:
       - What Is Quantum Computing?: 01-foundations/what-is-quantum-computing.md
       - Quantum Computing Today: 01-foundations/quantum-computing-today.md
   - "02 · Quantum Computing Fundamentals":
-      - 02-fundamentals/index.md
+      - Overview: 02-fundamentals/index.md
+      - Quantum States: 02-fundamentals/quantum-states.md
+      - Qubit Representation: 02-fundamentals/qubit-representation.md
+      - Bloch Sphere: 02-fundamentals/bloch-sphere.md
+      - Quantum Gates: 02-fundamentals/quantum-gates.md
+      - Multi-Qubit Systems: 02-fundamentals/multi-qubit-systems.md
+      - Quantum Circuits: 02-fundamentals/quantum-circuits.md
+      - Measurement: 02-fundamentals/measurement.md
   - "03 · Quantum Programming":
       - 03-programming/index.md
   - "04 · Quantum Hardware":
       - 04-hardware/index.md
   - "05 · Quantum Software Stack":
-      - 05-software-stack/index.md
+      - Overview: 05-software-stack/index.md
+      - Understanding the Quantum Software Stack: 05-software-stack/understanding-the-quantum-software-stack.md
   - "06 · Quantum Algorithms & Methods":
-      - 06-algorithms/index.md
+      - Overview: 06-algorithms/index.md
+      - Variational Algorithms:
+          - Variational Quantum Eigensolver (VQE): 06-algorithms/variational-quantum-eigensolver.md
+          - Quantum Approximate Optimization Algorithm (QAOA): 06-algorithms/quantum-approximate-optimization-algorithm.md
   - "07 · Quantum Error Correction":
       - Overview: 07-error-correction/index.md
       - Why QEC?: 07-error-correction/why-qec.md
@@ -119,3 +142,4 @@ nav:
           - Hardware-Aware QEC: 07-error-correction/hardware-aware-qec.md
   - "08 · Labs & Learning Modules":
       - 08-labs/index.md
+  - Glossary: glossary.md
