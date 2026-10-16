@@ -8,7 +8,17 @@ In 2018 the physicist John Preskill named the current stage of the field **NISQ*
 
 That chance is small and shrinking. In November 2025, Quantinuum reported a two-qubit gate fidelity of 99.921% on its 98-qubit Helios system, an error rate of about 0.08%, or roughly one mistake in every 1,250 operations. Even so, errors add up. If each gate fails with probability *p*, a circuit of *G* gates runs without any error with probability \((1 - p)^G\). The demonstration below lets you vary both.
 
-<div data-qed-demo="error-budget"></div>
+<div class="qed-demo" id="wt-budget">
+<div class="qed-demo__controls" style="min-width:auto;">
+<label for="wt-budget-p">Error per two-qubit gate, p = <strong id="wt-budget-p-val"></strong></label>
+<input type="range" id="wt-budget-p" min="2" max="5" step="0.25" value="3">
+<label for="wt-budget-g">Gates in the circuit, G = <strong id="wt-budget-g-val"></strong></label>
+<input type="range" id="wt-budget-g" min="1" max="6" step="0.25" value="3">
+</div>
+<div id="wt-budget-bar" style="margin-top:0.8rem;"></div>
+<div class="qed-error-demo__feedback" id="wt-budget-feedback" aria-live="polite"></div>
+<p class="qed-demo__note">Success means no gate fails. The dark tick marks 50%.</p>
+</div>
 
 At an error rate of 0.1%, a circuit's chance of running cleanly drops below one half after about 700 gates. Cut the error rate tenfold and that stretches to about 7,000. Each tenfold improvement is a real gain, and the most valuable applications need far more, so there is still plenty of room to improve.
 
@@ -34,10 +44,12 @@ The gap between today's machines and the applications described earlier is where
 
 **Scale.** Leading gate-based systems have roughly a hundred to a thousand physical qubits. Published estimates for breaking 2048-bit RSA encryption call for close to a million, with error rates and run times no current device reaches. The chart shows the distance. Raw qubit count is also an incomplete measure: a smaller, cleaner chip can do more useful work than a larger, noisier one.
 
-<div data-qed-demo="log-bars"
-     data-opt-title="Physical qubits: devices today vs. an RSA-2048 estimate"
-     data-opt-unit="qubits"
-     data-opt-items='[{"label":"Google Willow (2024)","value":105,"accent":"quantum","note":"Surface-code memory experiments; Nature, 2025."},{"label":"Quantinuum Helios (2025)","value":98,"accent":"quantum","note":"Trapped ions, all-to-all connectivity."},{"label":"IBM Condor (2023)","value":1121,"accent":"quantum","note":"A larger chip; qubit count is not a measure of quality."},{"label":"RSA-2048 estimate (2025)","value":1000000,"accent":"noise","note":"An upper bound (under one million), assuming 0.1% gate error; Gidney, 2025."}]'></div>
+<div class="qed-demo" id="wt-qubits">
+<div class="qed-panel__title" style="margin-bottom:0.4rem;">Physical qubits: devices today vs. an RSA-2048 estimate</div>
+<div id="wt-qubits-bars"></div>
+<div style="margin-top:0.4rem;"><button type="button" class="qed-button qed-button--secondary" id="wt-qubits-toggle" aria-pressed="false"></button></div>
+<p class="qed-demo__note" id="wt-qubits-caption" aria-live="polite"></p>
+</div>
 
 **Quality.** Error rates near one in a thousand per gate must fall much further for long algorithms, or be corrected, at the cost of overhead.
 
@@ -77,3 +89,81 @@ These three pages give the framework for the rest of the course. [02 · Quantum 
 - IBM Condor processor (1,121 superconducting qubits), announced December 2023.
 
 </details>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var S = window.QedShots;
+  var N = window.QedNumbers;
+
+  function $(id) { return document.getElementById(id); }
+
+  // ---- The NISQ era: a circuit of G gates, each failing with probability p -----------
+  (function () {
+    function successProbability(p, gates) { return Math.exp(gates * Math.log1p(-p)); }
+    function gatesToHalf(p) { return Math.log(0.5) / Math.log1p(-p); }
+    function fmtError(p) {
+      var v = p * 100;
+      return (v >= 1 ? v.toFixed(0) : v >= 0.1 ? v.toFixed(1) : v >= 0.01 ? v.toFixed(2) : v.toFixed(3)) + "%";
+    }
+    function update() {
+      var p = Math.pow(10, -parseFloat($("wt-budget-p").value));
+      var gates = Math.round(Math.pow(10, parseFloat($("wt-budget-g").value)));
+      var success = successProbability(p, gates);
+      var half = gatesToHalf(p);
+      $("wt-budget-p-val").textContent = fmtError(p);
+      $("wt-budget-g-val").innerHTML = N.human(gates);
+      $("wt-budget-bar").innerHTML = S.renderBars([{
+        label: "Chance of an error-free run", fraction: success, accent: success >= 0.5 ? "protected" : "error", marker: 0.5,
+        labelWidth: "9rem", textWidth: "4.5rem", text: success < 0.001 ? "< 0.1%" : N.pct(success, success < 0.1 ? 1 : 0)
+      }]);
+      $("wt-budget-feedback").innerHTML = "At this error rate, a circuit stays more likely than not to run cleanly for about <strong>" + N.human(Math.round(half)) +
+        " gates</strong>. Cutting the error rate tenfold lets circuits grow about tenfold.";
+    }
+    $("wt-budget-p").addEventListener("input", update);
+    $("wt-budget-g").addEventListener("input", update);
+    update();
+  })();
+
+  // ---- The open frontier: today's qubit counts against an RSA-2048 estimate ---------
+  // Values go stale, so each has a date and its source is in the page text next to the
+  // chart. Keep each note short.
+  (function () {
+    var UNIT = " qubits";
+    var ITEMS = [
+      { label: "Google Willow (2024)", value: 105, accent: "logical", note: "Surface-code memory experiments; Nature, 2025." },
+      { label: "Quantinuum Helios (2025)", value: 98, accent: "logical", note: "Trapped ions, all-to-all connectivity." },
+      { label: "IBM Condor (2023)", value: 1121, accent: "logical", note: "A larger chip; qubit count is not a measure of quality." },
+      { label: "RSA-2048 estimate (2025)", value: 1000000, accent: "noise", note: "An upper bound (under one million), assuming 0.1% gate error; Gidney, 2025." }
+    ];
+    var scale = "log";
+    var max = ITEMS.reduce(function (m, it) { return Math.max(m, it.value); }, 1);
+
+    // Bar width as a fraction of the track for the chosen scale.
+    function fraction(value) {
+      if (scale === "linear") return value / max;
+      return Math.log10(Math.max(value, 1)) / Math.ceil(Math.log10(max));
+    }
+    function draw() {
+      // Stacked layout (label and value above a full-width bar), so long labels and
+      // values never force horizontal scrolling on narrow screens.
+      $("wt-qubits-bars").innerHTML = ITEMS.map(function (it) {
+        var width = Math.max(0, Math.min(1, fraction(it.value))) * 100;
+        return '<div class="qed-logbar">' +
+          '<div class="qed-logbar__head"><span>' + it.label + "</span><strong>" + N.human(it.value) + UNIT + "</strong></div>" +
+          '<div class="qed-confidence-bar"><div class="qed-confidence-bar__fill qed-confidence-bar__fill--' + it.accent + '" style="width:' + width + '%"></div></div>' +
+          '<div class="qed-demo__note qed-logbar__note">' + it.note + "</div></div>";
+      }).join("");
+      $("wt-qubits-toggle").textContent = scale === "log" ? "Switch to linear scale" : "Switch to logarithmic scale";
+      $("wt-qubits-toggle").setAttribute("aria-pressed", scale === "linear" ? "true" : "false");
+      $("wt-qubits-caption").textContent = scale === "log"
+        ? "Logarithmic scale: each step along the bar is a factor of ten."
+        : "Linear scale: bar length is proportional to the value. Compare how much smaller the shorter bars become.";
+    }
+    $("wt-qubits-toggle").addEventListener("click", function () {
+      scale = scale === "log" ? "linear" : "log";
+      draw();
+    });
+    draw();
+  })();
+});
+</script>
