@@ -1,12 +1,10 @@
 // QedBloch — shared single-qubit state math + Bloch-sphere drawing.
-// A library (not a demo): used by the bloch-explorer and qubit-measurement
-// components, and intended for Module 02's Bloch Sphere section.
+// A library (not a demo): used by the Module 01 Qubits and Measurement demos and
+// by the Module 02 Bloch Sphere and Quantum Gates pages.
 //
 // Loaded site-wide via extra_javascript; it is a no-op on pages that don't
-// use it. Component code runs inside QedComponents.mount, which fires on
-// DOMContentLoaded, so load order is never a problem for components. Any
-// *inline* page script that touches window.QedBloch must still wrap itself
-// in a DOMContentLoaded listener (see llm/FLAGS.md).
+// use it. Any page script that touches window.QedBloch must wrap itself in a
+// DOMContentLoaded listener (see llm/FLAGS.md).
 //
 // Separation convention (same as QedSurfaceCode / QedMatching):
 //   state math     -> pure functions of (thetaDeg, phiDeg)

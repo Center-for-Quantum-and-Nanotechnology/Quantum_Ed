@@ -51,8 +51,6 @@ Follow the existing modules (`surface-code.js`, `matching.js`, `lattice-surgery.
 
 Keep this table current. It is the first thing to check before building.
 
-The Module 01 Foundations demos are a second family: registry components in `docs/assets/javascripts/components/`, mounted from `<div data-qed-demo="...">` and cataloged in [`COMPONENTS.md`](COMPONENTS.md). Check that catalog too before writing a demo. `QedBloch` is a shared library, so it stays at the top level and Module 01's components use it.
-
 | Global | File | Public API | Used by |
 |---|---|---|---|
 | `QedSurfaceCode` | `surface-code.js` | `buildLattice`, `computeSyndrome`, `anticommutes`, `renderSVG`, `mount` | Surface Codes, MWPM, Hardware-Aware QEC, Lattice Surgery |

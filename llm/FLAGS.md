@@ -171,10 +171,20 @@ Written without `context_docs/module_1/` instruction docs; content follows the t
 
 ### Architecture
 
-- **Every Foundations demo is a registry component** (`docs/assets/javascripts/components/`, catalog in `llm/COMPONENTS.md`). Pages contain `<div data-qed-demo="…">` tags and no inline scripts, so the `DOMContentLoaded` and `markdown="1"` gotchas from Module 07 do not apply to them. (`<details class="qed-details">` blocks on these pages do include `markdown="1"`.)
+- **Every Foundations demo is a page-local script**, like the Module 02 and Module 07 pages: a static skeleton in the page plus one `DOMContentLoaded` script at the bottom (`docs/01-foundations/*.md`). The demos first shipped as registry components (a `data-qed-demo` registry and eleven files under `docs/assets/javascripts/components/`); that second system was removed so Module 01 follows `llm/CONVENTIONS.md`. See "Module 01 rework onto the shared modules" below.
 - **`QedBloch` (`bloch.js`)** is the shared Bloch-sphere library, intended for Module 02. Module 07's `errors-and-noise.md` still has its own page-local copy of the drawing code (not touched).
 - **Removed `polyfill.io`** from `mkdocs.yml` (domain compromised in 2024; unnecessary for MathJax 3 on modern browsers).
-- **Readout bug fixed:** the Qubits state formula used `textContent` and showed raw `e^{i0°}`; it now uses an HTML superscript (numbers only, so safe). `QedUI.sci` / `human` return HTML and must be assigned with `innerHTML`.
+- **Readout bug fixed:** the Qubits state formula used `textContent` and showed raw `e^{i0°}`; it now uses an HTML superscript (numbers only, so safe). `QedNumbers.sci` / `human` return HTML and must be assigned with `innerHTML` (or passed to `QedShots.renderBars` as `textHtml`).
+
+### Module 01 rework onto the shared modules
+
+- **What changed:** the eleven registry components were rewritten as page scripts (what-is-quantum-computing: Bloch explorer, interference mix, measurement, Bell pair, tilt, CHSH; why-quantum-computing: state-space growth, search scaling, many amplitudes; quantum-computing-today: error budget, qubit-count chart). The registry (`QedComponents`), its helper module (`QedUI`), the `components/` folder, and `llm/COMPONENTS.md` are gone. A scripted run of every demo gave identical text, bar widths, and messages on both builds (54, 43, and 28 checks), apart from random draws.
+- **New shared code:** `QedNumbers` (`numbers.js`: `pct`, `signed`, `grouped`, `sci`, `human`, `bytes`; `bytes(1)` now reads "1 byte") and the optional `accent`, `marker`, `labelWidth`, `textWidth`, and `textHtml` fields of `QedShots.renderBars`. Default bar output is pinned by a hash test.
+- **Reused instead of copied:** `QedShots` for all sampling and for bar rows, `QedGates.apply` and `QedQubit.nameOf` for the Hadamard mix and its state names, `QedShots.defaultLabels` for the many-amplitudes outcome labels.
+- **Behavior change (deliberate):** random draws come from seeded `QedShots.rng` streams, one per demo, instead of `Math.random()`. A demo's first run is the same on every load and Run again gives new results; every demo stays labeled as simulated on the page.
+- **Dropped with the registry:** the `data-opt-*` options and `data-min-level` on demo tags. Defaults are constants in each script (for example the search demo's largest slowdown is 10^10). Nothing used a level on these pages.
+- **Kept page-local on purpose** (each used by one page): the signed-amplitude row, the cos-squared agreement rule shared by the tilt and CHSH demos, the toy cost models, and the qubit-count chart's data (now inline in the script, with its sources in the page text). Their pure formulas have no test file because the repo tests shared modules only; if a second page ever needs one, extract it and test it then.
+- **A pitfall hit while porting:** inside a `<details markdown="1">` block, indented nested HTML is parsed as code blocks (the CHSH skeleton gained `<pre>` and copy buttons). That skeleton is written without indentation.
 
 ### What Is Quantum Computing?
 

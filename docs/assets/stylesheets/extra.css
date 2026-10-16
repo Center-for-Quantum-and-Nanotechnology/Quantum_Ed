@@ -1996,8 +1996,8 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 }
 
 /* ---------------------------------------------------------------------
-   Foundations components (docs/assets/javascripts/components/, catalog in
-   llm/COMPONENTS.md) — comparison panels, signed amplitude bars,
+   Foundations demos (the page scripts of docs/01-foundations/) — comparison
+   panels, signed amplitude bars,
    expected-value markers, result tables and small stat displays. Colors
    reuse the shared tokens: blue = quantum state, neutral gray = classical.
    Negative amplitudes are hatched AND carry a "−" sign in text, so sign
