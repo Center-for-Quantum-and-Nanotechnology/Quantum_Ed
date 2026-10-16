@@ -1996,13 +1996,12 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 }
 
 /* ---------------------------------------------------------------------
-   What Is Quantum Computing? (docs/01-foundations/what-is-quantum-
-   computing.md) — side-by-side comparison panels, signed amplitude
-   bars, probability-bar markers, and small result tables used by the
-   Superposition / Measurement / Entanglement demos. Colors reuse the
-   shared tokens: blue = quantum state, neutral gray = classical.
-   Negative amplitudes are hatched AND carry a "−" sign in text, so
-   sign never relies on color alone.
+   Foundations demos (the page scripts of docs/01-foundations/) — comparison
+   panels, signed amplitude bars,
+   expected-value markers, result tables and small stat displays. Colors
+   reuse the shared tokens: blue = quantum state, neutral gray = classical.
+   Negative amplitudes are hatched AND carry a "−" sign in text, so sign
+   never relies on color alone. Any new accent must reuse a :root token.
    ------------------------------------------------------------------- */
 .qed-panel {
   flex: 1 1 15rem;
@@ -2104,6 +2103,18 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
   background: var(--qed-color-logical);
 }
 
+.qed-confidence-bar__fill--protected {
+  background: var(--qed-color-protected);
+}
+
+.qed-confidence-bar__fill--noise {
+  background: var(--qed-color-noise);
+}
+
+.qed-confidence-bar__fill--error {
+  background: var(--qed-color-error);
+}
+
 .qed-pill--neutral {
   border-color: var(--qed-color-physical);
   background: var(--md-code-bg-color);
@@ -2139,6 +2150,79 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
   margin: 0.5rem 0 0;
   font-size: 0.78rem;
   color: var(--md-default-fg-color--light);
+}
+
+.qed-stat {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.4rem;
+}
+
+.qed-stat__value {
+  font-family: var(--md-code-font);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.qed-stat__label {
+  font-size: 0.72rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-amp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(4.6rem, 1fr));
+  gap: 0.4rem;
+  margin: 0.6rem 0;
+}
+
+.qed-amp-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.35rem 0.2rem;
+  border: 2px solid var(--qed-color-physical);
+  border-radius: 0.3rem;
+  background: var(--md-code-bg-color);
+  font-family: var(--md-code-font);
+  font-size: 0.75rem;
+}
+
+.qed-amp-cell__amp {
+  color: var(--qed-color-logical);
+  font-weight: 700;
+}
+
+.qed-amp-cell__count {
+  min-height: 1em;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-amp-cell--hit {
+  border-color: var(--qed-color-logical);
+  background: color-mix(in srgb, var(--qed-color-logical) 18%, var(--md-code-bg-color));
+}
+
+.qed-logbar {
+  margin: 0.7rem 0;
+}
+
+.qed-logbar__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.2rem 0.8rem;
+  margin-bottom: 0.15rem;
+  font-size: 0.8rem;
+}
+
+.qed-logbar .qed-confidence-bar {
+  width: 100%;
+  flex: none;
+}
+
+.qed-logbar__note {
+  margin: 0.15rem 0 0;
 }
 
 /* ---------------------------------------------------------------------

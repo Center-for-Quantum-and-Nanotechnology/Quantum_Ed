@@ -189,16 +189,42 @@ window.QedShots = (function () {
   // { label, fraction (0 to 1), text }. The fraction sets the bar width and is
   // clamped to the 0 to 1 range; the text is shown beside the bar. Used for shot
   // counts here and for probabilities elsewhere (for example QedQubit states).
+  //
+  // Optional row fields, all off by default (a row with only the three above is
+  // drawn exactly as before):
+  //   accent       "quantum" (or "logical"), "protected", "noise", or "error": the
+  //                bar's fill color, from the shared visual-language tokens. Any
+  //                other value is ignored.
+  //   marker       a number 0 to 1: a dark tick on the bar, for an expected value
+  //   labelWidth   CSS width of the label column, such as "6.5rem"
+  //   textWidth    CSS width of the text column
+  //   textHtml     trusted HTML shown instead of text (QedNumbers.sci and human
+  //                return superscripts). Pass only numbers and fixed labels.
+  var ACCENTS = { quantum: "logical", logical: "logical", protected: "protected", noise: "noise", error: "error" };
+  var CSS_WIDTH = /^[0-9]+(\.[0-9]+)?(rem|em|px|%)$/;
+
+  function clamp01(x) {
+    return typeof x === "number" && isFinite(x) ? Math.min(1, Math.max(0, x)) : 0;
+  }
+
   function renderBars(rows) {
     return rows
       .map(function (r) {
-        var f = typeof r.fraction === "number" && isFinite(r.fraction) ? Math.min(1, Math.max(0, r.fraction)) : 0;
-        var width = Math.round(f * 1000) / 10;
+        var width = Math.round(clamp01(r.fraction) * 1000) / 10;
+        var accent = ACCENTS[r.accent];
+        var marked = typeof r.marker === "number" && isFinite(r.marker);
+        var labelStyle = CSS_WIDTH.test(r.labelWidth) ? ' style="flex-basis:' + r.labelWidth + ';"' : "";
+        var textStyle = CSS_WIDTH.test(r.textWidth) ? ' style="flex-basis:' + r.textWidth + ';"' : "";
+        var marker = marked
+          ? '<span class="qed-confidence-bar__marker" style="left:calc(' + Math.round(clamp01(r.marker) * 1000) / 10 + '% - 1px)"></span>'
+          : "";
         return (
           '<div class="qed-confidence-row">' +
-          '<span class="qed-confidence-row__label">' + esc(r.label) + "</span>" +
-          '<span class="qed-confidence-bar"><span class="qed-confidence-bar__fill" style="width:' + width + '%"></span></span>' +
-          '<span class="qed-confidence-row__pct">' + esc(r.text) + "</span>" +
+          '<span class="qed-confidence-row__label"' + labelStyle + ">" + esc(r.label) + "</span>" +
+          '<span class="qed-confidence-bar' + (marked ? " qed-confidence-bar--marked" : "") + '">' +
+          '<span class="qed-confidence-bar__fill' + (accent ? " qed-confidence-bar__fill--" + accent : "") + '" style="width:' + width + '%"></span>' +
+          marker + "</span>" +
+          '<span class="qed-confidence-row__pct"' + textStyle + ">" + (typeof r.textHtml === "string" ? r.textHtml : esc(r.text)) + "</span>" +
           "</div>"
         );
       })

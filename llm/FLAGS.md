@@ -148,7 +148,7 @@ Built from `context_docs/modules/module_02/specs/02.01_QuantumStatesInstruction.
 
 ### Deviations and simplifications
 
-- **Section 5 originally used the spec's fallback wording, now replaced.** The spec said to point at Module 01's interference and Bell-test demos only if they existed when the page was built. They did not exist on this branch at first (Module 01's page was a stub; the demos lived on `origin/treys_branch`), so the page said the evidence comes later in this module. After Trey's Module 01 merged to `main` and into this branch, section 5 (page and spec) now points at the Superposition demo (mixing a qubit twice returns a certain outcome; a random bit stays 50/50) and the CHSH game in the Entanglement section, by name and with links, and says the later pages develop the first. The page links to anchors in Module 01 (`#superposition`, `#the-chsh-game`), so a rename of those headings breaks the links.
+- **Section 5 originally used the spec's fallback wording, now replaced.** The spec said to point at Module 01's interference and Bell-test demos only if they existed when the page was built. They did not exist on this branch at first (Module 01's page was a stub; the demos lived on `origin/treys_branch`), so the page said the evidence comes later in this module. After Trey's Module 01 merged to `main` and into this branch, section 5 (page and spec) now points at the Superposition demo (mixing a qubit twice returns a certain outcome; a random bit stays 50/50) and the CHSH game in the Entanglement section, by name and with links, and says the later pages develop the first. The page links to anchors in Module 01 (`#superposition`, `#entanglement`; the CHSH game sits inside the Entanglement section since Module 01 was rewritten as components), so a rename of those headings breaks the links.
 - **Measure is disabled until a prediction is chosen.** This enforces the spec's "predict before observing", but a learner who just wants to click Measure must make a prediction first. A hint says so.
 - **Prediction feedback judges the prediction against the preparation, not against the sample.** A correct "about half each" for a balanced preparation stays correct even if 10 shots come out 7 to 3, and the feedback adds that few shots can look uneven.
 - **Switching preparation clears the prediction and the outcomes**, and each preparation keeps its own seeded series (so switching back continues that series). Reset clears all series, so the first run after Reset equals the first run after a fresh page load.
@@ -165,32 +165,43 @@ Built from `context_docs/modules/module_02/specs/02.01_QuantumStatesInstruction.
 
 ---
 
-## Module 01 — What Is Quantum Computing? (Foundations)
+## Module 01 — Foundations (all three pages)
 
-Logged while finishing this page (Qubits fixes + Superposition / Measurement / Entanglement). No `context_docs/module_1/` instruction docs exist, so content follows the taxonomy doc and Project Vision only.
+Written without `context_docs/module_1/` instruction docs; content follows the taxonomy and Project Vision only. Tone: "professor giving an intro lecture" (professional, trusts the reader), which should carry into the remaining modules.
 
-### Changes to existing work
+### Architecture
 
-- **New shared module `docs/assets/javascripts/bloch.js` (`window.QedBloch`)**: `state(theta, phi)`, `formatHTML` / `formatText`, `project`, `render(canvas, theta, phi)`. Pure math + pure drawing; page scripts do the DOM wiring (same convention as `QedSurfaceCode`). Intended for reuse by Module 02's Bloch Sphere section. Module 07's `errors-and-noise.md` still has its own page-local copy of the Bloch drawing code — a candidate to migrate onto `QedBloch` later (not touched here).
-- **Qubits demo readout bug fixed**: the state formula used `textContent` and showed raw `e^{i0°}`. It now uses `innerHTML` with a real superscript (numbers only, so safe) instead of re-typesetting MathJax on every slider tick.
-- **Bloch canvas colors now read `--qed-color-logical`** (and the theme's muted foreground) via `getComputedStyle` instead of hard-coded hex values; canvas gets an `aria-label` that updates with the state.
-- **Removed the `polyfill.io` script from `mkdocs.yml`** (compromised domain in 2024; unnecessary for MathJax 3 on modern browsers).
-- **Qubits intro sentence changed** from "phase becomes important once qubits interact" to "invisible to a single measurement, but crucial the moment states are combined", because the Superposition demo now shows phase mattering for a *single* qubit via interference.
+- **Every Foundations demo is a page-local script**, like the Module 02 and Module 07 pages: a static skeleton in the page plus one `DOMContentLoaded` script at the bottom (`docs/01-foundations/*.md`). The demos first shipped as registry components (a `data-qed-demo` registry and eleven files under `docs/assets/javascripts/components/`); that second system was removed so Module 01 follows `llm/CONVENTIONS.md`. See "Module 01 rework onto the shared modules" below.
+- **`QedBloch` (`bloch.js`)** is the shared Bloch-sphere library, intended for Module 02. Module 07's `errors-and-noise.md` still has its own page-local copy of the drawing code (not touched).
+- **Removed `polyfill.io`** from `mkdocs.yml` (domain compromised in 2024; unnecessary for MathJax 3 on modern browsers).
+- **Readout bug fixed:** the Qubits state formula used `textContent` and showed raw `e^{i0°}`; it now uses an HTML superscript (numbers only, so safe). `QedNumbers.sci` / `human` return HTML and must be assigned with `innerHTML` (or passed to `QedShots.renderBars` as `textHtml`).
 
-### Known simplifications / conceptual caveats
+### Module 01 rework onto the shared modules
 
-- **The "mix" button is the Hadamard gate, previewed before Module 02 introduces gates.** Labeled "Apply mix (H)" with a pointer to Module 02. It is the smallest operation that lets a learner see interference (a hidden coin can't return to a certain 0 after two mixes). The qubit amplitudes in that demo are real-valued only.
-- **Measurement and entanglement demos are simulated from the textbook predictions**, not from a state-vector simulator or real hardware: single-qubit outcomes are `Math.random() < p0`; the Bell-pair CHSH rounds sample each answer as a fair coin and make the pair agree with probability cos²((α−β)/2). The page says so in the "Simplified model" note. Measurement is ideal (no readout error); that links forward to Modules 04 / 07.
-- **"Pre-agreed coins vs entangled pair" table uses the same generator in both modes.** That is deliberate and accurate — with both sides asking the same question the statistics are identical, which is the lesson ("agreement alone doesn't prove entanglement").
-- **Entanglement is taught through the CHSH game, not a Bell-state circuit.** Classical 75% bound is proven in the page's "Show the math" block (XOR argument); quantum strategy uses tilts 0°/90° (Alice) and 45°/−45° (Bob) → ≈85.4%. Measurement "tilt" is introduced informally (a direction on the Bloch sphere); formal bases/observables are left to Module 02.
-- **Collapse is presented in the standard textbook (projective-measurement) picture**; interpretation questions are intentionally out of scope.
-- **Page mentions the 2022 Nobel Prize in Physics** (Aspect, Clauser, Zeilinger) as context for Bell tests without naming the laureates — worth a reference link in a content-hardening pass.
+- **What changed:** the eleven registry components were rewritten as page scripts (what-is-quantum-computing: Bloch explorer, interference mix, measurement, Bell pair, tilt, CHSH; why-quantum-computing: state-space growth, search scaling, many amplitudes; quantum-computing-today: error budget, qubit-count chart). The registry (`QedComponents`), its helper module (`QedUI`), the `components/` folder, and `llm/COMPONENTS.md` are gone. A scripted run of every demo gave identical text, bar widths, and messages on both builds (54, 43, and 28 checks), apart from random draws.
+- **New shared code:** `QedNumbers` (`numbers.js`: `pct`, `signed`, `grouped`, `sci`, `human`, `bytes`; `bytes(1)` now reads "1 byte") and the optional `accent`, `marker`, `labelWidth`, `textWidth`, and `textHtml` fields of `QedShots.renderBars`. Default bar output is pinned by a hash test.
+- **Reused instead of copied:** `QedShots` for all sampling and for bar rows, `QedGates.apply` and `QedQubit.nameOf` for the Hadamard mix and its state names, `QedShots.defaultLabels` for the many-amplitudes outcome labels.
+- **Behavior change (deliberate):** random draws come from seeded `QedShots.rng` streams, one per demo, instead of `Math.random()`. A demo's first run is the same on every load and Run again gives new results; every demo stays labeled as simulated on the page.
+- **Dropped with the registry:** the `data-opt-*` options and `data-min-level` on demo tags. Defaults are constants in each script (for example the search demo's largest slowdown is 10^10). Nothing used a level on these pages.
+- **Kept page-local on purpose** (each used by one page): the signed-amplitude row, the cos-squared agreement rule shared by the tilt and CHSH demos, the toy cost models, and the qubit-count chart's data (now inline in the script, with its sources in the page text). Their pure formulas have no test file because the repo tests shared modules only; if a second page ever needs one, extract it and test it then.
+- **A pitfall hit while porting:** inside a `<details markdown="1">` block, indented nested HTML is parsed as code blocks (the CHSH skeleton gained `<pre>` and copy buttons). That skeleton is written without indentation.
 
-### Reminders that applied here
+### What Is Quantum Computing?
 
-- The `<details class="qed-details">` blocks include `markdown="1"` (per the Module 07 bug above).
-- All page scripts are wrapped in `DOMContentLoaded` because they depend on the shared `extra_javascript` module.
-- New CSS (`.qed-panel`, `.qed-amp-*`, `.qed-confidence-bar--marked`, `.qed-results-table`, `.qed-chsh-row`) is appended at the end of `extra.css`. Negative amplitudes are drawn hatched *and* carry a "−" sign so sign never depends on color alone.
+- The "mix" button is the **Hadamard gate**, previewed before Module 02. Labeled as such, with a pointer to Module 02. Amplitudes in that demo are real-valued only.
+- **Measurement and CHSH outcomes are simulated** from textbook predictions (`Math.random() < p0`; each CHSH answer a fair coin, the pair agreeing with probability cos²((α−β)/2)), not a state-vector simulator. The page says so. Measurement is ideal (no readout error), linking forward to Modules 04 / 07.
+- **`bell-pair` uses the same generator in both modes.** Deliberate: with both sides asking the same question the statistics are identical, which is the lesson.
+- Entanglement is taught through the `tilt-agreement` slider (agreement falls as cos²(angle/2)). The CHSH game is an optional collapsed challenge, with its 75% bound argued in plain words (no XOR notation); quantum strategy tilts 0°/90° and 45°/−45° → ≈85.4%. Measurement "tilt" is introduced informally; formal bases are left to Module 02.
+- **Audience:** pages target first-year undergraduates. Avoid assuming classical-CS background (complexity classes, query models, XOR); explain or collapse such material.
+- "Where You Come In" on the Today page names open scientific targets (nitrogen fixation, high-temperature superconductivity, batteries, medicines) as hopes for quantum simulation, not promises; keep it hedged. The line about students running programs on real hardware through the cloud is a general statement, not tied to a vendor.
+- The page cites the **2022 Nobel Prize in Physics** for Bell tests without naming laureates; add a reference in a hardening pass.
+
+### Why Quantum Computing? and Quantum Computing Today
+
+- **Forward references:** *Why QC?* precedes *What Is QC?*, so it uses "amplitude", "superposition" and "measurement" informally and links forward. Revisit if page order changes.
+- **Dated facts (researched October 2026):** Willow below-threshold result (Nature 638, 920, 2025); Quantinuum Helios (98 qubits, 99.921% two-qubit fidelity, 48 logical qubits at 2:1, company-reported); Google "Quantum Echoes" (13,000×, Google's own comparison); Gidney's RSA-2048 estimate (<1 million noisy qubits, <1 week, 0.1% gate error assumed); Babbush et al. 2021 on quadratic speedups; NIST FIPS 203/204/205 (Aug 2024). **IBM Condor (1,121 qubits) is from memory and was not re-verified.** The Today page carries a "figures change quickly" note and a dated sources list; refresh during hardening passes. Articles describing 2026 results (for example neutral-atom logical-qubit counts) came from secondary sources and were deliberately not used.
+- **Toy models, labeled on the page:** `search-scaling` (query counts × per-query slowdown) and `error-budget` (independent gate errors). `state-space-growth` shows the general full-state-vector cost; structured states can be simulated more cheaply (noted on the page).
+- **Optimization row** in the "Problems Targeted" table is hedged on purpose: generic methods give at most a quadratic speedup, while gains for structured problems are an open research question.
 
 
 ---

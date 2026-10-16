@@ -16,7 +16,7 @@ On the [previous page](quantum-gates.md), we could move one qubit's state anywhe
 
 > **What changes when there is more than one qubit?**
 
-[Module 01](../01-foundations/what-is-quantum-computing.md#entanglement) already showed a pair of qubits whose results were random alone and yet always agreed, and the [CHSH game](../01-foundations/what-is-quantum-computing.md#the-chsh-game) that tests such pairs. This page does not repeat the game. It works out the same pair from the joint outcomes, and shows how it breaks a rule that independent qubits follow.
+[Module 01](../01-foundations/what-is-quantum-computing.md#entanglement) already showed a pair of qubits whose results were random alone and yet always agreed, and the [CHSH game](../01-foundations/what-is-quantum-computing.md#entanglement) that tests such pairs. This page does not repeat the game. It works out the same pair from the joint outcomes, and shows how it breaks a rule that independent qubits follow.
 
 ## Joint Outcomes
 

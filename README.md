@@ -24,6 +24,7 @@ cd tests/js && node --test                       # shared JavaScript modules (ne
 
 - `docs/` — all course content, one folder per module (`01-foundations/`, `02-fundamentals/`, …). Each module folder has an `index.md` landing page.
 - `docs/assets/` — shared stylesheets and JavaScript, including the interactive demos and the module-download button.
+- `llm/` — working notes for contributors and AI assistants: [`CONVENTIONS.md`](llm/CONVENTIONS.md) says where shared JavaScript lives and how to build a page script (check it before building a demo), and [`FLAGS.md`](llm/FLAGS.md) logs deviations, simplifications, and bugs by module.
 - `overrides/` — MkDocs Material theme overrides.
 - `hooks.py` — build hook that zips each module folder into `site/downloads/<module>.zip` for the offline-download button.
 - `data/glossary/` — structured source for the global [glossary](docs/glossary.md): one YAML file per category plus `categories.yml`, following the schema in `context_docs/glossary/`.

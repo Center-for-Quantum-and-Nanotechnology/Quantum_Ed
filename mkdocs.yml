@@ -43,16 +43,17 @@ extra_javascript:
   - assets/javascripts/surface-code.js
   - assets/javascripts/matching.js
   - assets/javascripts/lattice-surgery.js
+  - assets/javascripts/bloch.js
   - assets/javascripts/glossary.js
   - assets/javascripts/circuit.js
   - assets/javascripts/shots.js
+  - assets/javascripts/numbers.js
   - assets/javascripts/qubit.js
   - assets/javascripts/gates.js
   - assets/javascripts/twoqubit.js
   - assets/javascripts/trace.js
   - assets/javascripts/quiz.js
   - assets/javascripts/software-stack.js
-  - assets/javascripts/bloch.js
   - assets/javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
