@@ -62,6 +62,7 @@ extra_javascript:
   - assets/javascripts/glossary.js
   - assets/javascripts/circuit.js
   - assets/javascripts/shots.js
+  - assets/javascripts/numbers.js
   - assets/javascripts/qubit.js
   - assets/javascripts/gates.js
   - assets/javascripts/twoqubit.js

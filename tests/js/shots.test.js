@@ -204,3 +204,57 @@ test("the spread of the sampled frequencies shrinks as the shots grow, and follo
   assert.equal(S.expectedSpread(0.5, 0), 0);
   assert.equal(S.expectedSpread(1, 100), 0);
 });
+
+// ---- optional bar fields (accent, marker, widths, trusted HTML) --------------------------------
+
+test("renderBars with only label, fraction, and text is drawn exactly as it always was", () => {
+  const crypto = require("node:crypto");
+  const sha = (s) => crypto.createHash("sha256").update(s).digest("hex");
+  const rows = [
+    { label: "Outcome 0", fraction: 0.36, text: "36%" },
+    { label: "<i>", fraction: 1 / 3, text: "5 (50%)" },
+    { label: "c", fraction: 1.7, text: "" },
+  ];
+  // hashes recorded before the optional fields were added
+  assert.equal(sha(S.renderBars(rows)), "8813431e682081db9bdaf2a825d5f1d2b8027284ae11f74c3e9ccefd6ef16a92");
+  assert.equal(sha(S.renderHTML({ shots: 100, counts: [52, 48], sequence: [] })), "bf34d182904ba6ec41668d50746a7a52d6403f511e1694ff345315716ec8da65");
+});
+
+test("accent colors the fill with a shared token class, quantum is the logical color, and unknown values are ignored", () => {
+  const one = (accent) => S.renderBars([{ label: "a", fraction: 0.5, text: "", accent }]);
+  assert.match(one("quantum"), /qed-confidence-bar__fill qed-confidence-bar__fill--logical"/);
+  assert.match(one("logical"), /qed-confidence-bar__fill--logical/);
+  assert.match(one("protected"), /qed-confidence-bar__fill--protected/);
+  assert.match(one("noise"), /qed-confidence-bar__fill--noise/);
+  assert.match(one("error"), /qed-confidence-bar__fill--error/);
+  assert.ok(!one("red").includes("fill--"), "an unknown accent adds no class");
+  assert.ok(!one('x" onclick="y').includes("onclick"), "an accent can never inject markup");
+  assert.ok(!one(undefined).includes("fill--"));
+});
+
+test("marker draws a tick at the given fraction and marks the bar, and clamps out-of-range values", () => {
+  const html = S.renderBars([{ label: "a", fraction: 0.2, text: "", marker: 0.75 }]);
+  assert.match(html, /qed-confidence-bar qed-confidence-bar--marked/);
+  assert.match(html, /qed-confidence-bar__marker" style="left:calc\(75% - 1px\)"/);
+  assert.match(S.renderBars([{ label: "a", fraction: 0, text: "", marker: 1.4 }]), /left:calc\(100% - 1px\)/);
+  assert.match(S.renderBars([{ label: "a", fraction: 0, text: "", marker: -2 }]), /left:calc\(0% - 1px\)/);
+  assert.match(S.renderBars([{ label: "a", fraction: 0, text: "", marker: 0 }]), /bar__marker/, "a marker at zero is still drawn");
+  assert.ok(!S.renderBars([{ label: "a", fraction: 0.2, text: "" }]).includes("marker"));
+  assert.ok(!S.renderBars([{ label: "a", fraction: 0.2, text: "", marker: "0.5" }]).includes("marker"), "a non-number marker is ignored");
+});
+
+test("labelWidth and textWidth set the column widths, and only valid CSS lengths are accepted", () => {
+  const html = S.renderBars([{ label: "a", fraction: 0.5, text: "t", labelWidth: "6.5rem", textWidth: "7rem" }]);
+  assert.match(html, /qed-confidence-row__label" style="flex-basis:6\.5rem;"/);
+  assert.match(html, /qed-confidence-row__pct" style="flex-basis:7rem;"/);
+  const bad = S.renderBars([{ label: "a", fraction: 0.5, text: "t", labelWidth: "1rem;color:red", textWidth: "calc(1px)" }]);
+  assert.ok(!bad.includes("style=\"flex-basis"), "anything but a number and a unit is dropped");
+});
+
+test("textHtml is shown as given, and text is still escaped", () => {
+  const html = S.renderBars([{ label: "a", fraction: 0.5, text: "ignored <b>", textHtml: "3.2 × 10<sup>8</sup>" }]);
+  assert.ok(html.includes(">3.2 × 10<sup>8</sup><"));
+  assert.ok(!html.includes("ignored"));
+  assert.ok(S.renderBars([{ label: "a", fraction: 0.5, text: "<b>" }]).includes("&lt;b&gt;"));
+  assert.ok(S.renderBars([{ label: "<b>", fraction: 0.5, textHtml: "x" }]).includes("&lt;b&gt;"), "the label is escaped even with textHtml");
+});
