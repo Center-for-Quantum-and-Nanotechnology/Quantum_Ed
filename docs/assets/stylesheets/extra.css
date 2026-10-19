@@ -1377,3 +1377,129 @@ button.qed-qubit:not(:disabled):hover {
 .qed-loop-arrowhead-fill {
   fill: var(--qed-color-physical);
 }
+
+/* ---------------------------------------------------------------------
+   Classifier number-line (docs/06-algorithms/variational-quantum-
+   classifier.md, "Try It By Hand"). Shape carries the true label (a
+   <rect> for Class A, a <polygon> triangle for Class B — the element
+   type itself, not a CSS class, so no color channel is spent on it).
+   Fill is the only thing that changes: whether the current theta
+   classifies that point correctly. The two signals stay on separate
+   channels on purpose.
+   ------------------------------------------------------------------- */
+.qed-vqc-point {
+  stroke: var(--qed-color-physical);
+  stroke-width: 2.5;
+  fill: var(--md-code-bg-color);
+}
+
+/* Per-qubit circles only: several data points genuinely share the same
+   x1 (or x2) value, so they land on the exact same pixel. Partial
+   opacity makes that overlap visible as a blended/darker stack instead
+   of one marker silently hiding the others underneath it. */
+.qed-vqc-point--overlap {
+  fill-opacity: 0.65;
+}
+
+/* 3D paraboloid/plane views: the semi-transparent plane paints over
+   every point regardless of true depth (this module's fixed-camera
+   projection never solves real occlusion), so a point sitting below
+   the current plane height gets a dashed outline instead of a solid
+   one — otherwise it's hard to tell which side of the cut it's on. */
+.qed-vqc-point--under-plane {
+  stroke-dasharray: 3 2;
+}
+
+.qed-vqc-point.is-correct {
+  fill: color-mix(in srgb, var(--qed-color-protected) 55%, var(--md-code-bg-color));
+}
+
+.qed-vqc-point.is-incorrect {
+  fill: color-mix(in srgb, var(--qed-color-error) 55%, var(--md-code-bg-color));
+}
+
+.qed-vqc-boundary {
+  stroke: var(--qed-color-syndrome);
+  stroke-width: 2;
+  stroke-dasharray: 5 3;
+}
+
+/* Predicted-class quadrant tints (2-feature XOR example) — faint so
+   the boundary lines and points stay clearly on top. */
+.qed-vqc-region--a {
+  fill: color-mix(in srgb, var(--qed-color-logical) 10%, transparent);
+}
+
+.qed-vqc-region--b {
+  fill: color-mix(in srgb, var(--qed-color-physical) 10%, transparent);
+}
+
+/* Per-qubit circle panels (2-feature XOR example) — each qubit only
+   ever rotates around one axis, so its state is confined to a single
+   plain circle; no projection or tilt needed. */
+.qed-vqc-sphere {
+  fill: none;
+  stroke: var(--qed-color-physical);
+  stroke-width: 1.5;
+}
+
+/* New/inference point marker — same square-or-triangle shape as a
+   training point (set by element type), but a dashed syndrome-colored
+   outline marks it as not part of the training set. No fill-color
+   correctness cue here, since there's no ground truth to check an
+   unseen point against. */
+.qed-vqc-newpoint {
+  stroke: var(--qed-color-syndrome);
+  stroke-width: 2.5;
+  stroke-dasharray: 4 2;
+  fill: var(--md-code-bg-color);
+}
+
+/* ---------------------------------------------------------------------
+   3D surface mesh (docs/06-algorithms/variational-quantum-classifier.md,
+   "See the Surface in 3D") — a hand-rolled oblique projection of
+   f(x1,x2) = cos(x1+theta1)*cos(x2+theta2). Each grid cell is one
+   polygon, generated and reprojected in JS; qed-vqc-region--a/--b
+   (already defined above) are reused for the same positive/negative
+   tint, just at a stronger opacity than their flat 2D background use.
+   ------------------------------------------------------------------- */
+.qed-vqc-cell {
+  stroke: var(--qed-color-physical);
+  stroke-width: 1;
+}
+
+.qed-vqc-cell.qed-vqc-region--a {
+  fill: color-mix(in srgb, var(--qed-color-logical) 35%, var(--md-code-bg-color));
+}
+
+.qed-vqc-cell.qed-vqc-region--b {
+  fill: color-mix(in srgb, var(--qed-color-physical) 30%, var(--md-code-bg-color));
+}
+
+/* Fixed paraboloid bowl (docs/06-algorithms/variational-quantum-
+   classifier.md, "See the Plane Cut the Paraboloid") — a neutral tint,
+   since the bowl itself never classifies anything; only which side of
+   the plane (qed-vqc-plane, below) a point falls on does. */
+.qed-vqc-bowl-cell {
+  fill: color-mix(in srgb, var(--qed-color-physical) 12%, var(--md-code-bg-color));
+}
+
+/* The single trainable flat plane slicing through the fixed bowl —
+   semi-transparent so the bowl stays visible "through" it, which
+   substitutes for solving true 3D occlusion between a curved surface
+   and a flat one (a deliberate simplification, like this module's
+   other fixed-camera projections). */
+.qed-vqc-plane {
+  fill: color-mix(in srgb, var(--qed-color-syndrome) 25%, transparent);
+  stroke: var(--qed-color-syndrome);
+  stroke-width: 2;
+}
+
+/* Classical (non-quantum) pre-processing box in a circuit diagram —
+   dashed and gray, distinct from the solid-bordered quantum gate boxes
+   next to it, so "classical" vs "quantum" never relies on label text
+   alone. */
+.qed-circuit-gate-box--classical {
+  stroke-dasharray: 4 2;
+  stroke: var(--qed-color-physical);
+}
