@@ -2845,3 +2845,235 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-ml .qed-circuit-svg {
   display: block;
 }
+
+/* ---------------------------------------------------------------------
+   Module 05 - Quantum Program Representations
+   (docs/05-software-stack/quantum-program-representations.md). Neutral treatment
+   like the rest of Module 05. The three forms sit in labelled cards with their own
+   shape (a picture, a numbered list, a graph of boxes and arrows). The selected
+   form carries a text badge, and the selected operation is marked in every form by a
+   dashed outline AND a text label such as "CNOT, step 2", so nothing depends on
+   color alone. The illustrative source form is a dashed box with its own label.
+   ------------------------------------------------------------------- */
+.qed-circuit-highlight {
+  fill: color-mix(in srgb, var(--md-accent-fg-color) 12%, transparent);
+  stroke: var(--md-accent-fg-color);
+  stroke-width: 2;
+  stroke-dasharray: 4 3;
+}
+
+.qed-circuit-highlight-label {
+  font-size: 9px;
+  font-weight: 700;
+  fill: var(--md-default-fg-color);
+  font-family: var(--md-code-font);
+}
+
+.qed-forms [hidden] {
+  display: none !important;
+}
+
+.qed-forms__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.8rem;
+  margin: 0.8rem 0;
+}
+
+.qed-forms__card {
+  min-width: 0;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.3rem;
+}
+
+.qed-forms__card--wide {
+  grid-column: 1 / -1;
+}
+
+.qed-forms__card.is-selected {
+  border: 3px double var(--md-accent-fg-color);
+}
+
+.qed-forms__title {
+  margin: 0 0 0.3rem;
+  font-weight: 700;
+}
+
+.qed-forms__badge {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid var(--md-accent-fg-color);
+  border-radius: 0.6rem;
+}
+
+.qed-forms__note {
+  margin: 0.3rem 0 0;
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+}
+
+[dir] .md-typeset .qed-forms__list {
+  margin: 0.3rem 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: qed-forms-line;
+}
+
+[dir] .md-typeset .qed-forms__line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.25rem 0;
+  counter-increment: qed-forms-line;
+}
+
+.qed-forms__line::before {
+  content: counter(qed-forms-line);
+  flex: 0 0 1.4rem;
+  font-family: var(--md-code-font);
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+  text-align: right;
+}
+
+.qed-forms__op {
+  font: inherit;
+  font-family: var(--md-code-font);
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color);
+  background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
+}
+
+.qed-forms__op:hover {
+  border-color: var(--md-accent-fg-color);
+}
+
+.qed-forms__op:focus-visible {
+  outline: 2px solid var(--md-accent-fg-color);
+  outline-offset: 2px;
+}
+
+.qed-forms__op.is-selected {
+  border: 2px dashed var(--md-accent-fg-color);
+  background: color-mix(in srgb, var(--md-accent-fg-color) 12%, var(--md-default-bg-color));
+  font-weight: 700;
+}
+
+.qed-forms__op.is-different {
+  border-style: dotted;
+  border-width: 2px;
+}
+
+.qed-forms__tag {
+  display: inline-block;
+  padding: 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid var(--md-accent-fg-color);
+  border-radius: 0.6rem;
+  white-space: nowrap;
+}
+
+[dir] .md-typeset .qed-forms__deps {
+  margin: 0.3rem 0;
+  padding-left: 1.2rem;
+  font-size: 0.85rem;
+}
+
+.qed-forms__source {
+  margin: 0.3rem 0;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.85rem;
+  border: 2px dashed var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+  background: var(--md-code-bg-color);
+  overflow-x: auto;
+}
+
+.qed-forms-graph {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.qed-forms-edge {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1.5;
+}
+
+.qed-forms-arrowhead {
+  fill: var(--md-default-fg-color--light);
+}
+
+.qed-forms-node {
+  cursor: pointer;
+}
+
+.qed-forms-node rect {
+  fill: var(--md-default-bg-color);
+  stroke: var(--qed-color-physical);
+  stroke-width: 1.5;
+}
+
+.qed-forms-node:hover rect {
+  stroke: var(--md-accent-fg-color);
+}
+
+.qed-forms-node:focus {
+  outline: none;
+}
+
+.qed-forms-node:focus-visible rect {
+  stroke: var(--md-accent-fg-color);
+  stroke-width: 3;
+}
+
+.qed-forms-node.is-selected rect {
+  fill: color-mix(in srgb, var(--md-accent-fg-color) 12%, var(--md-default-bg-color));
+  stroke: var(--md-accent-fg-color);
+  stroke-width: 2.5;
+  stroke-dasharray: 4 3;
+}
+
+.qed-forms-node-text {
+  font-size: 11px;
+  font-family: var(--md-code-font);
+  fill: var(--md-default-fg-color);
+}
+
+.qed-forms-node-tag {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--md-code-font);
+  fill: var(--md-default-fg-color);
+}
+
+/* On a phone, give the graph as much of the width as possible, so its text stays
+   readable instead of shrinking with the drawing. */
+@media (max-width: 40em) {
+  .qed-demo.qed-forms {
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+  }
+
+  .qed-forms__card {
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+  }
+}
+
+.qed-forms__pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.8rem;
+  margin: 0.6rem 0;
+}

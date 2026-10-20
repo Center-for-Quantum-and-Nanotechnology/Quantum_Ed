@@ -20,6 +20,7 @@
     - 06-algorithms/variational-quantum-eigensolver.md
     - 07-error-correction/encoding-and-syndrome-measurement.md
     - 02-fundamentals/quantum-circuits.md
+    - 05-software-stack/quantum-program-representations.md
   category: gates-and-circuits
 
 - id: unitary-operation

@@ -106,6 +106,7 @@ nav:
   - "05 · Quantum Software Stack":
       - Overview: 05-software-stack/index.md
       - Understanding the Quantum Software Stack: 05-software-stack/understanding-the-quantum-software-stack.md
+      - Quantum Program Representations: 05-software-stack/quantum-program-representations.md
   - "06 · Quantum Algorithms & Methods":
       - Overview: 06-algorithms/index.md
       - Variational Algorithms:

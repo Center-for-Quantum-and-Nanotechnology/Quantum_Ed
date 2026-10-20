@@ -11,8 +11,8 @@ It builds on [03 · Quantum Programming](../03-programming/index.md), which cove
 
 Pages are linked here as they are written.
 
-- **Understanding the Quantum Software Stack** — why running a quantum program involves several cooperating software responsibilities, including those for the program and those for the device it runs on.
-- **Quantum Program Representations** — how the same computation takes different forms at different stages.
+- **[Understanding the Quantum Software Stack](understanding-the-quantum-software-stack.md)** — why running a quantum program involves several cooperating software responsibilities, including those for the program and those for the device it runs on.
+- **[Quantum Program Representations](quantum-program-representations.md)** — how the same computation takes different forms at different stages.
 - **Compilation and Transpilation** — how programs are translated, transformed, and adapted to a target.
 - **Hardware Abstraction and Backend Capabilities** — how software describes what a target can do, including how device calibration information is reported.
 - **Simulation Engines and Methods** — how classical simulation methods model quantum computation, and why their tradeoffs differ.

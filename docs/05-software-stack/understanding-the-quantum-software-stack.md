@@ -170,7 +170,7 @@ Learning to recognize these responsibilities is the first step toward understand
 
 > **What does a quantum program look like after it leaves the code we wrote?**
 
-**Next: Quantum Program Representations →** *(coming soon)*
+**Next: [Quantum Program Representations →](quantum-program-representations.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
