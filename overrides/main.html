@@ -3,4 +3,20 @@
 {% block extrahead %}
   {{ super() }}
   <meta name="qed-site-root" content="{{ base_url }}">
+  {#
+    Apply the remembered experience level before first paint so higher-level
+    blocks never flash in and out. Must stay in sync with the key and level
+    names in docs/assets/javascripts/level.js. Falls back to "beginner" when
+    storage is unavailable.
+  #}
+  <script>
+    (function () {
+      var level = "beginner";
+      try {
+        var stored = localStorage.getItem("qed-level");
+        if (stored === "intermediate" || stored === "advanced") level = stored;
+      } catch (e) {}
+      document.documentElement.setAttribute("data-qed-level", level);
+    })();
+  </script>
 {% endblock %}

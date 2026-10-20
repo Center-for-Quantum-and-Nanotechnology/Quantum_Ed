@@ -161,6 +161,7 @@
   relatedTerms: [calibration-data, calibration-telemetry, gate-fidelity, readout-fidelity, hardware-aware-quantum-computing]
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
+    - 05-software-stack/understanding-the-quantum-software-stack.md
   category: hardware-and-physical-systems
 
 - id: crosstalk

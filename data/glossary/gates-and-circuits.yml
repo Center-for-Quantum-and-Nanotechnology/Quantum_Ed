@@ -7,6 +7,7 @@
   moduleReferences:
     - 06-algorithms/variational-quantum-eigensolver.md
     - 07-error-correction/encoding-and-syndrome-measurement.md
+    - 02-fundamentals/quantum-gates.md
   category: gates-and-circuits
 
 - id: quantum-circuit
@@ -18,6 +19,7 @@
   moduleReferences:
     - 06-algorithms/variational-quantum-eigensolver.md
     - 07-error-correction/encoding-and-syndrome-measurement.md
+    - 02-fundamentals/quantum-circuits.md
   category: gates-and-circuits
 
 - id: unitary-operation
@@ -35,7 +37,8 @@
   definition: "The gate, written I, that leaves a qubit's state unchanged. In hardware it can represent a deliberate idle period during which the qubit is still exposed to noise."
   beginnerInterpretation: "The identity gate does nothing. It stands for 'wait one step', which still matters because real qubits can pick up errors while waiting."
   relatedTerms: [quantum-gate, pauli-error, pauli-x-gate, quantum-noise]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/quantum-gates.md
   category: gates-and-circuits
 
 - id: pauli-x-gate
@@ -46,6 +49,8 @@
   relatedTerms: [pauli-y-gate, pauli-z-gate, bit-flip-error, pauli-error, quantum-gate, bloch-sphere]
   moduleReferences:
     - 07-error-correction/errors-and-noise.md
+    - 02-fundamentals/quantum-gates.md
+    - 02-fundamentals/quantum-circuits.md
   category: gates-and-circuits
 
 - id: pauli-y-gate
@@ -56,6 +61,7 @@
   relatedTerms: [pauli-x-gate, pauli-z-gate, pauli-error, quantum-gate]
   moduleReferences:
     - 07-error-correction/errors-and-noise.md
+    - 02-fundamentals/quantum-gates.md
   category: gates-and-circuits
 
 - id: pauli-z-gate
@@ -66,6 +72,8 @@
   relatedTerms: [pauli-x-gate, pauli-y-gate, phase-flip-error, relative-phase, quantum-gate]
   moduleReferences:
     - 07-error-correction/errors-and-noise.md
+    - 02-fundamentals/quantum-gates.md
+    - 02-fundamentals/quantum-circuits.md
   category: gates-and-circuits
 
 - id: hadamard-gate
@@ -74,7 +82,9 @@
   definition: "A single-qubit gate that maps |0⟩ and |1⟩ to the equal superpositions |+⟩ and |−⟩ and back again; it converts between the computational basis and the X basis."
   beginnerInterpretation: "The Hadamard gate turns a definite 0 or 1 into an even blend of both, which is the usual way to start building a superposition."
   relatedTerms: [superposition, quantum-gate, cnot-gate, computational-basis]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/quantum-gates.md
+    - 02-fundamentals/quantum-circuits.md
   category: gates-and-circuits
 
 - id: phase-gate
@@ -94,6 +104,7 @@
   relatedTerms: [bloch-sphere, quantum-gate, parameterized-quantum-circuit, phase-gate, variational-quantum-eigensolver]
   moduleReferences:
     - 06-algorithms/variational-quantum-eigensolver.md
+    - 02-fundamentals/quantum-gates.md
   category: gates-and-circuits
 
 - id: controlled-gate
@@ -102,7 +113,8 @@
   definition: "A gate that applies an operation to a target qubit depending on the state of a control qubit: the operation is applied when the control is |1⟩. For a control in superposition, the gate acts on each component accordingly."
   beginnerInterpretation: "A controlled gate says 'do this to one qubit only if another qubit is 1'. When the control is in a superposition, this can link the qubits together."
   relatedTerms: [cnot-gate, multi-qubit-gate, entanglement, quantum-gate]
-  moduleReferences: []
+  moduleReferences:
+    - 02-fundamentals/multi-qubit-systems.md
   category: gates-and-circuits
 
 - id: cnot-gate
@@ -115,6 +127,8 @@
     - 07-error-correction/encoding-and-syndrome-measurement.md
     - 07-error-correction/stabilizer-codes.md
     - 07-error-correction/lattice-surgery.md
+    - 02-fundamentals/multi-qubit-systems.md
+    - 02-fundamentals/quantum-circuits.md
   category: gates-and-circuits
 
 - id: swap-gate
