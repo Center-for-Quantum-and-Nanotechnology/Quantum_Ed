@@ -182,7 +182,7 @@ Computation → several forms → the same operations found in each, with the sa
 
 > **If a form says what to compute, why can't a device just run it as written?**
 
-**Next: Compilation and Transpilation →** *(coming soon)*
+**[Next: Compilation and Transpilation →](compilation-and-transpilation.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {

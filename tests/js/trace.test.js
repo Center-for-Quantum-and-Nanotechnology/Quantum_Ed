@@ -227,3 +227,36 @@ test("a Z-basis readout after the basis-change gates reads out the X or Y basis"
   assert.ok(eq(after(preset("plus"), "y"), [0.5, 0.5]));
   assert.ok(eq(after(preset("plusI"), "x"), [0.5, 0.5]));
 });
+
+test("sameState: equal circuits are the same, and a global phase does not matter", () => {
+  const bellOps = [gate("h", 0, 0), cx(0, 1)];
+  assert.equal(R.sameState(build(bellOps), build(bellOps)), true);
+  // H as Rz(90), Rx(90), Rz(90) equals H up to a global phase, not exactly
+  const turns = [gate("rz", 0, 0, { angleDeg: 90 }), gate("rx", 0, 1, { angleDeg: 90 }), gate("rz", 0, 2, { angleDeg: 90 })];
+  const oneH = build([gate("h", 0, 0)]);
+  const asTurns = build(turns);
+  assert.equal(R.sameState(oneH, asTurns), true);
+  assert.equal(equalState(R.run(oneH).final.state, R.run(asTurns).final.state), false, "the amplitudes differ by a phase");
+});
+
+test("sameState: different states are not the same, including states that differ only in relative phase", () => {
+  assert.equal(R.sameState(build([gate("h", 0, 0)]), build([gate("x", 0, 0)])), false);
+  // |+> and |-> have the same probabilities but are different states
+  assert.equal(R.sameState(build([gate("h", 0, 0)]), build([gate("x", 0, 0), gate("h", 0, 1)])), false);
+  // the CNOT turned the wrong way is a different state
+  assert.equal(R.sameState(build([gate("h", 0, 0), cx(0, 1)]), build([gate("h", 0, 0), cx(1, 2)])), false);
+});
+
+test("sameState: the starting states can be given, and measurements do not change the answer", () => {
+  const a = build([gate("x", 0, 0)]);
+  const b = build([gate("x", 0, 0), measure(0, 1)]);
+  assert.equal(R.sameState(a, b), true);
+  const one = preset("one");
+  const zero = preset("zero");
+  assert.equal(R.sameState(build([]), build([gate("x", 0, 0)]), [one, zero]), false);
+  assert.equal(R.sameState(build([]), build([gate("x", 0, 0), gate("x", 0, 1)]), [one, zero]), true);
+});
+
+test("sameState throws on a circuit that breaks a rule", () => {
+  assert.throws(() => R.sameState(build([gate("h", 0, 0), gate("x", 0, 0)]), build([])), /already has/);
+});

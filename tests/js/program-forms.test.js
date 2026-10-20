@@ -254,3 +254,13 @@ test("with interactive: false the list and graph are plain text, with no buttons
   assert.equal((svg.match(/qed-forms-edge/g) || []).length, 3, "the arrows are still drawn");
   assert.ok(svg.includes("MEASURE q₁"), "the text is still there");
 });
+
+test("instructionListHTML puts an optional text tag after the lines named in `tags`, and nothing else changes", () => {
+  const plain = P.instructionListHTML(bell());
+  assert.equal(P.instructionListHTML(bell(), { tags: {} }), plain);
+  const tagged = P.instructionListHTML(bell(), { tags: { cx1: "added" }, interactive: false });
+  assert.equal((tagged.match(/qed-forms__tag/g) || []).length, 1);
+  assert.match(tagged, /<span class="qed-forms__op">CNOT q₀, q₁<\/span><span class="qed-forms__tag">added<\/span>/);
+  assert.equal(P.instructionListHTML(bell(), { tags: { zz: "added" } }), plain, "an id that is not in the list adds nothing");
+  assert.match(P.instructionListHTML(bell(), { tags: { h1: "<b>" }, interactive: false }), /qed-forms__tag">&lt;b&gt;</);
+});

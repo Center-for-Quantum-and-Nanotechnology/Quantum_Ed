@@ -22,9 +22,10 @@
   aliases: []
   definition: "The process of translating a quantum program into lower-level operations suited to a specific target, including decomposition into native gates, mapping to hardware, and optimization."
   beginnerInterpretation: "Compilation is the translation step between the circuit you have in mind and what the hardware can really do."
-  relatedTerms: [quantum-compiler, transpilation, native-gate-set, circuit-mapping, circuit-optimization]
+  relatedTerms: [quantum-compiler, transpilation, native-gate-set, circuit-mapping, circuit-optimization, gate-decomposition]
   moduleReferences:
     - 05-software-stack/understanding-the-quantum-software-stack.md
+    - 05-software-stack/compilation-and-transpilation.md
   category: architecture-and-execution
 
 - id: transpilation
@@ -32,8 +33,9 @@
   aliases: []
   definition: "A circuit-to-circuit transformation that rewrites a quantum circuit in terms of a target backend's native gates and connectivity while preserving its function. The term is widely used in some quantum software frameworks for part of the compilation process."
   beginnerInterpretation: "Transpiling rewrites a circuit into an equivalent one that the chosen device can run directly."
-  relatedTerms: [compilation, quantum-compiler, native-gate-set, routing, circuit-optimization]
-  moduleReferences: []
+  relatedTerms: [compilation, quantum-compiler, native-gate-set, routing, circuit-optimization, gate-decomposition]
+  moduleReferences:
+    - 05-software-stack/compilation-and-transpilation.md
   category: architecture-and-execution
 
 - id: native-gate
@@ -50,8 +52,9 @@
   aliases: ["Basis gates"]
   definition: "The collection of gates a given device implements directly. Any other gate or circuit must be expressed in terms of these."
   beginnerInterpretation: "The native gate set is the hardware's built-in vocabulary of operations."
-  relatedTerms: [native-gate, transpilation, compilation, quantum-compiler]
-  moduleReferences: []
+  relatedTerms: [native-gate, transpilation, compilation, quantum-compiler, gate-decomposition]
+  moduleReferences:
+    - 05-software-stack/compilation-and-transpilation.md
   category: architecture-and-execution
 
 - id: circuit-mapping
@@ -87,7 +90,18 @@
   definition: "Transformations that reduce a circuit's resource cost, such as its gate count, depth, or expected error, while preserving the computation it performs."
   beginnerInterpretation: "Circuit optimization trims a circuit, using fewer gates or a shorter run, so less can go wrong while the answer stays the same."
   relatedTerms: [compilation, circuit-depth, transpilation, gate-fidelity, quantum-compiler]
-  moduleReferences: []
+  moduleReferences:
+    - 05-software-stack/compilation-and-transpilation.md
+  category: architecture-and-execution
+
+- id: gate-decomposition
+  term: Gate Decomposition
+  aliases: []
+  definition: "Rewriting a gate as a sequence of other gates that together have the same effect, often because a device implements only some gates directly. The sequence may equal the original gate exactly or only up to a global phase."
+  beginnerInterpretation: "Gate decomposition builds one operation out of several simpler ones, the way a word you cannot say can be spelled with letters you can."
+  relatedTerms: [native-gate, native-gate-set, compilation, transpilation, global-phase]
+  moduleReferences:
+    - 05-software-stack/compilation-and-transpilation.md
   category: architecture-and-execution
 
 - id: shot

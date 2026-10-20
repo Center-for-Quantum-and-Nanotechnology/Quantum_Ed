@@ -17,13 +17,14 @@ Governing documents: `context_docs/modules/module_05/taxonomy_QuantumSoftwareSta
   - Add the **Shared Components** section (template: `context_docs/templates/SharedComponentsSection.md`).
   - Record that the spec was reviewed against taxonomy V1.1.
 - [x] **Sync the global taxonomy.** `context_docs/taxonomy/Quantum_Computing_Curriculum.md` now lists the seven approved pages.
-- [ ] **Add each remaining Module 05 page to `mkdocs.yml` as it is built** (05.01 and 05.02 are done). Decision: nav entries only for pages that exist, no stub pages. The nav currently holds just the module index.
+- [ ] **Add each remaining Module 05 page to `mkdocs.yml` as it is built** (05.01, 05.02, and 05.03 are done). Decision: nav entries only for pages that exist, no stub pages. The nav currently holds just the module index.
 - [x] **Rewrite `docs/05-software-stack/index.md`.** It now describes the module and lists the seven planned pages. Link each page there as it is written.
 - [x] **Build 05.01** (Understanding the Quantum Software Stack) from the revised spec. Built; added `QedCircuit`, `QedSoftwareStack`, three glossary entries, and the nav entry. See the Module 05 section of `FLAGS.md`.
   - Module 03 is a placeholder, so there is no circuit display to reuse. Plan to reuse the `.qed-circuit-*` styles from Module 07.
   - Terminology check against the glossary (see the glossary section below).
 - [x] **05.02 is final and built.**
-- [ ] **Write specs 05.03–05.07** with the `section-spec-writer` skill, then build each page. Titles are fixed by the taxonomy.
+- [x] **05.03 is final and built.**
+- [ ] **Write specs 05.04–05.07** with the `section-spec-writer` skill, then build each page. Titles are fixed by the taxonomy.
 - [ ] **Module 05 README** with the page status table (`context_docs/README.md` section 3).
 
 ## Module 02: Quantum Computing Fundamentals
@@ -83,7 +84,7 @@ Governing documents: `context_docs/glossary/specs/glossary.md`, `data/glossary/`
 - [ ] **Review the generic alias "Layout"** on Qubit Mapping, the likeliest to surprise.
 - [ ] **Add Module 07 vocabulary** deliberately left out so far: parity check, code space, data qubit, error chain, detection event, logical equivalence.
 - [ ] **Re-audit "Appears in" lists** as modules are added. Placeholder pages and passing name-drops are not referenced.
-- [ ] **Terminology check for the remaining Module 05 pages (05.01 and 05.02 are done).** It will introduce terms such as intermediate representation, transpilation, backend, calibration telemetry and runtime. Several overlap existing entries (see the near-synonym item).
+- [ ] **Terminology check for the remaining Module 05 pages (05.01, 05.02, and 05.03 are done).** It will introduce terms such as intermediate representation, transpilation, backend, calibration telemetry and runtime. Several overlap existing entries (see the near-synonym item).
 - [ ] **Restart `mkdocs serve`** in your own terminal. It does not reload hook code, so it may still show the removed category chips.
 
 ## Module 07 hardening (Beginner V1 is complete)
