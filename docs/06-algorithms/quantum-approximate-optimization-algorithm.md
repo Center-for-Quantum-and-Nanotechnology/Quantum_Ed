@@ -570,6 +570,6 @@ This is a different kind of output than VQE's. VQE gives you a number: an estima
   </svg>
 </div>
 
-VQE and QAOA are two instances of the same hybrid variational pattern — prepare, measure, let a classical optimizer adjust, repeat — aimed at two very different kinds of problems: a continuous energy to minimize, and a discrete choice to search over. The same pattern extends further still: a Variational Quantum Classifier applies it to machine learning, and techniques like SQD apply it in other ways, though neither has its own lesson here yet.
+VQE and QAOA are two instances of the same hybrid variational pattern — prepare, measure, let a classical optimizer adjust, repeat — aimed at two very different kinds of problems: a continuous energy to minimize, and a discrete choice to search over. What if, instead of either of those, the thing you were optimizing was how well a quantum circuit could tell two kinds of data apart?
 
-**[Back to Module 06 Overview →](index.md)**
+**[Next: VQC →](variational-quantum-classifier.md)**

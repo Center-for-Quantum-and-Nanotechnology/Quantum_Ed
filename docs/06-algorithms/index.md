@@ -29,7 +29,7 @@ Hybrid algorithms built to run on today's noisy, error-prone quantum hardware by
 
 - **[VQE (Variational Quantum Eigensolver)](variational-quantum-eigensolver.md)** — estimates the lowest-energy state of a quantum system, with applications in chemistry and materials science.
 - **[QAOA (Quantum Approximate Optimization Algorithm)](quantum-approximate-optimization-algorithm.md)** — searches for good, though not necessarily perfect, solutions to combinatorial optimization problems, such as splitting up a graph.
-- **VQC (Variational Quantum Classifier)** — trains a parameterized circuit to classify data, the same hybrid pattern as VQE and QAOA applied to machine learning instead of chemistry or optimization.
+- **[VQC (Variational Quantum Classifier)](variational-quantum-classifier.md)** — trains a parameterized circuit to classify data, the same hybrid pattern as VQE and QAOA applied to machine learning instead of chemistry or optimization.
 - **SQD (Sample-based Quantum Diagonalization) and similar** — uses samples measured from a quantum computer to help a classical computer solve a hard problem more accurately than it could alone.
 
 ### Quantum Annealing
