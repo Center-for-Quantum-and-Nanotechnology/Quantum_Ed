@@ -6,6 +6,17 @@
   relatedTerms: [hardware-backend, simulator, quantum-processing-unit, quantum-compiler, shot, execution-target]
   moduleReferences:
     - 05-software-stack/understanding-the-quantum-software-stack.md
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+  category: architecture-and-execution
+
+- id: backend-description
+  term: Backend Description
+  aliases: []
+  definition: "What software is told about a target: what kind of target it is, which operations it allows, which qubits can be used together, and, for a device, information reported about its condition. It describes the target and is not the target itself."
+  beginnerInterpretation: "A backend description is the information sheet that software reads about a target before using it."
+  relatedTerms: [backend, native-gate-set, connectivity, execution-target, calibration-telemetry]
+  moduleReferences:
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
   category: architecture-and-execution
 
 - id: quantum-compiler
@@ -55,6 +66,7 @@
   relatedTerms: [native-gate, transpilation, compilation, quantum-compiler, gate-decomposition]
   moduleReferences:
     - 05-software-stack/compilation-and-transpilation.md
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
   category: architecture-and-execution
 
 - id: circuit-mapping
@@ -132,6 +144,7 @@
   relatedTerms: [quantum-simulator, backend, shot, noise-model, hardware-backend]
   moduleReferences:
     - 05-software-stack/understanding-the-quantum-software-stack.md
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
   category: architecture-and-execution
 
 - id: quantum-simulator
@@ -210,6 +223,7 @@
   relatedTerms: [backend, simulator, hardware-backend, quantum-software-stack]
   moduleReferences:
     - 05-software-stack/understanding-the-quantum-software-stack.md
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
   category: architecture-and-execution
 
 - id: quantum-runtime

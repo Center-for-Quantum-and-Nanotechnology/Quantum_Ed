@@ -165,7 +165,7 @@ Program → target's limits → rewrite → same meaning, different form, counte
 
 > **Where does a target's list of what it allows come from, and could it change?**
 
-**Next: Hardware Abstraction and Backend Capabilities →** *(coming soon)*
+**[Next: Hardware Abstraction and Backend Capabilities →](hardware-abstraction-and-backend-capabilities.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {

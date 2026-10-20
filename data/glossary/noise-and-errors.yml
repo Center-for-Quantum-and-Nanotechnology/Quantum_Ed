@@ -142,10 +142,11 @@
 
 - id: readout-error
   term: Readout Error
-  aliases: ["Measurement error"]
+  aliases: ["Measurement error", "Assignment error"]
   definition: "An error in the measurement process in which the reported outcome differs from the qubit's actual state at the time of measurement."
   beginnerInterpretation: "A readout error is when reading a qubit gives the wrong answer even though the qubit itself was fine."
   relatedTerms: [readout-fidelity, measurement, error-rate, calibration-data, gate-fidelity]
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
   category: noise-and-errors

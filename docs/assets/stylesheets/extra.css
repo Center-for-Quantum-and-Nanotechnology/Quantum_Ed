@@ -3207,3 +3207,269 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
     font-weight: 700;
   }
 }
+
+/* ---------------------------------------------------------------------
+   Module 05 - Hardware Abstraction and Backend Capabilities
+   (docs/05-software-stack/hardware-abstraction-and-backend-capabilities.md, driven by
+   docs/assets/javascripts/backend.js). Neutral treatment like the rest of Module 05.
+   Four kinds of information are kept visibly apart, by border style AND a text tag,
+   never by color alone:
+     solid edge with a left bar = the backend description (where the groups meet)
+     teal, dashed border        = reported values (the telemetry convention)
+     plain                      = what a value means
+     dotted border              = a possible response under one policy
+   A calibration procedure is an action label and never takes the telemetry style.
+   ------------------------------------------------------------------- */
+.qed-bk [hidden] {
+  display: none !important;
+}
+
+.qed-bk__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.8rem;
+  margin: 0.8rem 0;
+}
+
+.qed-bk__panel {
+  min-width: 0;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.3rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+}
+
+.qed-bk__panel p {
+  margin: 0.3rem 0;
+  font-size: 0.85rem;
+}
+
+.qed-bk__panel--wide {
+  grid-column: 1 / -1;
+}
+
+.qed-bk__desc {
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-left: 6px solid var(--md-default-fg-color--light);
+}
+
+.qed-bk__panel--reported {
+  border: 2px dashed var(--qed-color-telemetry);
+  background: color-mix(in srgb, var(--qed-color-telemetry) 8%, var(--md-default-bg-color));
+}
+
+.qed-bk__panel--response {
+  border: 2px dotted var(--md-default-fg-color--light);
+}
+
+.qed-bk__title {
+  margin: 0 0 0.3rem;
+  font-weight: 700;
+}
+
+.qed-bk__tag {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: 0.6rem;
+  white-space: nowrap;
+}
+
+.qed-bk__panel--reported .qed-bk__tag {
+  border: 1px dashed var(--qed-color-telemetry);
+}
+
+.qed-bk__note {
+  margin: 0.3rem 0 0;
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+}
+
+[dir] .md-typeset .qed-bk__list {
+  margin: 0.3rem 0;
+  padding-left: 1.2rem;
+  font-size: 0.85rem;
+}
+
+[dir] .md-typeset .qed-bk__list li {
+  margin: 0.2rem 0;
+}
+
+.qed-bk__action {
+  display: inline-block;
+  padding: 0.1rem 0.6rem;
+  font-weight: 700;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+}
+
+.qed-bk__flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.6rem 0;
+}
+
+.qed-bk__flow-step {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.qed-bk__flow-step--reported {
+  border: 2px dashed var(--qed-color-telemetry);
+}
+
+.qed-bk__flow-step--action {
+  border: 2px solid var(--md-default-fg-color--light);
+  font-weight: 700;
+}
+
+.qed-bk__age {
+  margin: 0.4rem 0;
+  padding: 0.3rem 0.6rem;
+  border-left: 4px solid var(--md-default-fg-color--light);
+  font-size: 0.85rem;
+}
+
+.qed-bk-svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.qed-bk-line {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 3;
+}
+
+.qed-bk-hit {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.qed-bk-link:hover .qed-bk-line {
+  stroke: var(--md-accent-fg-color);
+}
+
+.qed-bk-link.is-selected .qed-bk-line {
+  stroke: var(--md-accent-fg-color);
+  stroke-width: 6;
+}
+
+.qed-bk-link:focus,
+.qed-bk-qubit:focus {
+  outline: none;
+}
+
+.qed-bk-link:focus-visible .qed-bk-line {
+  stroke: var(--md-accent-fg-color);
+  stroke-width: 6;
+  stroke-dasharray: 5 3;
+}
+
+.qed-bk-qubit {
+  cursor: pointer;
+}
+
+.qed-bk-qubit circle {
+  fill: var(--md-default-bg-color);
+  stroke: var(--qed-color-physical);
+  stroke-width: 2;
+}
+
+.qed-bk-qubit:hover circle {
+  stroke: var(--md-accent-fg-color);
+}
+
+.qed-bk-qubit.is-selected circle {
+  stroke: var(--md-accent-fg-color);
+  stroke-width: 5;
+}
+
+.qed-bk-qubit:focus-visible circle {
+  stroke: var(--md-accent-fg-color);
+  stroke-width: 5;
+  stroke-dasharray: 5 3;
+}
+
+.qed-bk-name {
+  font-size: 12px;
+  font-family: var(--md-code-font);
+  fill: var(--md-default-fg-color);
+}
+
+.qed-bk-tag {
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--md-default-fg-color);
+}
+
+.qed-bk-mark {
+  fill: color-mix(in srgb, var(--md-accent-fg-color) 8%, transparent);
+  stroke: var(--md-accent-fg-color);
+  stroke-width: 2;
+  stroke-dasharray: 2 4;
+}
+
+.qed-bk-mark-label {
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--md-default-fg-color);
+}
+
+.qed-bk-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.qed-bk-table th,
+.qed-bk-table td {
+  padding: 0.25rem 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  vertical-align: top;
+}
+
+.qed-bk-table td.is-missing {
+  font-style: italic;
+  font-weight: 700;
+}
+
+@media (max-width: 40em) {
+  .qed-bk__fields thead {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .qed-bk__fields,
+  .qed-bk__fields tbody,
+  .qed-bk__fields tr,
+  .qed-bk__fields th,
+  .qed-bk__fields td {
+    display: block;
+  }
+
+  .qed-bk__fields tr {
+    margin: 0.5rem 0;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--md-default-fg-color--lighter);
+    border-radius: 0.3rem;
+  }
+
+  .qed-bk__fields td {
+    padding: 0.15rem 0;
+    border-bottom: 0;
+  }
+
+  .qed-bk__fields td::before {
+    content: attr(data-label) ": ";
+    font-weight: 700;
+  }
+}
