@@ -1503,6 +1503,9 @@ button.qed-qubit:not(:disabled):hover {
 .qed-circuit-gate-box--classical {
   stroke-dasharray: 4 2;
   stroke: var(--qed-color-physical);
+}
+
+/* ---------------------------------------------------------------------
    Module 05 software-stack explorer (docs/05-software-stack/, driven by
    docs/assets/javascripts/software-stack.js). Module 05 has no palette of
    its own: the groups are told apart by border style AND a text label, never
