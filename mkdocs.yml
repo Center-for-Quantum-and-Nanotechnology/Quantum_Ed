@@ -57,6 +57,7 @@ extra_javascript:
   - assets/javascripts/program-forms.js
   - assets/javascripts/transform.js
   - assets/javascripts/backend.js
+  - assets/javascripts/sim-methods.js
   - assets/javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
