@@ -3077,3 +3077,133 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
   gap: 0.8rem;
   margin: 0.6rem 0;
 }
+
+/* ---------------------------------------------------------------------
+   Module 05 - Compilation and Transpilation
+   (docs/05-software-stack/compilation-and-transpilation.md). Neutral treatment like
+   the rest of Module 05, and the same cards as 05.02 (.qed-forms__*). What is new:
+   the target card (a dashed box labelled "invented for this page"), the list of steps,
+   the counts, the check, and the table that sets the targets side by side. What a
+   rewrite added or removed carries a text tag AND an outline, so nothing depends on
+   color alone.
+   ------------------------------------------------------------------- */
+.qed-xf [hidden] {
+  display: none !important;
+}
+
+.qed-xf__target {
+  margin: 0.6rem 0;
+  padding: 0.5rem 0.8rem;
+  border: 2px dashed var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+}
+
+.qed-xf__target p {
+  margin: 0.2rem 0;
+}
+
+.qed-xf__target-name {
+  font-weight: 700;
+}
+
+.qed-xf__steps {
+  margin: 0.3rem 0;
+  padding-left: 1.4rem;
+  font-size: 0.85rem;
+}
+
+[dir] .md-typeset .qed-xf__steps li {
+  margin: 0.25rem 0;
+}
+
+.qed-xf__none {
+  margin: 0.3rem 0;
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-xf__counts {
+  width: 100%;
+  margin: 0.3rem 0;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.qed-xf__counts th,
+.qed-xf__counts td {
+  padding: 0.25rem 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.qed-xf__check {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.8rem;
+  margin: 0.4rem 0;
+}
+
+.qed-xf__check-card {
+  min-width: 0;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.3rem;
+}
+
+.qed-xf__check-card p {
+  margin: 0.2rem 0;
+  font-size: 0.85rem;
+}
+
+.qed-xf__verdict {
+  font-weight: 700;
+}
+
+.qed-xf__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.qed-xf__table th,
+.qed-xf__table td {
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.qed-xf__table td.is-more {
+  font-weight: 700;
+}
+
+@media (max-width: 40em) {
+  .qed-xf__table thead {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .qed-xf__table,
+  .qed-xf__table tbody,
+  .qed-xf__table tr,
+  .qed-xf__table th,
+  .qed-xf__table td {
+    display: block;
+  }
+
+  .qed-xf__table tr {
+    margin: 0.5rem 0;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--md-default-fg-color--lighter);
+    border-radius: 0.3rem;
+  }
+
+  .qed-xf__table td {
+    padding: 0.15rem 0;
+    border-bottom: 0;
+  }
+
+  .qed-xf__table td::before {
+    content: attr(data-label) ": ";
+    font-weight: 700;
+  }
+}

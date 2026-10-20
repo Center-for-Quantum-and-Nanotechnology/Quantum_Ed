@@ -13,7 +13,7 @@ Pages are linked here as they are written.
 
 - **[Understanding the Quantum Software Stack](understanding-the-quantum-software-stack.md)** — why running a quantum program involves several cooperating software responsibilities, including those for the program and those for the device it runs on.
 - **[Quantum Program Representations](quantum-program-representations.md)** — how the same computation takes different forms at different stages.
-- **Compilation and Transpilation** — how programs are translated, transformed, and adapted to a target.
+- **[Compilation and Transpilation](compilation-and-transpilation.md)** — how programs are translated, transformed, and adapted to a target.
 - **Hardware Abstraction and Backend Capabilities** — how software describes what a target can do, including how device calibration information is reported.
 - **Simulation Engines and Methods** — how classical simulation methods model quantum computation, and why their tradeoffs differ.
 - **Quantum Runtime and Classical-Quantum Orchestration** — how execution, classical processing, jobs, and results are coordinated.
