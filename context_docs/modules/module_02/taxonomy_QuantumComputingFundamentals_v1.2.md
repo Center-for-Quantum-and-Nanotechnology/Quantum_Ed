@@ -42,7 +42,7 @@ The global taxonomy specifies seven topics: Qubit Representation, Quantum States
 
 ### Relationship to Module 01
 
-Module 01's "What Is Quantum Computing?" page (in progress on `treys_branch` at the time of writing; confirm against the merged version) already gives a qualitative treatment: a qubit state readout with a Bloch-style display, a Hadamard "mix" preview that shows interference, repeated-measurement demos, and entanglement taught through the CHSH game. Module 02 must not re-teach that motivation. Each Module 02 page should open by naming what Module 01 showed, then add the precise meaning.
+Module 01's "What Is Quantum Computing?" page (now merged to `main`) already gives a qualitative treatment: a qubit state readout with a Bloch-style display, a Hadamard "mix" preview that shows interference, repeated-measurement demos, and entanglement taught through the CHSH game. Module 02 must not re-teach that motivation. Each Module 02 page should open by naming what Module 01 showed, then add the precise meaning.
 
 | Concept | Module 01 (qualitative) | Module 02 (formal and operational) |
 |---|---|---|
