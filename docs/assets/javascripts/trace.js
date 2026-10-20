@@ -17,6 +17,9 @@
 //              states. No DOM.
 //   wiring  -> left to each page
 //
+// sameState (05.03 Compilation and Transpilation) compares the final states of two
+// circuits up to a global phase.
+//
 // Scope, on purpose: two wires, in the order 00, 01, 10, 11 with q0 the left digit
 // and the top wire. A measurement op does not change the state: it marks its wire as
 // read out, and the probabilities at that step are what a measurement there would
@@ -148,8 +151,37 @@ window.QedTrace = (function () {
     };
   }
 
+  // Whether two circuits end in the same state, up to a global phase: every amplitude of
+  // one is the same complex number times the matching amplitude of the other, with that
+  // number of size 1. A global phase changes no measurement probability, so the two
+  // circuits are indistinguishable by measuring. `initial` is the pair of starting
+  // one-qubit states (default |0> and |0>). Throws when either circuit breaks a rule in
+  // QedCircuit.validate. Measurement ops do not change the state, so they do not matter.
+  function sameState(a, b, initial) {
+    var sa = run(a, initial).final.state;
+    var sb = run(b, initial).final.state;
+    var EPS = 1e-9;
+    // the amplitude of `a` with the largest size fixes the phase
+    var k = 0;
+    sa.forEach(function (z, i) {
+      if (z.re * z.re + z.im * z.im > sa[k].re * sa[k].re + sa[k].im * sa[k].im) k = i;
+    });
+    var za = sa[k];
+    var zb = sb[k];
+    var na = za.re * za.re + za.im * za.im;
+    // phase = zb / za. Both states have size 1, so when every amplitude of b is this number
+    // times the matching one of a, the number has size 1 as well.
+    var phase = { re: (zb.re * za.re + zb.im * za.im) / na, im: (zb.im * za.re - zb.re * za.im) / na };
+    return sa.every(function (z, i) {
+      var re = phase.re * z.re - phase.im * z.im;
+      var im = phase.re * z.im + phase.im * z.re;
+      return Math.abs(re - sb[i].re) <= EPS && Math.abs(im - sb[i].im) <= EPS;
+    });
+  }
+
   return {
     run: run,
+    sameState: sameState,
     columnMatrix: columnMatrix,
     describeState: describeState,
     gateOf: gateOf,

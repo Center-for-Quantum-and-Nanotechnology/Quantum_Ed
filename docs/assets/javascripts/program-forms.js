@@ -340,9 +340,10 @@ window.QedProgramForms = (function () {
 
   // ---- rendering ---------------------------------------------------------------------------
   // The instruction list as an ordered list of buttons, one per operation. opts:
-  // { selected (an op id), ariaLabel, interactive }. The selected line carries a text
-  // label. With interactive: false the lines are plain text, for a page that only
-  // shows the form.
+  // { selected (an op id), ariaLabel, interactive, tags }. The selected line carries a
+  // text label. `tags` is an optional { op id: text } that puts a short text tag, such
+  // as "added", after those lines (05.03 marks what a rewrite added). With
+  // interactive: false the lines are plain text, for a page that only shows the form.
   function instructionListHTML(circuit, opts) {
     opts = opts || {};
     var interactive = opts.interactive !== false;
@@ -356,6 +357,7 @@ window.QedProgramForms = (function () {
         '<li class="qed-forms__line' + (on ? " is-selected" : "") + '">' +
         line +
         (on ? '<span class="qed-forms__tag">' + esc(opLabel(op, circuit)) + "</span>" : "") +
+        (opts.tags && typeof opts.tags[l.id] === "string" ? '<span class="qed-forms__tag">' + esc(opts.tags[l.id]) + "</span>" : "") +
         "</li>"
       );
     });
