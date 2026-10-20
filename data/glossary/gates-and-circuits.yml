@@ -97,6 +97,16 @@
   moduleReferences: []
   category: gates-and-circuits
 
+- id: clifford-circuit
+  term: Clifford Circuit
+  aliases: ["Clifford gate"]
+  definition: "A circuit built only from a restricted set of operations, the Clifford gates, which include the Pauli gates, H, S, and CNOT. The stabilizer simulation method can handle circuits of this kind efficiently. An operation outside the set, such as T, takes a circuit out of it."
+  beginnerInterpretation: "A Clifford circuit uses only a special, limited set of gates. That limit is exactly what lets one simulation method handle it with very little memory."
+  relatedTerms: [quantum-gate, stabilizer, hadamard-gate, cnot-gate, phase-gate, simulator]
+  moduleReferences:
+    - 05-software-stack/simulation-engines-and-methods.md
+  category: gates-and-circuits
+
 - id: rotation-gate
   term: Rotation Gate
   aliases: []

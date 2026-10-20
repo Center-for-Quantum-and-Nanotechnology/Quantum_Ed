@@ -125,6 +125,7 @@
   moduleReferences:
     - 02-fundamentals/quantum-states.md
     - 02-fundamentals/measurement.md
+    - 05-software-stack/simulation-engines-and-methods.md
   category: architecture-and-execution
 
 - id: sampling
@@ -133,7 +134,8 @@
   definition: "Drawing outcomes from a quantum circuit's measurement distribution by running it repeatedly; the collected samples are used to estimate probabilities and expectation values."
   beginnerInterpretation: "Sampling means running a circuit over and over and looking at which results come up and how often."
   relatedTerms: [shot, measurement, expectation-value, probability-amplitude, simulator]
-  moduleReferences: []
+  moduleReferences:
+    - 05-software-stack/simulation-engines-and-methods.md
   category: architecture-and-execution
 
 - id: simulator
@@ -141,10 +143,21 @@
   aliases: ["Circuit simulator"]
   definition: "A program that emulates the behavior of quantum circuits on a classical computer, allowing circuits to be run and tested without quantum hardware. Its cost generally grows rapidly with the number of qubits."
   beginnerInterpretation: "A simulator is a quantum computer imitated on an ordinary computer. It is great for testing small circuits but becomes very expensive as the number of qubits grows."
-  relatedTerms: [quantum-simulator, backend, shot, noise-model, hardware-backend]
+  relatedTerms: [quantum-simulator, backend, shot, noise-model, hardware-backend, state-vector]
   moduleReferences:
     - 05-software-stack/understanding-the-quantum-software-stack.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+    - 05-software-stack/simulation-engines-and-methods.md
+  category: architecture-and-execution
+
+- id: tensor-network
+  term: Tensor Network
+  aliases: []
+  definition: "A way of representing a large quantum state as a network of small arrays of numbers (tensors) joined by links. When the state is only weakly entangled the pieces stay small, so it can need far less memory than the full list of amplitudes."
+  beginnerInterpretation: "A tensor network keeps a state as small pieces joined by links. It stays cheap while the qubits are not very entangled, and grows as entanglement grows."
+  relatedTerms: [simulator, entanglement, state-vector, probability-amplitude]
+  moduleReferences:
+    - 05-software-stack/simulation-engines-and-methods.md
   category: architecture-and-execution
 
 - id: quantum-simulator

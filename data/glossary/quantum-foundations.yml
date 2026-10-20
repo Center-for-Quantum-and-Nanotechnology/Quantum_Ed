@@ -41,6 +41,7 @@
     - 01-foundations/what-is-quantum-computing.md
     - 02-fundamentals/multi-qubit-systems.md
     - 02-fundamentals/measurement.md
+    - 05-software-stack/simulation-engines-and-methods.md
   category: quantum-foundations
 
 - id: measurement
@@ -62,9 +63,20 @@
   aliases: ["Amplitude"]
   definition: "A complex number associated with each basis state in a quantum state; the squared magnitude of an amplitude gives the probability of measuring that basis state."
   beginnerInterpretation: "Amplitudes are the numbers that, once squared in size, give the chances of each measurement result. Unlike probabilities they can be negative or complex, which lets different contributions cancel or reinforce each other."
-  relatedTerms: [superposition, phase, quantum-interference, measurement, quantum-state]
+  relatedTerms: [superposition, phase, quantum-interference, measurement, quantum-state, state-vector]
   moduleReferences:
     - 02-fundamentals/qubit-representation.md
+    - 05-software-stack/simulation-engines-and-methods.md
+  category: quantum-foundations
+
+- id: state-vector
+  term: State Vector
+  aliases: []
+  definition: "The list of all the probability amplitudes of a quantum state, one for each possible measurement outcome. For n qubits it has 2^n entries."
+  beginnerInterpretation: "The state vector is the complete list of amplitudes. It holds everything about the state, and it doubles in length with every qubit you add."
+  relatedTerms: [probability-amplitude, quantum-state, simulator, superposition, entanglement]
+  moduleReferences:
+    - 05-software-stack/simulation-engines-and-methods.md
   category: quantum-foundations
 
 - id: phase

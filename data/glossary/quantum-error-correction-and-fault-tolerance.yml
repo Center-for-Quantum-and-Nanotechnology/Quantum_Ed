@@ -60,14 +60,15 @@
 - id: stabilizer
   term: Stabilizer
   aliases: []
-  definition: "An operator, built from Pauli operators acting on several qubits, whose measurement outcome is +1 for every valid encoded state of a stabilizer code. Measuring stabilizers reveals whether errors have changed the state."
-  beginnerInterpretation: "A stabilizer is a check that every correctly encoded state passes. If an error breaks the check, the failed result is a clue that something went wrong."
-  relatedTerms: [stabilizer-code, stabilizer-measurement, syndrome, pauli-error, logical-operator]
+  definition: "An operator, built from Pauli operators acting on several qubits, that leaves a state unchanged, so that measuring it always gives +1. In a stabilizer code the stabilizers define the valid encoded states, and measuring them reveals whether errors have changed the state. A stabilizer simulation method describes a state by a short list of such operators."
+  beginnerInterpretation: "A stabilizer is a rule a state obeys, a check it always passes. In error correction, a failed check is a clue that something went wrong. In simulation, a short list of such rules can describe a state."
+  relatedTerms: [stabilizer-code, stabilizer-measurement, syndrome, pauli-error, logical-operator, clifford-circuit]
   moduleReferences:
     - 07-error-correction/stabilizer-codes.md
     - 07-error-correction/surface-codes.md
     - 07-error-correction/encoding-and-syndrome-measurement.md
     - 07-error-correction/lattice-surgery.md
+    - 05-software-stack/simulation-engines-and-methods.md
   category: quantum-error-correction-and-fault-tolerance
 
 - id: stabilizer-code

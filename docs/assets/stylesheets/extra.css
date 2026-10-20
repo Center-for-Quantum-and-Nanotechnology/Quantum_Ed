@@ -3473,3 +3473,186 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
     font-weight: 700;
   }
 }
+
+/* ---------------------------------------------------------------------
+   Module 05 - Simulation Engines and Methods
+   (docs/05-software-stack/simulation-engines-and-methods.md, driven by
+   docs/assets/javascripts/sim-methods.js). Neutral treatment like the rest of Module 05.
+   The three methods are told apart by a text label, a glyph, AND a border style
+   (solid, double, and a thick dash), never by color alone. This page is about what a
+   method keeps, not about reported data, so it does not use the teal telemetry style or
+   the dotted "possible response" style. Every size carries a text tag: computed (an
+   engine was run) or estimated (from the stated formula). A method that cannot handle a
+   circuit says so in words.
+   ------------------------------------------------------------------- */
+.qed-sm [hidden] {
+  display: none !important;
+}
+
+.qed-sm__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.8rem;
+  margin: 0.8rem 0;
+}
+
+.qed-sm__card {
+  min-width: 0;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.3rem;
+  border: 2px solid var(--md-default-fg-color--light);
+}
+
+.qed-sm__card[data-method="stabilizer"] {
+  border: 5px double var(--md-default-fg-color--light);
+}
+
+.qed-sm__card[data-method="tensor-network"] {
+  border: 3px dashed var(--md-default-fg-color--light);
+}
+
+.qed-sm__card.is-chosen {
+  border-color: var(--md-accent-fg-color);
+  background: color-mix(in srgb, var(--md-accent-fg-color) 7%, var(--md-default-bg-color));
+}
+
+.qed-sm__card.is-chosen[data-method="state-vector"] {
+  border-width: 5px;
+}
+
+.qed-sm__card.is-chosen[data-method="tensor-network"] {
+  border-width: 5px;
+}
+
+.qed-sm__card--wide {
+  grid-column: 1 / -1;
+}
+
+.qed-sm__title {
+  margin: 0 0 0.3rem;
+  font-weight: 700;
+}
+
+.qed-sm__glyph {
+  display: inline-block;
+  min-width: 1.6rem;
+  margin-right: 0.4rem;
+  font-family: var(--md-code-font);
+}
+
+.qed-sm__badge,
+.qed-sm__tag {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: 0.6rem;
+  white-space: nowrap;
+}
+
+.qed-sm__tag--computed {
+  border-style: solid;
+}
+
+.qed-sm__tag--estimated {
+  border-style: dashed;
+}
+
+.qed-sm__tag--cannot {
+  border: 2px solid var(--md-default-fg-color);
+}
+
+.qed-sm__card p {
+  margin: 0.3rem 0;
+  font-size: 0.85rem;
+}
+
+.qed-sm__field {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-sm__note {
+  margin: 0.3rem 0 0;
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-sm__verdict {
+  font-weight: 700;
+}
+
+.qed-sm__marker {
+  margin: 0.3rem 0 0.6rem;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-sm__controls label {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.qed-sm__controls input[type="range"] {
+  width: 100%;
+}
+
+[dir] .md-typeset .qed-sm-rules {
+  margin: 0.3rem 0;
+  padding-left: 1.2rem;
+  list-style: none;
+}
+
+.qed-sm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.qed-sm-table th,
+.qed-sm-table td {
+  padding: 0.25rem 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.qed-sm-svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.qed-sm-piece {
+  fill: var(--md-default-bg-color);
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 2;
+}
+
+.qed-sm-name {
+  font-size: 17px;
+  font-family: var(--md-code-font);
+  fill: var(--md-default-fg-color);
+}
+
+.qed-sm-link {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 3;
+}
+
+.qed-sm-link-label {
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--md-default-fg-color);
+}
+
+.qed-sm-dots {
+  font-size: 26px;
+  fill: var(--md-default-fg-color--light);
+}

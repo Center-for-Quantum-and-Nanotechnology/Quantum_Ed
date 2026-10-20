@@ -112,6 +112,7 @@ nav:
       - Quantum Program Representations: 05-software-stack/quantum-program-representations.md
       - Compilation and Transpilation: 05-software-stack/compilation-and-transpilation.md
       - Hardware Abstraction and Backend Capabilities: 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+      - Simulation Engines and Methods: 05-software-stack/simulation-engines-and-methods.md
   - "06 · Quantum Algorithms & Methods":
       - Overview: 06-algorithms/index.md
       - Variational Algorithms:
