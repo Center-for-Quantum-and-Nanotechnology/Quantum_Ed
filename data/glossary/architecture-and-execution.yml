@@ -207,3 +207,33 @@
   moduleReferences:
     - 05-software-stack/understanding-the-quantum-software-stack.md
   category: architecture-and-execution
+
+- id: program-representation
+  term: Program Representation
+  aliases: []
+  definition: "A form in which a quantum program, or the computation it describes, is written down so that people or software can work with it, such as a circuit diagram, an ordered list of operations, or a graph of which operations must come before which. Different software responsibilities may use different forms of the same computation."
+  beginnerInterpretation: "A program representation is one way of writing down a computation. The same computation can have several, and each is useful for a different job."
+  relatedTerms: [intermediate-representation, quantum-circuit, dependency-graph, compilation, quantum-software-stack]
+  moduleReferences:
+    - 05-software-stack/quantum-program-representations.md
+  category: architecture-and-execution
+
+- id: intermediate-representation
+  term: Intermediate Representation
+  aliases: ["IR"]
+  definition: "A form of a quantum program that sits between the source a person writes and what a target runs. Software uses it to analyze and transform the program. It is still a description of the computation, not a state and not a hardware instruction."
+  beginnerInterpretation: "An intermediate representation is the middle form a program takes on its way from the code you wrote to something a target can run."
+  relatedTerms: [program-representation, compilation, transpilation, quantum-compiler, quantum-circuit]
+  moduleReferences:
+    - 05-software-stack/quantum-program-representations.md
+  category: architecture-and-execution
+
+- id: dependency-graph
+  term: Dependency Graph
+  aliases: []
+  definition: "A graph whose nodes are operations and whose arrows show which operation must come before which. Operations with no path between them do not depend on each other and can happen in either order."
+  beginnerInterpretation: "A dependency graph shows what has to happen first. If two operations have no arrow between them, either one can go first."
+  relatedTerms: [program-representation, quantum-circuit, compilation, circuit-optimization]
+  moduleReferences:
+    - 05-software-stack/quantum-program-representations.md
+  category: architecture-and-execution

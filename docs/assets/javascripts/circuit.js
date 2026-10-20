@@ -28,6 +28,12 @@
 //   { type: "measure", targets: [wire], col }
 // The gateId links a drawn gate to QedGates, which QedTrace uses to run it. The
 // rules in validate() are the ones the builder shows the learner.
+//
+// Any op may carry an `id` (a string, for example "cx1"). Ids are not drawn. A page
+// that passes `highlight: [ids]` to renderSVG gets those ops marked with a dashed
+// outline and a text label such as "CNOT, step 2" (used by 05.02 Quantum Program
+// Representations to show the same operation in several forms). A circuit drawn
+// with no `highlight` option is exactly as it always was.
 // Older circuit drawings on other pages are page-local SVG and are not
 // migrated here.
 window.QedCircuit = (function () {
@@ -130,6 +136,36 @@ window.QedCircuit = (function () {
   // logical-information blue, for pages (Module 02) that do not use Module 07's
   // color meanings. A circuit with no generic gate ops and no neutral option is
   // drawn exactly as before.
+  //
+  // highlight: an array of op ids to mark (an empty array marks nothing but still
+  // reserves the room the labels need, so a page can keep the drawing the same size
+  // while the learner's selection changes). highlightLabels: optional { id: text }
+  // to use instead of the default label. Without `highlight`, nothing below changes.
+  var HL_TOP = 18;
+
+  function shortName(op) {
+    if (op.type === "h") return "H";
+    if (op.type === "cx") return "CNOT";
+    if (op.type === "measure") return "Measure " + qubitName(op.targets[0]);
+    return op.label || op.name || "Gate";
+  }
+
+  function highlightMarks(op, col, x, yOf, width, labels) {
+    var wires = op.type === "cx" ? [op.control, op.target] : op.targets;
+    var top = Math.min.apply(null, wires.map(yOf)) - 17;
+    var bottom = Math.max.apply(null, wires.map(yOf)) + 17;
+    var text = labels && typeof labels[op.id] === "string" ? labels[op.id] : shortName(op) + ", " + stepText(col);
+    var half = text.length * 3.2;
+    var anchor = "middle";
+    var lx = x;
+    if (x + half > width - 2) { anchor = "end"; lx = width - 4; }
+    else if (x - half < 2) { anchor = "start"; lx = 4; }
+    return (
+      '<rect class="qed-circuit-highlight" data-op="' + esc(op.id) + '" x="' + (x - 20) + '" y="' + top + '" width="40" height="' + (bottom - top) + '" rx="6" />' +
+      '<text class="qed-circuit-highlight-label" x="' + lx + '" y="' + (top - 4) + '" text-anchor="' + anchor + '">' + esc(text) + "</text>"
+    );
+  }
+
   function renderSVG(circuit, opts) {
     opts = opts || {};
     var n = circuit.qubits.length;
@@ -141,8 +177,10 @@ window.QedCircuit = (function () {
     });
     var boxClass = "qed-circuit-gate-box" + (opts.neutral ? " qed-circuit-gate-box--neutral" : "");
     var width = LEFT + (maxCol + 1) * colW + 20;
-    var height = TOP + (n - 1) * ROW_H + 26;
-    function yOf(i) { return TOP + i * ROW_H; }
+    var hl = Array.isArray(opts.highlight) ? opts.highlight : null;
+    var top0 = TOP + (hl ? HL_TOP : 0);
+    var height = top0 + (n - 1) * ROW_H + 26;
+    function yOf(i) { return top0 + i * ROW_H; }
     function xOf(col) { return LEFT + 10 + col * colW + colW / 2 - 10; }
 
     var out = [];
@@ -157,6 +195,7 @@ window.QedCircuit = (function () {
     }
     circuit.ops.forEach(function (op, k) {
       var x = xOf(cols[k]);
+      if (hl && op.id !== undefined && hl.indexOf(op.id) >= 0) out.push(highlightMarks(op, cols[k], x, yOf, width, opts.highlightLabels));
       if (op.type === "h") out.push(glyphH(x, yOf(op.targets[0]), boxClass));
       else if (op.type === "gate") out.push(glyphGate(x, yOf(op.targets[0]), op.label, boxClass));
       else if (op.type === "cx") out.push(glyphCX(x, yOf(op.control), yOf(op.target)));

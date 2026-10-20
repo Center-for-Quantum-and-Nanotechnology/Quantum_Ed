@@ -191,3 +191,70 @@ test("the data layer leaves the drawing of a circuit with no data-layer fields u
   // the Bell drawing is pinned above; here the public names are all present too
   ["emptyCircuit", "opAt", "validate", "place", "remove", "columns", "summarize", "bell", "describe", "renderSVG", "qubitName"].forEach((name) => assert.equal(typeof C[name], "function", name));
 });
+
+// ---- op ids and the highlight option (05.02 Quantum Program Representations) -----------------
+
+const withIds = () => {
+  const c = C.bell();
+  return { qubits: c.qubits, ops: c.ops.map((op, k) => Object.assign({}, op, { id: ["h1", "cx1", "m0", "m1"][k] })) };
+};
+const viewBoxHeight = (svg) => Number(/viewBox="0 0 \d+ (\d+)"/.exec(svg)[1]);
+
+test("ops with ids and no highlight option are drawn exactly as ops without ids", () => {
+  assert.equal(C.renderSVG(withIds()), C.renderSVG(C.bell()));
+  assert.equal(C.renderSVG(withIds(), { neutral: true }), C.renderSVG(C.bell(), { neutral: true }));
+  assert.equal(sha(C.renderSVG(withIds())), "3745dba1385ba014446c134e1cb8914a57f84e0a8e91843557711d9b9d4b9311");
+});
+
+test("highlight marks the chosen ops with an outline and a text label, and nothing else about them changes", () => {
+  const svg = C.renderSVG(withIds(), { highlight: ["cx1"] });
+  assert.equal((svg.match(/class="qed-circuit-highlight"/g) || []).length, 1);
+  assert.match(svg, /data-op="cx1"/);
+  assert.match(svg, />CNOT, step 2<\/text>/);
+  // every glyph is still drawn
+  assert.match(svg, /qed-circuit-target/);
+  assert.equal((svg.match(/qed-circuit-measure-box/g) || []).length, 2);
+});
+
+test("the default labels name the op and its step, and a measurement says which wire", () => {
+  const label = (id) => new RegExp(">([^<]*)</text>").exec(C.renderSVG(withIds(), { highlight: [id] }).split("qed-circuit-highlight-label")[1])[1];
+  assert.equal(label("h1"), "H, step 1");
+  assert.equal(label("cx1"), "CNOT, step 2");
+  assert.equal(label("m0"), "Measure q₀, step 3");
+  assert.equal(label("m1"), "Measure q₁, step 3");
+});
+
+test("several ids can be highlighted, and ids that do not exist or ops without ids are ignored", () => {
+  const two = C.renderSVG(withIds(), { highlight: ["m0", "m1"] });
+  assert.equal((two.match(/class="qed-circuit-highlight"/g) || []).length, 2);
+  const none = C.renderSVG(withIds(), { highlight: ["nope"] });
+  assert.ok(!none.includes("qed-circuit-highlight-label"));
+  const noIds = C.renderSVG(C.bell(), { highlight: ["cx1"] });
+  assert.ok(!noIds.includes("qed-circuit-highlight-label"));
+});
+
+test("an empty highlight list marks nothing but reserves the same room, so the drawing keeps its size", () => {
+  const plain = C.renderSVG(withIds());
+  const empty = C.renderSVG(withIds(), { highlight: [] });
+  const marked = C.renderSVG(withIds(), { highlight: ["cx1"] });
+  assert.ok(!empty.includes("qed-circuit-highlight"));
+  assert.ok(viewBoxHeight(empty) > viewBoxHeight(plain));
+  assert.equal(viewBoxHeight(empty), viewBoxHeight(marked));
+});
+
+test("custom labels replace the default, and labels are escaped", () => {
+  const svg = C.renderSVG(withIds(), { highlight: ["cx1"], highlightLabels: { cx1: "<b>CNOT</b> & co" } });
+  assert.match(svg, /&lt;b&gt;CNOT&lt;\/b&gt; &amp; co/);
+  assert.ok(!svg.includes("<b>"));
+  assert.ok(C.renderSVG(withIds(), { highlight: ['x"y'] }).indexOf('data-op="x"y"') < 0);
+});
+
+test("a long label near the right edge is anchored inside the drawing", () => {
+  const svg = C.renderSVG(withIds(), { highlight: ["m1"], highlightLabels: { m1: "A rather long label for the measurement" } });
+  assert.match(svg, /text-anchor="end"/);
+});
+
+test("a generic gate op is highlighted with its own label", () => {
+  const c = { qubits: ["q0"], ops: [{ type: "gate", id: "g1", label: "Rx(60°)", targets: [0], col: 0 }] };
+  assert.match(C.renderSVG(c, { highlight: ["g1"] }), />Rx\(60°\), step 1<\/text>/);
+});
