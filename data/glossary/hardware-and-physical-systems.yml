@@ -122,6 +122,7 @@
   relatedTerms: [t2-dephasing-time, amplitude-damping, coherence-time, decoherence, calibration-data]
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
   category: hardware-and-physical-systems
 
 - id: t2-dephasing-time
@@ -132,6 +133,17 @@
   relatedTerms: [t1-relaxation-time, dephasing, coherence-time, relative-phase, calibration-data]
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+  category: hardware-and-physical-systems
+
+- id: qubit-frequency
+  term: Qubit Frequency
+  aliases: ["Operating frequency"]
+  definition: "A frequency associated with a qubit's two states, used to control and characterize it. Its meaning differs between kinds of qubit hardware, and not every kind reports one."
+  beginnerInterpretation: "Qubit frequency is one of the numbers a device may report for each qubit. What it means depends on the type of hardware."
+  relatedTerms: [calibration-data, calibration-telemetry, quantum-processing-unit, coherence-time]
+  moduleReferences:
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
   category: hardware-and-physical-systems
 
 - id: gate-fidelity
@@ -142,6 +154,7 @@
   relatedTerms: [readout-fidelity, error-rate, calibration, multi-qubit-gate, native-gate]
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
   category: hardware-and-physical-systems
 
 - id: readout-fidelity
@@ -162,6 +175,17 @@
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/understanding-the-quantum-software-stack.md
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+  category: hardware-and-physical-systems
+
+- id: calibration-snapshot
+  term: Calibration Snapshot
+  aliases: []
+  definition: "A set of values reported about a device, together with the time and status of the report. Two snapshots of the same device taken at different times can differ."
+  beginnerInterpretation: "A calibration snapshot is a dated report card for a device: what its measurements and estimates looked like at one moment."
+  relatedTerms: [calibration-data, calibration-telemetry, calibration, time-dependent-noise]
+  moduleReferences:
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
   category: hardware-and-physical-systems
 
 - id: crosstalk
@@ -181,6 +205,7 @@
   relatedTerms: [coupling, routing, qubit-mapping, swap-gate, quantum-processing-unit]
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
   category: hardware-and-physical-systems
 
 - id: coupling

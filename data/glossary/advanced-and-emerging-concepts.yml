@@ -26,6 +26,7 @@
   relatedTerms: [calibration, calibration-telemetry, gate-fidelity, t1-relaxation-time, readout-error, time-dependent-noise]
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
   category: advanced-and-emerging-concepts
 
 - id: calibration-telemetry
@@ -33,10 +34,11 @@
   aliases: []
   definition: "Information, reported by a device's calibration and characterization processes, that describes measured or estimated characteristics of the device and when they were obtained."
   beginnerInterpretation: "Telemetry is the reported readings about a device. They are measurements and estimates that software can use to understand how the hardware is doing, not exact truth."
-  relatedTerms: [calibration-data, calibration, noise-model, hardware-aware-quantum-error-correction, time-dependent-noise]
+  relatedTerms: [calibration-data, calibration, noise-model, hardware-aware-quantum-error-correction, time-dependent-noise, calibration-snapshot]
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/understanding-the-quantum-software-stack.md
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
   category: advanced-and-emerging-concepts
 
 - id: time-dependent-noise
@@ -47,6 +49,7 @@
   relatedTerms: [calibration-data, calibration-telemetry, noise-model, dynamic-decoding, correlated-error]
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
+    - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
   category: advanced-and-emerging-concepts
 
 - id: dynamic-decoding
