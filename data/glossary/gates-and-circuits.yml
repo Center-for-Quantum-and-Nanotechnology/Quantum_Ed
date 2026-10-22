@@ -97,6 +97,16 @@
   moduleReferences: []
   category: gates-and-circuits
 
+- id: clifford-circuit
+  term: Clifford Circuit
+  aliases: ["Clifford gate"]
+  definition: "A circuit built only from a restricted set of operations, the Clifford gates, which include the Pauli gates, H, S, and CNOT. The stabilizer simulation method can handle circuits of this kind efficiently. An operation outside the set, such as T, takes a circuit out of it."
+  beginnerInterpretation: "A Clifford circuit uses only a special, limited set of gates. That limit is exactly what lets one simulation method handle it with very little memory."
+  relatedTerms: [quantum-gate, stabilizer, hadamard-gate, cnot-gate, phase-gate, simulator]
+  moduleReferences:
+    - 05-software-stack/simulation-engines-and-methods.md
+  category: gates-and-circuits
+
 - id: rotation-gate
   term: Rotation Gate
   aliases: []
@@ -186,6 +196,7 @@
   aliases: []
   definition: "A measurement performed on some qubits partway through a circuit, rather than only at the end, with the computation continuing afterward and sometimes depending on the result."
   beginnerInterpretation: "A mid-circuit measurement is a readout taken while the program is still running. It is needed, for example, to check for errors as a computation proceeds."
-  relatedTerms: [measurement, ancilla-qubit, feedforward, reset, syndrome-extraction]
-  moduleReferences: []
+  relatedTerms: [measurement, ancilla-qubit, feedforward, reset, syndrome-extraction, quantum-classical-hybrid-computing]
+  moduleReferences:
+    - 05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md
   category: gates-and-circuits

@@ -188,7 +188,7 @@ Target → description → (device only) reported estimates with a time → poss
 
 > **If a simulator is just another kind of target, how does it actually work out the answer, and why do different simulators behave differently?**
 
-**Next: Simulation Engines and Methods →** *(coming soon)*
+**[Next: Simulation Engines and Methods →](simulation-engines-and-methods.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {

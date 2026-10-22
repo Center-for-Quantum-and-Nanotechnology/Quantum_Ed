@@ -3473,3 +3473,364 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
     font-weight: 700;
   }
 }
+
+/* ---------------------------------------------------------------------
+   Module 05 - Simulation Engines and Methods
+   (docs/05-software-stack/simulation-engines-and-methods.md, driven by
+   docs/assets/javascripts/sim-methods.js). Neutral treatment like the rest of Module 05.
+   The three methods are told apart by a text label, a glyph, AND a border style
+   (solid, double, and a thick dash), never by color alone. This page is about what a
+   method keeps, not about reported data, so it does not use the teal telemetry style or
+   the dotted "possible response" style. Every size carries a text tag: computed (an
+   engine was run) or estimated (from the stated formula). A method that cannot handle a
+   circuit says so in words.
+   ------------------------------------------------------------------- */
+.qed-sm [hidden] {
+  display: none !important;
+}
+
+.qed-sm__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.8rem;
+  margin: 0.8rem 0;
+}
+
+.qed-sm__card {
+  min-width: 0;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.3rem;
+  border: 2px solid var(--md-default-fg-color--light);
+}
+
+.qed-sm__card[data-method="stabilizer"] {
+  border: 5px double var(--md-default-fg-color--light);
+}
+
+.qed-sm__card[data-method="tensor-network"] {
+  border: 3px dashed var(--md-default-fg-color--light);
+}
+
+.qed-sm__card.is-chosen {
+  border-color: var(--md-accent-fg-color);
+  background: color-mix(in srgb, var(--md-accent-fg-color) 7%, var(--md-default-bg-color));
+}
+
+.qed-sm__card.is-chosen[data-method="state-vector"] {
+  border-width: 5px;
+}
+
+.qed-sm__card.is-chosen[data-method="tensor-network"] {
+  border-width: 5px;
+}
+
+.qed-sm__card--wide {
+  grid-column: 1 / -1;
+}
+
+.qed-sm__title {
+  margin: 0 0 0.3rem;
+  font-weight: 700;
+}
+
+.qed-sm__glyph {
+  display: inline-block;
+  min-width: 1.6rem;
+  margin-right: 0.4rem;
+  font-family: var(--md-code-font);
+}
+
+.qed-sm__badge,
+.qed-sm__tag {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: 0.6rem;
+  white-space: nowrap;
+}
+
+.qed-sm__tag--computed {
+  border-style: solid;
+}
+
+.qed-sm__tag--estimated {
+  border-style: dashed;
+}
+
+.qed-sm__tag--cannot {
+  border: 2px solid var(--md-default-fg-color);
+}
+
+.qed-sm__card p {
+  margin: 0.3rem 0;
+  font-size: 0.85rem;
+}
+
+.qed-sm__field {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-sm__note {
+  margin: 0.3rem 0 0;
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-sm__verdict {
+  font-weight: 700;
+}
+
+.qed-sm__marker {
+  margin: 0.3rem 0 0.6rem;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-sm__controls label {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.qed-sm__controls input[type="range"] {
+  width: 100%;
+}
+
+[dir] .md-typeset .qed-sm-rules {
+  margin: 0.3rem 0;
+  padding-left: 1.2rem;
+  list-style: none;
+}
+
+.qed-sm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.qed-sm-table th,
+.qed-sm-table td {
+  padding: 0.25rem 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.qed-sm-svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.qed-sm-piece {
+  fill: var(--md-default-bg-color);
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 2;
+}
+
+.qed-sm-name {
+  font-size: 17px;
+  font-family: var(--md-code-font);
+  fill: var(--md-default-fg-color);
+}
+
+.qed-sm-link {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 3;
+}
+
+.qed-sm-link-label {
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--md-default-fg-color);
+}
+
+.qed-sm-dots {
+  font-size: 26px;
+  fill: var(--md-default-fg-color--light);
+}
+
+/* ---------------------------------------------------------------------
+   Module 05 - Quantum Runtime and Classical-Quantum Orchestration
+   (docs/05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md, driven by
+   docs/assets/javascripts/runtime.js). Neutral treatment like the rest of Module 05.
+   The two lanes (program side, target) are told apart by a text label and position. Each
+   lifecycle state has a text label and a glyph; the exits also differ in their border:
+   Rejected a thick left bar, Failed hatching and a thick bottom bar, Cancelled a thick top
+   bar. The current state carries a "now" badge and a heavier border. Invented and simulated
+   values carry a text tag. Does not use the teal telemetry style, the dotted "possible
+   response" style of 05.04, or the three method borders of 05.05.
+   ------------------------------------------------------------------- */
+.qed-rt [hidden] {
+  display: none !important;
+}
+
+.qed-rt__lanes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0.6rem 0;
+}
+
+.qed-rt__lanes--three {
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.qed-rt__lane,
+.qed-rt__panel {
+  min-width: 0;
+  padding: 0.5rem 0.8rem;
+  margin: 0.6rem 0;
+  border-radius: 0.3rem;
+  border: 2px solid var(--md-default-fg-color--light);
+}
+
+.qed-rt__lanes .qed-rt__lane,
+.qed-rt__lanes .qed-rt__panel {
+  margin: 0;
+}
+
+.qed-rt__lane-title,
+.qed-rt__title {
+  margin: 0 0 0.3rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.qed-rt__lane-kind {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: 0.6rem;
+}
+
+[dir] .md-typeset .qed-rt__lane ul {
+  margin: 0.2rem 0;
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+}
+
+.qed-rt__crossed {
+  margin: 0.4rem 0;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.85rem;
+  border-left: 4px solid var(--md-accent-fg-color);
+  background: color-mix(in srgb, var(--md-accent-fg-color) 7%, var(--md-default-bg-color));
+}
+
+.qed-rt__tag,
+.qed-rt__badge {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: 0.6rem;
+  white-space: nowrap;
+}
+
+.qed-rt__badge {
+  border: 2px solid var(--md-default-fg-color);
+}
+
+.qed-rt__status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0.6rem 0 0.1rem;
+  padding: 0.4rem 0.7rem;
+  border: 5px solid var(--md-accent-fg-color);
+  border-radius: 0.3rem;
+}
+
+.qed-rt__glyph {
+  display: inline-block;
+  min-width: 1.4rem;
+  font-family: var(--md-code-font);
+  font-weight: 700;
+}
+
+.qed-rt__moment {
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-rt__words {
+  margin: 0.2rem 0 0.4rem;
+  font-size: 0.85rem;
+}
+
+.qed-rt__note {
+  margin: 0.3rem 0 0;
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-rt__totals {
+  margin: 0.6rem 0 0;
+}
+
+[dir] .md-typeset ol.qed-rt__lifecycle,
+[dir] .md-typeset ul.qed-rt__lifecycle {
+  margin: 0.4rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.qed-rt__state {
+  display: block;
+  margin: 0.3rem 0;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.85rem;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+}
+
+.qed-rt__state.is-now {
+  border: 5px solid var(--md-accent-fg-color);
+  background: color-mix(in srgb, var(--md-accent-fg-color) 7%, var(--md-default-bg-color));
+}
+
+.qed-rt__state-words {
+  display: block;
+  margin-top: 0.1rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-rt__status[data-state="rejected"],
+.qed-rt__state[data-state="rejected"] {
+  border-left-width: 12px;
+  border-left-color: var(--md-default-fg-color);
+}
+
+.qed-rt__status[data-state="failed"],
+.qed-rt__state[data-state="failed"] {
+  border-bottom-width: 10px;
+  border-bottom-color: var(--md-default-fg-color);
+  background-image: repeating-linear-gradient(135deg, transparent 0, transparent 8px, color-mix(in srgb, var(--md-default-fg-color) 14%, transparent) 8px, color-mix(in srgb, var(--md-default-fg-color) 14%, transparent) 10px);
+}
+
+.qed-rt__status[data-state="cancelled"],
+.qed-rt__state[data-state="cancelled"] {
+  border-top-width: 12px;
+  border-top-color: var(--md-default-fg-color);
+  font-style: italic;
+}
+
+@media (max-width: 44.9375em) {
+  .qed-rt__lanes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
