@@ -181,7 +181,7 @@ Circuit → method → what the method keeps → what it can handle and how that
 
 > **Whether a circuit runs on a simulator or on a device, what sends the work, waits for it, and brings the results back?**
 
-**Next: Quantum Runtime and Classical-Quantum Orchestration →** *(coming soon)*
+**[Next: Quantum Runtime and Classical-Quantum Orchestration →](quantum-runtime-and-classical-quantum-orchestration.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {

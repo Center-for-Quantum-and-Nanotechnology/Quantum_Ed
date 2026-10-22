@@ -121,11 +121,12 @@
   aliases: []
   definition: "A single execution of a circuit followed by measurement, producing one set of classical outcomes. Results are gathered by repeating many shots."
   beginnerInterpretation: "A shot is one run of the circuit and one readout. Because results are probabilistic, you take many shots to see the pattern."
-  relatedTerms: [sampling, measurement, expectation-value, backend, readout-error]
+  relatedTerms: [sampling, measurement, expectation-value, backend, readout-error, measurement-counts]
   moduleReferences:
     - 02-fundamentals/quantum-states.md
     - 02-fundamentals/measurement.md
     - 05-software-stack/simulation-engines-and-methods.md
+    - 05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md
   category: architecture-and-execution
 
 - id: sampling
@@ -133,9 +134,10 @@
   aliases: []
   definition: "Drawing outcomes from a quantum circuit's measurement distribution by running it repeatedly; the collected samples are used to estimate probabilities and expectation values."
   beginnerInterpretation: "Sampling means running a circuit over and over and looking at which results come up and how often."
-  relatedTerms: [shot, measurement, expectation-value, probability-amplitude, simulator]
+  relatedTerms: [shot, measurement, expectation-value, probability-amplitude, simulator, measurement-counts]
   moduleReferences:
     - 05-software-stack/simulation-engines-and-methods.md
+    - 05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md
   category: architecture-and-execution
 
 - id: simulator
@@ -183,10 +185,11 @@
   aliases: ["Hybrid quantum-classical computing"]
   definition: "A computational approach in which a quantum processor and a classical computer work together, typically with the classical side preparing parameters, processing measurement results, and deciding what the quantum side runs next."
   beginnerInterpretation: "Hybrid computing pairs a quantum computer with an ordinary one, with each handling the part of the job it is suited to."
-  relatedTerms: [variational-quantum-algorithm, variational-quantum-eigensolver, backend, nisq]
+  relatedTerms: [variational-quantum-algorithm, variational-quantum-eigensolver, backend, nisq, quantum-runtime, quantum-job]
   moduleReferences:
     - 06-algorithms/variational-quantum-eigensolver.md
     - 06-algorithms/index.md
+    - 05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md
   category: architecture-and-execution
 
 - id: nisq
@@ -233,10 +236,11 @@
   aliases: []
   definition: "The system selected to carry out a quantum computation, whether a classical simulator or a physical quantum device."
   beginnerInterpretation: "The execution target is where your circuit actually gets run, either on a simulation or on real quantum hardware."
-  relatedTerms: [backend, simulator, hardware-backend, quantum-software-stack]
+  relatedTerms: [backend, simulator, hardware-backend, quantum-software-stack, quantum-job, quantum-runtime]
   moduleReferences:
     - 05-software-stack/understanding-the-quantum-software-stack.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+    - 05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md
   category: architecture-and-execution
 
 - id: quantum-runtime
@@ -244,9 +248,10 @@
   aliases: ["Orchestration"]
   definition: "Software that coordinates the execution of a quantum computation, which can include submitting jobs, tracking them, exchanging data with classical processing, and handling results."
   beginnerInterpretation: "The runtime is the coordinator: it hands work to the target, keeps track of the run, and helps bring the results back."
-  relatedTerms: [quantum-software-stack, backend, quantum-classical-hybrid-computing, shot, execution-target]
+  relatedTerms: [quantum-software-stack, backend, quantum-classical-hybrid-computing, shot, execution-target, quantum-job]
   moduleReferences:
     - 05-software-stack/understanding-the-quantum-software-stack.md
+    - 05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md
   category: architecture-and-execution
 
 - id: program-representation
@@ -277,4 +282,34 @@
   relatedTerms: [program-representation, quantum-circuit, compilation, circuit-optimization]
   moduleReferences:
     - 05-software-stack/quantum-program-representations.md
+  category: architecture-and-execution
+
+- id: quantum-job
+  term: Quantum Job
+  aliases: ["Job"]
+  definition: "A unit of work sent to a target: a computation in a form the target can read, together with its settings, such as how many shots to take. A job is tracked from the moment it is sent until it finishes, fails, or is withdrawn."
+  beginnerInterpretation: "A job is the work you hand to a target to run: the program in a form it can read, plus the settings, tracked until it ends."
+  relatedTerms: [quantum-runtime, execution-target, job-queue, measurement-counts, shot]
+  moduleReferences:
+    - 05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md
+  category: architecture-and-execution
+
+- id: job-queue
+  term: Job Queue
+  aliases: ["Queue"]
+  definition: "The line of jobs waiting for a target that can run only some of them at a time. A queued job has been accepted but has not started, and its status does not say how long the wait will be."
+  beginnerInterpretation: "A job queue is a waiting line for a target. A job in it has been accepted but has not started yet."
+  relatedTerms: [quantum-job, execution-target, quantum-runtime, hardware-backend]
+  moduleReferences:
+    - 05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md
+  category: architecture-and-execution
+
+- id: measurement-counts
+  term: Measurement Counts
+  aliases: ["Counts"]
+  definition: "How many times each outcome was seen across the shots of a run, such as 52 shots reading 00 and 48 reading 11. Counts are samples, so they differ from run to run and only estimate the underlying probabilities."
+  beginnerInterpretation: "Counts are a tally of the results of a run: for each outcome, how many shots gave it."
+  relatedTerms: [shot, sampling, measurement, quantum-job, probability-amplitude]
+  moduleReferences:
+    - 05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md
   category: architecture-and-execution

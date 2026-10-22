@@ -196,6 +196,7 @@
   aliases: []
   definition: "A measurement performed on some qubits partway through a circuit, rather than only at the end, with the computation continuing afterward and sometimes depending on the result."
   beginnerInterpretation: "A mid-circuit measurement is a readout taken while the program is still running. It is needed, for example, to check for errors as a computation proceeds."
-  relatedTerms: [measurement, ancilla-qubit, feedforward, reset, syndrome-extraction]
-  moduleReferences: []
+  relatedTerms: [measurement, ancilla-qubit, feedforward, reset, syndrome-extraction, quantum-classical-hybrid-computing]
+  moduleReferences:
+    - 05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md
   category: gates-and-circuits

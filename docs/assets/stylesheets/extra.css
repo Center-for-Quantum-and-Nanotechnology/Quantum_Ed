@@ -3656,3 +3656,181 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
   font-size: 26px;
   fill: var(--md-default-fg-color--light);
 }
+
+/* ---------------------------------------------------------------------
+   Module 05 - Quantum Runtime and Classical-Quantum Orchestration
+   (docs/05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md, driven by
+   docs/assets/javascripts/runtime.js). Neutral treatment like the rest of Module 05.
+   The two lanes (program side, target) are told apart by a text label and position. Each
+   lifecycle state has a text label and a glyph; the exits also differ in their border:
+   Rejected a thick left bar, Failed hatching and a thick bottom bar, Cancelled a thick top
+   bar. The current state carries a "now" badge and a heavier border. Invented and simulated
+   values carry a text tag. Does not use the teal telemetry style, the dotted "possible
+   response" style of 05.04, or the three method borders of 05.05.
+   ------------------------------------------------------------------- */
+.qed-rt [hidden] {
+  display: none !important;
+}
+
+.qed-rt__lanes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0.6rem 0;
+}
+
+.qed-rt__lanes--three {
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.qed-rt__lane,
+.qed-rt__panel {
+  min-width: 0;
+  padding: 0.5rem 0.8rem;
+  margin: 0.6rem 0;
+  border-radius: 0.3rem;
+  border: 2px solid var(--md-default-fg-color--light);
+}
+
+.qed-rt__lanes .qed-rt__lane,
+.qed-rt__lanes .qed-rt__panel {
+  margin: 0;
+}
+
+.qed-rt__lane-title,
+.qed-rt__title {
+  margin: 0 0 0.3rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.qed-rt__lane-kind {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: 0.6rem;
+}
+
+[dir] .md-typeset .qed-rt__lane ul {
+  margin: 0.2rem 0;
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+}
+
+.qed-rt__crossed {
+  margin: 0.4rem 0;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.85rem;
+  border-left: 4px solid var(--md-accent-fg-color);
+  background: color-mix(in srgb, var(--md-accent-fg-color) 7%, var(--md-default-bg-color));
+}
+
+.qed-rt__tag,
+.qed-rt__badge {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: 0.6rem;
+  white-space: nowrap;
+}
+
+.qed-rt__badge {
+  border: 2px solid var(--md-default-fg-color);
+}
+
+.qed-rt__status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0.6rem 0 0.1rem;
+  padding: 0.4rem 0.7rem;
+  border: 5px solid var(--md-accent-fg-color);
+  border-radius: 0.3rem;
+}
+
+.qed-rt__glyph {
+  display: inline-block;
+  min-width: 1.4rem;
+  font-family: var(--md-code-font);
+  font-weight: 700;
+}
+
+.qed-rt__moment {
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-rt__words {
+  margin: 0.2rem 0 0.4rem;
+  font-size: 0.85rem;
+}
+
+.qed-rt__note {
+  margin: 0.3rem 0 0;
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-rt__totals {
+  margin: 0.6rem 0 0;
+}
+
+[dir] .md-typeset ol.qed-rt__lifecycle,
+[dir] .md-typeset ul.qed-rt__lifecycle {
+  margin: 0.4rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.qed-rt__state {
+  display: block;
+  margin: 0.3rem 0;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.85rem;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+}
+
+.qed-rt__state.is-now {
+  border: 5px solid var(--md-accent-fg-color);
+  background: color-mix(in srgb, var(--md-accent-fg-color) 7%, var(--md-default-bg-color));
+}
+
+.qed-rt__state-words {
+  display: block;
+  margin-top: 0.1rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-rt__status[data-state="rejected"],
+.qed-rt__state[data-state="rejected"] {
+  border-left-width: 12px;
+  border-left-color: var(--md-default-fg-color);
+}
+
+.qed-rt__status[data-state="failed"],
+.qed-rt__state[data-state="failed"] {
+  border-bottom-width: 10px;
+  border-bottom-color: var(--md-default-fg-color);
+  background-image: repeating-linear-gradient(135deg, transparent 0, transparent 8px, color-mix(in srgb, var(--md-default-fg-color) 14%, transparent) 8px, color-mix(in srgb, var(--md-default-fg-color) 14%, transparent) 10px);
+}
+
+.qed-rt__status[data-state="cancelled"],
+.qed-rt__state[data-state="cancelled"] {
+  border-top-width: 12px;
+  border-top-color: var(--md-default-fg-color);
+  font-style: italic;
+}
+
+@media (max-width: 44.9375em) {
+  .qed-rt__lanes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
