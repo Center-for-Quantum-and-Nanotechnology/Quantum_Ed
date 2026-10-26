@@ -483,7 +483,10 @@ test("what each side holds follows the job, and the crossed item names what move
   const q = R.lanes(R.advance(R.advance(job(DEV))));
   assert.ok(q.target.some((t) => /3 jobs ahead \(invented\)/.test(t)));
   let front = job(DEV);
-  while (front.state !== "queued" || front.ahead > 0) front = R.advance(front);
+  for (let guard = 0; front.state !== "queued" || front.ahead > 0; guard++) {
+    assert.ok(guard < 50, "a job should reach the front of the queue within a few moments");
+    front = R.advance(front);
+  }
   assert.ok(R.lanes(front).target.some((t) => /none ahead, next to run \(invented\)/.test(t)));
   assert.match(R.describe(front), /None ahead, next to run \(invented\)/);
   const one = R.advance(R.advance(R.advance(R.advance(job(DEV)))));
@@ -554,4 +557,145 @@ test("circuitFor does not change the circuit it is given", () => {
   R.circuitFor("rejected", SIM, c);
   R.circuitFor("rejected", DEV, c);
   R.check(c, DEV);
+});
+
+// ---- a job the service prepares (05.07's "send, then the service prepares") ----------------------------
+const serviceJob = (target, circuit = base(), shots = 100, number = 1) => R.newJob(circuit, target, shots, { number, servicePrepares: true });
+const opsOf = (c) => c.ops.map((o) => JSON.stringify(o));
+
+test("a service-prepared Bell job on Device Q4 carries the program as written and is not rejected", () => {
+  const j = serviceJob(DEV);
+  assert.equal(j.servicePrepares, true);
+  assert.equal(j.adapted, false);
+  assert.deepEqual(j.circuit.ops.map((o) => o.id), ["h1", "cx1", "m0", "m1"]);
+  assert.equal(R.check(j.circuit, DEV).ok, false, "as written, the device does not list H");
+  assert.deepEqual(states(j), ["prepared", "submitted", "queued", "queued", "queued", "queued", "queued", "running", "finished", "finished"]);
+  // the same circuit sent as an ordinary job is refused at submission
+  assert.deepEqual(states(R.newJob(base(), DEV, 100)), ["prepared", "submitted", "rejected"]);
+});
+
+test("the service adapts the program only after the wait, as its own moment, with what changed in words", () => {
+  let j = serviceJob(DEV);
+  const seen = [];
+  for (let guard = 0; R.canAdvance(j); guard++) {
+    assert.ok(guard < 50, "a job should end within a few moments");
+    j = R.advance(j);
+    seen.push({ state: j.state, ahead: j.ahead, adapted: j.adapted, moment: j.moment, h: j.circuit.ops.some((o) => o.type === "h") });
+  }
+  // submitted, then four queued moments (3, 2, 1, 0 ahead), none adapted
+  assert.deepEqual(seen.slice(0, 5).map((s) => [s.state, s.ahead, s.adapted, s.h]), [
+    ["submitted", 0, false, true], ["queued", 3, false, true], ["queued", 2, false, true], ["queued", 1, false, true], ["queued", 0, false, true],
+  ]);
+  // then the adaptation moment: still queued with none ahead, now adapted, H gone
+  assert.deepEqual([seen[5].state, seen[5].ahead, seen[5].adapted, seen[5].h, seen[5].moment], ["queued", 0, true, false, 6]);
+  assert.equal(seen[6].state, "running");
+  assert.equal(seen[seen.length - 1].state, "finished");
+  // the moment says what crossed
+  let k = serviceJob(DEV);
+  for (let i = 0; i < 6; i++) k = R.advance(k);
+  assert.match(k.crossed, /The service adapted the program to Device Q4's list\./);
+  assert.match(k.crossed, /Replaced H on q₀ with Rz\(90°\), Rx\(90°\) and Rz\(90°\)/);
+  assert.equal(k.history.length, 7);
+});
+
+test("the program the service runs is exactly what QedTransform.adapt gives for the target", () => {
+  [DEV, SIM].forEach((t) => {
+    const end = runToEnd(serviceJob(t));
+    assert.deepEqual(opsOf(end.circuit), opsOf(T.adapt(base(), t).circuit), t.name);
+    assert.equal(R.check(end.circuit, t).ok, true);
+    assert.equal(end.state, "finished");
+  });
+});
+
+test("on the simulator the service's moment comes before the run, and may change nothing", () => {
+  assert.deepEqual(states(serviceJob(SIM)), ["prepared", "submitted", "submitted", "running", "finished", "finished"]);
+  let j = serviceJob(SIM);
+  j = R.advance(j);
+  assert.equal(j.adapted, false);
+  j = R.advance(j);
+  assert.equal(j.adapted, true);
+  assert.equal(j.state, "submitted");
+  assert.match(j.crossed, /It needed no change\./);
+  assert.deepEqual(opsOf(j.circuit), opsOf(base()));
+  assert.equal(R.finalMoment(serviceJob(SIM)), 5);
+  assert.equal(R.finalMoment(serviceJob(DEV)), 9);
+});
+
+test("the target still decides after the service prepares: an operation it cannot be adapted to is refused late", () => {
+  const withT = R.circuitFor("rejected", SIM, base());
+  const j = serviceJob(SIM, withT);
+  assert.deepEqual(states(j), ["prepared", "submitted", "submitted", "rejected"]);
+  const end = runToEnd(j);
+  assert.match(end.reason, /Simulator does not list T on q₀/);
+  assert.equal(R.results(end), null);
+  // and the same on the device, after the wait
+  const dev = runToEnd(serviceJob(DEV, withT));
+  assert.equal(dev.state, "rejected");
+  assert.equal(dev.moment, 7, "after the queue and the service's moment, not at submission");
+});
+
+test("a service-prepared job gives the same counts as an ordinary job with the same number, target, and shots", () => {
+  [SIM, DEV].forEach((t) => {
+    const a = R.results(runToEnd(serviceJob(t, base(), 200, 3)));
+    const b = R.results(runToEnd(R.newJob(T.adapt(base(), t).circuit, t, 200, { number: 3 })));
+    assert.deepEqual(a.counts, b.counts);
+    assert.equal(a.shots, 200);
+  });
+});
+
+test("a job without the option behaves exactly as before", () => {
+  [SIM, DEV].forEach((t) => {
+    const j = job(t);
+    assert.equal(j.servicePrepares, false);
+    assert.equal(j.adapted, false);
+    assert.equal(j.written, null);
+    const explicit = R.newJob(circuitFor("finishes", t), t, 100, { number: 1, servicePrepares: false });
+    assert.deepEqual(R.timeline(explicit), R.timeline(j));
+    const end = runToEnd(j);
+    assert.equal(end.adapted, false, "nothing is adapted for an ordinary job");
+    assert.deepEqual(opsOf(end.circuit), opsOf(circuitFor("finishes", t)));
+  });
+  assert.deepEqual(states(job(DEV)), ["prepared", "submitted", "queued", "queued", "queued", "queued", "running", "finished", "finished"]);
+  assert.equal(R.finalMoment(job(DEV)), 8);
+});
+
+test("a service-prepared job leaves its input unchanged and does not alias the circuit it was given", () => {
+  const c = deepFreeze(base());
+  const j = R.newJob(c, DEV, 100, { servicePrepares: true });
+  j.circuit.ops[0].id = "changed";
+  j.written.ops[0].id = "changed too";
+  assert.equal(c.ops[0].id, "h1");
+  const frozen = deepFreeze(clone(serviceJob(DEV)));
+  const before = JSON.stringify(frozen);
+  let cur = frozen;
+  for (let guard = 0; R.canAdvance(cur); guard++) {
+    assert.ok(guard < 50, "a job should end within a few moments");
+    R.advance(cur);
+    cur = R.advance(cur);
+  }
+  R.timeline(frozen);
+  R.lanes(frozen);
+  R.describe(frozen);
+  assert.equal(JSON.stringify(frozen), before);
+  assert.deepEqual(serviceJob(DEV).written.ops.map((o) => o.id), ["h1", "cx1", "m0", "m1"]);
+});
+
+test("the lanes say whether the service has adapted the program yet", () => {
+  let j = serviceJob(DEV);
+  j = R.advance(R.advance(j));
+  assert.ok(R.lanes(j).target.some((t) => /still as written: the service has not adapted it yet/.test(t)));
+  for (let i = 0; i < 4; i++) j = R.advance(j);
+  assert.equal(j.adapted, true);
+  assert.ok(R.lanes(j).target.some((t) => /The program, adapted by the service/.test(t)));
+  assert.ok(!R.lanes(job(DEV)).target.some((t) => /adapted by the service|still as written/.test(t)), "an ordinary job says neither");
+});
+
+test("a service-prepared job can still be cancelled while it waits, including at the service's moment", () => {
+  let j = serviceJob(DEV);
+  for (let i = 0; i < 6; i++) j = R.advance(j);
+  assert.equal(j.adapted, true);
+  assert.equal(R.canCancel(j), true);
+  assert.equal(R.cancel(j).state, "cancelled");
+  assert.equal(R.canCancel(R.advance(R.advance(serviceJob(DEV)))), true);
+  assert.equal(R.canCancel(R.advance(serviceJob(DEV))), false, "not while only submitted");
 });

@@ -29,6 +29,12 @@
 // through QedTransform.adapt: an operation is not listed when adapting it to the target would
 // have to change it. There is no second rule.
 //
+// A job normally carries a program that is already adapted (the 05.06 workflow). With the option
+// `servicePrepares` it carries the program AS WRITTEN, and the service adapts it after the wait
+// and before the target checks it (05.07's "send, then the service prepares" arrangement). That
+// adaptation is its own moment, with what crossed in words, and it uses QedTransform.adapt, so the
+// target still decides from its `allows`. Without the option nothing here behaves differently.
+//
 // Circuits have the shape QedCircuit draws and QedProgramForms lists: { qubits, ops } with an
 // `id` on each op. Basis order for counts is 00, 01, 10, 11 with q0 the left digit, as in
 // Module 02. Functions never mutate their arguments.
@@ -144,7 +150,9 @@ window.QedRuntime = (function () {
     return "job-" + s;
   }
 
-  // A new job: Prepared, at moment 0. options: { number (default 1), fate: "completes" | "fails" }.
+  // A new job: Prepared, at moment 0. options: { number (default 1), fate: "completes" | "fails",
+  // servicePrepares (default false): the job carries the program as written and the service adapts it
+  // after the wait }.
   function newJob(circuit, target, shots, options) {
     options = options || {};
     if (!target || !target.allows) throw new Error("QedRuntime: a job needs a target description");
@@ -165,6 +173,9 @@ window.QedRuntime = (function () {
       collected: false,
       crossed: null,
       reason: null,
+      servicePrepares: options.servicePrepares === true,
+      adapted: false,
+      written: options.servicePrepares === true ? copyCircuit(circuit) : null,
       history: [{ state: "prepared", moment: 0 }],
     };
   }
@@ -189,11 +200,34 @@ window.QedRuntime = (function () {
     return job.state === "finished" && !job.collected;
   }
 
+  // The service adapts a job that carries the program as written, in the state the job is in. The
+  // moment says what changed in words (QedTransform's own sentences) or that nothing needed to.
+  function prepare(job, state) {
+    var a = dep("QedTransform").adapt(job.circuit, job.target);
+    var what = a.steps.length ? a.steps.map(function (s) { return s.text; }).join(" ") : "It needed no change.";
+    return step(job, state, {
+      circuit: a.circuit,
+      adapted: true,
+      crossed: "The service adapted the program to " + job.target.name + "'s list. " + what,
+    });
+  }
+
+  // After the service has adapted the program, the target checks it, as it does for any job.
+  function startPrepared(job) {
+    var c = check(job.circuit, job.target);
+    if (!c.ok) return step(job, "rejected", { reason: c.text, crossed: "A refusal came back: " + c.text });
+    return step(job, "running", { ahead: 0, crossed: "A status came back: running." });
+  }
+
   // The next moment in the job's life. Throws for a job that has ended.
   function advance(job) {
     if (!canAdvance(job)) throw new Error("QedRuntime: a " + job.state + " job cannot advance");
     if (job.state === "prepared") {
       return step(job, "submitted", { crossed: "The job went from the program side to the target." });
+    }
+    if (job.state === "submitted" && job.servicePrepares) {
+      if (queues(job.target)) return step(job, "queued", { ahead: QUEUE_AHEAD, crossed: "A status came back: queued. The program is still as written." });
+      return job.adapted ? startPrepared(job) : prepare(job, "submitted");
     }
     if (job.state === "submitted") {
       var c = check(job.circuit, job.target);
@@ -203,6 +237,7 @@ window.QedRuntime = (function () {
     }
     if (job.state === "queued") {
       if (job.ahead > 0) return step(job, "queued", { ahead: job.ahead - 1, crossed: "A status came back: still queued." });
+      if (job.servicePrepares) return job.adapted ? startPrepared(job) : prepare(job, "queued");
       return step(job, "running", { ahead: 0, crossed: "A status came back: running." });
     }
     // running
@@ -393,6 +428,9 @@ window.QedRuntime = (function () {
       else if (s === "rejected") target.push("A refusal: " + job.reason);
       else if (s === "failed") target.push("Nothing to hand back");
       else if (s === "cancelled") target.push("The job, withdrawn");
+      if (job.servicePrepares && (s === "submitted" || s === "queued" || s === "running")) {
+        target.push(job.adapted ? "The program, adapted by the service" : "The program, still as written: the service has not adapted it yet");
+      }
       if (s === "finished" && job.collected) program.push("The counts, ready to use (simulated)");
       if (isTerminal(s)) program.push("No results");
     }
