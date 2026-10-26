@@ -44,6 +44,12 @@ For day-to-day work, every contributor can use the same environment through a [d
 
 The repository you cloned is mounted into the container, so your edits, commits, and branches are the same ones you see outside it, and git works inside the container. After someone changes the `Dockerfile` or `requirements.txt`, run **Dev Containers: Rebuild Container**. A `.gitattributes` file keeps line endings consistent, so git inside the container does not report every file as changed on a Windows checkout.
 
+#### Claude Code in the container
+
+The dev container installs [Claude Code](https://code.claude.com/docs/en/devcontainer) (the CLI and its VS Code extension) through Anthropic's dev container feature, so Claude runs inside the container and sees the same tools you do. The first time, open a terminal in the container, run `claude`, and sign in. Your sign-in and settings are kept in a Docker volume that is specific to this project, so they survive **Rebuild Container**. Deleting that volume signs you out.
+
+Use the container only with this repository, which you trust, and do not mount host secrets such as `~/.ssh` into it. Claude Code in the container auto-updates itself, so teammates may run slightly different versions.
+
 ## Running the tests
 
 ```bash
