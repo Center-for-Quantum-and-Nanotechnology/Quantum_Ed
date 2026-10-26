@@ -258,7 +258,7 @@ Program → job → target → counts → numbers → the next job.
 
 > **You have met every responsibility one at a time. When all of them work on one computation, on a simulator and on a device, what stays the same, and what changes?**
 
-**Next: Integrated Quantum Software Workflows →** *(coming soon)*
+**[Next: Integrated Quantum Software Workflows →](integrated-quantum-software-workflows.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {

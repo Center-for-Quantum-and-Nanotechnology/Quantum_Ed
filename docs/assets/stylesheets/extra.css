@@ -3834,3 +3834,172 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ---------------------------------------------------------------------
+   Module 05 - Integrated Quantum Software Workflows
+   (docs/05-software-stack/integrated-quantum-software-workflows.md, driven by
+   docs/assets/javascripts/workflow.js). Neutral treatment like the rest of Module 05. Each step
+   has a text label and a glyph, a text tag for its group (Application Layer, where the groups
+   meet, execution target, Control Layer), and a text tag for who performs it (your tools, the
+   service, the one tool). The current step has a "now" badge and a heavier border; finished
+   steps have a "done" tag. Two earlier meanings are reused where they apply, and only there:
+   reported data keeps 05.04's teal dashed border, and a possible decision keeps its dotted
+   border. Does not use 05.05's method borders or 05.06's exit-state borders.
+   ------------------------------------------------------------------- */
+.qed-wf [hidden] {
+  display: none !important;
+}
+
+[dir] .md-typeset ol.qed-wf__list {
+  margin: 0.6rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.qed-wf__step {
+  display: block;
+  margin: 0.35rem 0;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.88rem;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+}
+
+.qed-wf__step.is-now {
+  border: 5px solid var(--md-accent-fg-color);
+  background: color-mix(in srgb, var(--md-accent-fg-color) 7%, var(--md-default-bg-color));
+}
+
+.qed-wf__step.is-done {
+  border-color: var(--md-default-fg-color--lighter);
+}
+
+.qed-wf__glyph {
+  display: inline-block;
+  min-width: 1.4rem;
+  font-family: var(--md-code-font);
+  font-weight: 700;
+}
+
+.qed-wf__tags {
+  display: block;
+  margin-top: 0.15rem;
+}
+
+.qed-wf__tag,
+.qed-wf__badge {
+  display: inline-block;
+  margin: 0.1rem 0.3rem 0.1rem 0;
+  padding: 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: 0.6rem;
+  white-space: nowrap;
+}
+
+.qed-wf__badge {
+  margin-left: 0.4rem;
+  border: 2px solid var(--md-default-fg-color);
+}
+
+.qed-wf__step > .qed-wf__tag {
+  margin-left: 0.4rem;
+}
+
+.qed-wf__tag--group {
+  border-style: solid;
+}
+
+.qed-wf__tag--by {
+  border-radius: 0.15rem;
+  border-width: 2px;
+}
+
+.qed-wf__tag--differs {
+  border-width: 2px;
+  border-color: var(--md-default-fg-color);
+}
+
+.qed-wf__tag--one {
+  border-style: dashed;
+}
+
+[dir] .md-typeset ol.qed-wf__list--inside {
+  margin: 0.4rem 0 0;
+}
+
+.qed-wf__inside {
+  margin-top: 0.4rem;
+}
+
+.qed-wf__detail {
+  margin: 0.6rem 0;
+  padding: 0.5rem 0.8rem;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+}
+
+.qed-wf__detail h4 {
+  margin: 0 0 0.2rem;
+  font-size: 0.95rem;
+}
+
+.qed-wf__detail p {
+  margin: 0.3rem 0;
+  font-size: 0.85rem;
+}
+
+.qed-wf__meta,
+.qed-wf__taught,
+.qed-wf__note {
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-wf__circuit {
+  text-align: center;
+}
+
+.qed-wf__reported {
+  margin: 0.5rem 0;
+  padding: 0.3rem 0.7rem;
+  border: 2px dashed var(--qed-color-telemetry);
+  border-radius: 0.3rem;
+  background: color-mix(in srgb, var(--qed-color-telemetry) 8%, var(--md-default-bg-color));
+}
+
+.qed-wf__possible {
+  margin: 0.5rem 0;
+  padding: 0.3rem 0.7rem;
+  border: 2px dotted var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+}
+
+[dir] .md-typeset ol.qed-wf__life {
+  margin: 0.3rem 0;
+  padding-left: 1.4rem;
+  font-size: 0.85rem;
+}
+
+.qed-wf__result {
+  margin: 0.8rem 0;
+  padding: 0.5rem 0.8rem;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+}
+
+.qed-wf__controls label {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.qed-wf__note-row td {
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+}
+
+@media (max-width: 44.9375em) {
+  .qed-wf__note-row td {
+    display: block;
+  }
+}
