@@ -13,6 +13,19 @@ mkdocs serve
 
 Then open http://127.0.0.1:8000.
 
+## Running in Docker
+
+If you would rather not install Python and Node, run the project in a container (Docker Desktop or Docker Engine with Compose). The image has Python 3.12, MkDocs with the pinned dependencies, and Node 22 for the JavaScript tests. The repository is mounted into the container, so your edits show up at once.
+
+```bash
+docker compose up                  # serve the site at http://localhost:8000, with live reload
+docker compose run --rm check      # what CI runs: JavaScript tests, Python tests, mkdocs build --strict
+docker compose run --rm shell      # a shell in the container
+docker compose build               # rebuild the image after changing requirements.txt
+```
+
+`mkdocs serve` does not reload hook code, so restart `docker compose up` after editing `hooks.py`, `glossary_hook.py`, or `level_hook.py`. On Linux hosts the container runs as root, so files it writes into the repository (such as `docs/glossary.md`) are owned by root.
+
 ## Running the tests
 
 ```bash
