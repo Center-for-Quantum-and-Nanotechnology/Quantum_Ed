@@ -24,7 +24,25 @@ docker compose run --rm shell      # a shell in the container
 docker compose build               # rebuild the image after changing requirements.txt
 ```
 
-`mkdocs serve` does not reload hook code, so restart `docker compose up` after editing `hooks.py`, `glossary_hook.py`, or `level_hook.py`. On Linux hosts the container runs as root, so files it writes into the repository (such as `docs/glossary.md`) are owned by root.
+`mkdocs serve` does not reload hook code, so restart `docker compose up` after editing `hooks.py`, `glossary_hook.py`, or `level_hook.py`. The container runs as a normal user (`dev`, UID 1000), so files it writes into the repository, such as `docs/glossary.md`, belong to you rather than root. If your Linux user is not UID 1000, the dev container below adjusts it for you.
+
+### Open the project in a dev container (VS Code)
+
+For day-to-day work, every contributor can use the same environment through a [dev container](https://containers.dev). It uses the same `Dockerfile` as the commands above, so everyone has the same Python, MkDocs, Node, and git versions.
+
+1. Install [Docker](https://docs.docker.com/get-docker/) and [VS Code](https://code.visualstudio.com/) with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
+2. Clone the repository and open its folder in VS Code.
+3. When VS Code offers **Reopen in Container**, choose it. Otherwise open the Command Palette and run **Dev Containers: Reopen in Container**. The first build takes a few minutes.
+4. In the VS Code terminal (now inside the container), use the commands from the top of this README:
+
+   ```bash
+   mkdocs serve --dev-addr 0.0.0.0:8000    # then open http://localhost:8000 (VS Code forwards the port)
+   cd tests/js && node --test              # JavaScript tests
+   python -m unittest discover -s tests/python -v
+   mkdocs build --strict
+   ```
+
+The repository you cloned is mounted into the container, so your edits, commits, and branches are the same ones you see outside it, and git works inside the container. After someone changes the `Dockerfile` or `requirements.txt`, run **Dev Containers: Rebuild Container**. A `.gitattributes` file keeps line endings consistent, so git inside the container does not report every file as changed on a Windows checkout.
 
 ## Running the tests
 
