@@ -2,7 +2,7 @@
 
 Planned work that is not finished yet. Tick items off (or delete them) as they land, and add new ones as they come up. Deviations and simplifications in work that is already built belong in [`FLAGS.md`](FLAGS.md), not here.
 
-Last updated: 2026-10-22
+Last updated: 2026-10-26
 
 ---
 
@@ -24,7 +24,8 @@ Governing documents: `context_docs/modules/module_05/taxonomy_QuantumSoftwareSta
   - Terminology check against the glossary (see the glossary section below).
 - [x] **05.02 is final and built.**
 - [x] **05.03 to 05.06 are final and built.**
-- [ ] **Write the spec for 05.07** with the `section-spec-writer` skill, then build the page. The title is fixed by the taxonomy.
+- [x] **Write the spec for 05.07.** Final (all fourteen review recommendations accepted, plus the `QedRuntime` extension for a job the service prepares).
+- [ ] **Build 05.07** from the final spec: `QedWorkflow`, the `QedRuntime` extension, the page, and the module's closing housekeeping (README, overview page).
 - [ ] **Module 05 README** with the page status table (`context_docs/README.md` section 3).
 
 ## Module 02: Quantum Computing Fundamentals
@@ -56,7 +57,8 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [ ] **`QedBloch.render` reads its default `neutral` from `documentElement`**, which gives the light scheme's dark gray in the dark scheme (Material sets the variables on the body). Module 01's sphere outline is probably affected; check it. Read it from the body in `bloch.js` and recheck Module 01.
 - [ ] **Later: make `QedBloch.state` delegate to `QedQubit`** when Module 01 is next touched (the cross-tests protect the change).
 - [x] **Extract the data-driven quiz builder.** Done as `QedQuiz` (`quiz.js`), with tests; 02.01 was migrated onto it.
-- [ ] **Module 02 README** with the page status table.
+- [ ] **Module 02 README** with the page status table.
+
 - [ ] **Module 01 demos: test the pure page-local formulas only if a second page reuses them** (agreement rule, toy cost models), by extracting them into a shared module first.
 
 ## context_docs housekeeping
