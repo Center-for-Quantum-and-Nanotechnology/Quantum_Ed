@@ -58,7 +58,7 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [ ] **`QedBloch.render` reads its default `neutral` from `documentElement`**, which gives the light scheme's dark gray in the dark scheme (Material sets the variables on the body). Module 01's sphere outline is probably affected; check it. Read it from the body in `bloch.js` and recheck Module 01.
 - [ ] **Later: make `QedBloch.state` delegate to `QedQubit`** when Module 01 is next touched (the cross-tests protect the change).
 - [x] **Extract the data-driven quiz builder.** Done as `QedQuiz` (`quiz.js`), with tests; 02.01 was migrated onto it.
-- [ ] **Module 02 README** with the page status table.
+- [x] **Module 02 README** with the page status table. Done.
 
 - [ ] **Module 01 demos: test the pure page-local formulas only if a second page reuses them** (agreement rule, toy cost models), by extracting them into a shared module first.
 
