@@ -6,14 +6,14 @@ Module 04 explains **how a physical device holds, controls, and reads a qubit, w
 
 - [`../../vision/ProjectVision.md`](../../vision/ProjectVision.md): how the whole platform teaches.
 - [`taxonomy_QuantumHardware_v1.0.md`](taxonomy_QuantumHardware_v1.0.md): the approved page hierarchy, the module's learning contract, the promises earlier modules have already made to this one, ownership fences, and the decision record. Where it and a page spec disagree, the taxonomy wins.
-- [`specs/`](specs/): one instruction document per page (none yet).
+- [`specs/`](specs/): one instruction document per page.
 - [`../../../llm/CONVENTIONS.md`](../../../llm/CONVENTIONS.md) and [`../../../llm/FLAGS.md`](../../../llm/FLAGS.md): how the interactive code is organized, and the deviations and open items logged for each page.
 
 ## Page status
 
 | ID | Page | Spec | Built page | Status |
 |---|---|---|---|---|
-| 04.01.01 | Physical Qubits | — | — | no spec |
+| 04.01.01 | Physical Qubits | [`specs/04.01.01_PhysicalQubitsInstruction.md`](specs/04.01.01_PhysicalQubitsInstruction.md) | [`docs/04-hardware/physical-qubits.md`](../../../docs/04-hardware/physical-qubits.md) | built, needs hardening |
 | 04.01.02 | Gates and Control | — | — | no spec |
 | 04.01.03 | Readout | — | — | no spec |
 | 04.01.04 | Coherence | — | — | no spec |
@@ -25,7 +25,7 @@ Module 04 explains **how a physical device holds, controls, and reads a qubit, w
 | 04.02.05 | Dual-Rail and Bosonic Encodings | — | — | no spec |
 | 04.02.06 | Comparing Platforms | — | — | no spec |
 
-The module is still a placeholder in the site navigation ([`docs/04-hardware/index.md`](../../../docs/04-hardware/index.md)); it is updated when the first page is built.
+The module overview ([`docs/04-hardware/index.md`](../../../docs/04-hardware/index.md)) and the site navigation list only the pages that exist, and are updated as each page is built.
 
 ## Prerequisites and neighbours
 
@@ -33,13 +33,12 @@ The module is still a placeholder in the site navigation ([`docs/04-hardware/ind
 - **Module 02** owns the ideal model of states, gates, circuits, and measurement. Module 04 explains how a device realises each and where it departs.
 - **Module 05 (Quantum Software Stack)** owns how software describes and consumes device data, including calibration telemetry. Module 04 owns the physical origin of those quantities and the measurements behind them.
 - **Module 07 (Quantum Error Correction)** owns the error vocabulary, codes, and decoding. Module 04 explains where noise comes from and does not teach how to correct it.
-- Cross-module links are deferred, so the pages do not link into other modules.
+- Cross-module links are deferred beyond the few a learner needs, so the pages link into other modules only where a learner cannot proceed without them.
 
 ## Open items
 
 Detail lives in the taxonomy, [`llm/FLAGS.md`](../../../llm/FLAGS.md), and [`llm/todo.md`](../../../llm/todo.md), not here.
 
-- **Site navigation and the placeholder index** still describe the old plan until the first page is built (taxonomy section 15).
 - **No subject-matter review yet**, and this is the most fact-dense module. Platform facts and the T1, T2, and Transmon glossary entries are the first things to check.
-- **No screen-reader or keyboard pass yet** on any interactive, because none exists.
+- **No screen-reader or keyboard pass yet** on the 04.01.01 explorer, which has only been tested with scripted interaction.
 - **Intermediate and Advanced content and cross-module links** are deferred.

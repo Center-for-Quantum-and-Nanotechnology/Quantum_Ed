@@ -2,7 +2,7 @@
 
 Planned work that is not finished yet. Tick items off (or delete them) as they land, and add new ones as they come up. Deviations and simplifications in work that is already built belong in [`FLAGS.md`](FLAGS.md), not here.
 
-Last updated: 2026-10-26
+Last updated: 2026-10-27
 
 ---
 
@@ -28,6 +28,22 @@ Governing documents: `context_docs/modules/module_05/taxonomy_QuantumSoftwareSta
 - [x] **05.07 is built.** `QedWorkflow`, the `QedRuntime` extension, the page, and the module's closing housekeeping. **Module 05 has all seven pages.**
 - [x] **Module 05 README** with the page status table (`context_docs/modules/module_05/README.md`).
 - [x] **Fixed the two terms that carried two meanings across Module 05** (the informal "job" against the defined Quantum Job, and "backend"); see `FLAGS.md`.
+
+## Module 04: Quantum Hardware
+
+Governing documents: `context_docs/modules/module_04/taxonomy_QuantumHardware_v1.0.md` (approved 2026-10-27) and the specs in `context_docs/modules/module_04/specs/`.
+
+- [x] **Approve the taxonomy** (all fourteen decisions) and add 04.02.06 Comparing Platforms to the global tree.
+- [x] **Module 04 README** with the page status table.
+- [x] **04.01.01 Physical Qubits is final and built.** `QedLadder`, the page, two glossary entries, and the module's first nav entry.
+- [ ] **Draft and build 04.01.02 to 04.02.06**, one page at a time. 04.01.01's closing question leads into 04.01.02 Gates and Control, which reuses `QedLadder` for the drive.
+- [ ] **Replace the "Next: Gates and Control → (coming soon)" note** on the 04.01.01 page with a link when 04.01.02 is built.
+- [ ] **Add each Module 04 page to `mkdocs.yml` and `docs/04-hardware/index.md` as it is built.** Link only pages that exist.
+- [ ] **Record the read-out signal's visual treatment** in `llm/CONVENTIONS.md` when 04.01.03 first shows it (the control treatment, `--qed-color-control`, is already recorded).
+- [ ] **Hardware subject-matter review** before any modality fact is treated as settled (taxonomy decision 14). Pages stay `built, needs hardening` until then.
+- [ ] **Screen-reader and keyboard pass for the Module 04 interactives.** The 04.01.01 explorer uses native radio buttons and an aria-live summary but has only been tested with scripted interaction.
+
+---
 
 ## Module 02: Quantum Computing Fundamentals
 
