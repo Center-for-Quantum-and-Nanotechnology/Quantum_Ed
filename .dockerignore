@@ -1,0 +1,10 @@
+# The image only needs requirements.txt; the repository is bind-mounted at run time.
+# Keep the build context small and keep local environments out of it.
+.git
+.venv
+venv
+site
+__pycache__
+*.pyc
+.claude
+node_modules

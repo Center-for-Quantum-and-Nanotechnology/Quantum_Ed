@@ -2,7 +2,7 @@
 
 Planned work that is not finished yet. Tick items off (or delete them) as they land, and add new ones as they come up. Deviations and simplifications in work that is already built belong in [`FLAGS.md`](FLAGS.md), not here.
 
-Last updated: 2026-10-22
+Last updated: 2026-10-26
 
 ---
 
@@ -17,15 +17,17 @@ Governing documents: `context_docs/modules/module_05/taxonomy_QuantumSoftwareSta
   - Add the **Shared Components** section (template: `context_docs/templates/SharedComponentsSection.md`).
   - Record that the spec was reviewed against taxonomy V1.1.
 - [x] **Sync the global taxonomy.** `context_docs/taxonomy/Quantum_Computing_Curriculum.md` now lists the seven approved pages.
-- [ ] **Add each remaining Module 05 page to `mkdocs.yml` as it is built** (05.01 to 05.06 are done). Decision: nav entries only for pages that exist, no stub pages. The nav currently holds just the module index.
+- [ ] **Add each remaining Module 05 page to `mkdocs.yml` as it is built** (05.01 to 05.07 are done). Decision: nav entries only for pages that exist, no stub pages. The nav currently holds just the module index.
 - [x] **Rewrite `docs/05-software-stack/index.md`.** It now describes the module and lists the seven planned pages. Link each page there as it is written.
 - [x] **Build 05.01** (Understanding the Quantum Software Stack) from the revised spec. Built; added `QedCircuit`, `QedSoftwareStack`, three glossary entries, and the nav entry. See the Module 05 section of `FLAGS.md`.
   - Module 03 is a placeholder, so there is no circuit display to reuse. Plan to reuse the `.qed-circuit-*` styles from Module 07.
   - Terminology check against the glossary (see the glossary section below).
 - [x] **05.02 is final and built.**
 - [x] **05.03 to 05.06 are final and built.**
-- [ ] **Write the spec for 05.07** with the `section-spec-writer` skill, then build the page. The title is fixed by the taxonomy.
-- [ ] **Module 05 README** with the page status table (`context_docs/README.md` section 3).
+- [x] **Write the spec for 05.07.** Final (all fourteen review recommendations accepted, plus the `QedRuntime` extension for a job the service prepares).
+- [x] **05.07 is built.** `QedWorkflow`, the `QedRuntime` extension, the page, and the module's closing housekeeping. **Module 05 has all seven pages.**
+- [x] **Module 05 README** with the page status table (`context_docs/modules/module_05/README.md`).
+- [ ] **Fix two terms that now carry two meanings across Module 05** (found in the 05.07 terminology pass, recorded in `FLAGS.md`): the informal "job" (05.01's SDK block, 05.02's page, and the Quantum Software Stack, Program Representation, and Quantum-Classical Hybrid Computing glossary entries) against the defined Quantum Job, and "backend" (the glossary entry means the system that executes a circuit; 05.01 and 05.04 use "backend / target description" for its description).
 
 ## Module 02: Quantum Computing Fundamentals
 
@@ -56,7 +58,8 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [ ] **`QedBloch.render` reads its default `neutral` from `documentElement`**, which gives the light scheme's dark gray in the dark scheme (Material sets the variables on the body). Module 01's sphere outline is probably affected; check it. Read it from the body in `bloch.js` and recheck Module 01.
 - [ ] **Later: make `QedBloch.state` delegate to `QedQubit`** when Module 01 is next touched (the cross-tests protect the change).
 - [x] **Extract the data-driven quiz builder.** Done as `QedQuiz` (`quiz.js`), with tests; 02.01 was migrated onto it.
-- [ ] **Module 02 README** with the page status table.
+- [ ] **Module 02 README** with the page status table.
+
 - [ ] **Module 01 demos: test the pure page-local formulas only if a second page reuses them** (agreement rule, toy cost models), by extracting them into a shared module first.
 
 ## context_docs housekeeping
@@ -84,7 +87,7 @@ Governing documents: `context_docs/glossary/specs/glossary.md`, `data/glossary/`
 - [ ] **Review the generic alias "Layout"** on Qubit Mapping, the likeliest to surprise.
 - [ ] **Add Module 07 vocabulary** deliberately left out so far: parity check, code space, data qubit, error chain, detection event, logical equivalence.
 - [ ] **Re-audit "Appears in" lists** as modules are added. Placeholder pages and passing name-drops are not referenced.
-- [ ] **Terminology check for the remaining Module 05 pages (05.01 to 05.06 are done).** It will introduce terms such as intermediate representation, transpilation, backend, calibration telemetry and runtime. Several overlap existing entries (see the near-synonym item).
+- [ ] **Terminology check for the remaining Module 05 pages (all seven are done; the last pass is in `FLAGS.md`).** It will introduce terms such as intermediate representation, transpilation, backend, calibration telemetry and runtime. Several overlap existing entries (see the near-synonym item).
 - [ ] **Restart `mkdocs serve`** in your own terminal. It does not reload hook code, so it may still show the removed category chips.
 
 ## Module 07 hardening (Beginner V1 is complete)

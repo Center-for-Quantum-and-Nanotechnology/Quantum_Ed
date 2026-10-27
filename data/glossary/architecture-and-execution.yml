@@ -7,6 +7,7 @@
   moduleReferences:
     - 05-software-stack/understanding-the-quantum-software-stack.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+    - 05-software-stack/integrated-quantum-software-workflows.md
   category: architecture-and-execution
 
 - id: backend-description
@@ -190,6 +191,7 @@
     - 06-algorithms/variational-quantum-eigensolver.md
     - 06-algorithms/index.md
     - 05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md
+    - 05-software-stack/integrated-quantum-software-workflows.md
   category: architecture-and-execution
 
 - id: nisq
@@ -229,6 +231,7 @@
   relatedTerms: [backend, compilation, quantum-runtime, execution-target, calibration]
   moduleReferences:
     - 05-software-stack/understanding-the-quantum-software-stack.md
+    - 05-software-stack/integrated-quantum-software-workflows.md
   category: architecture-and-execution
 
 - id: execution-target
@@ -241,6 +244,7 @@
     - 05-software-stack/understanding-the-quantum-software-stack.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
     - 05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md
+    - 05-software-stack/integrated-quantum-software-workflows.md
   category: architecture-and-execution
 
 - id: quantum-runtime
@@ -252,6 +256,7 @@
   moduleReferences:
     - 05-software-stack/understanding-the-quantum-software-stack.md
     - 05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md
+    - 05-software-stack/integrated-quantum-software-workflows.md
   category: architecture-and-execution
 
 - id: program-representation

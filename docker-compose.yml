@@ -1,0 +1,38 @@
+# Run QuantumEd in a container. See "Running in Docker" in README.md.
+#
+#   docker compose up            serve the site at http://localhost:8000 (live reload)
+#   docker compose run --rm check   the same three steps CI runs: JS tests, Python tests, strict build
+#   docker compose run --rm shell   a shell in the container
+#
+# The repository is bind-mounted, so edits on the host show up in the container at once.
+name: quantumed
+
+x-dev: &dev
+  build: .
+  image: quantumed-dev
+  working_dir: /workspace
+  volumes:
+    - .:/workspace
+
+services:
+  docs:
+    <<: *dev
+    ports:
+      - "8000:8000"
+    command: mkdocs serve --dev-addr 0.0.0.0:8000
+
+  check:
+    <<: *dev
+    profiles: ["tools"]
+    # Builds into /tmp so the host's site/ folder is left alone.
+    command: >
+      sh -c "cd tests/js && node --test
+      && cd /workspace && python -m unittest discover -s tests/python -v
+      && mkdocs build --strict -d /tmp/site"
+
+  shell:
+    <<: *dev
+    profiles: ["tools"]
+    stdin_open: true
+    tty: true
+    command: bash

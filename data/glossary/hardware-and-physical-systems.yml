@@ -186,6 +186,7 @@
   relatedTerms: [calibration-data, calibration-telemetry, calibration, time-dependent-noise]
   moduleReferences:
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+    - 05-software-stack/integrated-quantum-software-workflows.md
   category: hardware-and-physical-systems
 
 - id: crosstalk

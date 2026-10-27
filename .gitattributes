@@ -1,0 +1,11 @@
+# Let git normalize line endings itself, so the working tree can be CRLF on Windows (core.autocrlf=true)
+# and LF everywhere else without git inside the Docker container seeing every file as modified.
+# The repository stores LF.
+* text=auto
+
+# Files that run inside the Docker container must keep LF line endings even in a Windows working
+# tree, or the container tools can fail on stray carriage returns.
+Dockerfile text eol=lf
+.dockerignore text eol=lf
+docker-compose.yml text eol=lf
+.devcontainer/** text eol=lf

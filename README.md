@@ -13,6 +13,43 @@ mkdocs serve
 
 Then open http://127.0.0.1:8000.
 
+## Running in Docker
+
+If you would rather not install Python and Node, run the project in a container (Docker Desktop or Docker Engine with Compose). The image has Python 3.12, MkDocs with the pinned dependencies, and Node 22 for the JavaScript tests. The repository is mounted into the container, so your edits show up at once.
+
+```bash
+docker compose up                  # serve the site at http://localhost:8000, with live reload
+docker compose run --rm check      # what CI runs: JavaScript tests, Python tests, mkdocs build --strict
+docker compose run --rm shell      # a shell in the container
+docker compose build               # rebuild the image after changing requirements.txt
+```
+
+`mkdocs serve` does not reload hook code, so restart `docker compose up` after editing `hooks.py`, `glossary_hook.py`, or `level_hook.py`. The container runs as a normal user (`dev`, UID 1000), so files it writes into the repository, such as `docs/glossary.md`, belong to you rather than root. If your Linux user is not UID 1000, the dev container below adjusts it for you.
+
+### Open the project in a dev container (VS Code)
+
+For day-to-day work, every contributor can use the same environment through a [dev container](https://containers.dev). It uses the same `Dockerfile` as the commands above, so everyone has the same Python, MkDocs, Node, and git versions.
+
+1. Install [Docker](https://docs.docker.com/get-docker/) and [VS Code](https://code.visualstudio.com/) with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
+2. Clone the repository and open its folder in VS Code.
+3. When VS Code offers **Reopen in Container**, choose it. Otherwise open the Command Palette and run **Dev Containers: Reopen in Container**. The first build takes a few minutes.
+4. In the VS Code terminal (now inside the container), use the commands from the top of this README:
+
+   ```bash
+   mkdocs serve --dev-addr 0.0.0.0:8000    # then open http://localhost:8000 (VS Code forwards the port)
+   cd tests/js && node --test              # JavaScript tests
+   python -m unittest discover -s tests/python -v
+   mkdocs build --strict
+   ```
+
+The repository you cloned is mounted into the container, so your edits, commits, and branches are the same ones you see outside it, and git works inside the container. After someone changes the `Dockerfile` or `requirements.txt`, run **Dev Containers: Rebuild Container**. A `.gitattributes` file keeps line endings consistent, so git inside the container does not report every file as changed on a Windows checkout.
+
+#### Claude Code in the container
+
+The dev container installs [Claude Code](https://code.claude.com/docs/en/devcontainer) (the CLI and its VS Code extension) through Anthropic's dev container feature, so Claude runs inside the container and sees the same tools you do. The first time, open a terminal in the container, run `claude`, and sign in. Your sign-in and settings are kept in a Docker volume that is specific to this project, so they survive **Rebuild Container**. Deleting that volume signs you out.
+
+Use the container only with this repository, which you trust, and do not mount host secrets such as `~/.ssh` into it. Claude Code in the container auto-updates itself, so teammates may run slightly different versions.
+
 ## Running the tests
 
 ```bash
