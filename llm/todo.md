@@ -27,7 +27,7 @@ Governing documents: `context_docs/modules/module_05/taxonomy_QuantumSoftwareSta
 - [x] **Write the spec for 05.07.** Final (all fourteen review recommendations accepted, plus the `QedRuntime` extension for a job the service prepares).
 - [x] **05.07 is built.** `QedWorkflow`, the `QedRuntime` extension, the page, and the module's closing housekeeping. **Module 05 has all seven pages.**
 - [x] **Module 05 README** with the page status table (`context_docs/modules/module_05/README.md`).
-- [ ] **Fix two terms that now carry two meanings across Module 05** (found in the 05.07 terminology pass, recorded in `FLAGS.md`): the informal "job" (05.01's SDK block, 05.02's page, and the Quantum Software Stack, Program Representation, and Quantum-Classical Hybrid Computing glossary entries) against the defined Quantum Job, and "backend" (the glossary entry means the system that executes a circuit; 05.01 and 05.04 use "backend / target description" for its description).
+- [x] **Fixed the two terms that carried two meanings across Module 05** (the informal "job" against the defined Quantum Job, and "backend"); see `FLAGS.md`.
 
 ## Module 02: Quantum Computing Fundamentals
 

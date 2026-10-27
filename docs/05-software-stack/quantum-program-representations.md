@@ -1,6 +1,6 @@
 # Quantum Program Representations
 
-One computation can be written down in several forms. Each form is good for a different job.
+One computation can be written down in several forms. Each form is good for a different task.
 
 ## What Does a Program Look Like After It Leaves the Code We Wrote?
 
@@ -49,7 +49,7 @@ Every form emphasizes something and hides something else.
 | **Ordered instruction list** | Easy for software to read one step at a time, and to store and pass along. | Which order matters and which does not. |
 | **Dependency graph** | Makes the ordering constraints explicit. | How a person would read the circuit. |
 
-No form is better in general. Each fits a job.
+No form is better in general. Each fits a task.
 
 ## Representation Viewer
 
@@ -166,7 +166,7 @@ Targets differ in what they can do. A form that is fine for describing a computa
 
 ## Takeaway
 
-A quantum program can be described in several forms, each good for a different job. They describe the same computation, and that is why software can move a program between responsibilities.
+A quantum program can be described in several forms, each good for a different task. They describe the same computation, and that is why software can move a program between responsibilities.
 
 <div class="qed-demo" style="display:flex; flex-direction:column; align-items:center; gap:0.2rem;">
   <div class="qed-flow-step qed-flow-step--inference" style="min-width:16rem;"><span>Source form</span></div>

@@ -37,5 +37,4 @@ Detail lives in [`llm/FLAGS.md`](../../../llm/FLAGS.md) and [`llm/todo.md`](../.
 
 - **No subject-matter review yet** of the Module 05 glossary entries and factual claims (the Clifford, stabilizer, tensor-network, runtime, and telemetry statements especially).
 - **No screen-reader or keyboard pass yet** on the seven interactives, which have only been tested with scripted interaction.
-- **Two terms carry more than one meaning across the module** (the informal use of "job", and "backend"). The terminology pass for 05.07 records where; see `llm/FLAGS.md`.
 - **Intermediate and Advanced hardening, cross-module links, and Module 03 integration** are deferred.
