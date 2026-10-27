@@ -113,7 +113,7 @@ Information can flow in both directions between the Application Layer and the Co
 
 Tools such as Qiskit, CUDA-Q, InQuanto, Stim, and qBraid each let you work with quantum programs, but they differ in scope and purpose. A framework, a simulator, a library, and a platform may each cover a different subset of the responsibilities above. Control and calibration software may not be directly visible through an SDK at all.
 
-!!! question "If two tools both let you work with quantum programs, must they perform the same jobs internally?"
+!!! question "If two tools both let you work with quantum programs, must they perform the same tasks internally?"
     No. Naming the responsibilities gives us a way to compare tools without organizing everything around one vendor. An SDK is a user-facing tool, or set of tools, that may expose or integrate several of them.
 
 ## From the Stack to Program Representations

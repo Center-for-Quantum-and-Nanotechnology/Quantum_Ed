@@ -2,8 +2,8 @@
   term: Backend
   aliases: []
   definition: "The system on which a quantum circuit is executed, either quantum hardware or a simulator, reached through a software interface."
-  beginnerInterpretation: "A backend is whatever actually runs your circuit: a real quantum device or a simulation of one."
-  relatedTerms: [hardware-backend, simulator, quantum-processing-unit, quantum-compiler, shot, execution-target]
+  beginnerInterpretation: "A backend is whatever actually runs your circuit: a real quantum device or a simulation of one. In Module 05 the same thing is usually called the execution target, and the information sheet software reads about it is called its backend description."
+  relatedTerms: [hardware-backend, simulator, quantum-processing-unit, quantum-compiler, backend-description, execution-target]
   moduleReferences:
     - 05-software-stack/understanding-the-quantum-software-stack.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
@@ -185,7 +185,7 @@
   term: Quantum-Classical Hybrid Computing
   aliases: ["Hybrid quantum-classical computing"]
   definition: "A computational approach in which a quantum processor and a classical computer work together, typically with the classical side preparing parameters, processing measurement results, and deciding what the quantum side runs next."
-  beginnerInterpretation: "Hybrid computing pairs a quantum computer with an ordinary one, with each handling the part of the job it is suited to."
+  beginnerInterpretation: "Hybrid computing pairs a quantum computer with an ordinary one, with each handling the part of the work it is suited to."
   relatedTerms: [variational-quantum-algorithm, variational-quantum-eigensolver, backend, nisq, quantum-runtime, quantum-job]
   moduleReferences:
     - 06-algorithms/variational-quantum-eigensolver.md
@@ -227,7 +227,7 @@
   term: Quantum Software Stack
   aliases: ["Software Stack"]
   definition: "A way of organizing the software responsibilities that cooperate to run a quantum computation, such as describing a program, adapting it to a target, executing it, coordinating the run, and returning results. It is a teaching model rather than one fixed architecture, and real platforms may combine, distribute, or reorder these responsibilities."
-  beginnerInterpretation: "The software stack is the set of cooperating jobs that sit between the code you write and the results you get back. It is a way of thinking about the pieces, not a design every platform follows exactly."
+  beginnerInterpretation: "The software stack is the set of cooperating tasks that sit between the code you write and the results you get back. It is a way of thinking about the pieces, not a design every platform follows exactly."
   relatedTerms: [backend, compilation, quantum-runtime, execution-target, calibration]
   moduleReferences:
     - 05-software-stack/understanding-the-quantum-software-stack.md
@@ -263,7 +263,7 @@
   term: Program Representation
   aliases: []
   definition: "A form in which a quantum program, or the computation it describes, is written down so that people or software can work with it, such as a circuit diagram, an ordered list of operations, or a graph of which operations must come before which. Different software responsibilities may use different forms of the same computation."
-  beginnerInterpretation: "A program representation is one way of writing down a computation. The same computation can have several, and each is useful for a different job."
+  beginnerInterpretation: "A program representation is one way of writing down a computation. The same computation can have several, and each is useful for a different task."
   relatedTerms: [intermediate-representation, quantum-circuit, dependency-graph, compilation, quantum-software-stack]
   moduleReferences:
     - 05-software-stack/quantum-program-representations.md

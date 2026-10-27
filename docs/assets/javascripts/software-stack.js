@@ -318,7 +318,7 @@ window.QedSoftwareStack = (function () {
 
   var SHARED_TEXT = {
     shared: "Shared by both paths",
-    differs: "Same job, different content",
+    differs: "Same role, different content",
     "hardware-only": "Hardware path only",
   };
 
