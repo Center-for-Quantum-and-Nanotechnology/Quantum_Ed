@@ -108,7 +108,8 @@ nav:
   - "03 · Quantum Programming":
       - 03-programming/index.md
   - "04 · Quantum Hardware":
-      - 04-hardware/index.md
+      - Overview: 04-hardware/index.md
+      - Physical Qubits: 04-hardware/physical-qubits.md
   - "05 · Quantum Software Stack":
       - Overview: 05-software-stack/index.md
       - Understanding the Quantum Software Stack: 05-software-stack/understanding-the-quantum-software-stack.md

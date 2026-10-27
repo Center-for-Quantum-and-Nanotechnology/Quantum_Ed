@@ -1,11 +1,9 @@
 # 04 · Quantum Hardware
 
-!!! note "Status"
-    This module is a placeholder. Pages will be added as content is written — see the [repository](https://github.com/Center-for-Quantum-and-Nanotechnology/Quantum_Ed) to contribute.
+How a physical device holds, controls, and reads a qubit, why it does so imperfectly, and how different physical platforms make different trade-offs.
 
-How qubits are physically built, controlled, and read out.
+It builds on [02 · Quantum Computing Fundamentals](../02-fundamentals/index.md), which teaches what a qubit, a gate, and a measurement *are* as an ideal model. This module teaches what it takes to make a physical system *do* them.
 
-## Planned sections
+## Pages
 
-- **Hardware Fundamentals** — Physical Qubits, Gates and Control, Readout, Coherence, Noise
-- **Qubit Modalities** — Superconducting, Trapped Ion, Neutral Atom, Photonic, Dual-Rail / Bosonic Encodings
+- **[Physical Qubits](physical-qubits.md)** — what makes a real object usable as a qubit, and the five things it has to do that the ideal qubit got for free.

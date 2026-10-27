@@ -8,6 +8,7 @@
     - 07-error-correction/why-qec.md
     - 07-error-correction/physical-vs-logical-qubits.md
     - 07-error-correction/hardware-aware-qec.md
+    - 04-hardware/physical-qubits.md
   category: hardware-and-physical-systems
 
 - id: logical-qubit
@@ -29,7 +30,8 @@
   definition: "The quantum hardware that executes quantum circuits, consisting of physical qubits together with the means to control and read them out."
   beginnerInterpretation: "The QPU is the quantum computer's processor: the chip, or the arrangement of atoms or ions, where qubits live and quantum operations actually happen."
   relatedTerms: [physical-qubit, hardware-backend, connectivity, superconducting-qubit, calibration]
-  moduleReferences: []
+  moduleReferences:
+    - 04-hardware/physical-qubits.md
   category: hardware-and-physical-systems
 
 - id: superconducting-qubit
@@ -216,4 +218,25 @@
   beginnerInterpretation: "Coupling is the physical link that lets two qubits influence each other."
   relatedTerms: [connectivity, crosstalk, multi-qubit-gate, entanglement, quantum-processing-unit]
   moduleReferences: []
+  category: hardware-and-physical-systems
+
+- id: energy-level
+  term: Energy Level
+  aliases: ["Level"]
+  definition: "One of the distinct amounts of energy a quantum system such as an atom, an ion, or an engineered circuit can have. A qubit uses two of a system's levels to stand for 0 and 1."
+  beginnerInterpretation: "An energy level is one rung on a ladder of energies that a real object can sit on. A qubit uses two of the rungs."
+  relatedTerms: [ground-state, qubit, physical-qubit, leakage, t1-relaxation-time]
+  moduleReferences:
+    - 04-hardware/physical-qubits.md
+  category: hardware-and-physical-systems
+
+- id: ground-state
+  term: Ground State
+  aliases: []
+  definition: "The lowest-energy state of a system, where it settles when left alone and cooled. States with more energy are called excited states."
+  beginnerInterpretation: "The ground state is the resting state of a system, the lowest rung of its energy ladder."
+  relatedTerms: [energy-level, physical-qubit, state-preparation, t1-relaxation-time, amplitude-damping]
+  moduleReferences:
+    - 04-hardware/physical-qubits.md
+    - 06-algorithms/variational-quantum-eigensolver.md
   category: hardware-and-physical-systems

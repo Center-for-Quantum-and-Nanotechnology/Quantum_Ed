@@ -120,6 +120,7 @@
   --qed-color-noise: #ffa726;
   --qed-color-syndrome: #ab47bc;
   --qed-color-telemetry: #26a69a;
+  --qed-color-control: #0288d1; /* Module 04: the control signal (the drive); used only for the drive arrow and its label */
 }
 
 .qed-qubit {
@@ -4001,5 +4002,233 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 @media (max-width: 44.9375em) {
   .qed-wf__note-row td {
     display: block;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Module 04 - Physical Qubits
+   (docs/04-hardware/physical-qubits.md, driven by docs/assets/javascripts/ladder.js).
+   Indigo is the qubit's two levels (quantum state information), gray is everything outside
+   the qubit, orange is heat (a noise source), and --qed-color-control is the drive arrow
+   only. Pass and fail are a glyph and a word, never green or red (those mean protection
+   and error). Purple (syndrome) and teal (device-reported) are not used. Invented and
+   computed values carry a text tag.
+   ------------------------------------------------------------------- */
+.qed-ld__group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.3rem 0 0.4rem;
+}
+
+.qed-ld__opt {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border: 2px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.qed-ld__opt input {
+  margin: 0;
+  accent-color: var(--qed-color-logical);
+}
+
+.qed-ld__opt:has(input:checked) {
+  border-color: var(--qed-color-logical);
+  background: color-mix(in srgb, var(--qed-color-logical) 14%, var(--md-default-bg-color));
+  font-weight: 600;
+}
+
+.qed-ld__opt:focus-within {
+  outline: 2px solid var(--md-accent-fg-color);
+  outline-offset: 2px;
+}
+
+.qed-ld__note {
+  margin: 0.3rem 0;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-ld__panel {
+  min-width: 0;
+  padding: 0.5rem 0.8rem;
+  margin: 0.6rem 0;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+}
+
+.qed-ld__title {
+  margin: 0 0 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.qed-ld__tag {
+  display: inline-block;
+  margin-left: 0.3rem;
+  padding: 0 0.4rem;
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: 0.2rem;
+  font-size: 0.65rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-ld .qed-confidence-bar__fill:not([class*="--"]) {
+  background: var(--qed-color-physical);
+}
+
+.qed-ld__svg {
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  height: auto;
+  margin: 0.3rem auto;
+}
+
+.qed-ld__svg--iso {
+  max-width: 32rem;
+}
+
+.qed-ld__text {
+  font-size: 14px;
+  fill: var(--md-default-fg-color);
+}
+
+.qed-ld__text--qubit {
+  font-weight: 700;
+}
+
+.qed-ld__text--outside,
+.qed-ld__text--tag {
+  fill: var(--md-default-fg-color--light);
+}
+
+.qed-ld__text--tag {
+  font-size: 13px;
+}
+
+.qed-ld__text--drive {
+  font-weight: 700;
+  fill: var(--qed-color-control);
+}
+
+.qed-ld__axis,
+.qed-ld__bracket,
+.qed-ld__wire {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1.5;
+}
+
+.qed-ld__level--qubit {
+  fill: var(--qed-color-logical);
+}
+
+.qed-ld__level--outside {
+  fill: var(--md-default-bg-color);
+  stroke: var(--qed-color-physical);
+  stroke-width: 2;
+}
+
+.qed-ld__heat {
+  fill: var(--qed-color-noise);
+  opacity: 0.85;
+}
+
+.qed-ld__heatline {
+  stroke: var(--qed-color-noise);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+
+.qed-ld__drive {
+  stroke: var(--qed-color-control);
+  stroke-width: 1.5;
+  marker-end: none;
+}
+
+.qed-ld__boundary {
+  fill: none;
+  stroke: var(--qed-color-physical);
+  stroke-width: 3;
+  stroke-dasharray: 8 5;
+}
+
+.qed-ld__qubit-dot {
+  fill: color-mix(in srgb, var(--qed-color-physical) 30%, var(--md-default-bg-color));
+  stroke: var(--qed-color-physical);
+  stroke-width: 2;
+}
+
+.qed-ld__noise {
+  fill: none;
+  stroke: var(--qed-color-noise);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.qed-ld__cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0.6rem 0;
+}
+
+.qed-ld__card {
+  min-width: 0;
+  padding: 0.3rem 0.8rem;
+  border: 2px solid var(--qed-color-physical);
+  border-radius: 0.3rem;
+}
+
+.qed-ld__card-title {
+  margin: 0.3rem 0 0;
+  font-weight: 700;
+}
+
+[dir] .md-typeset ol.qed-ld__needs {
+  margin: 0.3rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.qed-ld__need {
+  margin: 0.4rem 0;
+  padding: 0.3rem 0.6rem;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-left-width: 6px;
+  border-radius: 0.3rem;
+}
+
+.qed-ld__need--untested {
+  border-style: dashed;
+  border-left-style: dashed;
+  color: var(--md-default-fg-color--light);
+}
+
+.qed-ld__need-label {
+  font-weight: 700;
+}
+
+.qed-ld__need-mark {
+  margin-left: 0.4rem;
+  font-weight: 600;
+}
+
+.qed-ld__need-plain,
+.qed-ld__need-detail {
+  display: block;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 44.9375em) {
+  .qed-ld__cards {
+    grid-template-columns: 1fr;
   }
 }
