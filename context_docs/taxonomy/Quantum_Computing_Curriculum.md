@@ -91,6 +91,7 @@
 - Neutral Atom
 - Photonic
 - Dual-Rail / Bosonic Encodings
+- Comparing Platforms
 ## 05 — Quantum Software Stack
 
 ### Understanding the Quantum Software Stack

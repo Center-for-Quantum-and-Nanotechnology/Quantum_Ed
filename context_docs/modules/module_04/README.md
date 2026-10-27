@@ -5,7 +5,7 @@ Module 04 explains **how a physical device holds, controls, and reads a qubit, w
 ## Governing documents
 
 - [`../../vision/ProjectVision.md`](../../vision/ProjectVision.md): how the whole platform teaches.
-- [`taxonomy_QuantumHardware_v1.0.md`](taxonomy_QuantumHardware_v1.0.md): the proposed page hierarchy, the module's learning contract, the promises earlier modules have already made to this one, ownership fences, and the decisions for review. It is still a draft; its recommendations have been accepted but not yet folded in as an approved version. Where it and a page spec disagree, the taxonomy wins.
+- [`taxonomy_QuantumHardware_v1.0.md`](taxonomy_QuantumHardware_v1.0.md): the approved page hierarchy, the module's learning contract, the promises earlier modules have already made to this one, ownership fences, and the decision record. Where it and a page spec disagree, the taxonomy wins.
 - [`specs/`](specs/): one instruction document per page (none yet).
 - [`../../../llm/CONVENTIONS.md`](../../../llm/CONVENTIONS.md) and [`../../../llm/FLAGS.md`](../../../llm/FLAGS.md): how the interactive code is organized, and the deviations and open items logged for each page.
 
@@ -23,9 +23,9 @@ Module 04 explains **how a physical device holds, controls, and reads a qubit, w
 | 04.02.03 | Neutral-Atom Qubits | — | — | no spec |
 | 04.02.04 | Photonic Qubits | — | — | no spec |
 | 04.02.05 | Dual-Rail and Bosonic Encodings | — | — | no spec |
-| 04.02.06 | Comparing Platforms (proposed addition to the global tree) | — | — | no spec |
+| 04.02.06 | Comparing Platforms | — | — | no spec |
 
-Titles are proposed until the taxonomy is approved. The module is a placeholder in the site navigation ([`docs/04-hardware/index.md`](../../../docs/04-hardware/index.md)).
+The module is still a placeholder in the site navigation ([`docs/04-hardware/index.md`](../../../docs/04-hardware/index.md)); it is updated when the first page is built.
 
 ## Prerequisites and neighbours
 
@@ -39,7 +39,7 @@ Titles are proposed until the taxonomy is approved. The module is a placeholder 
 
 Detail lives in the taxonomy, [`llm/FLAGS.md`](../../../llm/FLAGS.md), and [`llm/todo.md`](../../../llm/todo.md), not here.
 
-- **The taxonomy is not yet approved.** The global curriculum tree, site navigation, and the placeholder index still describe the old plan (taxonomy section 15).
+- **Site navigation and the placeholder index** still describe the old plan until the first page is built (taxonomy section 15).
 - **No subject-matter review yet**, and this is the most fact-dense module. Platform facts and the T1, T2, and Transmon glossary entries are the first things to check.
 - **No screen-reader or keyboard pass yet** on any interactive, because none exists.
 - **Intermediate and Advanced content and cross-module links** are deferred.

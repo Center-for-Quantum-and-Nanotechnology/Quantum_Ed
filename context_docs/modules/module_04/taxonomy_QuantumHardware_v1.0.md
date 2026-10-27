@@ -1,7 +1,7 @@
 # Module 04 — Quantum Hardware
 
-**Document type:** Module-scoped vision, proposed taxonomy, and curriculum integration guidance  
-**Status:** DRAFT v1.0 (2026-10-27), for review. Not approved. The page hierarchy in section 5 is a proposal until the decisions in section 0 are settled.  
+**Document type:** Module-scoped vision, approved taxonomy, and curriculum integration guidance  
+**Status:** Approved v1.0 (2026-10-27). All 14 decisions in section 0 were approved with their recommendations. Changing page count, order, ownership, or titles is now a curriculum revision that needs review.  
 **Scope:** Module 04 only  
 **Audience:** Curriculum maintainers, instructional authors, and code agents  
 **Authority:** Apply alongside [`ProjectVision.md`](../../vision/ProjectVision.md) and the existing repository conventions. Once approved, this document defines **what Module 04 covers and how its pages relate**. It does not supersede the global project vision or individual page specifications.
@@ -18,9 +18,9 @@
 
 ---
 
-## 0. Decisions requiring approval
+## 0. Decisions (approved 2026-10-27)
 
-Each decision has a recommendation. The recommendations are what the rest of this draft assumes. Please accept, change, or reject each.
+All 14 decisions below were approved as recommended, and the rest of this document reflects them.
 
 1. **Page IDs and grouping.** The global tree lists two groups (Hardware Fundamentals, Qubit Modalities) with five topics each, in the same shape as Module 07's groups. Module 05 instead treats each heading as one page.
    *Recommendation:* ten topics become ten pages, with grouped IDs as in Module 07 (`04.01.01` to `04.01.05`, `04.02.01` to `04.02.05`). One page per topic keeps each lesson to one idea; two giant pages would break the Vision's page design philosophy.
@@ -97,7 +97,7 @@ See decision 7. In short:
 
 Built pages have already told learners that Module 04 will cover these topics. Each must be kept or deliberately released.
 
-| Where | What it says | Where this draft keeps it |
+| Where | What it says | Where this module keeps it |
 |---|---|---|
 | Today page (`quantum-computing-today.md`) | "Superconducting qubits are fast but forget quickly, while trapped-ion qubits remember much longer but run more slowly. Module 04 compares the platforms." | 04.02.01, 04.02.02, 04.02.06 |
 | What Is Quantum Computing? | Real hardware readout is imperfect (see Module 04 and Module 07). | 04.01.03 |
@@ -128,11 +128,11 @@ By the end of the Beginner V1 module, learners should be able to:
 
 The Core Learning Contract belongs in Beginner content. Intermediate and Advanced content deepen the same mental model rather than replace it.
 
-## 5. Proposed internal taxonomy
+## 5. Finalized internal taxonomy — V1.0
 
 **Group 04.01 — Hardware Fundamentals.** One qubit, followed from start to read-out.
 
-| ID | Proposed page title | Core instructional objective | Beginner V1 scope / ownership | Primary V1 interaction concept |
+| ID | Page title | Core instructional objective | Beginner V1 scope / ownership | Primary V1 interaction concept |
 |---|---|---|---|---|
 | **04.01.01** | **Physical Qubits** | Explain what makes a physical system usable as a qubit and how it differs from Module 02's ideal one. | Two usable levels out of a larger ladder; natural qubits (atoms, ions, photons) versus engineered ones (circuits); the five needs (start, control, connect, read, keep); isolated from the world yet reachable by us; starting in a known state (the physical side of 02.01 preparation). | Qubit chooser: pick two levels from an energy ladder and test the candidate against the five needs. |
 | **04.01.02** | **Gates and Control** | Explain how a control signal turns a physical qubit's state, and why gates take time and are never exact. | Control signals by kind (microwave, laser, magnetic) named at a conceptual level; strength and duration set the rotation angle; the drive-and-flip experiment; a small miscalibration gives an over- or under-rotation; two-qubit gates need the qubits to interact, and that is the costly step. Native gates are named and handed to 05.04. No pulse shaping, electronics, or scheduling. | Drive a qubit: set strength and duration, watch the Bloch point move and the outcome probability swing, then introduce a miscalibration. |
@@ -142,14 +142,14 @@ The Core Learning Contract belongs in Beginner content. Intermediate and Advance
 
 **Group 04.02 — Qubit Modalities.** The same questions, answered by different physical systems.
 
-| ID | Proposed page title | Core instructional objective | Beginner V1 scope / ownership | Primary V1 interaction concept |
+| ID | Page title | Core instructional objective | Beginner V1 scope / ownership | Primary V1 interaction concept |
 |---|---|---|---|---|
 | **04.02.01** | **Superconducting Qubits** | Explain how an electrical circuit can act as a qubit and what that implies for control, speed, and scale. | The circuit as an artificial atom (junction named, not derived); very low temperature and why; microwave control; read-out through a resonator; fixed on-chip neighbours; fast operations and shorter lifetimes; qubit-to-qubit variation from fabrication; wiring as a scaling limit. | Platform Card plus a chip-and-fridge explorer: select each part and see its role. |
 | **04.02.02** | **Trapped-Ion Qubits** | Explain how single ions held by electric fields act as qubits and what that implies. | Ions held in a chain; laser or microwave control; read-out by whether the ion scatters light; any pair in a chain can interact through shared motion; slower operations and long lifetimes; longer chains are harder; moving ions between regions as one way to scale. | Platform Card plus an ion-chain explorer: choose two ions to interact and see read-out as bright or dark. |
 | **04.02.03** | **Neutral-Atom Qubits** | Explain how arrays of uncharged atoms held by light act as qubits and what that implies. | Atoms held in optical tweezers; rearrangeable arrays; interaction through excited high-lying states (named, not derived); read-out by imaging; atoms can be lost; large arrays; operation cycles are slow. | Platform Card plus a tweezer-array explorer: move atoms and see which pairs can interact. |
 | **04.02.04** | **Photonic Qubits** | Explain how a photon can carry a qubit and why entangling operations are the hard part. | A qubit in a photon's path, polarization, or arrival time; photons travel fast and rarely interact; loss as the main error; single-qubit operations are easy with optical elements; two-qubit operations need special methods (named, not taught); networking as a natural strength. | Platform Card plus an interferometer: a photon through two paths with an adjustable phase, linked back to the Module 01 interference demo. |
 | **04.02.05** | **Dual-Rail and Bosonic Encodings** | Explain that how information is encoded in a physical system changes which errors are common or detectable. | An encoding is a choice of what stands for 0 and 1. Dual-rail: where one excitation is. Bosonic: using the many levels of an oscillator. The point at Beginner is the idea that the encoding can make the main error rarer or noticeable; mechanisms are Intermediate. This is not error correction, and codes belong to Module 07. | Encoding chooser: the same physical error acts on two encodings and the learner sees which error becomes visible. |
-| **04.02.06** (proposed, decision 2) | **Comparing Platforms** | Compare the platforms by trade-off using the same six questions, and recognise that there is no single best platform. | The six-question cards side by side; speed against lifetime, with a computed "how many operations fit"; connectivity and scale as different shapes of difficulty; what is not covered (spin qubits and others); figures change; closing hand-off to Module 05. | Platform comparison explorer: pick a priority (speed, memory, connectivity, scale) and see what each platform gives and costs, with no ranking. |
+| **04.02.06** (added by decision 2) | **Comparing Platforms** | Compare the platforms by trade-off using the same six questions, and recognise that there is no single best platform. | The six-question cards side by side; speed against lifetime, with a computed "how many operations fit"; connectivity and scale as different shapes of difficulty; what is not covered (spin qubits and others); figures change; closing hand-off to Module 05. | Platform comparison explorer: pick a priority (speed, memory, connectivity, scale) and see what each platform gives and costs, with no ranking. |
 
 **Taxonomy interpretation:** each row is one canonical page, not separate Beginner, Intermediate and Advanced pages. Interaction descriptions are design intentions to be refined in the page specifications. They are not requirements to simulate any device.
 
@@ -299,18 +299,18 @@ Each spec must name the previous and next page, guard against the misconceptions
 - Teach SDK use, setup, or job submission (Modules 03 and 05).
 - Add cross-module navigation hooks as part of this taxonomy.
 
-## 15. Changes required when this taxonomy is approved
+## 15. Changes that follow approval
 
-None of these have been made. They follow approval and are listed so they are made together (`context_docs/README.md`, section 6).
+Made together, as `context_docs/README.md` (section 6) requires.
 
-1. Update `context_docs/taxonomy/Quantum_Computing_Curriculum.md`, Module 04, to match section 5 (and add the comparison page if decision 2 is accepted).
-2. Update `mkdocs.yml` navigation and `docs/04-hardware/index.md` (the placeholder note and the "Planned sections" list) when the first page is built, not before.
-3. Create `context_docs/modules/module_04/README.md` with the page status table (all pages `no spec`), as `context_docs/README.md` requires of every module folder.
-4. Draft the specs one page at a time, starting with `04.01.01`.
-5. Add the Module 04 pages to the references of the existing hardware glossary entries as each page is built (decision 13).
+1. **Done:** `context_docs/taxonomy/Quantum_Computing_Curriculum.md`, Module 04, now shows the comparison page added by decision 2.
+2. **Done:** `context_docs/modules/module_04/README.md` exists with the page status table (all pages `no spec`).
+3. **Later, when the first page is built:** update `mkdocs.yml` navigation and `docs/04-hardware/index.md` (the placeholder note and the "Planned sections" list). Not before, so the site does not list pages that do not exist.
+4. **Next:** draft the specs one page at a time, starting with `04.01.01`.
+5. **As each page is built:** add the Module 04 pages to the references of the existing hardware glossary entries (decision 13).
 
 ---
 
-**V1.0 draft change record (2026-10-27):** first draft, written from the global tree and the promises made by the built Modules 01, 02, 05 and 07. Proposes ten pages from the tree and one addition (the comparison page). Records the fences with Modules 02, 05 and 07, the Platform Card structure, the numbers policy, and fourteen decisions for review.
+**V1.0 change record (2026-10-27):** first version, written from the global tree and the promises made by the built Modules 01, 02, 05 and 07. Ten pages from the tree plus one addition (the comparison page, 04.02.06). Records the fences with Modules 02, 05 and 07, the Platform Card structure, the numbers policy, and fourteen decisions.
 
-**Decision record:** pending. To be completed when the decisions in section 0 are settled.
+**Final decision record:** all 14 decisions in section 0 approved as recommended on 2026-10-27: grouped page IDs (04.01.xx, 04.02.xx); the comparison page added; calibration physics folded into the Fundamentals pages with no calibration page; four platforms plus an encodings page, with spin qubits named only; Dual-Rail and Bosonic taught as an idea at Beginner with codes left to Module 07; ranges and orders of magnitude only; Module 01 and 02 prerequisites; the one-qubit thread followed by the Bell circuit's three operation types; closed-form seeded models; pulse shaping and T2* deferred; one shared Platform Card; Beginner-only V1; glossary reuse with few additions; and `built, needs hardening` status until a hardware review.
