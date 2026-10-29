@@ -2,7 +2,7 @@
 
 Planned work that is not finished yet. Tick items off (or delete them) as they land, and add new ones as they come up. Deviations and simplifications in work that is already built belong in [`FLAGS.md`](FLAGS.md), not here.
 
-Last updated: 2026-10-26
+Last updated: 2026-10-29
 
 ---
 
@@ -28,6 +28,24 @@ Governing documents: `context_docs/modules/module_05/taxonomy_QuantumSoftwareSta
 - [x] **05.07 is built.** `QedWorkflow`, the `QedRuntime` extension, the page, and the module's closing housekeeping. **Module 05 has all seven pages.**
 - [x] **Module 05 README** with the page status table (`context_docs/modules/module_05/README.md`).
 - [x] **Fixed the two terms that carried two meanings across Module 05** (the informal "job" against the defined Quantum Job, and "backend"); see `FLAGS.md`.
+
+## Module 04: Quantum Hardware
+
+Governing documents: `context_docs/modules/module_04/taxonomy_QuantumHardware_v1.0.md` (approved 2026-10-27) and the specs in `context_docs/modules/module_04/specs/`.
+
+- [x] **Approve the taxonomy** (all fourteen decisions) and add 04.02.06 Comparing Platforms to the global tree.
+- [x] **Module 04 README** with the page status table.
+- [x] **04.01.01 Physical Qubits is final and built.** `QedLadder`, the page, two glossary entries, and the module's first nav entry.
+- [x] **04.01.02 Gates and Control is final and built.** `QedDrive`, the page, two glossary entries, and the link from 04.01.01.
+- [ ] **Draft and build 04.01.03 to 04.02.06**, one page at a time. 04.01.02's closing question leads into 04.01.03 Readout, which reuses `QedLadder` (levels told apart) and `QedDrive`'s seeded sampling.
+- [x] **Replaced the "Next: Gates and Control → (coming soon)" note** on the 04.01.01 page with a link.
+- [ ] **Replace the "Next: Readout → (coming soon)" note** on the 04.01.02 page with a link when 04.01.03 is built.
+- [ ] **Add each Module 04 page to `mkdocs.yml` and `docs/04-hardware/index.md` as it is built.** Link only pages that exist.
+- [ ] **Record the read-out signal's visual treatment** in `llm/CONVENTIONS.md` when 04.01.03 first shows it (the control treatment, `--qed-color-control`, is already recorded).
+- [ ] **Hardware subject-matter review** before any modality fact is treated as settled (taxonomy decision 14). Pages stay `built, needs hardening` until then.
+- [ ] **Screen-reader and keyboard pass for the Module 04 interactives.** The 04.01.01 and 04.01.02 explorers use native radio buttons, a slider with a typed value, and aria-live summaries but have only been tested with scripted interaction.
+
+---
 
 ## Module 02: Quantum Computing Fundamentals
 
@@ -58,7 +76,7 @@ Governing document: `context_docs/modules/module_02/taxonomy_QuantumComputingFun
 - [ ] **`QedBloch.render` reads its default `neutral` from `documentElement`**, which gives the light scheme's dark gray in the dark scheme (Material sets the variables on the body). Module 01's sphere outline is probably affected; check it. Read it from the body in `bloch.js` and recheck Module 01.
 - [ ] **Later: make `QedBloch.state` delegate to `QedQubit`** when Module 01 is next touched (the cross-tests protect the change).
 - [x] **Extract the data-driven quiz builder.** Done as `QedQuiz` (`quiz.js`), with tests; 02.01 was migrated onto it.
-- [ ] **Module 02 README** with the page status table.
+- [x] **Module 02 README** with the page status table. Done.
 
 - [ ] **Module 01 demos: test the pure page-local formulas only if a second page reuses them** (agreement rule, toy cost models), by extracting them into a shared module first.
 

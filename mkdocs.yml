@@ -60,6 +60,8 @@ extra_javascript:
   - assets/javascripts/sim-methods.js
   - assets/javascripts/runtime.js
   - assets/javascripts/workflow.js
+  - assets/javascripts/ladder.js
+  - assets/javascripts/drive.js
   - assets/javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
@@ -107,7 +109,9 @@ nav:
   - "03 · Quantum Programming":
       - 03-programming/index.md
   - "04 · Quantum Hardware":
-      - 04-hardware/index.md
+      - Overview: 04-hardware/index.md
+      - Physical Qubits: 04-hardware/physical-qubits.md
+      - Gates and Control: 04-hardware/gates-and-control.md
   - "05 · Quantum Software Stack":
       - Overview: 05-software-stack/index.md
       - Understanding the Quantum Software Stack: 05-software-stack/understanding-the-quantum-software-stack.md

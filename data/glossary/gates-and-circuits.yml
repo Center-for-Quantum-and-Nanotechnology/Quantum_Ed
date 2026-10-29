@@ -8,6 +8,7 @@
     - 06-algorithms/variational-quantum-eigensolver.md
     - 07-error-correction/encoding-and-syndrome-measurement.md
     - 02-fundamentals/quantum-gates.md
+    - 04-hardware/gates-and-control.md
   category: gates-and-circuits
 
 - id: quantum-circuit
@@ -86,6 +87,7 @@
   moduleReferences:
     - 02-fundamentals/quantum-gates.md
     - 02-fundamentals/quantum-circuits.md
+    - 04-hardware/gates-and-control.md
   category: gates-and-circuits
 
 - id: phase-gate
@@ -116,6 +118,7 @@
   moduleReferences:
     - 06-algorithms/variational-quantum-eigensolver.md
     - 02-fundamentals/quantum-gates.md
+    - 04-hardware/gates-and-control.md
   category: gates-and-circuits
 
 - id: controlled-gate
@@ -159,6 +162,7 @@
   relatedTerms: [quantum-gate, cnot-gate, entanglement, gate-fidelity, connectivity]
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
+    - 04-hardware/gates-and-control.md
   category: gates-and-circuits
 
 - id: circuit-depth

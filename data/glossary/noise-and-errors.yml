@@ -88,7 +88,8 @@
   definition: "An error in which a qubit leaves its two computational states and enters another energy level of the physical system."
   beginnerInterpretation: "Leakage is when a qubit escapes the 0 and 1 it is supposed to live in and ends up in some other state the hardware happens to have."
   relatedTerms: [quantum-error, erasure, physical-qubit, error-channel, erasure-qubit]
-  moduleReferences: []
+  moduleReferences:
+    - 04-hardware/physical-qubits.md
   category: noise-and-errors
 
 - id: erasure

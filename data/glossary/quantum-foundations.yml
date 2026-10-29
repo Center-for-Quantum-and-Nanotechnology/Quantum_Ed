@@ -7,6 +7,7 @@
   moduleReferences:
     - 01-foundations/what-is-quantum-computing.md
     - 07-error-correction/physical-vs-logical-qubits.md
+    - 04-hardware/physical-qubits.md
   category: quantum-foundations
 
 - id: quantum-state
@@ -205,6 +206,7 @@
   relatedTerms: [quantum-state, basis-state, reset, qubit, measurement]
   moduleReferences:
     - 02-fundamentals/quantum-states.md
+    - 04-hardware/physical-qubits.md
   category: quantum-foundations
 
 - id: normalization
