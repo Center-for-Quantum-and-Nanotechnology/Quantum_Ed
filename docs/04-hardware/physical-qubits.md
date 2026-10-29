@@ -178,7 +178,7 @@ You now have a qubit that starts in |0⟩ and a drive that can single out its tw
 
 Changing a physical qubit's state is a physical act, with a size and a duration. That is the next page.
 
-**Next: Gates and Control →** *(coming soon)*
+**Next: [Gates and Control →](gates-and-control.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {

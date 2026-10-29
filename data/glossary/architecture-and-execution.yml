@@ -56,7 +56,8 @@
   definition: "A gate that a quantum device can implement directly through its physical control operations, without first decomposing it into other gates."
   beginnerInterpretation: "A native gate is a move the hardware can do directly. Every other operation has to be built out of these."
   relatedTerms: [native-gate-set, quantum-gate, gate-fidelity, quantum-compiler, transpilation]
-  moduleReferences: []
+  moduleReferences:
+    - 04-hardware/gates-and-control.md
   category: architecture-and-execution
 
 - id: native-gate-set

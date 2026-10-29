@@ -217,7 +217,8 @@
   definition: "A physical interaction between two qubits, used to implement entangling operations and to define which qubit pairs are connected. Unintended residual coupling is one source of crosstalk."
   beginnerInterpretation: "Coupling is the physical link that lets two qubits influence each other."
   relatedTerms: [connectivity, crosstalk, multi-qubit-gate, entanglement, quantum-processing-unit]
-  moduleReferences: []
+  moduleReferences:
+    - 04-hardware/gates-and-control.md
   category: hardware-and-physical-systems
 
 - id: energy-level
@@ -239,4 +240,24 @@
   moduleReferences:
     - 04-hardware/physical-qubits.md
     - 06-algorithms/variational-quantum-eigensolver.md
+  category: hardware-and-physical-systems
+
+- id: control-pulse
+  term: Control Pulse
+  aliases: ["Pulse"]
+  definition: "A signal of a chosen strength and length sent to a qubit to change its state. For a given kind of signal, the size of the turn it makes depends on its strength and length."
+  beginnerInterpretation: "A control pulse is the signal that makes a gate happen on real hardware. How strong it is and how long it lasts set how far the qubit turns."
+  relatedTerms: [rotation-gate, quantum-gate, native-gate, energy-level, gate-fidelity]
+  moduleReferences:
+    - 04-hardware/gates-and-control.md
+  category: hardware-and-physical-systems
+
+- id: rabi-oscillation
+  term: Rabi Oscillation
+  aliases: []
+  definition: "The back-and-forth swing in the chance of reading a qubit as 1 as it is driven for longer, because the drive keeps turning its state round the Bloch sphere. The experiment that shows it is used to find how long a pulse must be for a given turn."
+  beginnerInterpretation: "Drive a qubit for longer and longer and it swings from 0 to 1 and back again, like a pendulum. That swing is a Rabi oscillation."
+  relatedTerms: [control-pulse, rotation-gate, bloch-sphere, shot, calibration]
+  moduleReferences:
+    - 04-hardware/gates-and-control.md
   category: hardware-and-physical-systems

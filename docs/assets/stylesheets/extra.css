@@ -4014,14 +4014,16 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
    and error). Purple (syndrome) and teal (device-reported) are not used. Invented and
    computed values carry a text tag.
    ------------------------------------------------------------------- */
-.qed-ld__group {
+.qed-ld__group,
+.qed-dr__group {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin: 0.3rem 0 0.4rem;
 }
 
-.qed-ld__opt {
+.qed-ld__opt,
+.qed-dr__opt {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -4031,29 +4033,34 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
   cursor: pointer;
 }
 
-.qed-ld__opt input {
+.qed-ld__opt input,
+.qed-dr__opt input {
   margin: 0;
   accent-color: var(--qed-color-logical);
 }
 
-.qed-ld__opt:has(input:checked) {
+.qed-ld__opt:has(input:checked),
+.qed-dr__opt:has(input:checked) {
   border-color: var(--qed-color-logical);
   background: color-mix(in srgb, var(--qed-color-logical) 14%, var(--md-default-bg-color));
   font-weight: 600;
 }
 
-.qed-ld__opt:focus-within {
+.qed-ld__opt:focus-within,
+.qed-dr__opt:focus-within {
   outline: 2px solid var(--md-accent-fg-color);
   outline-offset: 2px;
 }
 
-.qed-ld__note {
+.qed-ld__note,
+.qed-dr__note {
   margin: 0.3rem 0;
   font-size: 0.8rem;
   color: var(--md-default-fg-color--light);
 }
 
-.qed-ld__panel {
+.qed-ld__panel,
+.qed-dr__panel {
   min-width: 0;
   padding: 0.5rem 0.8rem;
   margin: 0.6rem 0;
@@ -4061,13 +4068,15 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
   border-radius: 0.3rem;
 }
 
-.qed-ld__title {
+.qed-ld__title,
+.qed-dr__title {
   margin: 0 0 0.3rem;
   font-size: 0.85rem;
   font-weight: 700;
 }
 
-.qed-ld__tag {
+.qed-ld__tag,
+.qed-dr__tag {
   display: inline-block;
   margin-left: 0.3rem;
   padding: 0 0.4rem;
@@ -4231,4 +4240,153 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
   .qed-ld__cards {
     grid-template-columns: 1fr;
   }
+}
+
+/* ---------------------------------------------------------------------
+   Module 04 - Gates and Control
+   (docs/04-hardware/gates-and-control.md, driven by docs/assets/javascripts/drive.js).
+   The generic widgets (option pills, panels, titles, tags, notes) are shared with the 04.01.01
+   section above. The signal rectangle and its label use --qed-color-control with a double
+   outline, indigo is the qubit's state (the exact curve and the sphere), orange is the offset
+   between the turn set and the turn made (a text tag too), and gray is everything else. The
+   measured shares are open circles and the exact curve is a line, so they differ without color.
+   Purple, teal, green, and red are not used.
+   ------------------------------------------------------------------- */
+.qed-dr__svg {
+  display: block;
+  width: 100%;
+  max-width: 20rem;
+  height: auto;
+  margin: 0.3rem auto;
+}
+
+.qed-dr__svg--curve,
+.qed-dr__svg--time {
+  max-width: 30rem;
+}
+
+.qed-dr__text {
+  font-size: 13px;
+  fill: var(--md-default-fg-color);
+}
+
+.qed-dr__svg--curve .qed-dr__text {
+  font-size: 15px;
+}
+
+.qed-dr__svg--curve .qed-dr__text--tick {
+  font-size: 14px;
+}
+
+.qed-dr__text--tick {
+  font-size: 12px;
+  fill: var(--md-default-fg-color--light);
+}
+
+.qed-dr__text--signal {
+  font-weight: 700;
+  fill: var(--qed-color-control);
+}
+
+.qed-dr__text--made {
+  font-style: italic;
+}
+
+.qed-dr__axis {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1.5;
+}
+
+.qed-dr__signal {
+  fill: color-mix(in srgb, var(--qed-color-control) 22%, var(--md-default-bg-color));
+  stroke: var(--qed-color-control);
+  stroke-width: 2.5;
+}
+
+.qed-dr__signal-inner {
+  fill: none;
+  stroke: var(--qed-color-control);
+  stroke-width: 1.2;
+}
+
+.qed-dr__made {
+  fill: none;
+  stroke: var(--qed-color-noise);
+  stroke-width: 2;
+  stroke-dasharray: 5 3;
+}
+
+.qed-dr__curve {
+  fill: none;
+  stroke: var(--qed-color-logical);
+  stroke-width: 2;
+}
+
+.qed-dr__dot {
+  fill: var(--md-default-bg-color);
+  stroke: var(--qed-color-logical);
+  stroke-width: 1.8;
+}
+
+.qed-dr__now {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+
+.qed-dr__best,
+.qed-dr__halftick {
+  stroke: var(--md-default-fg-color);
+  stroke-width: 2.5;
+}
+
+.qed-dr__bar {
+  fill: color-mix(in srgb, var(--qed-color-physical) 35%, var(--md-default-bg-color));
+  stroke: var(--qed-color-physical);
+  stroke-width: 2;
+}
+
+.qed-dr__lenrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.3rem 0;
+}
+
+.qed-dr__lenrow input[type="range"] {
+  flex: 1 1 10rem;
+  min-width: 8rem;
+}
+
+.qed-dr__lenrow input[type="number"] {
+  width: 5rem;
+}
+
+.qed-dr__cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+  gap: 0.8rem;
+  align-items: start;
+}
+
+.qed-dr__canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.qed-dr__strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+
+.qed-dr__strip-item {
+  padding: 0.3rem 0.6rem;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+  font-size: 0.85rem;
 }
