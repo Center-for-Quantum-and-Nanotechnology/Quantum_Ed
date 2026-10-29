@@ -2,7 +2,7 @@
 
 Planned work that is not finished yet. Tick items off (or delete them) as they land, and add new ones as they come up. Deviations and simplifications in work that is already built belong in [`FLAGS.md`](FLAGS.md), not here.
 
-Last updated: 2026-10-27
+Last updated: 2026-10-29
 
 ---
 
@@ -36,12 +36,14 @@ Governing documents: `context_docs/modules/module_04/taxonomy_QuantumHardware_v1
 - [x] **Approve the taxonomy** (all fourteen decisions) and add 04.02.06 Comparing Platforms to the global tree.
 - [x] **Module 04 README** with the page status table.
 - [x] **04.01.01 Physical Qubits is final and built.** `QedLadder`, the page, two glossary entries, and the module's first nav entry.
-- [ ] **Draft and build 04.01.02 to 04.02.06**, one page at a time. 04.01.01's closing question leads into 04.01.02 Gates and Control, which reuses `QedLadder` for the drive.
-- [ ] **Replace the "Next: Gates and Control → (coming soon)" note** on the 04.01.01 page with a link when 04.01.02 is built.
+- [x] **04.01.02 Gates and Control is final and built.** `QedDrive`, the page, two glossary entries, and the link from 04.01.01.
+- [ ] **Draft and build 04.01.03 to 04.02.06**, one page at a time. 04.01.02's closing question leads into 04.01.03 Readout, which reuses `QedLadder` (levels told apart) and `QedDrive`'s seeded sampling.
+- [x] **Replaced the "Next: Gates and Control → (coming soon)" note** on the 04.01.01 page with a link.
+- [ ] **Replace the "Next: Readout → (coming soon)" note** on the 04.01.02 page with a link when 04.01.03 is built.
 - [ ] **Add each Module 04 page to `mkdocs.yml` and `docs/04-hardware/index.md` as it is built.** Link only pages that exist.
 - [ ] **Record the read-out signal's visual treatment** in `llm/CONVENTIONS.md` when 04.01.03 first shows it (the control treatment, `--qed-color-control`, is already recorded).
 - [ ] **Hardware subject-matter review** before any modality fact is treated as settled (taxonomy decision 14). Pages stay `built, needs hardening` until then.
-- [ ] **Screen-reader and keyboard pass for the Module 04 interactives.** The 04.01.01 explorer uses native radio buttons and an aria-live summary but has only been tested with scripted interaction.
+- [ ] **Screen-reader and keyboard pass for the Module 04 interactives.** The 04.01.01 and 04.01.02 explorers use native radio buttons, a slider with a typed value, and aria-live summaries but have only been tested with scripted interaction.
 
 ---
 
