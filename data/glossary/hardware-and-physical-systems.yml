@@ -165,7 +165,18 @@
   definition: "A measure of how reliably a qubit measurement reports the state the qubit was actually in; the complement of readout error."
   beginnerInterpretation: "Readout fidelity says how often reading a qubit gives the right answer. Low fidelity means the measurement itself often gets it wrong."
   relatedTerms: [readout-error, measurement, gate-fidelity, calibration]
-  moduleReferences: []
+  moduleReferences:
+    - 04-hardware/readout.md
+  category: hardware-and-physical-systems
+
+- id: readout-threshold
+  term: Readout Threshold
+  aliases: []
+  definition: "The signal value above which a readout reports 1 and below which it reports 0. Because the signals for 0 and for 1 overlap, a signal near the threshold can be sorted the wrong way."
+  beginnerInterpretation: "The readout threshold is the dividing line a device uses to turn a signal into 0 or 1. Move it, and you trade one kind of wrong answer for the other."
+  relatedTerms: [readout-error, readout-fidelity, measurement, calibration, shot]
+  moduleReferences:
+    - 04-hardware/readout.md
   category: hardware-and-physical-systems
 
 - id: calibration
@@ -178,6 +189,7 @@
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/understanding-the-quantum-software-stack.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+    - 04-hardware/readout.md
   category: hardware-and-physical-systems
 
 - id: calibration-snapshot

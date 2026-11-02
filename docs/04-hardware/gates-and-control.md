@@ -201,7 +201,7 @@ You can start a qubit and turn it to a state you choose, almost exactly.
 
 Reading a qubit is also a physical act, and it is imperfect. That is the next page.
 
-**Next: Readout →** *(coming soon)*
+**Next: [Readout →](readout.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {

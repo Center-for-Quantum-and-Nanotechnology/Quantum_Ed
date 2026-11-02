@@ -150,4 +150,5 @@
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+    - 04-hardware/readout.md
   category: noise-and-errors

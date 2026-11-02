@@ -113,6 +113,7 @@ nav:
       - Overview: 04-hardware/index.md
       - Physical Qubits: 04-hardware/physical-qubits.md
       - Gates and Control: 04-hardware/gates-and-control.md
+      - Readout: 04-hardware/readout.md
   - "05 · Quantum Software Stack":
       - Overview: 05-software-stack/index.md
       - Understanding the Quantum Software Stack: 05-software-stack/understanding-the-quantum-software-stack.md

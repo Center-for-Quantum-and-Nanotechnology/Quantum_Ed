@@ -57,6 +57,7 @@
     - 07-error-correction/encoding-and-syndrome-measurement.md
     - 02-fundamentals/quantum-states.md
     - 02-fundamentals/measurement.md
+    - 04-hardware/readout.md
   category: quantum-foundations
 
 - id: probability-amplitude

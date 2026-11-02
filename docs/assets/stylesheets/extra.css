@@ -121,6 +121,7 @@
   --qed-color-syndrome: #ab47bc;
   --qed-color-telemetry: #26a69a;
   --qed-color-control: #0288d1; /* Module 04: the control signal (the drive); used only for the drive arrow and its label */
+  --qed-color-readout: #8d6e63; /* Module 04: the signal that comes back from the qubit (the readout); paired with a dash-dot outline and an arrow from the qubit to the detector */
 }
 
 .qed-qubit {
@@ -4015,7 +4016,8 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
    computed values carry a text tag.
    ------------------------------------------------------------------- */
 .qed-ld__group,
-.qed-dr__group {
+.qed-dr__group,
+.qed-ro__group {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -4023,7 +4025,8 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 }
 
 .qed-ld__opt,
-.qed-dr__opt {
+.qed-dr__opt,
+.qed-ro__opt {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -4034,33 +4037,38 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 }
 
 .qed-ld__opt input,
-.qed-dr__opt input {
+.qed-dr__opt input,
+.qed-ro__opt input {
   margin: 0;
   accent-color: var(--qed-color-logical);
 }
 
 .qed-ld__opt:has(input:checked),
-.qed-dr__opt:has(input:checked) {
+.qed-dr__opt:has(input:checked),
+.qed-ro__opt:has(input:checked) {
   border-color: var(--qed-color-logical);
   background: color-mix(in srgb, var(--qed-color-logical) 14%, var(--md-default-bg-color));
   font-weight: 600;
 }
 
 .qed-ld__opt:focus-within,
-.qed-dr__opt:focus-within {
+.qed-dr__opt:focus-within,
+.qed-ro__opt:focus-within {
   outline: 2px solid var(--md-accent-fg-color);
   outline-offset: 2px;
 }
 
 .qed-ld__note,
-.qed-dr__note {
+.qed-dr__note,
+.qed-ro__note {
   margin: 0.3rem 0;
   font-size: 0.8rem;
   color: var(--md-default-fg-color--light);
 }
 
 .qed-ld__panel,
-.qed-dr__panel {
+.qed-dr__panel,
+.qed-ro__panel {
   min-width: 0;
   padding: 0.5rem 0.8rem;
   margin: 0.6rem 0;
@@ -4069,14 +4077,16 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 }
 
 .qed-ld__title,
-.qed-dr__title {
+.qed-dr__title,
+.qed-ro__title {
   margin: 0 0 0.3rem;
   font-size: 0.85rem;
   font-weight: 700;
 }
 
 .qed-ld__tag,
-.qed-dr__tag {
+.qed-dr__tag,
+.qed-ro__tag {
   display: inline-block;
   margin-left: 0.3rem;
   padding: 0 0.4rem;
@@ -4389,4 +4399,175 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
   border: 2px solid var(--md-default-fg-color--light);
   border-radius: 0.3rem;
   font-size: 0.85rem;
+}
+
+/* ---------------------------------------------------------------------
+   Module 04 - Readout
+   (docs/04-hardware/readout.md, driven by docs/assets/javascripts/readout.js).
+   The generic widgets (option pills, panels, titles, tags, notes) are shared with the 04.01.01
+   and 04.01.02 sections above. --qed-color-readout (a brown) is the signal that comes back from
+   the qubit: the two curves and the shots' outlines. It is paired with a dash-dot outline and an
+   arrow from the qubit to the detector (the reverse of the control arrow), and the two curves
+   differ by line style and label, not by color. Misreads are red (the error token) with a cross
+   and the word "misread", never green or red for pass and fail. The measured, reported figure
+   is teal with a dashed border and a text label. Indigo marks the qubit's state in text,
+   gray is the axis and the threshold line. Orange, purple, green, and the control blue are not
+   used.
+   ------------------------------------------------------------------- */
+.qed-ro__svg {
+  display: block;
+  width: 100%;
+  max-width: 26rem;
+  height: auto;
+  margin: 0.3rem auto;
+}
+
+.qed-ro__text {
+  font-size: 16px;
+  fill: var(--md-default-fg-color);
+}
+
+.qed-ro__text--tick {
+  font-size: 15px;
+  fill: var(--md-default-fg-color--light);
+}
+
+.qed-ro__text--readout {
+  font-weight: 700;
+  fill: var(--qed-color-readout);
+}
+
+.qed-ro__text--threshold {
+  font-weight: 600;
+}
+
+.qed-ro__axis {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1.5;
+}
+
+.qed-ro__curve {
+  fill: none;
+  stroke: var(--qed-color-readout);
+  stroke-width: 2.4;
+}
+
+.qed-ro__curve--one {
+  stroke-dasharray: 7 3;
+}
+
+.qed-ro__hatch-bg {
+  fill: color-mix(in srgb, var(--qed-color-error) 18%, var(--md-default-bg-color));
+}
+
+.qed-ro__hatch-line {
+  stroke: var(--qed-color-error);
+  stroke-width: 2;
+}
+
+.qed-ro__tail,
+.qed-ro__swatch {
+  fill: url(#qed-ro-hatch);
+  stroke: var(--qed-color-error);
+  stroke-width: 1;
+}
+
+.qed-ro__overlap {
+  fill: color-mix(in srgb, var(--qed-color-physical) 18%, var(--md-default-bg-color));
+  stroke: none;
+}
+
+.qed-ro__threshold,
+.qed-ro__now {
+  stroke: var(--md-default-fg-color);
+  stroke-width: 1.8;
+  stroke-dasharray: 5 3;
+}
+
+.qed-ro__dot {
+  fill: var(--md-default-bg-color);
+  stroke: var(--qed-color-readout);
+  stroke-width: 1.6;
+}
+
+.qed-ro__dot--wrong {
+  stroke: var(--qed-color-error);
+  stroke-width: 2;
+}
+
+.qed-ro__cross {
+  fill: none;
+  stroke: var(--qed-color-error);
+  stroke-width: 1.4;
+}
+
+.qed-ro__exact {
+  fill: none;
+  stroke: var(--qed-color-error);
+  stroke-width: 2;
+}
+
+.qed-ro__circle {
+  fill: var(--md-default-bg-color);
+  stroke: var(--qed-color-error);
+  stroke-width: 1.8;
+}
+
+.qed-ro__best {
+  stroke: var(--md-default-fg-color);
+  stroke-width: 2.5;
+}
+
+.qed-ro__diff-box {
+  fill: color-mix(in srgb, var(--qed-color-readout) 12%, var(--md-default-bg-color));
+  stroke: var(--qed-color-readout);
+  stroke-width: 2.2;
+  stroke-dasharray: 8 3 2 3;
+}
+
+.qed-ro__diff-level {
+  fill: color-mix(in srgb, var(--qed-color-logical) 12%, var(--md-default-bg-color));
+  stroke: var(--qed-color-logical);
+  stroke-width: 2;
+}
+
+.qed-ro__diff-arrow {
+  stroke: var(--qed-color-readout);
+  stroke-width: 2.2;
+  stroke-dasharray: 8 3 2 3;
+  fill: none;
+}
+
+.qed-ro__diff-head {
+  fill: var(--qed-color-readout);
+}
+
+.qed-ro__thrrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.3rem 0;
+}
+
+.qed-ro__thrrow input[type="range"] {
+  flex: 1 1 10rem;
+  min-width: 8rem;
+}
+
+.qed-ro__thrrow input[type="number"] {
+  width: 5rem;
+}
+
+.qed-ro__reported {
+  margin: 0.5rem 0;
+  padding: 0.4rem 0.7rem;
+  border: 2px dashed var(--qed-color-telemetry);
+  border-radius: 0.3rem;
+  background: color-mix(in srgb, var(--qed-color-telemetry) 10%, var(--md-default-bg-color));
+  font-size: 0.85rem;
+}
+
+.qed-ro__reported strong {
+  display: block;
 }
