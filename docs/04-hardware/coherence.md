@@ -180,7 +180,7 @@ A qubit's state fades with time, and T1 and T2 say how fast. But time is not the
 
 The gates are slightly wrong, the readout misreads, and the qubits disturb one another, and none of these stands still. That is the next page.
 
-**Next: Noise →** *(coming soon)*
+**Next: [Noise →](noise.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {

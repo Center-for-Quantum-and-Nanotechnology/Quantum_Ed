@@ -7,6 +7,7 @@
   moduleReferences:
     - 07-error-correction/why-qec.md
     - 07-error-correction/errors-and-noise.md
+    - 04-hardware/noise.md
   category: noise-and-errors
 
 - id: quantum-error
@@ -92,6 +93,7 @@
   relatedTerms: [quantum-error, erasure, physical-qubit, error-channel, erasure-qubit]
   moduleReferences:
     - 04-hardware/physical-qubits.md
+    - 04-hardware/noise.md
   category: noise-and-errors
 
 - id: erasure
@@ -141,6 +143,7 @@
   relatedTerms: [gate-fidelity, readout-error, logical-error-rate, noise-model, quantum-noise]
   moduleReferences:
     - 07-error-correction/decoding.md
+    - 04-hardware/noise.md
   category: noise-and-errors
 
 - id: readout-error
@@ -153,4 +156,5 @@
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
     - 04-hardware/readout.md
+    - 04-hardware/noise.md
   category: noise-and-errors

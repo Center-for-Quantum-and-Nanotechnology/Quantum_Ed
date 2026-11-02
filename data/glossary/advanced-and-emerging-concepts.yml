@@ -27,6 +27,7 @@
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+    - 04-hardware/noise.md
   category: advanced-and-emerging-concepts
 
 - id: calibration-telemetry
@@ -50,6 +51,7 @@
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+    - 04-hardware/noise.md
   category: advanced-and-emerging-concepts
 
 - id: dynamic-decoding

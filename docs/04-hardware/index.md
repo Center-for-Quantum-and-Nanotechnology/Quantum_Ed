@@ -10,3 +10,4 @@ It builds on [02 · Quantum Computing Fundamentals](../02-fundamentals/index.md)
 - **[Gates and Control](gates-and-control.md)** — how a signal turns a physical qubit's state, why the turn is never exactly right, and why two qubits need coupling.
 - **[Readout](readout.md)** — how a device turns a qubit's state into a bit by detecting a signal, why the signals for 0 and for 1 overlap, and why the misreads are not equal.
 - **[Coherence](coherence.md)** — why a qubit's state fades in two different ways, what T1 and T2 time, and why a long time is not a guarantee.
+- **[Noise](noise.md)** — where the rest of the imperfection comes from, why a source, an error, and a reported figure are three different things, and why a device is measured and tuned again and again.

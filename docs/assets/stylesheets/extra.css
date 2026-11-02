@@ -4018,7 +4018,8 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-ld__group,
 .qed-dr__group,
 .qed-ro__group,
-.qed-co__group {
+.qed-co__group,
+.qed-no__group {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -4028,7 +4029,8 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-ld__opt,
 .qed-dr__opt,
 .qed-ro__opt,
-.qed-co__opt {
+.qed-co__opt,
+.qed-no__opt {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -4041,7 +4043,8 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-ld__opt input,
 .qed-dr__opt input,
 .qed-ro__opt input,
-.qed-co__opt input {
+.qed-co__opt input,
+.qed-no__opt input {
   margin: 0;
   accent-color: var(--qed-color-logical);
 }
@@ -4049,7 +4052,8 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-ld__opt:has(input:checked),
 .qed-dr__opt:has(input:checked),
 .qed-ro__opt:has(input:checked),
-.qed-co__opt:has(input:checked) {
+.qed-co__opt:has(input:checked),
+.qed-no__opt:has(input:checked) {
   border-color: var(--qed-color-logical);
   background: color-mix(in srgb, var(--qed-color-logical) 14%, var(--md-default-bg-color));
   font-weight: 600;
@@ -4058,7 +4062,8 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-ld__opt:focus-within,
 .qed-dr__opt:focus-within,
 .qed-ro__opt:focus-within,
-.qed-co__opt:focus-within {
+.qed-co__opt:focus-within,
+.qed-no__opt:focus-within {
   outline: 2px solid var(--md-accent-fg-color);
   outline-offset: 2px;
 }
@@ -4066,7 +4071,8 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-ld__note,
 .qed-dr__note,
 .qed-ro__note,
-.qed-co__note {
+.qed-co__note,
+.qed-no__note {
   margin: 0.3rem 0;
   font-size: 0.8rem;
   color: var(--md-default-fg-color--light);
@@ -4075,7 +4081,8 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-ld__panel,
 .qed-dr__panel,
 .qed-ro__panel,
-.qed-co__panel {
+.qed-co__panel,
+.qed-no__panel {
   min-width: 0;
   padding: 0.5rem 0.8rem;
   margin: 0.6rem 0;
@@ -4086,7 +4093,8 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-ld__title,
 .qed-dr__title,
 .qed-ro__title,
-.qed-co__title {
+.qed-co__title,
+.qed-no__title {
   margin: 0 0 0.3rem;
   font-size: 0.85rem;
   font-weight: 700;
@@ -4095,7 +4103,8 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-ld__tag,
 .qed-dr__tag,
 .qed-ro__tag,
-.qed-co__tag {
+.qed-co__tag,
+.qed-no__tag {
   display: inline-block;
   margin-left: 0.3rem;
   padding: 0 0.4rem;
@@ -4706,4 +4715,111 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-co__pic {
   min-width: 0;
   text-align: center;
+}
+
+/* ---------------------------------------------------------------------
+   Module 04 - Noise
+   (docs/04-hardware/noise.md, driven by docs/assets/javascripts/noise.js).
+   The generic widgets (option pills, panels, titles, tags, notes) are shared with the 04.01.01 to
+   04.01.04 sections above, and the slider row, the strip, and the reported-figure box are reused
+   from the .qed-dr and .qed-ro sections. Orange is a source of noise (its name and its switch),
+   red with a cross and the word "error" is the error each source causes (the bars and the
+   drift line), teal with a dashed border is the reported figure, and gray is the axes, the
+   ticks where a tune was made, and the time now. The largest source is marked by a glyph and the
+   word "largest", and a source that does not apply says "not applicable", so nothing relies on
+   color alone. No new token. The control blue, the read-out brown, purple, and green are not
+   used.
+   ------------------------------------------------------------------- */
+.qed-no__src input {
+  accent-color: var(--qed-color-noise);
+}
+
+.qed-no__src:has(input:checked) {
+  border-color: var(--qed-color-noise);
+  background: color-mix(in srgb, var(--qed-color-noise) 16%, var(--md-default-bg-color));
+}
+
+.qed-no__src--na {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.qed-no__src--na input {
+  cursor: not-allowed;
+}
+
+.qed-no__svg {
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  height: auto;
+  margin: 0.3rem auto;
+}
+
+.qed-no__text {
+  font-size: 16px;
+  fill: var(--md-default-fg-color);
+}
+
+.qed-no__text--tick {
+  font-size: 15px;
+  fill: var(--md-default-fg-color--light);
+}
+
+.qed-no__axis {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1.5;
+}
+
+.qed-no__error {
+  fill: none;
+  stroke: var(--qed-color-error);
+  stroke-width: 2.6;
+}
+
+.qed-no__error--future {
+  stroke-dasharray: 6 4;
+}
+
+.qed-no__tune {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1.4;
+  stroke-dasharray: 2 3;
+}
+
+.qed-no__now {
+  stroke: var(--md-default-fg-color);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+
+.qed-no__budget {
+  margin: 0.3rem 0;
+}
+
+.qed-no__budget .qed-confidence-row__pct {
+  flex: 0 0 12rem;
+}
+
+/* On narrow screens the label and the words sit on one line and the bar below at full width,
+   so the bar is never squeezed out and the page never scrolls sideways. */
+@media (max-width: 40em) {
+  .qed-no__budget .qed-confidence-row {
+    flex-wrap: wrap;
+    row-gap: 0.1rem;
+  }
+
+  .qed-no__budget .qed-confidence-row__label {
+    flex: 1 1 auto;
+  }
+
+  .qed-no__budget .qed-confidence-row__pct {
+    flex: 0 0 auto;
+    text-align: right;
+  }
+
+  .qed-no__budget .qed-confidence-bar {
+    order: 3;
+    flex: 1 0 100%;
+  }
 }
