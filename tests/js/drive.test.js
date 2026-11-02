@@ -357,3 +357,50 @@ test("sweep under a miscalibration follows the turn made, not the turn set", () 
   // the exact chance at the set half turn is below 1, so the measured share is not a perfect 100 every time
   assert.ok(at6.exact < 0.99);
 });
+
+test("a strength factor given as a number behaves exactly like the id with the same factor", () => {
+  [["none", 1], ["low", 0.9], ["high", 1.1]].forEach(([id, factor]) => {
+    STRENGTHS.forEach((st) => {
+      const a = { direction: "x", strength: st, length: 3.5, miscalibration: id };
+      const b = { direction: "x", strength: st, length: 3.5, miscalibration: factor };
+      assert.deepEqual(D.turn(a), D.turn(b));
+      assert.deepEqual(D.outcome(a).p1, D.outcome(b).p1);
+      assert.equal(D.errorWords(a), D.errorWords(b));
+      const sa = D.sweep(a, 5);
+      const sb = D.sweep(b, 5);
+      assert.deepEqual(sa.points, sb.points);
+      assert.deepEqual(sa.best, sb.best);
+    });
+  });
+  // the settings keep the number, and the default is untouched when none is given
+  assert.equal(D.settingsOf({ miscalibration: 0.95 }).miscalibration, 0.95);
+  assert.equal(D.settingsOf({}).miscalibration, "none");
+  assert.equal(D.settingsOf({ miscalibration: "low" }).miscalibration, "low");
+});
+
+test("a number off the three ids still scales the turn made, and its tag says how far off", () => {
+  const t = D.turn({ direction: "x", strength: "medium", length: 6, miscalibration: 0.95 });
+  close(t.set, 180);
+  close(t.made, 171);
+  close(t.difference, -9);
+  assert.match(D.signalText({ strength: "medium", length: 6, miscalibration: 0.95 }), /off by 5%/);
+  assert.match(D.errorWords({ strength: "medium", length: 6, miscalibration: 0.95 }), /under-rotated/);
+  assert.match(D.errorWords({ strength: "medium", length: 6, miscalibration: 1.05 }), /over-rotated/);
+  assert.equal(D.errorWords({ strength: "medium", length: 6, miscalibration: 1 }), "on target");
+});
+
+test("a strength factor that is not a number above 0 is refused, and an unknown id is still refused", () => {
+  [0, -1, NaN, Infinity].forEach((bad) => assert.throws(() => D.miscalibrationById(bad), /strength factor must be a number above 0/));
+  assert.throws(() => D.miscalibrationById("wild"), /no miscalibration called wild/);
+  assert.equal(D.miscalibrationById(1.25).factor, 1.25);
+  assert.equal(D.miscalibrationById("low").factor, 0.9);
+});
+
+test("the existing calls return what they always did", () => {
+  // the half turn at medium strength, for each of the three ids, as the 04.01.02 page shows it
+  const half = D.halfTurnTable("medium");
+  assert.deepEqual(half.map((r) => [r.id, Math.round(r.set * 1e6) / 1e6, Math.round(r.made * 1e6) / 1e6]), [["none", 180, 180], ["low", 180, 162], ["high", 180, 198]]);
+  close(half[1].p1, 0.9755283005, 1e-6);
+  assert.deepEqual(D.DEFAULTS, { direction: "x", strength: "medium", length: 0, miscalibration: "none" });
+});
+

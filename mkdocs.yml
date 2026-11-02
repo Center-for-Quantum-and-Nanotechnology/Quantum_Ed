@@ -64,6 +64,7 @@ extra_javascript:
   - assets/javascripts/drive.js
   - assets/javascripts/readout.js
   - assets/javascripts/coherence.js
+  - assets/javascripts/noise.js
   - assets/javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
