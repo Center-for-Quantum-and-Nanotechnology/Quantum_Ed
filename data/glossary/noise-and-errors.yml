@@ -70,7 +70,8 @@
   definition: "A noise process in which a qubit loses energy to its environment, causing decay from the excited state toward the ground state; it is the process behind T1 relaxation."
   beginnerInterpretation: "Amplitude damping is a qubit gradually losing energy and sliding from its higher-energy state down to its resting state."
   relatedTerms: [t1-relaxation-time, decoherence, error-channel, quantum-noise, dephasing]
-  moduleReferences: []
+  moduleReferences:
+    - 04-hardware/coherence.md
   category: noise-and-errors
 
 - id: dephasing
@@ -79,7 +80,8 @@
   definition: "A noise process that randomizes the relative phase between a qubit's basis states without changing the probabilities of measuring them, which degrades superpositions."
   beginnerInterpretation: "Dephasing blurs a qubit's phase: it still reads 0 or 1 with the same odds, but the superposition's delicate timing is scrambled."
   relatedTerms: [phase-flip-error, t2-dephasing-time, decoherence, relative-phase, quantum-noise]
-  moduleReferences: []
+  moduleReferences:
+    - 04-hardware/coherence.md
   category: noise-and-errors
 
 - id: leakage

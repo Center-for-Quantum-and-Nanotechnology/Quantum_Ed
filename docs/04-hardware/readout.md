@@ -202,7 +202,7 @@ You can start a qubit, turn it to a state you choose, and read it, with errors t
 
 A qubit does not keep its state for ever, and the way it fades has a name for each of two kinds of loss. That is the next page.
 
-**Next: Coherence →** *(coming soon)*
+**Next: [Coherence →](coherence.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
