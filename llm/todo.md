@@ -38,14 +38,16 @@ Governing documents: `context_docs/modules/module_04/taxonomy_QuantumHardware_v1
 - [x] **04.01.01 Physical Qubits is final and built.** `QedLadder`, the page, two glossary entries, and the module's first nav entry.
 - [x] **04.01.02 Gates and Control is final and built.** `QedDrive`, the page, two glossary entries, and the link from 04.01.01.
 - [x] **04.01.03 Readout is final and built.** `QedReadout`, the page, one glossary entry, the `--qed-color-readout` token, and the link from 04.01.02.
-- [ ] **Draft and build 04.01.04 to 04.02.06**, one page at a time. 04.01.03's closing question leads into 04.01.04 Coherence, which reuses `QedReadout` (a signal that fades with waiting) and `QedDrive` (the drive that prepares the state).
+- [x] **04.01.04 Coherence is final and built.** `QedCoherence`, the page, glossary references (no new entry), and the link from 04.01.03.
+- [ ] **Draft and build 04.01.05 to 04.02.06**, one page at a time. 04.01.04's closing question leads into 04.01.05 Noise, which reuses `QedCoherence` (a T that drifts), `QedDrive` (the sweep returns), and `QedReadout` (a threshold found again).
 - [x] **Replaced the "Next: Gates and Control → (coming soon)" note** on the 04.01.01 page with a link.
 - [x] **Replaced the "Next: Readout → (coming soon)" note** on the 04.01.02 page with a link.
-- [ ] **Replace the "Next: Coherence → (coming soon)" note** on the 04.01.03 page with a link when 04.01.04 is built.
+- [x] **Replaced the "Next: Coherence → (coming soon)" note** on the 04.01.03 page with a link.
+- [ ] **Replace the "Next: Noise → (coming soon)" note** on the 04.01.04 page with a link when 04.01.05 is built.
 - [ ] **Add each Module 04 page to `mkdocs.yml` and `docs/04-hardware/index.md` as it is built.** Link only pages that exist.
 - [x] **Recorded the read-out signal's visual treatment** (`--qed-color-readout`, with a dash-dot outline and an arrow from the qubit to the detector) in `llm/CONVENTIONS.md`.
 - [ ] **Hardware subject-matter review** before any modality fact is treated as settled (taxonomy decision 14). Pages stay `built, needs hardening` until then.
-- [ ] **Screen-reader and keyboard pass for the Module 04 interactives.** The 04.01.01, 04.01.02, and 04.01.03 explorers use native radio buttons, a slider with a typed value, and aria-live summaries but have only been tested with scripted interaction.
+- [ ] **Screen-reader and keyboard pass for the Module 04 interactives.** The 04.01.01 to 04.01.04 explorers use native radio buttons, a slider with a typed value, and aria-live summaries but have only been tested with scripted interaction.
 
 ---
 
