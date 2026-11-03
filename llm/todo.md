@@ -2,7 +2,7 @@
 
 Planned work that is not finished yet. Tick items off (or delete them) as they land, and add new ones as they come up. Deviations and simplifications in work that is already built belong in [`FLAGS.md`](FLAGS.md), not here.
 
-Last updated: 2026-10-29
+Last updated: 2026-11-02
 
 ---
 
@@ -37,13 +37,19 @@ Governing documents: `context_docs/modules/module_04/taxonomy_QuantumHardware_v1
 - [x] **Module 04 README** with the page status table.
 - [x] **04.01.01 Physical Qubits is final and built.** `QedLadder`, the page, two glossary entries, and the module's first nav entry.
 - [x] **04.01.02 Gates and Control is final and built.** `QedDrive`, the page, two glossary entries, and the link from 04.01.01.
-- [ ] **Draft and build 04.01.03 to 04.02.06**, one page at a time. 04.01.02's closing question leads into 04.01.03 Readout, which reuses `QedLadder` (levels told apart) and `QedDrive`'s seeded sampling.
+- [x] **04.01.03 Readout is final and built.** `QedReadout`, the page, one glossary entry, the `--qed-color-readout` token, and the link from 04.01.02.
+- [x] **04.01.04 Coherence is final and built.** `QedCoherence`, the page, glossary references (no new entry), and the link from 04.01.03.
+- [x] **04.01.05 Noise is final and built.** `QedNoise`, the page, the `QedDrive` strength-factor extension, glossary references (no new entry), and the link from 04.01.04. Hardware Fundamentals is complete.
+- [ ] **Draft and build 04.02.01 to 04.02.06**, one page at a time. 04.01.05's closing question leads into 04.02.01 Superconducting Qubits, the first Platform Card page, which reuses `QedNoise` (a platform's usual dominant source) and the Bell strip.
 - [x] **Replaced the "Next: Gates and Control → (coming soon)" note** on the 04.01.01 page with a link.
-- [ ] **Replace the "Next: Readout → (coming soon)" note** on the 04.01.02 page with a link when 04.01.03 is built.
+- [x] **Replaced the "Next: Readout → (coming soon)" note** on the 04.01.02 page with a link.
+- [x] **Replaced the "Next: Coherence → (coming soon)" note** on the 04.01.03 page with a link.
+- [x] **Replaced the "Next: Noise → (coming soon)" note** on the 04.01.04 page with a link.
+- [ ] **Replace the "Next: Superconducting Qubits → (coming soon)" note** on the 04.01.05 page with a link when 04.02.01 is built.
 - [ ] **Add each Module 04 page to `mkdocs.yml` and `docs/04-hardware/index.md` as it is built.** Link only pages that exist.
-- [ ] **Record the read-out signal's visual treatment** in `llm/CONVENTIONS.md` when 04.01.03 first shows it (the control treatment, `--qed-color-control`, is already recorded).
+- [x] **Recorded the read-out signal's visual treatment** (`--qed-color-readout`, with a dash-dot outline and an arrow from the qubit to the detector) in `llm/CONVENTIONS.md`.
 - [ ] **Hardware subject-matter review** before any modality fact is treated as settled (taxonomy decision 14). Pages stay `built, needs hardening` until then.
-- [ ] **Screen-reader and keyboard pass for the Module 04 interactives.** The 04.01.01 and 04.01.02 explorers use native radio buttons, a slider with a typed value, and aria-live summaries but have only been tested with scripted interaction.
+- [ ] **Screen-reader and keyboard pass for the Module 04 interactives.** The 04.01.01 to 04.01.05 explorers use native radio buttons, checkboxes, a slider with a typed value, and aria-live summaries but have only been tested with scripted interaction.
 
 ---
 

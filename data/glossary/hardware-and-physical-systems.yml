@@ -103,7 +103,8 @@
   definition: "A characteristic duration over which a qubit retains its quantum coherence, commonly quantified by the times T1 and T2."
   beginnerInterpretation: "Coherence time is roughly how long a qubit stays quantum before noise scrambles it. Longer is better, but it is only one of several measures of qubit quality."
   relatedTerms: [coherence, decoherence, t1-relaxation-time, t2-dephasing-time, circuit-depth]
-  moduleReferences: []
+  moduleReferences:
+    - 04-hardware/coherence.md
   category: hardware-and-physical-systems
 
 - id: decoherence
@@ -114,6 +115,7 @@
   relatedTerms: [coherence, quantum-noise, mixed-state, t1-relaxation-time, t2-dephasing-time, dephasing]
   moduleReferences:
     - 07-error-correction/why-qec.md
+    - 04-hardware/coherence.md
   category: hardware-and-physical-systems
 
 - id: t1-relaxation-time
@@ -125,6 +127,7 @@
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+    - 04-hardware/coherence.md
   category: hardware-and-physical-systems
 
 - id: t2-dephasing-time
@@ -136,6 +139,7 @@
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+    - 04-hardware/coherence.md
   category: hardware-and-physical-systems
 
 - id: qubit-frequency
@@ -157,6 +161,7 @@
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+    - 04-hardware/noise.md
   category: hardware-and-physical-systems
 
 - id: readout-fidelity
@@ -165,7 +170,18 @@
   definition: "A measure of how reliably a qubit measurement reports the state the qubit was actually in; the complement of readout error."
   beginnerInterpretation: "Readout fidelity says how often reading a qubit gives the right answer. Low fidelity means the measurement itself often gets it wrong."
   relatedTerms: [readout-error, measurement, gate-fidelity, calibration]
-  moduleReferences: []
+  moduleReferences:
+    - 04-hardware/readout.md
+  category: hardware-and-physical-systems
+
+- id: readout-threshold
+  term: Readout Threshold
+  aliases: []
+  definition: "The signal value above which a readout reports 1 and below which it reports 0. Because the signals for 0 and for 1 overlap, a signal near the threshold can be sorted the wrong way."
+  beginnerInterpretation: "The readout threshold is the dividing line a device uses to turn a signal into 0 or 1. Move it, and you trade one kind of wrong answer for the other."
+  relatedTerms: [readout-error, readout-fidelity, measurement, calibration, shot]
+  moduleReferences:
+    - 04-hardware/readout.md
   category: hardware-and-physical-systems
 
 - id: calibration
@@ -178,6 +194,9 @@
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/understanding-the-quantum-software-stack.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+    - 04-hardware/readout.md
+    - 04-hardware/coherence.md
+    - 04-hardware/noise.md
   category: hardware-and-physical-systems
 
 - id: calibration-snapshot
@@ -189,6 +208,7 @@
   moduleReferences:
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
     - 05-software-stack/integrated-quantum-software-workflows.md
+    - 04-hardware/noise.md
   category: hardware-and-physical-systems
 
 - id: crosstalk
@@ -197,7 +217,8 @@
   definition: "Unintended interaction in which an operation or measurement on one qubit affects other qubits."
   beginnerInterpretation: "Crosstalk is when something done to one qubit accidentally disturbs its neighbors."
   relatedTerms: [quantum-noise, correlated-error, gate-fidelity, connectivity, coupling]
-  moduleReferences: []
+  moduleReferences:
+    - 04-hardware/noise.md
   category: hardware-and-physical-systems
 
 - id: connectivity
@@ -219,6 +240,7 @@
   relatedTerms: [connectivity, crosstalk, multi-qubit-gate, entanglement, quantum-processing-unit]
   moduleReferences:
     - 04-hardware/gates-and-control.md
+    - 04-hardware/noise.md
   category: hardware-and-physical-systems
 
 - id: energy-level
@@ -229,6 +251,7 @@
   relatedTerms: [ground-state, qubit, physical-qubit, leakage, t1-relaxation-time]
   moduleReferences:
     - 04-hardware/physical-qubits.md
+    - 04-hardware/coherence.md
   category: hardware-and-physical-systems
 
 - id: ground-state
@@ -240,6 +263,7 @@
   moduleReferences:
     - 04-hardware/physical-qubits.md
     - 06-algorithms/variational-quantum-eigensolver.md
+    - 04-hardware/coherence.md
   category: hardware-and-physical-systems
 
 - id: control-pulse

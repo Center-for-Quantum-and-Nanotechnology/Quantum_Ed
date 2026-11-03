@@ -64,7 +64,16 @@ window.QedDrive = (function () {
   }
   function directionById(id) { return find(DIRECTIONS, id, "direction"); }
   function strengthById(id) { return find(STRENGTHS, id, "strength"); }
-  function miscalibrationById(id) { return find(MISCALIBRATIONS, id, "miscalibration"); }
+  // A miscalibration is one of the three ids, or a number: a strength factor (1 is exact, 0.9 is 10%
+  // weaker). A number is what a drifting strength needs (04.01.05); it behaves exactly like the
+  // id with the same factor.
+  function miscalibrationById(id) {
+    if (typeof id === "number") {
+      if (!isFinite(id) || id <= 0) throw new Error("QedDrive: a strength factor must be a number above 0");
+      return { id: "custom", label: "a strength factor of " + id, factor: id, tag: "off by " + Math.round(Math.abs(id - 1) * 1000) / 10 + "%" };
+    }
+    return find(MISCALIBRATIONS, id, "miscalibration");
+  }
 
   function round(x) { return Math.round(x * 1e9) / 1e9; }
   function esc(s) {
@@ -85,7 +94,7 @@ window.QedDrive = (function () {
       direction: s.direction || DEFAULTS.direction,
       strength: s.strength || DEFAULTS.strength,
       length: snapLength(s.length === undefined ? DEFAULTS.length : s.length),
-      miscalibration: s.miscalibration || DEFAULTS.miscalibration,
+      miscalibration: typeof s.miscalibration === "number" ? s.miscalibration : s.miscalibration || DEFAULTS.miscalibration,
     };
   }
 

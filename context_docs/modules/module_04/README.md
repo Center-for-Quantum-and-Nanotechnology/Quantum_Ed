@@ -15,9 +15,9 @@ Module 04 explains **how a physical device holds, controls, and reads a qubit, w
 |---|---|---|---|---|
 | 04.01.01 | Physical Qubits | [`specs/04.01.01_PhysicalQubitsInstruction.md`](specs/04.01.01_PhysicalQubitsInstruction.md) | [`docs/04-hardware/physical-qubits.md`](../../../docs/04-hardware/physical-qubits.md) | built, needs hardening |
 | 04.01.02 | Gates and Control | [`specs/04.01.02_GatesAndControlInstruction.md`](specs/04.01.02_GatesAndControlInstruction.md) | [`docs/04-hardware/gates-and-control.md`](../../../docs/04-hardware/gates-and-control.md) | built, needs hardening |
-| 04.01.03 | Readout | — | — | no spec |
-| 04.01.04 | Coherence | — | — | no spec |
-| 04.01.05 | Noise | — | — | no spec |
+| 04.01.03 | Readout | [`specs/04.01.03_ReadoutInstruction.md`](specs/04.01.03_ReadoutInstruction.md) | [`docs/04-hardware/readout.md`](../../../docs/04-hardware/readout.md) | built, needs hardening |
+| 04.01.04 | Coherence | [`specs/04.01.04_CoherenceInstruction.md`](specs/04.01.04_CoherenceInstruction.md) | [`docs/04-hardware/coherence.md`](../../../docs/04-hardware/coherence.md) | built, needs hardening |
+| 04.01.05 | Noise | [`specs/04.01.05_NoiseInstruction.md`](specs/04.01.05_NoiseInstruction.md) | [`docs/04-hardware/noise.md`](../../../docs/04-hardware/noise.md) | built, needs hardening |
 | 04.02.01 | Superconducting Qubits | — | — | no spec |
 | 04.02.02 | Trapped-Ion Qubits | — | — | no spec |
 | 04.02.03 | Neutral-Atom Qubits | — | — | no spec |
@@ -40,5 +40,5 @@ The module overview ([`docs/04-hardware/index.md`](../../../docs/04-hardware/ind
 Detail lives in the taxonomy, [`llm/FLAGS.md`](../../../llm/FLAGS.md), and [`llm/todo.md`](../../../llm/todo.md), not here.
 
 - **No subject-matter review yet**, and this is the most fact-dense module. Platform facts and the T1, T2, and Transmon glossary entries are the first things to check.
-- **No screen-reader or keyboard pass yet** on the 04.01.01 and 04.01.02 explorers, which have only been tested with scripted interaction.
+- **No screen-reader or keyboard pass yet** on the 04.01.01 to 04.01.05 explorers, which have only been tested with scripted interaction.
 - **Intermediate and Advanced content and cross-module links** are deferred.

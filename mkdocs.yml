@@ -62,6 +62,9 @@ extra_javascript:
   - assets/javascripts/workflow.js
   - assets/javascripts/ladder.js
   - assets/javascripts/drive.js
+  - assets/javascripts/readout.js
+  - assets/javascripts/coherence.js
+  - assets/javascripts/noise.js
   - assets/javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
@@ -112,6 +115,9 @@ nav:
       - Overview: 04-hardware/index.md
       - Physical Qubits: 04-hardware/physical-qubits.md
       - Gates and Control: 04-hardware/gates-and-control.md
+      - Readout: 04-hardware/readout.md
+      - Coherence: 04-hardware/coherence.md
+      - Noise: 04-hardware/noise.md
   - "05 · Quantum Software Stack":
       - Overview: 05-software-stack/index.md
       - Understanding the Quantum Software Stack: 05-software-stack/understanding-the-quantum-software-stack.md

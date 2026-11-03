@@ -129,6 +129,7 @@
     - 02-fundamentals/measurement.md
     - 05-software-stack/simulation-engines-and-methods.md
     - 05-software-stack/quantum-runtime-and-classical-quantum-orchestration.md
+    - 04-hardware/readout.md
   category: architecture-and-execution
 
 - id: sampling
