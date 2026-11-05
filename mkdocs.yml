@@ -120,7 +120,8 @@ nav:
           - Readout: 04-hardware/readout.md
           - Coherence: 04-hardware/coherence.md
           - Noise: 04-hardware/noise.md
-      - Qubit Modalities: []
+      - Qubit Modalities:
+          - Superconducting Qubits: 04-hardware/superconducting-qubits.md
   - "05 · Quantum Software Stack":
       - Overview: 05-software-stack/index.md
       - Understanding the Quantum Software Stack: 05-software-stack/understanding-the-quantum-software-stack.md

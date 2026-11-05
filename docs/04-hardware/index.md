@@ -17,3 +17,5 @@ One qubit, followed from start to read-out.
 ## Qubit Modalities
 
 The same questions, answered by different physical systems. These pages are still being written, and are listed here as they are built.
+
+- **[Superconducting Qubits](superconducting-qubits.md)** — a tiny engineered circuit, kept cold, controlled and read with microwaves: what each part of the device does, how long it lasts and how fast it runs, and why wiring makes it hard to scale. The first Platform Card.
