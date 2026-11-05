@@ -40,12 +40,16 @@ Governing documents: `context_docs/modules/module_04/taxonomy_QuantumHardware_v1
 - [x] **04.01.03 Readout is final and built.** `QedReadout`, the page, one glossary entry, the `--qed-color-readout` token, and the link from 04.01.02.
 - [x] **04.01.04 Coherence is final and built.** `QedCoherence`, the page, glossary references (no new entry), and the link from 04.01.03.
 - [x] **04.01.05 Noise is final and built.** `QedNoise`, the page, the `QedDrive` strength-factor extension, glossary references (no new entry), and the link from 04.01.04. Hardware Fundamentals is complete.
-- [ ] **Draft and build 04.02.01 to 04.02.06**, one page at a time. 04.01.05's closing question leads into 04.02.01 Superconducting Qubits, the first Platform Card page, which reuses `QedNoise` (a platform's usual dominant source) and the Bell strip.
+- [x] **04.02.01 Superconducting Qubits is final and built.** `QedPlatform` and `QedChip`, the page, three glossary entries (Josephson Junction, Dilution Refrigerator, Readout Resonator), the link from 04.01.05, and a visible MRS-style Sources list. The reviewed draft is archived.
+- [ ] **Draft and build 04.02.02 to 04.02.06**, one page at a time. Each adds a card to `QedPlatform.PLATFORMS` (with its figures, answers, Bell strip, and `wrong` lines, and its sources added to `REFERENCES`), and the "compare with" control appears when a second card exists. 04.02.06 computes its comparison from the cards.
+- [ ] **Hardware subject-matter review of 04.02.01's figures** (the ranges in `platform.js`, weakest row: the readout time), of the five "what goes wrong here" lines, and of the Josephson Junction, Dilution Refrigerator, and Readout Resonator definitions. Confirm the Bland et al. lifetime in the published Nature paper (the figure was read in the preprint), and check the author lists of the seven references against the publishers' records.
+- [ ] **Check the "more than six authors: et al." rule against an MRS style guide.** It is my reading of the style, not a checked rule.
 - [x] **Replaced the "Next: Gates and Control → (coming soon)" note** on the 04.01.01 page with a link.
 - [x] **Replaced the "Next: Readout → (coming soon)" note** on the 04.01.02 page with a link.
 - [x] **Replaced the "Next: Coherence → (coming soon)" note** on the 04.01.03 page with a link.
 - [x] **Replaced the "Next: Noise → (coming soon)" note** on the 04.01.04 page with a link.
-- [ ] **Replace the "Next: Superconducting Qubits → (coming soon)" note** on the 04.01.05 page with a link when 04.02.01 is built.
+- [x] **Replaced the "Next: Superconducting Qubits → (coming soon)" note** on the 04.01.05 page with a link.
+- [ ] **Replace the "Next: Trapped-Ion Qubits → (coming soon)" note** on the 04.02.01 page with a link when 04.02.02 is built.
 - [ ] **Add each Module 04 page to `mkdocs.yml` and `docs/04-hardware/index.md` as it is built.** Link only pages that exist.
 - [x] **Recorded the read-out signal's visual treatment** (`--qed-color-readout`, with a dash-dot outline and an arrow from the qubit to the detector) in `llm/CONVENTIONS.md`.
 - [ ] **Hardware subject-matter review** before any modality fact is treated as settled (taxonomy decision 14). Pages stay `built, needs hardening` until then.
