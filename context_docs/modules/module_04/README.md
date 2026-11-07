@@ -19,7 +19,7 @@ Module 04 explains **how a physical device holds, controls, and reads a qubit, w
 | 04.01.04 | Coherence | [`specs/04.01.04_CoherenceInstruction.md`](specs/04.01.04_CoherenceInstruction.md) | [`docs/04-hardware/coherence.md`](../../../docs/04-hardware/coherence.md) | built, needs hardening |
 | 04.01.05 | Noise | [`specs/04.01.05_NoiseInstruction.md`](specs/04.01.05_NoiseInstruction.md) | [`docs/04-hardware/noise.md`](../../../docs/04-hardware/noise.md) | built, needs hardening |
 | 04.02.01 | Superconducting Qubits | [`specs/04.02.01_SuperconductingQubitsInstruction.md`](specs/04.02.01_SuperconductingQubitsInstruction.md) | [`docs/04-hardware/superconducting-qubits.md`](../../../docs/04-hardware/superconducting-qubits.md) | built, needs hardening |
-| 04.02.02 | Trapped-Ion Qubits | — | — | no spec |
+| 04.02.02 | Trapped-Ion Qubits | [`specs/04.02.02_TrappedIonQubitsInstruction.md`](specs/04.02.02_TrappedIonQubitsInstruction.md) | [`docs/04-hardware/trapped-ion-qubits.md`](../../../docs/04-hardware/trapped-ion-qubits.md) | built, needs hardening |
 | 04.02.03 | Neutral-Atom Qubits | — | — | no spec |
 | 04.02.04 | Photonic Qubits | — | — | no spec |
 | 04.02.05 | Dual-Rail and Bosonic Encodings | — | — | no spec |
@@ -39,6 +39,6 @@ The module overview ([`docs/04-hardware/index.md`](../../../docs/04-hardware/ind
 
 Detail lives in the taxonomy, [`llm/FLAGS.md`](../../../llm/FLAGS.md), and [`llm/todo.md`](../../../llm/todo.md), not here.
 
-- **No subject-matter review yet**, and this is the most fact-dense module. Platform facts and the T1, T2, and Transmon glossary entries are the first things to check. 04.02.01 is the first page with real figures: they were checked against seven primary papers on 2026-11-03 (an AI check, not an expert review), and the readout time is the least well supported.
-- **No screen-reader or keyboard pass yet** on the 04.01.01 to 04.01.05 explorers and the 04.02.01 Chip and Fridge explorer, which have only been tested with scripted interaction.
+- **No subject-matter review yet**, and this is the most fact-dense module. Platform facts and the T1, T2, and Transmon glossary entries are the first things to check. 04.02.01 and 04.02.02 carry real figures: they were checked against primary papers on 2026-11-03 and 2026-11-07 (an AI check, not an expert review). The least well supported are 04.02.01's readout time and the lower end of 04.02.02's typical coherence time.
+- **No screen-reader or keyboard pass yet** on the 04.01.01 to 04.01.05 explorers the 04.02.01 Chip and Fridge explorer, and the 04.02.02 Ion Chain explorer and compare control, which have only been tested with scripted interaction.
 - **Intermediate and Advanced content and cross-module links** are deferred.
