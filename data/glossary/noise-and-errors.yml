@@ -157,4 +157,5 @@
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
     - 04-hardware/readout.md
     - 04-hardware/noise.md
+    - 04-hardware/trapped-ion-qubits.md
   category: noise-and-errors

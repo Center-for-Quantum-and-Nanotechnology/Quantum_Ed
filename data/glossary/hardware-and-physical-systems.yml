@@ -84,13 +84,44 @@
     - 04-hardware/superconducting-qubits.md
   category: hardware-and-physical-systems
 
+- id: ion-trap
+  term: Ion Trap
+  aliases: []
+  definition: "A device that holds ions still, in a vacuum, using electric fields. A trapped ion can then be cooled, controlled, and read out with light or microwaves."
+  beginnerInterpretation: "An ion trap is the device that holds a charged atom in place in empty space, using electric fields, so that it can be used as a qubit."
+  relatedTerms: [trapped-ion-qubit, laser-cooling, fluorescence-readout, physical-qubit]
+  moduleReferences:
+    - 04-hardware/trapped-ion-qubits.md
+  category: hardware-and-physical-systems
+
+- id: laser-cooling
+  term: Laser Cooling
+  aliases: []
+  definition: "Slowing the motion of atoms or ions with laser light, to a temperature equivalent of a small fraction of a kelvin, so that they can be held nearly still. It cools the motion of the ion, not the trap around it."
+  beginnerInterpretation: "Laser cooling uses light to slow an atom's motion until it is nearly still. It cools the atom's jiggling, while the trap around it is often at room temperature."
+  relatedTerms: [trapped-ion-qubit, ion-trap, neutral-atom-qubit, physical-qubit]
+  moduleReferences:
+    - 04-hardware/trapped-ion-qubits.md
+  category: hardware-and-physical-systems
+
+- id: fluorescence-readout
+  term: Fluorescence Readout
+  aliases: []
+  definition: "Reading a qubit by shining light that only one of its two states scatters. A qubit in that state shines (bright) and a qubit in the other stays dark, and a detector counts the scattered photons. The counts for the two states can overlap, so a count near the dividing line can be misread."
+  beginnerInterpretation: "Fluorescence readout asks whether the qubit lights up. A bright result and a dark result stand for 1 and 0, and the photon counts can overlap, so a misread is possible."
+  relatedTerms: [readout-error, readout-threshold, trapped-ion-qubit, ion-trap]
+  moduleReferences:
+    - 04-hardware/trapped-ion-qubits.md
+  category: hardware-and-physical-systems
+
 - id: trapped-ion-qubit
   term: Trapped-Ion Qubit
   aliases: []
   definition: "A physical qubit encoded in internal energy levels of an individual ion held in place by electromagnetic fields and manipulated with lasers or microwaves."
   beginnerInterpretation: "Trapped-ion qubits are individual charged atoms held in place by electric fields, with information stored in their energy levels."
-  relatedTerms: [physical-qubit, neutral-atom-qubit, quantum-processing-unit, coherence-time, connectivity]
-  moduleReferences: []
+  relatedTerms: [physical-qubit, neutral-atom-qubit, quantum-processing-unit, coherence-time, connectivity, ion-trap]
+  moduleReferences:
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: neutral-atom-qubit
@@ -138,6 +169,7 @@
   moduleReferences:
     - 04-hardware/coherence.md
     - 04-hardware/superconducting-qubits.md
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: decoherence
@@ -175,6 +207,7 @@
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
     - 04-hardware/coherence.md
     - 04-hardware/superconducting-qubits.md
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: qubit-frequency
@@ -217,6 +250,7 @@
   relatedTerms: [readout-error, readout-fidelity, measurement, calibration, shot]
   moduleReferences:
     - 04-hardware/readout.md
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: calibration
@@ -266,6 +300,7 @@
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
     - 04-hardware/superconducting-qubits.md
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: coupling
@@ -278,6 +313,7 @@
     - 04-hardware/gates-and-control.md
     - 04-hardware/noise.md
     - 04-hardware/superconducting-qubits.md
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: energy-level
@@ -311,6 +347,7 @@
   relatedTerms: [rotation-gate, quantum-gate, native-gate, energy-level, gate-fidelity]
   moduleReferences:
     - 04-hardware/gates-and-control.md
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: rabi-oscillation

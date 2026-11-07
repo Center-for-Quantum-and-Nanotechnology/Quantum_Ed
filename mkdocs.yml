@@ -123,6 +123,7 @@ nav:
           - Noise: 04-hardware/noise.md
       - Qubit Modalities:
           - Superconducting Qubits: 04-hardware/superconducting-qubits.md
+          - Trapped-Ion Qubits: 04-hardware/trapped-ion-qubits.md
   - "05 · Quantum Software Stack":
       - Overview: 05-software-stack/index.md
       - Understanding the Quantum Software Stack: 05-software-stack/understanding-the-quantum-software-stack.md

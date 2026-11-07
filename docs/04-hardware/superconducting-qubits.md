@@ -219,7 +219,13 @@ Here is the whole card:
 
 <p class="qed-pc__note" id="sc-card-note"></p>
 
-Later pages add the cards of the other platforms. When a second card exists, a "compare with" control will appear here. Until then there is nothing to compare with.
+A second card now exists, so you can read two cards side by side. The control lists only platforms whose cards have been built. Later pages add the cards of the other platforms.
+
+<div class="qed-demo qed-pc" id="sc-compare-control"></div>
+
+<p class="qed-pc__note" id="sc-compare-live" role="status" aria-live="polite"></p>
+
+<div class="qed-demo qed-pc" id="sc-compare-view"></div>
 
 ## From One System to Another
 
@@ -237,7 +243,7 @@ IN GENERAL
 
 A different physical system, a single charged atom held in empty space, answers the same six questions differently. That is the next page.
 
-**Next: Trapped-Ion Qubits →** *(coming soon)*
+**Next: [Trapped-Ion Qubits →](trapped-ion-qubits.md)**
 
 ## Sources
 
@@ -283,6 +289,16 @@ document.addEventListener("DOMContentLoaded", function () {
   $("sc-bell-strip").innerHTML = P.bellHTML(SC);
   $("sc-sources-note").textContent = "Figures last checked " + P.card(SC).figuresDate + ". Entries are numbered in the order they are first cited on this page.";
   $("sc-sources").innerHTML = P.referencesHTML(SC);
+
+  // ---- the compare control: only platforms whose cards exist, starting at None ----
+  $("sc-compare-control").innerHTML = P.compareControlHTML(SC, { id: "sc-compare" });
+  if ($("sc-compare")) {
+    $("sc-compare").addEventListener("change", function () {
+      var other = $("sc-compare").value;
+      $("sc-compare-view").innerHTML = other ? P.compareHTML([SC, other]) : "";
+      $("sc-compare-live").textContent = other ? "Showing the two cards side by side. It is a reading, not a ranking." : "The comparison is hidden.";
+    });
+  }
   $("sc-parts-table").innerHTML = C.listHTML();
 
   // ---- the invented ladder, and the ladder at three invented temperatures ----
