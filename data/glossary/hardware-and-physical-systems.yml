@@ -39,8 +39,9 @@
   aliases: []
   definition: "A physical qubit implemented as a superconducting electrical circuit operated at very low temperatures, with the two qubit states encoded in the circuit's quantized energy levels."
   beginnerInterpretation: "Superconducting qubits are tiny electrical circuits, cooled to extremely low temperatures, that behave like artificial atoms."
-  relatedTerms: [transmon, physical-qubit, quantum-processing-unit, coherence-time]
-  moduleReferences: []
+  relatedTerms: [transmon, physical-qubit, quantum-processing-unit, coherence-time, josephson-junction, dilution-refrigerator]
+  moduleReferences:
+    - 04-hardware/superconducting-qubits.md
   category: hardware-and-physical-systems
 
 - id: transmon
@@ -48,8 +49,69 @@
   aliases: []
   definition: "A widely used type of superconducting qubit, built from a Josephson junction shunted by a large capacitor, designed to be less sensitive to charge noise."
   beginnerInterpretation: "The transmon is a popular kind of superconducting qubit, designed to be steadier against certain electrical disturbances."
-  relatedTerms: [superconducting-qubit, coherence-time, t1-relaxation-time, physical-qubit]
-  moduleReferences: []
+  relatedTerms: [superconducting-qubit, coherence-time, t1-relaxation-time, physical-qubit, josephson-junction]
+  moduleReferences:
+    - 04-hardware/superconducting-qubits.md
+  category: hardware-and-physical-systems
+
+- id: josephson-junction
+  term: Josephson Junction
+  aliases: []
+  definition: "A thin insulating barrier between two superconducting electrodes. It acts as a nonlinear circuit element, which makes the energy levels of a superconducting circuit unevenly spaced, so that the two lowest levels can be driven on their own and used as a qubit."
+  beginnerInterpretation: "The Josephson junction is the small part inside a superconducting qubit that makes its levels unevenly spaced, so a signal can pick out just the two levels that stand for 0 and 1."
+  relatedTerms: [superconducting-qubit, transmon, energy-level, physical-qubit]
+  moduleReferences:
+    - 04-hardware/superconducting-qubits.md
+  category: hardware-and-physical-systems
+
+- id: dilution-refrigerator
+  term: Dilution Refrigerator
+  aliases: []
+  definition: "A cryogenic refrigerator, based on a mixture of two helium isotopes, that cools a device to a small fraction of a kelvin. Superconducting quantum processors are operated at roughly ten to twenty millikelvin, on the coldest plate of a stack of plates that get colder toward the bottom."
+  beginnerInterpretation: "The dilution refrigerator is the large cooling system that keeps a superconducting quantum chip at a temperature a hundredth of a degree above absolute zero."
+  relatedTerms: [superconducting-qubit, physical-qubit, coherence-time, quantum-processing-unit]
+  moduleReferences:
+    - 04-hardware/superconducting-qubits.md
+  category: hardware-and-physical-systems
+
+- id: readout-resonator
+  term: Readout Resonator
+  aliases: []
+  definition: "A small superconducting circuit coupled to a qubit whose resonant frequency depends slightly on the qubit's state. A weak microwave probe sent to the resonator returns changed, and measuring the change reveals the state."
+  beginnerInterpretation: "The readout resonator is a small circuit beside the qubit. Its response changes slightly depending on whether the qubit is 0 or 1, so a weak probe signal can tell the two apart."
+  relatedTerms: [superconducting-qubit, transmon, readout-error, readout-threshold]
+  moduleReferences:
+    - 04-hardware/superconducting-qubits.md
+  category: hardware-and-physical-systems
+
+- id: ion-trap
+  term: Ion Trap
+  aliases: []
+  definition: "A device that holds ions still, in a vacuum, using electric fields. A trapped ion can then be cooled, controlled, and read out with light or microwaves."
+  beginnerInterpretation: "An ion trap is the device that holds a charged atom in place in empty space, using electric fields, so that it can be used as a qubit."
+  relatedTerms: [trapped-ion-qubit, laser-cooling, fluorescence-readout, physical-qubit]
+  moduleReferences:
+    - 04-hardware/trapped-ion-qubits.md
+  category: hardware-and-physical-systems
+
+- id: laser-cooling
+  term: Laser Cooling
+  aliases: []
+  definition: "Slowing the motion of atoms or ions with laser light, to a temperature equivalent of a small fraction of a kelvin, so that they can be held nearly still. It cools the motion of the ion, not the trap around it."
+  beginnerInterpretation: "Laser cooling uses light to slow an atom's motion until it is nearly still. It cools the atom's jiggling, while the trap around it is often at room temperature."
+  relatedTerms: [trapped-ion-qubit, ion-trap, neutral-atom-qubit, physical-qubit]
+  moduleReferences:
+    - 04-hardware/trapped-ion-qubits.md
+  category: hardware-and-physical-systems
+
+- id: fluorescence-readout
+  term: Fluorescence Readout
+  aliases: []
+  definition: "Reading a qubit by shining light that only one of its two states scatters. A qubit in that state shines (bright) and a qubit in the other stays dark, and a detector counts the scattered photons. The counts for the two states can overlap, so a count near the dividing line can be misread."
+  beginnerInterpretation: "Fluorescence readout asks whether the qubit lights up. A bright result and a dark result stand for 1 and 0, and the photon counts can overlap, so a misread is possible."
+  relatedTerms: [readout-error, readout-threshold, trapped-ion-qubit, ion-trap]
+  moduleReferences:
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: trapped-ion-qubit
@@ -57,8 +119,9 @@
   aliases: []
   definition: "A physical qubit encoded in internal energy levels of an individual ion held in place by electromagnetic fields and manipulated with lasers or microwaves."
   beginnerInterpretation: "Trapped-ion qubits are individual charged atoms held in place by electric fields, with information stored in their energy levels."
-  relatedTerms: [physical-qubit, neutral-atom-qubit, quantum-processing-unit, coherence-time, connectivity]
-  moduleReferences: []
+  relatedTerms: [physical-qubit, neutral-atom-qubit, quantum-processing-unit, coherence-time, connectivity, ion-trap]
+  moduleReferences:
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: neutral-atom-qubit
@@ -105,6 +168,8 @@
   relatedTerms: [coherence, decoherence, t1-relaxation-time, t2-dephasing-time, circuit-depth]
   moduleReferences:
     - 04-hardware/coherence.md
+    - 04-hardware/superconducting-qubits.md
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: decoherence
@@ -128,6 +193,7 @@
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
     - 04-hardware/coherence.md
+    - 04-hardware/superconducting-qubits.md
   category: hardware-and-physical-systems
 
 - id: t2-dephasing-time
@@ -140,6 +206,8 @@
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
     - 04-hardware/coherence.md
+    - 04-hardware/superconducting-qubits.md
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: qubit-frequency
@@ -182,6 +250,7 @@
   relatedTerms: [readout-error, readout-fidelity, measurement, calibration, shot]
   moduleReferences:
     - 04-hardware/readout.md
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: calibration
@@ -230,6 +299,8 @@
   moduleReferences:
     - 07-error-correction/hardware-aware-qec.md
     - 05-software-stack/hardware-abstraction-and-backend-capabilities.md
+    - 04-hardware/superconducting-qubits.md
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: coupling
@@ -241,6 +312,8 @@
   moduleReferences:
     - 04-hardware/gates-and-control.md
     - 04-hardware/noise.md
+    - 04-hardware/superconducting-qubits.md
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: energy-level
@@ -274,6 +347,7 @@
   relatedTerms: [rotation-gate, quantum-gate, native-gate, energy-level, gate-fidelity]
   moduleReferences:
     - 04-hardware/gates-and-control.md
+    - 04-hardware/trapped-ion-qubits.md
   category: hardware-and-physical-systems
 
 - id: rabi-oscillation

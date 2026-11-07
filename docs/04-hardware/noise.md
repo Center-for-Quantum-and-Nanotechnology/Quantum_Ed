@@ -166,7 +166,7 @@ A qubit has to be started, controlled, connected, read, and kept. Each of these 
 
 The same five needs, answered by different physical systems, with different trade-offs. That is the next group of pages.
 
-**Next: Superconducting Qubits →** *(coming soon)*
+**Next: [Superconducting Qubits →](superconducting-qubits.md)**
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {

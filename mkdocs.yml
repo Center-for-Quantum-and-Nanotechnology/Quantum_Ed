@@ -24,7 +24,6 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
   features:
-    - navigation.sections
     - navigation.indexes
     - navigation.top
     - navigation.footer
@@ -65,6 +64,9 @@ extra_javascript:
   - assets/javascripts/readout.js
   - assets/javascripts/coherence.js
   - assets/javascripts/noise.js
+  - assets/javascripts/platform.js
+  - assets/javascripts/chip.js
+  - assets/javascripts/ions.js
   - assets/javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
@@ -113,11 +115,15 @@ nav:
       - 03-programming/index.md
   - "04 · Quantum Hardware":
       - Overview: 04-hardware/index.md
-      - Physical Qubits: 04-hardware/physical-qubits.md
-      - Gates and Control: 04-hardware/gates-and-control.md
-      - Readout: 04-hardware/readout.md
-      - Coherence: 04-hardware/coherence.md
-      - Noise: 04-hardware/noise.md
+      - Hardware Fundamentals:
+          - Physical Qubits: 04-hardware/physical-qubits.md
+          - Gates and Control: 04-hardware/gates-and-control.md
+          - Readout: 04-hardware/readout.md
+          - Coherence: 04-hardware/coherence.md
+          - Noise: 04-hardware/noise.md
+      - Qubit Modalities:
+          - Superconducting Qubits: 04-hardware/superconducting-qubits.md
+          - Trapped-Ion Qubits: 04-hardware/trapped-ion-qubits.md
   - "05 · Quantum Software Stack":
       - Overview: 05-software-stack/index.md
       - Understanding the Quantum Software Stack: 05-software-stack/understanding-the-quantum-software-stack.md

@@ -112,7 +112,7 @@ One Markdown file per page, written with the [`section-spec-writer`](../skills/s
 - Each spec names the previous and next page and ends by motivating the next one
 - Experience levels: the Experience-Level Scope lists the Beginner contract; any Page Structure subsection or interaction above Beginner is tagged `[Intermediate]` or `[Advanced]`. Levels are cumulative views of one page, built as gated blocks (see `llm/CONVENTIONS.md`, section 7)
 
-`specs/` holds only specs that are currently approved. A spec that has been superseded moves to `archive/`.
+`specs/` holds only specs that are currently approved, plus any draft still waiting for its first approval (status `spec draft`). A spec that has been superseded moves to `archive/`, and so does a draft once it has been approved (see section 6).
 
 ### `archive/` (historical, not authoritative)
 
@@ -120,6 +120,7 @@ For anything kept for reference that must no longer drive work:
 
 - Superseded taxonomy versions (for example `taxonomy_QuantumSoftwareStack_v1.0.md`)
 - Superseded page specs
+- Approved drafts: the reviewed draft of each spec, with its open questions and recommendations, kept as the record of what was decided
 - The original `.docx` sources, in `archive/docx/`, if a Markdown conversion exists
 
 Archived files are read-only. Do not build from them, and do not edit them. If you need something that only exists there, bring it forward into the current document deliberately.
@@ -149,7 +150,7 @@ Never build from `archive/`.
 
 ## 6. Changing documents
 
-**Adding a spec:** write it with the `section-spec-writer` skill, put it in `specs/`, and add or update its row in the module README's status table.
+**Adding a spec:** a spec starts as a draft in `specs/` (status `spec draft`) and is revised in place while it is under review. Once the draft is approved for the first time, do not write the final spec over it. Move the draft to the module's `archive/` with `git mv`, add `_draft` before the extension (`04.02.01_SuperconductingQubitsInstruction.md` becomes `archive/04.02.01_SuperconductingQubitsInstruction_draft.md`), leave its text unchanged, and write the final spec with the `section-spec-writer` skill to the original filename in `specs/`. Do both in the same commit, and update the row in the module README's status table (`spec approved`). Specs approved before this rule existed were overwritten; the 13 drafts that had been committed were archived retroactively, each as the file's content just before its finalizing commit. Some specs have no archived draft because their drafts were never committed (02.04, 02.07, 04.01.02 to 04.01.04), or because they were never drafts (05.01, which was revised from an existing spec, and Module 07's specs, which came from `.docx` sources).
 
 **Revising a spec:** edit it in place when the change is a clarification. When the change is a substantial revision, move the old version to `archive/` with a version suffix and put the new one in `specs/`. Update the README status.
 
@@ -164,6 +165,7 @@ Never build from `archive/`.
 - **Folder names** are `module_NN` inside `modules/`, zero padded so the convention holds if the curriculum grows past nine modules. This matches the two-digit form in `docs/` (`05-software-stack`). The module README's status table records the mapping.
 - **Taxonomy filenames** follow `taxonomy_<Description>_v<X.Y>.md`. Spec filenames carry the page ID instead of a version, and a spec is revised in place or replaced (see section 6).
 - **One current taxonomy.** Only one `taxonomy_*` file sits at a module root. Everything older is in `archive/`.
+- **Drafts are archived at first approval.** An approved draft moves to `archive/` as `<ID>_<PageTitle>Instruction_draft.md`; the final spec takes the plain name in `specs/`. A coding agent builds from the final spec only.
 - **Status header.** The taxonomy file opens with its status, version and date. A spec that has been reviewed against a taxonomy revision should say so in its header.
 - **Plain Markdown.** Specs are Markdown, not `.docx`. Keep original `.docx` files only in `archive/docx/`.
 - **Links are relative**, so they work from GitHub and from an editor.

@@ -1,0 +1,171 @@
+{
+ "card": {
+  "id": "superconducting",
+  "name": "Superconducting qubits",
+  "figuresDate": "2026-11-03",
+  "rows": [
+   {
+    "n": 1,
+    "question": "What is the qubit?",
+    "applicable": true,
+    "text": "A tiny engineered circuit on a chip, made from a superconducting metal and built around a Josephson junction, usually a transmon. It is kept at roughly ten to twenty millikelvin in a dilution refrigerator.",
+    "items": [],
+    "refs": [],
+    "cost": "It needs a refrigerator, and no two come out exactly alike."
+   },
+   {
+    "n": 2,
+    "question": "How is it controlled?",
+    "applicable": true,
+    "text": "Microwave signals along wires from room-temperature electronics.",
+    "items": [],
+    "refs": [],
+    "cost": "Every qubit needs a wire."
+   },
+   {
+    "n": 3,
+    "question": "How is it read out?",
+    "applicable": true,
+    "text": "A resonator beside the qubit whose response changes with the qubit's state. A weak microwave probe is sent in, and the changed reflection is amplified.",
+    "items": [],
+    "refs": [],
+    "cost": "The signal is weak, so it needs amplifying, and a readout is slow."
+   },
+   {
+    "n": 4,
+    "question": "How long does it last, and how fast does it run?",
+    "applicable": true,
+    "text": "Fast operations and a short memory.",
+    "items": [
+     {
+      "label": "One-qubit gate",
+      "text": "roughly tens of nanoseconds",
+      "computed": false
+     },
+     {
+      "label": "Two-qubit gate",
+      "text": "roughly tens to a few hundred nanoseconds",
+      "computed": false
+     },
+     {
+      "label": "Readout",
+      "text": "roughly a fraction of a microsecond to about a microsecond",
+      "computed": false
+     },
+     {
+      "label": "Energy-loss time (T1) and phase-loss time (T2)",
+      "text": "roughly tens to hundreds of microseconds, with the best laboratory devices over a millisecond",
+      "computed": false
+     },
+     {
+      "label": "Operations that fit in a lifetime",
+      "text": "hundreds to a few thousand",
+      "computed": true
+     }
+    ],
+    "refs": [],
+    "cost": "Fast operations, but the qubits forget quickly."
+   },
+   {
+    "n": 5,
+    "question": "How do qubits connect?",
+    "applicable": true,
+    "text": "Fixed neighbours: each qubit sits at a fixed place on the chip and is linked to a few neighbours through couplers.",
+    "items": [],
+    "refs": [],
+    "cost": "Only linked qubits interact directly, so others need extra operations."
+   },
+   {
+    "n": 6,
+    "question": "What makes it hard to scale?",
+    "applicable": true,
+    "text": "Wiring and cooling, fabrication variation, and a crowded chip.",
+    "items": [],
+    "refs": [
+     2,
+     3,
+     5
+    ],
+    "cost": "Wiring, cooling, and fabrication limit how many qubits fit."
+   }
+  ]
+ },
+ "cardHTML": "<div class=\"qed-pc__card\" role=\"group\" aria-label=\"Platform Card: Superconducting qubits\"><p class=\"qed-pc__title\">Platform Card: Superconducting qubits <span class=\"qed-pc__tag\">approximate ranges</span></p><ol class=\"qed-pc__rows\"><li class=\"qed-pc__row\" data-question=\"1\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">1</span> What is the qubit?</p><p class=\"qed-pc__a\">A tiny engineered circuit on a chip, made from a superconducting metal and built around a Josephson junction, usually a transmon. It is kept at roughly ten to twenty millikelvin<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-3\" aria-label=\"Reference 3\">3</a></sup> in a dilution refrigerator.</p></li><li class=\"qed-pc__row\" data-question=\"2\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">2</span> How is it controlled?</p><p class=\"qed-pc__a\">Microwave signals along wires from room-temperature electronics.</p></li><li class=\"qed-pc__row\" data-question=\"3\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">3</span> How is it read out?</p><p class=\"qed-pc__a\">A resonator beside the qubit whose response changes with the qubit's state. A weak microwave probe is sent in, and the changed reflection is amplified.</p></li><li class=\"qed-pc__row\" data-question=\"4\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">4</span> How long does it last, and how fast does it run?</p><ul class=\"qed-pc__items\"><li><strong>One-qubit gate:</strong> roughly tens of nanoseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Two-qubit gate:</strong> roughly tens to a few hundred nanoseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a>,<a href=\"#ref-5\" aria-label=\"Reference 5\">5</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Readout:</strong> roughly a fraction of a microsecond to about a microsecond<sup class=\"qed-pc__cite\"><a href=\"#ref-4\" aria-label=\"Reference 4\">4</a>,<a href=\"#ref-6\" aria-label=\"Reference 6\">6</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Energy-loss time (T1) and phase-loss time (T2):</strong> roughly tens to hundreds of microseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup>, with the best laboratory devices over a millisecond<sup class=\"qed-pc__cite\"><a href=\"#ref-7\" aria-label=\"Reference 7\">7</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Operations that fit in a lifetime:</strong> hundreds to a few thousand<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup> <span class=\"qed-pc__tag\">computed from typical values in the sources</span></li></ul><p class=\"qed-pc__note\">The ends of a range are not one device. Operations that fit is a budget, not a promise.</p></li><li class=\"qed-pc__row\" data-question=\"5\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">5</span> How do qubits connect?</p><p class=\"qed-pc__a\">Fixed neighbours: each qubit sits at a fixed place on the chip and is linked to a few neighbours through couplers.</p></li><li class=\"qed-pc__row\" data-question=\"6\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">6</span> What makes it hard to scale?</p><p class=\"qed-pc__a\">Wiring and cooling, fabrication variation, and a crowded chip.<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-3\" aria-label=\"Reference 3\">3</a>,<a href=\"#ref-5\" aria-label=\"Reference 5\">5</a></sup></p></li></ol></div>",
+ "cardHTMLEmpty": "<div class=\"qed-pc__card\" role=\"group\" aria-label=\"Platform Card: Superconducting qubits\"><p class=\"qed-pc__title\">Platform Card: Superconducting qubits</p><ol class=\"qed-pc__rows\"><li class=\"qed-pc__row\" data-question=\"1\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">1</span> What is the qubit?</p></li><li class=\"qed-pc__row\" data-question=\"2\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">2</span> How is it controlled?</p></li><li class=\"qed-pc__row\" data-question=\"3\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">3</span> How is it read out?</p></li><li class=\"qed-pc__row\" data-question=\"4\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">4</span> How long does it last, and how fast does it run?</p></li><li class=\"qed-pc__row\" data-question=\"5\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">5</span> How do qubits connect?</p></li><li class=\"qed-pc__row\" data-question=\"6\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">6</span> What makes it hard to scale?</p></li></ol></div>",
+ "cardHTMLHighlight3": "<div class=\"qed-pc__card\" role=\"group\" aria-label=\"Platform Card: Superconducting qubits\"><p class=\"qed-pc__title\">Platform Card: Superconducting qubits <span class=\"qed-pc__tag\">approximate ranges</span></p><ol class=\"qed-pc__rows\"><li class=\"qed-pc__row\" data-question=\"1\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">1</span> What is the qubit?</p><p class=\"qed-pc__a\">A tiny engineered circuit on a chip, made from a superconducting metal and built around a Josephson junction, usually a transmon. It is kept at roughly ten to twenty millikelvin<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-3\" aria-label=\"Reference 3\">3</a></sup> in a dilution refrigerator.</p></li><li class=\"qed-pc__row\" data-question=\"2\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">2</span> How is it controlled?</p><p class=\"qed-pc__a\">Microwave signals along wires from room-temperature electronics.</p></li><li class=\"qed-pc__row qed-pc__row--on\" data-question=\"3\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">3</span> How is it read out? <span class=\"qed-pc__tag\">this row</span></p><p class=\"qed-pc__a\">A resonator beside the qubit whose response changes with the qubit's state. A weak microwave probe is sent in, and the changed reflection is amplified.</p></li><li class=\"qed-pc__row\" data-question=\"4\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">4</span> How long does it last, and how fast does it run?</p><ul class=\"qed-pc__items\"><li><strong>One-qubit gate:</strong> roughly tens of nanoseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Two-qubit gate:</strong> roughly tens to a few hundred nanoseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a>,<a href=\"#ref-5\" aria-label=\"Reference 5\">5</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Readout:</strong> roughly a fraction of a microsecond to about a microsecond<sup class=\"qed-pc__cite\"><a href=\"#ref-4\" aria-label=\"Reference 4\">4</a>,<a href=\"#ref-6\" aria-label=\"Reference 6\">6</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Energy-loss time (T1) and phase-loss time (T2):</strong> roughly tens to hundreds of microseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup>, with the best laboratory devices over a millisecond<sup class=\"qed-pc__cite\"><a href=\"#ref-7\" aria-label=\"Reference 7\">7</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Operations that fit in a lifetime:</strong> hundreds to a few thousand<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup> <span class=\"qed-pc__tag\">computed from typical values in the sources</span></li></ul><p class=\"qed-pc__note\">The ends of a range are not one device. Operations that fit is a budget, not a promise.</p></li><li class=\"qed-pc__row\" data-question=\"5\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">5</span> How do qubits connect?</p><p class=\"qed-pc__a\">Fixed neighbours: each qubit sits at a fixed place on the chip and is linked to a few neighbours through couplers.</p></li><li class=\"qed-pc__row\" data-question=\"6\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">6</span> What makes it hard to scale?</p><p class=\"qed-pc__a\">Wiring and cooling, fabrication variation, and a crowded chip.<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-3\" aria-label=\"Reference 3\">3</a>,<a href=\"#ref-5\" aria-label=\"Reference 5\">5</a></sup></p></li></ol></div>",
+ "cardHTMLPrefix": "<div class=\"qed-pc__card\" role=\"group\" aria-label=\"Platform Card: Superconducting qubits\"><p class=\"qed-pc__title\">Platform Card: Superconducting qubits <span class=\"qed-pc__tag\">approximate ranges</span></p><ol class=\"qed-pc__rows\"><li class=\"qed-pc__row\" id=\"x-row-1\" data-question=\"1\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">1</span> What is the qubit?</p><p class=\"qed-pc__a\">A tiny engineered circuit on a chip, made from a superconducting metal and built around a Josephson junction, usually a transmon. It is kept at roughly ten to twenty millikelvin<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-3\" aria-label=\"Reference 3\">3</a></sup> in a dilution refrigerator.</p></li><li class=\"qed-pc__row\" id=\"x-row-2\" data-question=\"2\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">2</span> How is it controlled?</p><p class=\"qed-pc__a\">Microwave signals along wires from room-temperature electronics.</p></li><li class=\"qed-pc__row\" id=\"x-row-3\" data-question=\"3\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">3</span> How is it read out?</p><p class=\"qed-pc__a\">A resonator beside the qubit whose response changes with the qubit's state. A weak microwave probe is sent in, and the changed reflection is amplified.</p></li><li class=\"qed-pc__row\" id=\"x-row-4\" data-question=\"4\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">4</span> How long does it last, and how fast does it run?</p><ul class=\"qed-pc__items\"><li><strong>One-qubit gate:</strong> roughly tens of nanoseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Two-qubit gate:</strong> roughly tens to a few hundred nanoseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a>,<a href=\"#ref-5\" aria-label=\"Reference 5\">5</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Readout:</strong> roughly a fraction of a microsecond to about a microsecond<sup class=\"qed-pc__cite\"><a href=\"#ref-4\" aria-label=\"Reference 4\">4</a>,<a href=\"#ref-6\" aria-label=\"Reference 6\">6</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Energy-loss time (T1) and phase-loss time (T2):</strong> roughly tens to hundreds of microseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup>, with the best laboratory devices over a millisecond<sup class=\"qed-pc__cite\"><a href=\"#ref-7\" aria-label=\"Reference 7\">7</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Operations that fit in a lifetime:</strong> hundreds to a few thousand<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup> <span class=\"qed-pc__tag\">computed from typical values in the sources</span></li></ul><p class=\"qed-pc__note\">The ends of a range are not one device. Operations that fit is a budget, not a promise.</p></li><li class=\"qed-pc__row\" id=\"x-row-5\" data-question=\"5\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">5</span> How do qubits connect?</p><p class=\"qed-pc__a\">Fixed neighbours: each qubit sits at a fixed place on the chip and is linked to a few neighbours through couplers.</p></li><li class=\"qed-pc__row\" id=\"x-row-6\" data-question=\"6\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">6</span> What makes it hard to scale?</p><p class=\"qed-pc__a\">Wiring and cooling, fabrication variation, and a crowded chip.<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-3\" aria-label=\"Reference 3\">3</a>,<a href=\"#ref-5\" aria-label=\"Reference 5\">5</a></sup></p></li></ol></div>",
+ "rows": [
+  "<div class=\"qed-pc__card\"><ol class=\"qed-pc__rows\" start=\"1\"><li class=\"qed-pc__row\" data-question=\"1\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">1</span> What is the qubit?</p><p class=\"qed-pc__a\">A tiny engineered circuit on a chip, made from a superconducting metal and built around a Josephson junction, usually a transmon. It is kept at roughly ten to twenty millikelvin<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-3\" aria-label=\"Reference 3\">3</a></sup> in a dilution refrigerator.</p></li></ol></div>",
+  "<div class=\"qed-pc__card\"><ol class=\"qed-pc__rows\" start=\"2\"><li class=\"qed-pc__row\" data-question=\"2\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">2</span> How is it controlled?</p><p class=\"qed-pc__a\">Microwave signals along wires from room-temperature electronics.</p></li></ol></div>",
+  "<div class=\"qed-pc__card\"><ol class=\"qed-pc__rows\" start=\"3\"><li class=\"qed-pc__row\" data-question=\"3\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">3</span> How is it read out?</p><p class=\"qed-pc__a\">A resonator beside the qubit whose response changes with the qubit's state. A weak microwave probe is sent in, and the changed reflection is amplified.</p></li></ol></div>",
+  "<div class=\"qed-pc__card\"><ol class=\"qed-pc__rows\" start=\"4\"><li class=\"qed-pc__row\" data-question=\"4\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">4</span> How long does it last, and how fast does it run?</p><ul class=\"qed-pc__items\"><li><strong>One-qubit gate:</strong> roughly tens of nanoseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Two-qubit gate:</strong> roughly tens to a few hundred nanoseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a>,<a href=\"#ref-5\" aria-label=\"Reference 5\">5</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Readout:</strong> roughly a fraction of a microsecond to about a microsecond<sup class=\"qed-pc__cite\"><a href=\"#ref-4\" aria-label=\"Reference 4\">4</a>,<a href=\"#ref-6\" aria-label=\"Reference 6\">6</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Energy-loss time (T1) and phase-loss time (T2):</strong> roughly tens to hundreds of microseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup>, with the best laboratory devices over a millisecond<sup class=\"qed-pc__cite\"><a href=\"#ref-7\" aria-label=\"Reference 7\">7</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Operations that fit in a lifetime:</strong> hundreds to a few thousand<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup> <span class=\"qed-pc__tag\">computed from typical values in the sources</span></li></ul><p class=\"qed-pc__note\">The ends of a range are not one device. Operations that fit is a budget, not a promise.</p></li></ol></div>",
+  "<div class=\"qed-pc__card\"><ol class=\"qed-pc__rows\" start=\"5\"><li class=\"qed-pc__row\" data-question=\"5\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">5</span> How do qubits connect?</p><p class=\"qed-pc__a\">Fixed neighbours: each qubit sits at a fixed place on the chip and is linked to a few neighbours through couplers.</p></li></ol></div>",
+  "<div class=\"qed-pc__card\"><ol class=\"qed-pc__rows\" start=\"6\"><li class=\"qed-pc__row\" data-question=\"6\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">6</span> What makes it hard to scale?</p><p class=\"qed-pc__a\">Wiring and cooling, fabrication variation, and a crowded chip.<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-3\" aria-label=\"Reference 3\">3</a>,<a href=\"#ref-5\" aria-label=\"Reference 5\">5</a></sup></p></li></ol></div>"
+ ],
+ "rowsHighlighted": [
+  "<div class=\"qed-pc__card\"><ol class=\"qed-pc__rows\" start=\"1\"><li class=\"qed-pc__row qed-pc__row--on\" data-question=\"1\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">1</span> What is the qubit? <span class=\"qed-pc__tag\">this row</span></p><p class=\"qed-pc__a\">A tiny engineered circuit on a chip, made from a superconducting metal and built around a Josephson junction, usually a transmon. It is kept at roughly ten to twenty millikelvin<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-3\" aria-label=\"Reference 3\">3</a></sup> in a dilution refrigerator.</p></li></ol></div>",
+  "<div class=\"qed-pc__card\"><ol class=\"qed-pc__rows\" start=\"2\"><li class=\"qed-pc__row qed-pc__row--on\" data-question=\"2\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">2</span> How is it controlled? <span class=\"qed-pc__tag\">this row</span></p><p class=\"qed-pc__a\">Microwave signals along wires from room-temperature electronics.</p></li></ol></div>",
+  "<div class=\"qed-pc__card\"><ol class=\"qed-pc__rows\" start=\"3\"><li class=\"qed-pc__row qed-pc__row--on\" data-question=\"3\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">3</span> How is it read out? <span class=\"qed-pc__tag\">this row</span></p><p class=\"qed-pc__a\">A resonator beside the qubit whose response changes with the qubit's state. A weak microwave probe is sent in, and the changed reflection is amplified.</p></li></ol></div>",
+  "<div class=\"qed-pc__card\"><ol class=\"qed-pc__rows\" start=\"4\"><li class=\"qed-pc__row qed-pc__row--on\" data-question=\"4\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">4</span> How long does it last, and how fast does it run? <span class=\"qed-pc__tag\">this row</span></p><ul class=\"qed-pc__items\"><li><strong>One-qubit gate:</strong> roughly tens of nanoseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Two-qubit gate:</strong> roughly tens to a few hundred nanoseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a>,<a href=\"#ref-5\" aria-label=\"Reference 5\">5</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Readout:</strong> roughly a fraction of a microsecond to about a microsecond<sup class=\"qed-pc__cite\"><a href=\"#ref-4\" aria-label=\"Reference 4\">4</a>,<a href=\"#ref-6\" aria-label=\"Reference 6\">6</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Energy-loss time (T1) and phase-loss time (T2):</strong> roughly tens to hundreds of microseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup>, with the best laboratory devices over a millisecond<sup class=\"qed-pc__cite\"><a href=\"#ref-7\" aria-label=\"Reference 7\">7</a></sup> <span class=\"qed-pc__tag\">approximate</span></li><li><strong>Operations that fit in a lifetime:</strong> hundreds to a few thousand<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup> <span class=\"qed-pc__tag\">computed from typical values in the sources</span></li></ul><p class=\"qed-pc__note\">The ends of a range are not one device. Operations that fit is a budget, not a promise.</p></li></ol></div>",
+  "<div class=\"qed-pc__card\"><ol class=\"qed-pc__rows\" start=\"5\"><li class=\"qed-pc__row qed-pc__row--on\" data-question=\"5\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">5</span> How do qubits connect? <span class=\"qed-pc__tag\">this row</span></p><p class=\"qed-pc__a\">Fixed neighbours: each qubit sits at a fixed place on the chip and is linked to a few neighbours through couplers.</p></li></ol></div>",
+  "<div class=\"qed-pc__card\"><ol class=\"qed-pc__rows\" start=\"6\"><li class=\"qed-pc__row qed-pc__row--on\" data-question=\"6\"><p class=\"qed-pc__q\"><span class=\"qed-pc__n\">6</span> What makes it hard to scale? <span class=\"qed-pc__tag\">this row</span></p><p class=\"qed-pc__a\">Wiring and cooling, fabrication variation, and a crowded chip.<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-3\" aria-label=\"Reference 3\">3</a>,<a href=\"#ref-5\" aria-label=\"Reference 5\">5</a></sup></p></li></ol></div>"
+ ],
+ "recap": "<table class=\"qed-xf__table\"><thead><tr><th scope=\"col\">Question</th><th scope=\"col\">The answer</th><th scope=\"col\">The cost</th></tr></thead><tbody><tr><th scope=\"row\"><span class=\"qed-pc__n\">1</span> What is the qubit?</th><td data-label=\"The answer\">A tiny engineered circuit on a chip, made from a superconducting metal and built around a Josephson junction, usually a transmon. It is kept at roughly ten to twenty millikelvin in a dilution refrigerator.</td><td data-label=\"The cost\">It needs a refrigerator, and no two come out exactly alike.</td></tr><tr><th scope=\"row\"><span class=\"qed-pc__n\">2</span> How is it controlled?</th><td data-label=\"The answer\">Microwave signals along wires from room-temperature electronics.</td><td data-label=\"The cost\">Every qubit needs a wire.</td></tr><tr><th scope=\"row\"><span class=\"qed-pc__n\">3</span> How is it read out?</th><td data-label=\"The answer\">A resonator beside the qubit whose response changes with the qubit's state. A weak microwave probe is sent in, and the changed reflection is amplified.</td><td data-label=\"The cost\">The signal is weak, so it needs amplifying, and a readout is slow.</td></tr><tr><th scope=\"row\"><span class=\"qed-pc__n\">4</span> How long does it last, and how fast does it run?</th><td data-label=\"The answer\">Fast operations: roughly tens of nanoseconds for one qubit. Short memory: roughly tens to hundreds of microseconds.</td><td data-label=\"The cost\">Fast operations, but the qubits forget quickly.</td></tr><tr><th scope=\"row\"><span class=\"qed-pc__n\">5</span> How do qubits connect?</th><td data-label=\"The answer\">Fixed neighbours: each qubit sits at a fixed place on the chip and is linked to a few neighbours through couplers.</td><td data-label=\"The cost\">Only linked qubits interact directly, so others need extra operations.</td></tr><tr><th scope=\"row\"><span class=\"qed-pc__n\">6</span> What makes it hard to scale?</th><td data-label=\"The answer\">Wiring and cooling, fabrication variation, and a crowded chip.</td><td data-label=\"The cost\">Wiring, cooling, and fabrication limit how many qubits fit.</td></tr></tbody></table>",
+ "referencesHTML": "<ol class=\"qed-pc__refs\"><li id=\"ref-1\">P. Krantz, M. Kjaergaard, F. Yan, T.P. Orlando, S. Gustavsson, and W.D. Oliver, <em>Appl. Phys. Rev.</em> <strong>6</strong>, 021318 (2019).</li><li id=\"ref-2\">M. Kjaergaard et al., <em>Annu. Rev. Condens. Matter Phys.</em> <strong>11</strong>, 369 (2020).</li><li id=\"ref-3\">S. Krinner et al., <em>EPJ Quantum Technol.</em> <strong>6</strong>, 2 (2019).</li><li id=\"ref-4\">Google Quantum AI and collaborators, <em>Nature</em> <strong>638</strong>, 920 (2025).</li><li id=\"ref-5\">F. Arute et al., <em>Nature</em> <strong>574</strong>, 505 (2019), Supplementary Information.</li><li id=\"ref-6\">T. Walter et al., <em>Phys. Rev. Appl.</em> <strong>7</strong>, 054020 (2017).</li><li id=\"ref-7\">M.P. Bland et al., <em>Nature</em> <strong>647</strong>, 343 (2025).</li></ol>",
+ "formatted": [
+  "P. Krantz, M. Kjaergaard, F. Yan, T.P. Orlando, S. Gustavsson, and W.D. Oliver, Appl. Phys. Rev. 6, 021318 (2019).",
+  "M. Kjaergaard et al., Annu. Rev. Condens. Matter Phys. 11, 369 (2020).",
+  "S. Krinner et al., EPJ Quantum Technol. 6, 2 (2019).",
+  "Google Quantum AI and collaborators, Nature 638, 920 (2025).",
+  "F. Arute et al., Nature 574, 505 (2019), Supplementary Information.",
+  "T. Walter et al., Phys. Rev. Appl. 7, 054020 (2017).",
+  "M.P. Bland et al., Nature 647, 343 (2025)."
+ ],
+ "wrong": "<table class=\"qed-xf__table\"><thead><tr><th scope=\"col\">Source of noise</th><th scope=\"col\">Here</th></tr></thead><tbody><tr><th scope=\"row\"><span class=\"qed-pc__src\">Environment</span></th><td data-label=\"Here\">The cold stages and the shielding are there to keep it out, and the lifetimes are short.</td></tr><tr><th scope=\"row\"><span class=\"qed-pc__src\">Control</span></th><td data-label=\"Here\">Microwave lines and electronics, and a setting that drifts.</td></tr><tr><th scope=\"row\"><span class=\"qed-pc__src\">Neighbours</span></th><td data-label=\"Here\">Fixed neighbours disturb each other.</td></tr><tr><th scope=\"row\"><span class=\"qed-pc__src\">Leakage</span></th><td data-label=\"Here\">Levels outside the qubit's two.</td></tr><tr><th scope=\"row\"><span class=\"qed-pc__src\">Readout</span></th><td data-label=\"Here\">A weak signal.</td></tr></tbody></table>",
+ "bell": "<div class=\"qed-pc__strip\"><div class=\"qed-pc__strip-item\"><strong>A one-qubit rotation</strong> → A microwave signal on the qubit's control line.</div><div class=\"qed-pc__strip-item\"><strong>A two-qubit interaction</strong> → A gate between linked neighbours, through the coupler.</div><div class=\"qed-pc__strip-item\"><strong>A readout</strong> → The readout resonator, probed with a weak microwave signal.</div></div>",
+ "figure": {
+  "temperature": "roughly ten to twenty millikelvin<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-3\" aria-label=\"Reference 3\">3</a></sup>",
+  "frequency": "roughly three to six gigahertz<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a></sup>",
+  "gate1": "roughly tens of nanoseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup>",
+  "gate2": "roughly tens to a few hundred nanoseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a>,<a href=\"#ref-5\" aria-label=\"Reference 5\">5</a></sup>",
+  "readout": "roughly a fraction of a microsecond to about a microsecond<sup class=\"qed-pc__cite\"><a href=\"#ref-4\" aria-label=\"Reference 4\">4</a>,<a href=\"#ref-6\" aria-label=\"Reference 6\">6</a></sup>",
+  "lifetime": "roughly tens to hundreds of microseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup>",
+  "lifetimeBest": "over a millisecond<sup class=\"qed-pc__cite\"><a href=\"#ref-7\" aria-label=\"Reference 7\">7</a></sup>",
+  "fits": "hundreds to a few thousand<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup>",
+  "coldRatio": "several to tens of times<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-3\" aria-label=\"Reference 3\">3</a></sup>"
+ },
+ "figureWords": {
+  "temperature": "ten to twenty millikelvin<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-3\" aria-label=\"Reference 3\">3</a></sup>",
+  "frequency": "three to six gigahertz<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a></sup>",
+  "gate1": "tens of nanoseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup>",
+  "gate2": "tens to a few hundred nanoseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a>,<a href=\"#ref-5\" aria-label=\"Reference 5\">5</a></sup>",
+  "readout": "a fraction of a microsecond to about a microsecond<sup class=\"qed-pc__cite\"><a href=\"#ref-4\" aria-label=\"Reference 4\">4</a>,<a href=\"#ref-6\" aria-label=\"Reference 6\">6</a></sup>",
+  "lifetime": "tens to hundreds of microseconds<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup>",
+  "lifetimeBest": "over a millisecond<sup class=\"qed-pc__cite\"><a href=\"#ref-7\" aria-label=\"Reference 7\">7</a></sup>"
+ },
+ "fits": {
+  "low": 250.00000000000003,
+  "high": 2500,
+  "words": "hundreds to a few thousand"
+ },
+ "coldRatio": {
+  "low": 7.198864610049331,
+  "high": 28.795458440197326,
+  "words": "several to tens of times"
+ },
+ "answerText": [
+  "A tiny engineered circuit on a chip, made from a superconducting metal and built around a Josephson junction, usually a transmon. It is kept at roughly ten to twenty millikelvin in a dilution refrigerator.",
+  "Microwave signals along wires from room-temperature electronics.",
+  "A resonator beside the qubit whose response changes with the qubit's state. A weak microwave probe is sent in, and the changed reflection is amplified.",
+  "Fast operations and a short memory.",
+  "Fixed neighbours: each qubit sits at a fixed place on the chip and is linked to a few neighbours through couplers.",
+  "Wiring and cooling, fabrication variation, and a crowded chip."
+ ],
+ "citeSamples": {
+  "a": "<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-3\" aria-label=\"Reference 3\">3</a></sup>",
+  "b": "<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a></sup>",
+  "c": "<sup class=\"qed-pc__cite\"><a href=\"#ref-1\" aria-label=\"Reference 1\">1</a>,<a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-4\" aria-label=\"Reference 4\">4</a></sup>",
+  "d": "<sup class=\"qed-pc__cite\"><a href=\"#ref-2\" aria-label=\"Reference 2\">2</a>,<a href=\"#ref-5\" aria-label=\"Reference 5\">5</a></sup>",
+  "e": "<sup class=\"qed-pc__cite\"><a href=\"#ref-3\" aria-label=\"Reference 3\">3</a></sup>"
+ }
+}

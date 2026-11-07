@@ -4019,7 +4019,9 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-dr__group,
 .qed-ro__group,
 .qed-co__group,
-.qed-no__group {
+.qed-no__group,
+.qed-ch__group,
+.qed-io__group {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -4030,7 +4032,9 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-dr__opt,
 .qed-ro__opt,
 .qed-co__opt,
-.qed-no__opt {
+.qed-no__opt,
+.qed-ch__opt,
+.qed-io__opt {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -4044,7 +4048,9 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-dr__opt input,
 .qed-ro__opt input,
 .qed-co__opt input,
-.qed-no__opt input {
+.qed-no__opt input,
+.qed-ch__opt input,
+.qed-io__opt input {
   margin: 0;
   accent-color: var(--qed-color-logical);
 }
@@ -4053,7 +4059,9 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-dr__opt:has(input:checked),
 .qed-ro__opt:has(input:checked),
 .qed-co__opt:has(input:checked),
-.qed-no__opt:has(input:checked) {
+.qed-no__opt:has(input:checked),
+.qed-ch__opt:has(input:checked),
+.qed-io__opt:has(input:checked) {
   border-color: var(--qed-color-logical);
   background: color-mix(in srgb, var(--qed-color-logical) 14%, var(--md-default-bg-color));
   font-weight: 600;
@@ -4063,7 +4071,9 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-dr__opt:focus-within,
 .qed-ro__opt:focus-within,
 .qed-co__opt:focus-within,
-.qed-no__opt:focus-within {
+.qed-no__opt:focus-within,
+.qed-ch__opt:focus-within,
+.qed-io__opt:focus-within {
   outline: 2px solid var(--md-accent-fg-color);
   outline-offset: 2px;
 }
@@ -4072,7 +4082,10 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-dr__note,
 .qed-ro__note,
 .qed-co__note,
-.qed-no__note {
+.qed-no__note,
+.qed-ch__note,
+.qed-io__note,
+.qed-pc__note {
   margin: 0.3rem 0;
   font-size: 0.8rem;
   color: var(--md-default-fg-color--light);
@@ -4082,7 +4095,9 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-dr__panel,
 .qed-ro__panel,
 .qed-co__panel,
-.qed-no__panel {
+.qed-no__panel,
+.qed-ch__panel,
+.qed-io__panel {
   min-width: 0;
   padding: 0.5rem 0.8rem;
   margin: 0.6rem 0;
@@ -4094,7 +4109,9 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-dr__title,
 .qed-ro__title,
 .qed-co__title,
-.qed-no__title {
+.qed-no__title,
+.qed-ch__title,
+.qed-io__title {
   margin: 0 0 0.3rem;
   font-size: 0.85rem;
   font-weight: 700;
@@ -4104,7 +4121,10 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
 .qed-dr__tag,
 .qed-ro__tag,
 .qed-co__tag,
-.qed-no__tag {
+.qed-no__tag,
+.qed-ch__tag,
+.qed-io__tag,
+.qed-pc__tag {
   display: inline-block;
   margin-left: 0.3rem;
   padding: 0 0.4rem;
@@ -4821,5 +4841,508 @@ html[data-qed-level="advanced"] .qed-level[data-min-level="advanced"] {
   .qed-no__budget .qed-confidence-bar {
     order: 3;
     flex: 1 0 100%;
+  }
+}
+/* ---------------------------------------------------------------------
+   Module 04 - Superconducting Qubits
+   (docs/04-hardware/superconducting-qubits.md, driven by docs/assets/javascripts/platform.js
+   and chip.js). .qed-pc is the Platform Card and the Sources list, and .qed-ch is the Chip and
+   Fridge explorer and the wiring model. The generic widgets (option pills, panels, titles, tags,
+   notes) are shared with the earlier Module 04 sections above through comma selectors, and the
+   reset control and the stacked tables are reused. Control blue is the control line (always with
+   a double outline), read-out brown is the readout resonator and its line (always with a
+   dash-dot outline and an arrow from the qubit), indigo is the qubit, gray is the chip, the
+   cold stages, and the wiring, and orange is the tag for a source of noise. A figure from a
+   source carries the text tag "approximate" and a numbered citation, never teal (teal is a
+   figure a device reports). No new token. Purple, teal, and green are not used.
+   ------------------------------------------------------------------- */
+.qed-ch .qed-confidence-bar__fill:not([class*="--"]) {
+  background: var(--qed-color-physical);
+}
+
+.qed-ch__btn[aria-pressed="true"] {
+  border-color: var(--qed-color-logical);
+  background: color-mix(in srgb, var(--qed-color-logical) 14%, var(--md-default-bg-color));
+  font-weight: 700;
+}
+
+.qed-ch__svg {
+  display: block;
+  width: 100%;
+  max-width: 28rem;
+  height: auto;
+  margin: 0.3rem auto;
+}
+
+.qed-ch__svg--grid {
+  max-width: 18rem;
+}
+
+.qed-ch__text {
+  font-size: 15px;
+  fill: var(--md-default-fg-color);
+  paint-order: stroke;
+  stroke: var(--md-default-bg-color);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+.qed-ch__text--tag {
+  font-size: 13px;
+  fill: var(--md-default-fg-color--light);
+}
+
+/* On a phone the drawing is about 0.6 of its size, so its text is raised to stay 11px or more. */
+@media (max-width: 40em) {
+  .qed-ch__text {
+    font-size: 18px;
+  }
+
+  .qed-ch__text--tag {
+    font-size: 18px;
+  }
+}
+
+.qed-ch__room,
+.qed-ch__shield,
+.qed-ch__chip,
+.qed-ch__plate {
+  fill: none;
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1.5;
+}
+
+.qed-ch__plate,
+.qed-ch__chip {
+  fill: color-mix(in srgb, var(--qed-color-physical) 12%, var(--md-default-bg-color));
+}
+
+.qed-ch__shield {
+  stroke-dasharray: 8 5;
+}
+
+.qed-ch__wire,
+.qed-ch__link {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 2;
+}
+
+.qed-ch__qubit {
+  fill: color-mix(in srgb, var(--qed-color-logical) 18%, var(--md-default-bg-color));
+  stroke: var(--qed-color-logical);
+  stroke-width: 2.5;
+}
+
+.qed-ch__junction {
+  fill: none;
+  stroke: var(--qed-color-logical);
+  stroke-width: 2;
+}
+
+.qed-ch__coupler {
+  fill: var(--md-default-bg-color);
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 2;
+}
+
+.qed-ch__control {
+  stroke: var(--qed-color-control);
+  stroke-width: 2;
+}
+
+.qed-ch__arrow {
+  stroke: var(--qed-color-readout);
+  stroke-width: 2;
+}
+
+.qed-ch__head {
+  fill: var(--qed-color-readout);
+}
+
+.qed-ch__resonator {
+  fill: color-mix(in srgb, var(--qed-color-readout) 14%, var(--md-default-bg-color));
+  stroke: var(--qed-color-readout);
+  stroke-width: 2;
+  stroke-dasharray: 8 3 2 3;
+}
+
+.qed-ch__rline {
+  fill: none;
+  stroke: var(--qed-color-readout);
+  stroke-width: 2;
+  stroke-dasharray: 8 3 2 3;
+}
+
+.qed-ch__part {
+  cursor: pointer;
+}
+
+.qed-ch__svg--picked .qed-ch__part:not(.qed-ch__part--on) {
+  opacity: 0.4;
+}
+
+.qed-ch__part--on line,
+.qed-ch__part--on rect,
+.qed-ch__part--on circle,
+.qed-ch__part--on polyline {
+  stroke-width: 4;
+}
+
+.qed-ch__part--on .qed-ch__text {
+  font-weight: 700;
+}
+
+.qed-ch__gridlinks line {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 2;
+}
+
+.qed-ch__gridcouplers rect {
+  fill: var(--md-default-bg-color);
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 2;
+}
+
+.qed-ch__gridqubits circle {
+  fill: color-mix(in srgb, var(--qed-color-logical) 18%, var(--md-default-bg-color));
+  stroke: var(--qed-color-logical);
+  stroke-width: 2.5;
+}
+
+.qed-ch__badge,
+.qed-pc__n {
+  display: inline-block;
+  min-width: 1.4em;
+  padding: 0 0.15em;
+  border: 1.5px solid var(--md-default-fg-color--light);
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.qed-ch__src,
+.qed-pc__src {
+  display: inline-block;
+  padding: 0 0.4rem;
+  border: 2px solid var(--qed-color-noise);
+  border-radius: 0.2rem;
+  font-size: 0.8rem;
+  background: color-mix(in srgb, var(--qed-color-noise) 14%, var(--md-default-bg-color));
+}
+
+.qed-ch__role {
+  margin: 0;
+}
+
+.qed-ch__role dt {
+  font-weight: 700;
+}
+
+.qed-ch__role dd {
+  margin: 0.2rem 0;
+  min-width: 0;
+}
+
+.qed-pc__card {
+  min-width: 0;
+  padding: 0.5rem 0.8rem;
+  margin: 0.4rem 0;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+}
+
+.qed-pc__title {
+  margin: 0 0 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.qed-pc__rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.qed-pc__row {
+  margin: 0;
+  padding: 0.4rem 0;
+  border-top: 1px solid var(--md-default-fg-color--lighter);
+}
+
+.qed-pc__row:first-child {
+  border-top: 0;
+}
+
+.qed-pc__row--on {
+  padding-left: 0.5rem;
+  border-left: 4px solid var(--qed-color-logical);
+  background: color-mix(in srgb, var(--qed-color-logical) 10%, var(--md-default-bg-color));
+}
+
+.qed-pc__q {
+  margin: 0 0 0.2rem;
+  font-weight: 700;
+}
+
+.qed-pc__a {
+  margin: 0.1rem 0;
+}
+
+.qed-pc__items {
+  margin: 0.1rem 0 0.2rem 1.2rem;
+  padding: 0;
+}
+
+.qed-pc__cite {
+  font-size: 0.7em;
+}
+
+.qed-pc__cite a {
+  padding: 0 0.1em;
+}
+
+.qed-pc__strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+
+.qed-pc__strip-item {
+  flex: 1 1 12rem;
+  min-width: 0;
+  padding: 0.4rem 0.6rem;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.qed-pc__refs {
+  margin: 0.3rem 0;
+  padding-left: 1.6rem;
+  font-size: 0.85rem;
+}
+
+.qed-pc__refs li {
+  margin: 0.3rem 0;
+  overflow-wrap: anywhere;
+}
+
+.qed-pc__refs li:target {
+  background: color-mix(in srgb, var(--qed-color-logical) 12%, var(--md-default-bg-color));
+}
+
+/* ---------------------------------------------------------------------
+   Module 04 - Trapped-Ion Qubits
+   (docs/04-hardware/trapped-ion-qubits.md, driven by docs/assets/javascripts/ions.js and
+   platform.js). .qed-io is the Ion Chain explorer and the two-zone picture, and the compare view of
+   two Platform Cards is in the .qed-pc rules at the end of this section. The generic widgets (option
+   pills, panels, titles, tags, notes) are shared with the earlier Module 04 sections above through
+   comma selectors. Control blue is the light on an ion (always with a double outline), read-out
+   brown is the detector and the arrow from the ions (always dash-dot), indigo is the ion's state,
+   gray is the trap, the vacuum, and the shared-motion link, and orange is a source of noise. A
+   bright ion is a filled circle with rays and a dark ion a hollow circle, each with its word in the
+   table, so neither depends on color. A misread is red with a cross and the word. The compare view
+   gives both platforms the same weight, with no color, bold, or glyph that favors one. No new
+   token. Purple, teal, and green are not used.
+   ------------------------------------------------------------------- */
+.qed-io__selects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 0.3rem 0;
+}
+
+.qed-io__select {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.qed-io__select select,
+.qed-pc__select {
+  padding: 0.25rem 0.5rem;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font: inherit;
+}
+
+.qed-io__svg {
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  height: auto;
+  margin: 0.3rem auto;
+}
+
+.qed-io__text {
+  font-size: 15px;
+  fill: var(--md-default-fg-color);
+  paint-order: stroke;
+  stroke: var(--md-default-bg-color);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+.qed-io__text--tag {
+  font-size: 14px;
+  fill: var(--md-default-fg-color--light);
+}
+
+.qed-io__text--num {
+  font-size: 12px;
+  font-weight: 700;
+  stroke-width: 0;
+}
+
+/* On a phone the drawing is about 0.8 of its size, so its text is raised to stay 11px or more. */
+@media (max-width: 40em) {
+  .qed-io__text {
+    font-size: 18px;
+  }
+
+  .qed-io__text--tag {
+    font-size: 18px;
+  }
+
+  .qed-io__text--num {
+    font-size: 18px;
+  }
+}
+
+.qed-io__vacuum {
+  fill: none;
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1.5;
+  stroke-dasharray: 8 5;
+}
+
+.qed-io__electrode {
+  fill: color-mix(in srgb, var(--qed-color-physical) 30%, var(--md-default-bg-color));
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1.5;
+}
+
+.qed-io__light {
+  stroke: var(--qed-color-control);
+  stroke-width: 2;
+}
+
+.qed-io__link {
+  fill: none;
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 2.5;
+}
+
+.qed-io__arrow {
+  stroke: var(--qed-color-readout);
+  stroke-width: 2;
+  stroke-dasharray: 8 3 2 3;
+}
+
+.qed-io__head {
+  fill: var(--qed-color-readout);
+}
+
+.qed-io__detector {
+  fill: color-mix(in srgb, var(--qed-color-readout) 14%, var(--md-default-bg-color));
+  stroke: var(--qed-color-readout);
+  stroke-width: 2;
+  stroke-dasharray: 8 3 2 3;
+}
+
+.qed-io__ionbox {
+  cursor: pointer;
+}
+
+.qed-io__ion {
+  stroke: var(--qed-color-logical);
+  stroke-width: 2.5;
+}
+
+.qed-io__ion--unread {
+  fill: color-mix(in srgb, var(--qed-color-logical) 18%, var(--md-default-bg-color));
+}
+
+.qed-io__ion--bright {
+  fill: var(--qed-color-logical);
+}
+
+.qed-io__ion--dark {
+  fill: var(--md-default-bg-color);
+  stroke-width: 1.5;
+}
+
+.qed-io__ion--chosen {
+  stroke-width: 4;
+}
+
+.qed-io__ray {
+  stroke: var(--qed-color-logical);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.qed-io__misread {
+  color: var(--qed-color-error);
+  font-weight: 700;
+}
+
+.qed-pc__compare {
+  margin: 0.4rem 0;
+}
+
+.qed-pc__compare-label {
+  margin-right: 0.4rem;
+  font-weight: 700;
+}
+
+.qed-pc__cmp {
+  min-width: 0;
+}
+
+.qed-pc__cmp-rows {
+  margin: 0.3rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.qed-pc__cmp-row {
+  margin: 0;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--md-default-fg-color--lighter);
+}
+
+.qed-pc__cmp-row:first-child {
+  border-top: 0;
+}
+
+.qed-pc__cmp-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.qed-pc__cmp-col {
+  min-width: 0;
+  padding: 0.3rem 0.6rem;
+  border: 2px solid var(--md-default-fg-color--light);
+  border-radius: 0.3rem;
+}
+
+.qed-pc__cmp-name {
+  margin: 0 0 0.2rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* On a phone each question stacks the two answers. */
+@media (max-width: 40em) {
+  .qed-pc__cmp-cols {
+    grid-template-columns: 1fr;
   }
 }
