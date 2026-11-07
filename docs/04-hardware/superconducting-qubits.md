@@ -168,7 +168,7 @@ Two qubits that are **not linked** cannot interact directly. They need extra ope
 
 Three reasons, one line each.
 
-1. **Wiring and cooling.** Every qubit needs its own control line and some readout wiring from room temperature down to the chip<span data-cite="3"></span>, and the refrigerator has limited room and limited cooling power. Real processors use several control lines for every qubit, and share the readout lines among qubits<span data-cite="2,5"></span>.
+1. **Wiring and cooling.** Every qubit needs its own control line and some readout wiring from room temperature down to the chip<span data-cite="krinner2019"></span>, and the refrigerator has limited room and limited cooling power. Real processors use several control lines for every qubit, and share the readout lines among qubits<span data-cite="kjaergaard2020,arute2019"></span>.
 2. **Fabrication.** No two qubits come out alike, so each must be measured and tuned (the loop on [Noise](noise.md)), and more qubits mean more tuning and more chance of a bad one.
 3. **A crowded chip.** More neighbours means more ways to disturb them, which is the neighbours source on Noise.
 
@@ -266,7 +266,7 @@ document.addEventListener("DOMContentLoaded", function () {
     el.innerHTML = P.figureHTML(SC, el.getAttribute("data-fig"));
   });
   Array.prototype.forEach.call(document.querySelectorAll("[data-cite]"), function (el) {
-    el.innerHTML = P.cite(el.getAttribute("data-cite").split(",").map(Number));
+    el.innerHTML = P.cite(el.getAttribute("data-cite").split(","), SC);
   });
   (function () {
     var f = P.platformById(SC).figures.frequency;
@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
   $("sc-bell").innerHTML = QC.renderSVG(QC.bell());
   $("sc-bell-strip").innerHTML = P.bellHTML(SC);
   $("sc-sources-note").textContent = "Figures last checked " + P.card(SC).figuresDate + ". Entries are numbered in the order they are first cited on this page.";
-  $("sc-sources").innerHTML = P.referencesHTML();
+  $("sc-sources").innerHTML = P.referencesHTML(SC);
   $("sc-parts-table").innerHTML = C.listHTML();
 
   // ---- the invented ladder, and the ladder at three invented temperatures ----

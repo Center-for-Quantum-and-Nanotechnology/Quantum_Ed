@@ -15,6 +15,7 @@ const close = (a, b, tol = 1e-9) => assert.ok(Math.abs(a - b) <= tol, a + " vs "
 const SC = "superconducting";
 const FIGURES = P.platformById(SC).figures;
 const PAGE_ORDER = ["frequency", "temperature", "gate1", "gate2", "readout", "lifetime", "lifetimeBest"]; // the order the page cites them
+const ION_ORDER = ["motion", "gate1", "gate2", "readout", "lifetime", "lifetimeBest"];
 
 // A second platform, for the cases that need one. It is added to PLATFORMS and removed again.
 function withSecondPlatform(fn, overrides) {
@@ -128,7 +129,7 @@ test("the operations that fit are the typical lifetime over the typical two-qubi
 
 test("the operations that fit change when a typical value changes", () => {
   withSecondPlatform(() => {
-    assert.equal(P.fits("second").words, "tens of thousands to hundreds of thousands or more");
+    assert.equal(P.fits("second").words, "tens of thousands to a million or more");
   }, { figures: Object.assign(clone(FIGURES), { lifetime: Object.assign(clone(FIGURES.lifetime), { typical: { low: 5e-3, high: 5e-2 } }) }) });
   withSecondPlatform(() => {
     assert.equal(P.fits("second").words, "tens");
@@ -138,13 +139,14 @@ test("the operations that fit change when a typical value changes", () => {
 test("fits refuses a platform with no typical values", () => {
   withSecondPlatform(() => {
     assert.throws(() => P.fits("second"), /typical/);
-  }, { figures: Object.assign(clone(FIGURES), { gate2: { low: 1e-8, high: 5e-7, unit: "s", words: "x", refs: [1] } }) });
+  }, { figures: Object.assign(clone(FIGURES), { gate2: { low: 1e-8, high: 5e-7, unit: "s", words: "x", refs: ["krantz2019"] } }) });
 });
 
 test("orderWords puts every boundary in the right band", () => {
-  const cases = [[1, "tens"], [99, "tens"], [100, "hundreds"], [999, "hundreds"], [1000, "about a thousand"], [1999, "about a thousand"], [2000, "a few thousand"], [9999, "a few thousand"], [10000, "tens of thousands"], [99999, "tens of thousands"], [100000, "hundreds of thousands or more"]];
+  const cases = [[1, "tens"], [99, "tens"], [100, "hundreds"], [999, "hundreds"], [1000, "about a thousand"], [1999, "about a thousand"], [2000, "a few thousand"], [9999, "a few thousand"], [10000, "tens of thousands"], [99999, "tens of thousands"], [100000, "hundreds of thousands"], [999999, "hundreds of thousands"], [1000000, "a million or more"], [5e7, "a million or more"]];
   cases.forEach(([n, words]) => assert.equal(P.orderWords(n), words, String(n)));
   assert.equal(P.orderWords(99.9999999996), "hundreds");
+  assert.equal(P.orderWords(999999.9999999999), "a million or more");
 });
 
 test("timesWords puts every boundary in the right band", () => {
@@ -158,7 +160,7 @@ test("the computed figures cite the sources they were computed from", () => {
   const cold = P.figureHTML(SC, "coldRatio");
   [1, 2, 3].forEach((n) => assert.ok(cold.includes('href="#ref-' + n + '"'), "cold ratio cites " + n));
   const card = P.cardHTML(SC);
-  assert.ok(card.includes("hundreds to a few thousand" + P.cite([1, 2, 4])));
+  assert.ok(card.includes("hundreds to a few thousand" + P.cite(["krantz2019", "kjaergaard2020", "google2025"], SC)));
 });
 
 test("the qubit's energy as a temperature uses the exact constants", () => {
@@ -179,22 +181,27 @@ test("the cold ratio is computed from the frequency and temperature ranges", () 
 test("the cold ratio's words follow its value", () => {
   withSecondPlatform(() => {
     assert.equal(P.coldRatio("second").words, "tens of times");
-  }, { figures: Object.assign(clone(FIGURES), { temperature: { low: 0.005, high: 0.01, unit: "K", words: "x", refs: [2] } }) });
+  }, { figures: Object.assign(clone(FIGURES), { temperature: { low: 0.005, high: 0.01, unit: "K", words: "x", refs: ["kjaergaard2020"] } }) });
 });
 
 test("every figure and every answer cites at least one reference, and every reference exists", () => {
-  Object.keys(FIGURES).forEach((key) => {
-    assert.ok(FIGURES[key].refs.length > 0, key + " is cited");
-    FIGURES[key].refs.forEach((n) => assert.equal(P.referenceByNumber(n).n, n));
+  P.PLATFORMS.forEach((pl) => {
+    Object.keys(pl.figures).forEach((key) => {
+      assert.ok(pl.figures[key].refs.length > 0, pl.id + " " + key + " is cited");
+      pl.figures[key].refs.forEach((id) => assert.equal(P.referenceById(id).id, id));
+    });
+    pl.answers.forEach((a) => a.refs.forEach((id) => assert.equal(P.referenceById(id).id, id)));
+    pl.sources.forEach((id) => assert.equal(P.referenceById(id).id, id));
+    pl.fitsRefs.concat(pl.coldRefs).forEach((id) => assert.ok(pl.sources.includes(id), pl.id + " cites " + id));
   });
-  P.platformById(SC).answers.forEach((a) => a.refs.forEach((n) => assert.equal(P.referenceByNumber(n).n, n)));
-  assert.throws(() => P.referenceByNumber(8), /no reference/);
-  assert.throws(() => P.cite([9]), /no reference/);
+  assert.throws(() => P.referenceById("nothing"), /no reference/);
+  assert.throws(() => P.cite(["nothing"], SC), /no reference/);
 });
 
-test("the references are seven, in the stated order, in the MRS style", () => {
-  assert.equal(P.REFERENCES.length, 7);
-  assert.deepEqual(P.REFERENCES.map((r) => r.n), [1, 2, 3, 4, 5, 6, 7]);
+test("the references are stored once under ids, in the MRS style", () => {
+  assert.equal(P.REFERENCES.length, 11);
+  assert.deepEqual(P.REFERENCES.map((r) => r.id), ["krantz2019", "kjaergaard2020", "krinner2019", "google2025", "arute2019", "walter2017", "bland2025", "bruzewicz2019", "ballance2016", "pino2021", "wang2017"]);
+  assert.equal(new Set(P.REFERENCES.map((r) => r.id)).size, 11);
   assert.deepEqual(P.REFERENCES.map(P.formatReference), [
     "P. Krantz, M. Kjaergaard, F. Yan, T.P. Orlando, S. Gustavsson, and W.D. Oliver, Appl. Phys. Rev. 6, 021318 (2019).",
     "M. Kjaergaard et al., Annu. Rev. Condens. Matter Phys. 11, 369 (2020).",
@@ -203,6 +210,10 @@ test("the references are seven, in the stated order, in the MRS style", () => {
     "F. Arute et al., Nature 574, 505 (2019), Supplementary Information.",
     "T. Walter et al., Phys. Rev. Appl. 7, 054020 (2017).",
     "M.P. Bland et al., Nature 647, 343 (2025).",
+    "C.D. Bruzewicz, J. Chiaverini, R. McConnell, and J.M. Sage, Appl. Phys. Rev. 6, 021314 (2019).",
+    "C.J. Ballance, T.P. Harty, N.M. Linke, M.A. Sepiol, and D.M. Lucas, Phys. Rev. Lett. 117, 060504 (2016).",
+    "J.M. Pino et al., Nature 592, 209 (2021).",
+    "Y. Wang et al., Nat. Photonics 11, 646 (2017).",
   ]);
 });
 
@@ -217,14 +228,18 @@ test("formatReference handles one, two, and many authors, and has no title", () 
   P.REFERENCES.forEach((r) => assert.ok(P.formatReference(r).endsWith(")") || P.formatReference(r).endsWith("."), "ends cleanly"));
 });
 
-test("the numbering follows the order of first citation in the figures", () => {
+test("each page's numbering follows the order of first citation in its figures", () => {
   const seen = [];
-  PAGE_ORDER.forEach((key) => FIGURES[key].refs.forEach((n) => { if (seen.indexOf(n) < 0) seen.push(n); }));
-  assert.deepEqual(seen, [1, 2, 3, 4, 5, 6, 7]);
+  PAGE_ORDER.forEach((key) => FIGURES[key].refs.forEach((id) => { if (seen.indexOf(id) < 0) seen.push(id); }));
+  assert.deepEqual(seen, P.platformById(SC).sources);
+  const ion = P.platformById("trapped-ion");
+  const seenIon = [];
+  ION_ORDER.forEach((key) => ion.figures[key].refs.forEach((id) => { if (seenIon.indexOf(id) < 0) seenIon.push(id); }));
+  assert.deepEqual(seenIon, ion.sources);
 });
 
 test("the Sources list is an ordered list with one linked entry for every reference", () => {
-  const html = P.referencesHTML();
+  const html = P.referencesHTML(SC);
   assert.ok(html.startsWith('<ol class="qed-pc__refs">') && html.endsWith("</ol>"));
   assert.equal((html.match(/<li id="ref-/g) || []).length, 7);
   for (let n = 1; n <= 7; n++) assert.ok(html.includes('<li id="ref-' + n + '">'));
@@ -237,8 +252,8 @@ test("the Sources list is an ordered list with one linked entry for every refere
 });
 
 test("citation markers are superscript links with an accessible name", () => {
-  assert.equal(P.cite([]), "");
-  assert.equal(P.cite([2, 3]), '<sup class="qed-pc__cite"><a href="#ref-2" aria-label="Reference 2">2</a>,<a href="#ref-3" aria-label="Reference 3">3</a></sup>');
+  assert.equal(P.cite([], SC), "");
+  assert.equal(P.cite(["kjaergaard2020", "krinner2019"], SC), '<sup class="qed-pc__cite"><a href="#ref-2" aria-label="Reference 2">2</a>,<a href="#ref-3" aria-label="Reference 3">3</a></sup>');
 });
 
 test("the card renders six numbered rows, each with its question, and cites its figures", () => {
@@ -356,7 +371,7 @@ test("the Bell strip, the table of what goes wrong, and the recap are real marku
 });
 
 test("nothing names a vendor, a product, or a record", () => {
-  const text = JSON.stringify(P.PLATFORMS);
+  const text = JSON.stringify(P.PLATFORMS, (k, v) => (["refs", "sources", "fitsRefs", "coldRefs"].includes(k) ? undefined : v));
   assert.ok(!/IBM|Google|Rigetti|Willow|Sycamore|Condor|Heron|Quantinuum|Helios|record/i.test(text));
   assert.ok(!/better|worse|best platform|fastest|winner/i.test(text.replace(/best laboratory devices/g, "")));
 });
@@ -364,7 +379,274 @@ test("nothing names a vendor, a product, or a record", () => {
 test("calling every function leaves the data unchanged", () => {
   const before = clone({ q: P.QUESTIONS, r: P.REFERENCES, p: P.PLATFORMS });
   P.card(SC); P.cardHTML(SC, { highlight: 2 }); P.cardHTML(SC, { empty: true }); P.fits(SC); P.coldRatio(SC);
-  P.whatGoesWrong(SC); P.bellHTML(SC); P.wrongHTML(SC); P.recapHTML(SC); P.referencesHTML(); P.compareWith([SC]);
+  P.whatGoesWrong(SC); P.bellHTML(SC); P.wrongHTML(SC); P.recapHTML(SC); P.referencesHTML(SC); P.compareWith([SC]);
+  P.compareHTML([SC, "trapped-ion"]); P.compareControlHTML(SC); P.cardHTML("trapped-ion"); P.recapHTML("trapped-ion");
   P.REFERENCES.forEach(P.formatReference);
   assert.deepEqual(clone({ q: P.QUESTIONS, r: P.REFERENCES, p: P.PLATFORMS }), before);
+});
+
+// ---------------------------------------------------------------------------------------------
+// 04.02.02: references by id, the ion card, and the side-by-side view.
+// ---------------------------------------------------------------------------------------------
+const fs = require("node:fs");
+const path = require("node:path");
+const GOLDEN = JSON.parse(fs.readFileSync(path.join(__dirname, "fixtures", "platform_superconducting.json"), "utf8"));
+const ION = "trapped-ion";
+
+// Run a function with exactly these platforms in PLATFORMS, then put them back.
+function withPlatforms(ids, fn) {
+  const saved = P.PLATFORMS.slice();
+  P.PLATFORMS.length = 0;
+  saved.filter((p) => ids.includes(p.id)).forEach((p) => P.PLATFORMS.push(p));
+  try { return fn(); } finally { P.PLATFORMS.length = 0; saved.forEach((p) => P.PLATFORMS.push(p)); }
+}
+
+test("the superconducting card's output is exactly what it was before references became ids", () => {
+  const card = P.card(SC);
+  const mapped = clone(card);
+  mapped.rows.forEach((r) => { r.refs = r.refs.map((id) => P.numberFor(SC, id)); });
+  assert.deepEqual(mapped.rows.map((r) => r.refs), GOLDEN.card.rows.map((r) => r.refs));
+  assert.deepEqual(mapped.rows.map((r) => ({ n: r.n, question: r.question, applicable: r.applicable, text: r.text, cost: r.cost, items: r.items.map((i) => ({ label: i.label, text: i.text, computed: i.computed })) })),
+    GOLDEN.card.rows.map((r) => ({ n: r.n, question: r.question, applicable: r.applicable, text: r.text, cost: r.cost, items: r.items })));
+  assert.equal(card.figuresDate, GOLDEN.card.figuresDate);
+  assert.equal(P.cardHTML(SC), GOLDEN.cardHTML);
+  assert.equal(P.cardHTML(SC, { empty: true }), GOLDEN.cardHTMLEmpty);
+  assert.equal(P.cardHTML(SC, { highlight: 3 }), GOLDEN.cardHTMLHighlight3);
+  assert.equal(P.cardHTML(SC, { idPrefix: "x-row-" }), GOLDEN.cardHTMLPrefix);
+  [1, 2, 3, 4, 5, 6].forEach((n) => {
+    assert.equal(P.rowHTML(SC, n), GOLDEN.rows[n - 1]);
+    assert.equal(P.rowHTML(SC, n, { highlight: n }), GOLDEN.rowsHighlighted[n - 1]);
+    assert.equal(P.answerText(SC, n), GOLDEN.answerText[n - 1]);
+  });
+  assert.equal(P.recapHTML(SC), GOLDEN.recap);
+  assert.equal(P.referencesHTML(SC), GOLDEN.referencesHTML);
+  assert.deepEqual(P.REFERENCES.slice(0, 7).map(P.formatReference), GOLDEN.formatted);
+  assert.equal(P.wrongHTML(SC), GOLDEN.wrong);
+  assert.equal(P.bellHTML(SC), GOLDEN.bell);
+  Object.keys(GOLDEN.figure).forEach((k) => assert.equal(P.figureHTML(SC, k), GOLDEN.figure[k], k));
+  Object.keys(GOLDEN.figureWords).forEach((k) => assert.equal(P.figureWordsHTML(SC, k), GOLDEN.figureWords[k], k));
+  assert.deepEqual(P.fits(SC), GOLDEN.fits);
+  assert.deepEqual(P.coldRatio(SC), GOLDEN.coldRatio);
+  const c = (ids) => P.cite(ids, SC);
+  assert.equal(c(["kjaergaard2020", "krinner2019"]), GOLDEN.citeSamples.a);
+  assert.equal(c(["krantz2019"]), GOLDEN.citeSamples.b);
+  assert.equal(c(["krantz2019", "kjaergaard2020", "google2025"]), GOLDEN.citeSamples.c);
+  assert.equal(c(["kjaergaard2020", "arute2019"]), GOLDEN.citeSamples.d);
+  assert.equal(c(["krinner2019"]), GOLDEN.citeSamples.e);
+});
+
+test("a platform numbers a source by its place in its own list, and refuses one it does not cite", () => {
+  assert.equal(P.numberFor(SC, "krantz2019"), 1);
+  assert.equal(P.numberFor(SC, "bland2025"), 7);
+  assert.equal(P.numberFor(ION, "bruzewicz2019"), 1);
+  assert.equal(P.numberFor(ION, "wang2017"), 4);
+  assert.throws(() => P.numberFor(SC, "wang2017"), /does not cite wang2017/);
+  assert.throws(() => P.numberFor(ION, "krantz2019"), /does not cite krantz2019/);
+  assert.throws(() => P.numberFor(SC, "nothing"), /no reference/);
+  assert.throws(() => P.numberFor("nothing", "krantz2019"), /no platform/);
+});
+
+test("the same paper can have a different number on each page, and the lists are independent", () => {
+  const sc = P.platformById(SC).sources;
+  const ion = P.platformById(ION).sources;
+  assert.deepEqual(sc.filter((id) => ion.includes(id)), [], "the two pages cite different papers today");
+  sc.concat(ion).forEach((id) => assert.equal(P.REFERENCES.filter((r) => r.id === id).length, 1, id + " is stored once"));
+  // a platform that cites a paper in another place numbers it from its own list
+  withSecondPlatform(() => {
+    assert.equal(P.numberFor("second", "bland2025"), 1);
+    assert.equal(P.numberFor(SC, "bland2025"), 7);
+  }, { sources: ["bland2025", "krantz2019"].concat(sc.filter((id) => id !== "bland2025" && id !== "krantz2019")) });
+});
+
+test("the ion card answers every question, in the card's order", () => {
+  const c = P.card(ION);
+  assert.equal(c.rows.length, 6);
+  assert.deepEqual(c.rows.map((r) => r.n), [1, 2, 3, 4, 5, 6]);
+  assert.deepEqual(c.rows.map((r) => r.question), P.QUESTIONS.map((q) => q.text));
+  c.rows.forEach((r) => { assert.ok(r.text.length > 0 && r.cost.length > 0); assert.equal(r.applicable, true); });
+  assert.equal(c.figuresDate, "2026-11-07");
+  assert.equal(c.name, "Trapped-ion qubits");
+});
+
+test("the stated ion figures are as given in the spec", () => {
+  const F = P.platformById(ION).figures;
+  assert.deepEqual([F.motion.low, F.motion.high, F.motion.unit], [1e-5, 1e-3, "K"]);
+  assert.deepEqual([F.gate1.low, F.gate1.high], [1e-6, 1e-4]);
+  assert.deepEqual([F.gate2.low, F.gate2.high], [1e-6, 1e-3]);
+  assert.deepEqual(F.gate2.typical, { low: 1e-5, high: 1e-4 });
+  assert.deepEqual([F.readout.low, F.readout.high], [1e-5, 1e-3]);
+  assert.deepEqual([F.lifetime.low, F.lifetime.high], [1, 600]);
+  assert.deepEqual(F.lifetime.typical, { low: 1, high: 10 });
+  assert.equal(F.lifetimeBest.low, 600);
+  assert.equal(F.lifetimeBest.kind, "floor");
+  assert.equal(P.format(F.motion), "roughly tens of microkelvin to a millikelvin");
+  assert.equal(P.format(F.gate1), "roughly microseconds to tens of microseconds");
+  assert.equal(P.format(F.gate2), "roughly microseconds to hundreds of microseconds");
+  assert.equal(P.format(F.readout), "roughly tens to hundreds of microseconds");
+  assert.equal(P.format(F.lifetime), "roughly seconds to minutes");
+  Object.keys(F).forEach((k) => {
+    assert.ok(!/[0-9]/.test(F[k].words), k + " words carry no digit");
+    if (F[k].typical) assert.ok(F[k].typical.low >= F[k].low && F[k].typical.high <= F[k].high);
+  });
+});
+
+test("the ion card's operations that fit are the typical lifetime over the typical two-qubit gate time", () => {
+  const f = P.fits(ION);
+  close(f.low, 1 / 1e-4, 1e-6);
+  close(f.high, 10 / 1e-5, 1e-3);
+  assert.equal(f.words, "tens of thousands to a million or more");
+});
+
+test("the ion card's memory row is a T2 time, labelled so, and the superconducting label is unchanged", () => {
+  const label = (id) => P.card(id).rows[3].items.filter((i) => i.key === "lifetime")[0].label;
+  assert.equal(label(ION), "Coherence time (T2)");
+  assert.equal(label(SC), "Energy-loss time (T1) and phase-loss time (T2)");
+  assert.ok(!P.cardHTML(ION).includes("T1"));
+});
+
+test("the ion card renders its figures and citations, states no number of ions, and names nothing it should not", () => {
+  const html = P.cardHTML(ION);
+  ["tens of microkelvin to a millikelvin", "roughly microseconds to tens of microseconds", "roughly seconds to minutes", "over ten minutes", "tens of thousands to a million or more", "computed from typical values in the sources"].forEach((s) => assert.ok(html.includes(s), s));
+  assert.equal((html.match(/<li class="qed-pc__row/g) || []).length, 6);
+  const text = JSON.stringify(P.platformById(ION), (k, v) => (["refs", "sources", "fitsRefs", "coldRefs"].includes(k) ? undefined : v));
+  assert.ok(!/IBM|Google|Quantinuum|Honeywell|Oxford|Helios|Tsinghua|calcium|ytterbium|barium|beryllium|strontium/i.test(text), "no vendor, machine, or species");
+  P.platformById(ION).answers.forEach((a) => assert.ok(!/[0-9]/.test(a.text.replace("standing for 0 and 1", "")), "no digit in the answer to question " + a.question));
+  assert.ok(!/how many ions|hundred qubits|hundred ions/i.test(text));
+});
+
+test("the ion page's numbers are its own, and its citations link to its own list", () => {
+  const html = P.cardHTML(ION);
+  const list = P.referencesHTML(ION);
+  assert.equal((list.match(/<li id="ref-/g) || []).length, 4);
+  const targets = (html.match(/href="#ref-\d+"/g) || []).map((s) => s.slice(11, -1));
+  assert.ok(targets.length > 0);
+  targets.forEach((n) => assert.ok(+n >= 1 && +n <= 4 && list.includes('<li id="ref-' + n + '">'), "ref " + n));
+  assert.ok(list.includes("<em>Appl. Phys. Rev.</em> <strong>6</strong>, 021314 (2019)"));
+});
+
+test("the ion card's recap, strip, and table of what goes wrong are real markup, with no number for any source", () => {
+  assert.ok(P.recapHTML(ION).includes("Slow operations: roughly microseconds to hundreds of microseconds for two qubits. Long memory: roughly seconds to minutes."));
+  assert.equal((P.recapHTML(ION).match(/<th scope="row">/g) || []).length, 6);
+  assert.ok(P.bellHTML(ION).includes("Light on two ions, through their shared motion."));
+  P.whatGoesWrong(ION).forEach((r) => assert.ok(!/[0-9]/.test(r.here), r.id));
+  assert.deepEqual(P.whatGoesWrong(ION).map((r) => r.id), w.QedNoise.SOURCES.map((s) => s.id));
+});
+
+test("the compare control lists only the other platforms, starts at None, and is empty when there is no other", () => {
+  const sel = P.compareControlHTML(SC);
+  assert.ok(sel.includes("<select") && sel.includes('<option value="">None</option>'));
+  assert.ok(sel.includes('value="trapped-ion"') && !sel.includes('value="superconducting"'));
+  assert.ok(P.compareControlHTML(ION).includes('value="superconducting"') && !P.compareControlHTML(ION).includes('value="trapped-ion"'));
+  assert.ok(sel.includes('<label class="qed-pc__compare-label" for="pc-compare">Compare with</label>'));
+  assert.ok(P.compareControlHTML(SC, { id: "x" }).includes('id="x"'));
+  withPlatforms([SC], () => assert.equal(P.compareControlHTML(SC), ""));
+  withPlatforms([ION], () => assert.equal(P.compareControlHTML(ION), ""));
+  assert.throws(() => P.compareControlHTML("nothing"), /no platform/);
+});
+
+test("the compare view shows nothing for one card, and the same six rows in the same order for two", () => {
+  assert.equal(P.compareHTML([SC]), "");
+  assert.equal(P.compareHTML([]), "");
+  const html = P.compareHTML([SC, ION]);
+  assert.equal((html.match(/<li class="qed-pc__cmp-row"/g) || []).length, 6);
+  const order = (html.match(/<li class="qed-pc__cmp-row" data-question="\d"/g) || []).map((s) => s.slice(-2, -1));
+  assert.deepEqual(order, ["1", "2", "3", "4", "5", "6"]);
+  P.QUESTIONS.forEach((q) => assert.ok(html.includes(q.text)));
+  assert.throws(() => P.compareHTML([SC, "nothing"]), /no platform/);
+});
+
+test("the compare view keeps the platforms in the order given and never reorders them", () => {
+  const a = P.compareHTML([SC, ION]);
+  const b = P.compareHTML([ION, SC]);
+  assert.ok(a.indexOf("Superconducting qubits") < a.indexOf("Trapped-ion qubits"));
+  assert.ok(b.indexOf("Trapped-ion qubits") < b.indexOf("Superconducting qubits"));
+  a.split('<li class="qed-pc__cmp-row"').slice(1).forEach((row) => {
+    assert.ok(row.indexOf("Superconducting qubits") >= 0 && row.indexOf("Superconducting qubits") < row.indexOf("Trapped-ion qubits"));
+  });
+  assert.equal((a.match(/<div class="qed-pc__cmp-cols">/g) || []).length, 6);
+});
+
+test("the compare view judges, sorts, highlights, and charts nothing", () => {
+  const html = P.compareHTML([SC, ION]);
+  assert.ok(!/better|worse|winner|outperform|\brank|superior|inferior|best platform/i.test(html.replace(/best laboratory devices/g, "").replace(/is not a ranking/g, "")));
+  assert.ok(!/qed-pc__row--on|<svg|qed-confidence|<canvas|<img|▲|▼|★|✔|✓/.test(html));
+  assert.ok(html.includes("A side-by-side reading is not a ranking. Figures change quickly, and the ends of a range are not one device."));
+  assert.ok(html.includes("approximate"));
+  assert.equal((html.match(/computed from typical values in the sources/g) || []).length, 2, "the computed operations that fit are shown for both, with their label");
+});
+
+test("both platforms' columns have the same structure, so neither has more weight", () => {
+  const html = P.compareHTML([SC, ION]);
+  assert.equal((html.match(/<div class="qed-pc__cmp-col">/g) || []).length, 12);
+  assert.equal((html.match(/<p class="qed-pc__cmp-name">/g) || []).length, 12);
+  assert.equal((html.match(/qed-pc__tag">checked /g) || []).length, 12);
+  assert.ok(html.includes("checked 2026-11-03") && html.includes("checked 2026-11-07"));
+});
+
+test("the compare view numbers its sources by its own first citations and lists exactly those", () => {
+  const html = P.compareHTML([SC, ION]);
+  const at = html.indexOf('<ol class="qed-pc__refs">');
+  const body = html.slice(0, at);
+  const list = html.slice(at);
+  const entries = (list.match(/<li id="cmp-ref-\d+">/g) || []).map((s) => +s.slice(16, -2));
+  assert.deepEqual(entries, entries.map((_, i) => i + 1), "numbered from 1 without gaps");
+  const cited = [...new Set((body.match(/href="#cmp-ref-\d+"/g) || []).map((s) => +s.slice(15, -1)))].sort((a, b) => a - b);
+  assert.deepEqual(cited, entries, "every entry is cited and every marker has an entry");
+  const expected = new Set();
+  [SC, ION].forEach((id) => {
+    const p = P.platformById(id);
+    Object.keys(p.figures).forEach((k) => p.figures[k].refs.forEach((r) => expected.add(r)));
+    p.answers.forEach((a) => a.refs.forEach((r) => expected.add(r)));
+    p.fitsRefs.forEach((r) => expected.add(r));
+  });
+  expected.forEach((id) => assert.ok(list.includes(P.referenceHTML(P.referenceById(id))), id + " is listed"));
+  assert.equal(entries.length, expected.size, "one entry for each source the two cards cite");
+  // first citation order: the first source cited in the body is number 1
+  assert.ok(body.indexOf('href="#cmp-ref-1"') >= 0 && body.indexOf('href="#cmp-ref-1"') < body.indexOf('href="#cmp-ref-2"'));
+});
+
+test("the compare view's ids never collide with the page's own Sources list", () => {
+  const html = P.compareHTML([SC, ION]);
+  assert.ok(!/id="ref-/.test(html) && !/href="#ref-/.test(html));
+  assert.ok(/id="cmp-ref-1"/.test(html));
+});
+
+test("the memory rows carry a note only when the two platforms label them differently", () => {
+  assert.ok(P.compareHTML([SC, ION]).includes("The memory rows are labelled differently because they are not the same quantity."));
+  withSecondPlatform(() => {
+    assert.ok(!P.compareHTML([SC, "second"]).includes("labelled differently"));
+  });
+});
+
+test("the compare view leaves its inputs unchanged", () => {
+  const before = clone({ p: P.PLATFORMS, r: P.REFERENCES });
+  P.compareHTML([SC, ION]); P.compareHTML([ION, SC]); P.compareControlHTML(SC);
+  assert.deepEqual(clone({ p: P.PLATFORMS, r: P.REFERENCES }), before);
+});
+
+test("the compare view refuses an unknown platform even when it is alone", () => {
+  assert.throws(() => P.compareHTML(["nothing"]), /no platform/);
+  assert.throws(() => P.compareHTML(["nothing", SC]), /no platform/);
+});
+
+test("the compare view's numbers are by first citation, so entry 1 is the first source cited in the view", () => {
+  const entry = (html, n) => {
+    const at = html.indexOf('<li id="cmp-ref-' + n + '">');
+    return html.slice(at + ('<li id="cmp-ref-' + n + '">').length, html.indexOf("</li>", at));
+  };
+  const a = P.compareHTML([SC, ION]);
+  // the first citation in the view is the superconducting card's temperature (two sources), in order
+  assert.equal(entry(a, 1), P.referenceHTML(P.referenceById("kjaergaard2020")));
+  assert.equal(entry(a, 2), P.referenceHTML(P.referenceById("krinner2019")));
+  const b = P.compareHTML([ION, SC]);
+  // with the ion card first, its motion figure is cited first
+  assert.equal(entry(b, 1), P.referenceHTML(P.referenceById("bruzewicz2019")));
+  // the numbers are the view's own, so the same paper has a different number in the two views
+  const n = (html, id) => {
+    const text = P.referenceHTML(P.referenceById(id));
+    for (let k = 1; k <= 11; k++) if (entry(html, k) === text) return k;
+    return 0;
+  };
+  assert.notEqual(n(a, "bruzewicz2019"), n(b, "bruzewicz2019"));
+  assert.notEqual(n(a, "bruzewicz2019"), P.numberFor(ION, "bruzewicz2019"));
 });
